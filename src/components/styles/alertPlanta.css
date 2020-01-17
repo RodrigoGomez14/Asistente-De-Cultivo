@@ -1,0 +1,104 @@
+.react-confirm-alert{
+    height: 95%;
+    width: 98%;
+    background-color: rgb(6, 39, 39);
+    border-radius: 25px;
+    animation-name: submodalOut;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+}
+.alertPlanta{
+    height: 95%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between
+}
+.custom-ui{
+    height: 100%;
+}
+@keyframes modalIn{
+    from{
+        transform: scale(0)
+    }
+    to{
+        transform: scale(1)
+    }
+}
+.alert-planta{
+    height: 100%;
+}
+.alert-titulo{
+    color: white;
+    cursor: default
+}
+.badge{
+    cursor: default;
+}
+.botonera{
+    border-top: 1px solid white;
+    border-bottom: 1px solid white 
+}
+.alert-icon{
+    color: white;
+    font-size: 2rem;
+    transition: .5s;
+    cursor: pointer;
+}
+.alert-close-icon:hover{
+    transform: scale(1.4);
+    color: grey
+}
+.alert-foto{
+    border-radius: 50%;
+    opacity: 80%;
+    width: 100%;
+    box-shadow: 4px 1px 15px grey
+}
+.alertButton{
+    height: 110px;
+    width: 110px;
+    border: 1px solid white;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 1s
+}
+.alertButton:hover{
+    background-color: greenyellow;
+    cursor: pointer
+}
+.borderline{
+    border-bottom: 1px solid white;
+}
+.scroll{
+    overflow: scroll
+}
+.submodalIn{
+    animation-name: submodalIn;
+    animation-fill-mode: both;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+}
+.submodalOut{
+    animation-name: submodalOut;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate-reverse;
+    animation-fill-mode: both;
+    animation-duration: 1s;
+}
+@keyframes submodalIn{
+    from{
+        transform: translateX(200px);
+        opacity: 0
+    }
+    30%{
+        opacity:0
+    }
+    to{
+        opacity: 1;
+        transform: translateX(0px)
+    }
+}
