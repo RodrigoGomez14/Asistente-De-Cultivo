@@ -109,37 +109,42 @@ class BarraDeLuz extends Component{
     }
     render(){
         return(
-            <div className="container">
+            <div className="container-fluid">
                 <div className="row mt-4 mb-4">
-                    <div className="col-12 form-group text-center">
+                    <div className="col form-group text-center">
                         <h3>Periodo {this.props.periodo}</h3>
                     </div>
-                    <div className="col-12 form-group text-center">
+                </div>
+                <div className="row">
+                    <div className="col form-group text-center">
                         <h3>Ciclo Luminico {this.state.cicloLuminico} Hs ({this.props.horaDeInicio}:00 - {this.props.horaDeFinal}:00)</h3>
                     </div>
+                </div>
+                <div className="row">
                     <div className="col form-group text-center">
                         Transcurrido (Hs) {this.state.transcurrido}
                     </div>
+                    <div className="col form-group text-center">
+                        Faltante (Hs) {this.state.faltante}
+                    </div>
+                </div>
+                <div className="row">
                     {this.state.descanso?
                         <div className="col form-group text-center">
-                            <span className='badge bagde-pill badge-dark'>
+                            <span className='badge badge-pill badge-dark'>
                                 Descansando...
                             </span>
                         </div>
                         :
                         <div className="col form-group text-center">
-                            <span className='badge bagde-pill badge-success'>
+                            <span className='badge badge-pill badge-success'>
                                 Creciendo...
                             </span>
                         </div>
                     }
-                    <div className="col form-group text-center">
-                        Faltante (Hs) {this.state.faltante}
-                    </div>
-                    
                 </div>
                 <div className="row mt-4">
-                    <div className="col">
+                    <div className="col-10 offset-1">
                         <div className="progress">
                             <div className={this.state.descanso?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
