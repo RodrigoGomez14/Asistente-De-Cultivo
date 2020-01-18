@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux'
-import * as firebase from 'firebase'
 
 
 class BarraDeLuz extends Component{
@@ -10,20 +9,41 @@ class BarraDeLuz extends Component{
         activo:0,
         faltante:undefined,
         transcurrido:undefined,
-        lamparaEncendida:undefined
+        lamparaEncendida:undefined,
+        descanso:false
+    }
+    actualizarEstado =()=>{
+        let transcurrido = this.calcularTranscurrido()
+        const cicloLuminico = this.actualizarCicloLuminico()
+        if(transcurrido.slice(0,2)>cicloLuminico){
+            transcurrido = transcurrido.slice(0,2)-cicloLuminico+transcurrido.slice(2)
+            this.setState({
+                descanso:true
+            })
+        }
+        else{
+            this.setState({
+                descanso:false
+            })
+        }
+        this.setState({
+            cicloLuminico: cicloLuminico,
+            transcurrido: transcurrido,
+            faltante:this.calcularFaltante()
+        })
+        return [transcurrido,cicloLuminico]
+    }
+    actualizarBarraDeProgreso=()=>{
+        const elements=this.actualizarEstado()
+        const barra = document.getElementById('barraLuz')
+        barra.style.width=`${this.calcularEstadoDeBarra(elements[0],elements[1])}%`
     }
     componentDidMount(){
         const interval = setInterval(() => {
-            const cicloLuminico = this.actualizarCicloLuminico()
-                const transcurrido = this.calcularTranscurrido()
-                this.setState({
-                    cicloLuminico:cicloLuminico,
-                    transcurrido:transcurrido,
-                    faltante:this.calcularFaltante()
-                })
-                const barra = document.getElementById('barraLuz')
-                barra.style.width=`${this.calcularEstadoDeBarra(transcurrido,cicloLuminico)}%`
+            this.actualizarBarraDeProgreso()
         }, 1000);
+        this.actualizarBarraDeProgreso()
+        this.actualizarEstado()
         this.setState({
             interval: interval
         })
@@ -48,9 +68,10 @@ class BarraDeLuz extends Component{
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
-            const time = moment(this.props.horaDeFinal,'h').diff(moment(),'m')
-            const hours = parseInt(time/60)
-            const minutes = time%60
+            
+            const time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+            const hours = parseInt(-time/60)
+            const minutes = -time%60
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes} `
         }
     }
@@ -89,24 +110,38 @@ class BarraDeLuz extends Component{
     render(){
         return(
             <div className="container">
-                <div className="row">
-                    <div className="col-12 text-center">
+                <div className="row mt-4 mb-4">
+                    <div className="col-12 form-group text-center">
                         <h3>Periodo {this.props.periodo}</h3>
                     </div>
-                    <div className="col-12 text-center">
+                    <div className="col-12 form-group text-center">
                         <h3>Ciclo Luminico {this.state.cicloLuminico} Hs ({this.props.horaDeInicio}:00 - {this.props.horaDeFinal}:00)</h3>
                     </div>
-                    <div className="col text-center">
+                    <div className="col form-group text-center">
                         Transcurrido (Hs) {this.state.transcurrido}
                     </div>
-                    <div className="col text-center">
+                    {this.state.descanso?
+                        <div className="col form-group text-center">
+                            <span className='badge bagde-pill badge-dark'>
+                                Descansando...
+                            </span>
+                        </div>
+                        :
+                        <div className="col form-group text-center">
+                            <span className='badge bagde-pill badge-success'>
+                                Creciendo...
+                            </span>
+                        </div>
+                    }
+                    <div className="col form-group text-center">
                         Faltante (Hs) {this.state.faltante}
                     </div>
+                    
                 </div>
-                <div className="row mt-2 mb-2">
+                <div className="row mt-4">
                     <div className="col">
                         <div className="progress">
-                            <div className="progress-bar bg-success progress-bar-animated progress-bar-striped" role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div className={this.state.descanso?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>

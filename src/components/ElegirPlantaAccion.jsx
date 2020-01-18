@@ -9,7 +9,7 @@ class ElegirPlantaAccion extends Component{
                 </div>
                 {this.props.plantas?
                     Object.keys(this.props.plantas).map(key=>(
-                        <CheckboxPlanta checked={this.props.plantas[key]} llave={key} handleClick={e=>{
+                        <CheckboxPlanta checked={this.props.plantas[key]} llave={key} key={key} handleClick={e=>{
                             this.props.seleccionarPlanta(key)
                         }}/>
                     ))

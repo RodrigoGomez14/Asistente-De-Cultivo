@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import {connect} from 'react-redux'
 import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion'
 import './styles/Accion.css'
-import * as firebase from 'firebase'
+import {database} from 'firebase'
 import moment from 'moment'
 import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
@@ -55,12 +55,11 @@ class Poda extends Component{
         })
     }
     guardarPodaBD= async (idPlanta)=>{
-        await firebase.database().ref().child('plantas').child(idPlanta).child('podas').push({
+        await database().ref().child('plantas').child(idPlanta).child('podas').push({
             fecha:moment().format('LLL'),
         })
     }
     render(){
-        console.log(this.state)
         return(
             <div className="container-fluid accion">
                 <NavBarAccion

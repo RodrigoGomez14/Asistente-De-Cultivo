@@ -3,7 +3,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {connect} from 'react-redux'
 import './styles/Accion.css'
-import * as firebase from 'firebase'
+import {database} from 'firebase'
 import moment from 'moment'
 import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion';
 import NavBarAccion from '../components/NavBarAccion';
@@ -27,12 +27,13 @@ class Insecticida extends Component{
     }
     componentDidMount(){
         let plantas={}
-        Object.keys(this.props.plantas).map(key=>{
-            plantas={
-                ...plantas,
-                [key]:false,
-            }
-        })
+            Object.keys(this.props.plantas).map(key=>{
+                plantas={
+                    ...plantas,
+                    [key]:false,
+                }
+                return
+            })
         this.setState({
             plantas:plantas
         })
@@ -65,7 +66,7 @@ class Insecticida extends Component{
                 [insecticida]:insecticidas[insecticida]
             }
         })
-        await firebase.database().ref().child('plantas').child(idPlanta).child('fumigaciones').push({
+        await database().ref().child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
             fecha:moment().format('LLL'),

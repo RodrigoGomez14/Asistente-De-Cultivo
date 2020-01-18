@@ -5,13 +5,13 @@ import FechaYHora from '../components/FechaYHora'
 import AccionesRapidas from '../components/AccionesRapidas'
 import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCogs, faArrowLeft, faTimes, faExclamationCircle, faCheck, faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
+import {faCogs} from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../components/styles/alertPlanta.css'
 import './styles/Accion.css'
 import {connect} from 'react-redux'
-import * as firebase from 'firebase'
+import  {database} from 'firebase'
 import AlertConfiguracionArmario from '../alerts/AlertConfiguracionArmario'
 import AlertCambiarFinal from '../alerts/AlertCambiarFinal'
 import AlertCambiarInicio from '../alerts/AlertCambiarInicio'
@@ -83,28 +83,31 @@ class Armario extends Component{
         }
     })
     cambioDePeriodo=async()=>{
-        await firebase.database().ref().update({
+        await database().ref().update({
             periodo:this.state.nuevoPeriodo
         })
     }
     cambiarHoraDeInicio=async ()=>{
         const horas = document.getElementById('inputHoras').value
-        const minutos = document.getElementById('inputMinutos').value
-        await firebase.database().ref().update({
+        //const minutos = document.getElementById('inputMinutos').value
+        await database().ref().update({
             horaDeInicio: parseInt(horas)
         })
     }
     cambiarHoraDeFinal=async ()=>{
         const horas = document.getElementById('inputHoras').value
-        const minutos = document.getElementById('inputMinutos').value
-        await firebase.database().ref().update({
+        //const minutos = document.getElementById('inputMinutos').value
+        await database().ref().update({
             horaDeFinal: parseInt(horas)
         })
     }
+    //<div className='col-6 offset-3'>
+    //    <TemperaturaYHumedad/>
+    //</div>
     render(){
         return(
             <>
-                <div className="container-fluid">
+                <div className="container-fluid d-flex flex-column justify-content-around h-100">
                     <div className="row mt-3">
                         <div className="col-10 text-right">
                             <FontAwesomeIcon icon={faCogs} className='alert-icon' onClick={this.alertConfiguracion}/>
@@ -114,9 +117,7 @@ class Armario extends Component{
                         <div className='col-12 form-group'>
                             <FechaYHora/>
                         </div>
-                        <div className='col-6 offset-3'>
-                            <TemperaturaYHumedad/>
-                        </div>
+                        
                     </div>
                     <div className='row mb-2'>
                         <div className='col'>

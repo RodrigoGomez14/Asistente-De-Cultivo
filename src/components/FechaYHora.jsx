@@ -3,7 +3,7 @@ import moment from 'moment'
 
 class FechaYHora extends Component{
     state={
-        fecha:undefined
+        fecha:`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`
     }
     componentDidMount(){
         setInterval(() => {
@@ -13,17 +13,10 @@ class FechaYHora extends Component{
         }, 1000);
     }
     render(){
-        if(this.state.fecha){
-            return(
-                
-                <h1>{this.state.fecha}</h1>
-            )
-        }
-        else{
-            return(
-                <h1>--/--/-- --:--:--</h1>
-            )
-        }
+        return(
+            
+            <h1>{this.state.fecha}</h1>
+        )
     }
 }
 export default FechaYHora

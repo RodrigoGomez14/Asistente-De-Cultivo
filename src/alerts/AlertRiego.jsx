@@ -1,5 +1,4 @@
 import React , {Component} from 'react'
-import {Link,Route} from 'react-router-dom'
 import AccionDetallada from '../alert-components/AccionDetallada'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
@@ -15,9 +14,9 @@ class AlertRiego extends Component{
                 <div className="container-fluid submodalIn">
                     {this.props.riegos?
                         <div className="list-group">
-                            {Object.values(this.props.riegos).reverse().map(riego=>(
+                            {Object.keys(this.props.riegos).reverse().map(id=>(
                                 <div className="list-group-item list-group-item-action ">
-                                    <AccionDetallada accion={riego}/>
+                                    <AccionDetallada alert={this.props.alert} accion={this.props.riegos[id]} tipoDeAccion='riegos' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                 </div>
                             ))}
                         </div>

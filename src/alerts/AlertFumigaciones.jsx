@@ -14,9 +14,9 @@ class alertFumigaciones extends Component{
                 <div className="container-fluid submodalIn">
                         {this.props.fumigaciones?
                             <div className="list-group">
-                                {Object.values(this.props.fumigaciones).reverse().map(fumigacion=>(
+                                {Object.keys(this.props.fumigaciones).reverse().map(id=>(
                                     <div className="list-group-item list-group-item-action list-group-item-info">
-                                        <AccionDetallada accion={fumigacion}/>
+                                        <AccionDetallada alert={this.props.alert} accion={this.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                     </div>
                                 ))}
                             </div>

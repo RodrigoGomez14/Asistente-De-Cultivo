@@ -1,11 +1,18 @@
 import React , {Component} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes} from '@fortawesome/free-solid-svg-icons'
 import DetallePlanta from '../alert-components/DetallePlanta'
 import DetalleAcciones from '../alert-components/DetalleAcciones'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
+import {storage} from 'firebase'
 class AlertPlanta extends Component{
+    subirArchivo= async ()=>{
+        const ref = await storage().ref(this.props.id)
+        const file = document.getElementById('input').files[0]
+        //file.name=this.props.id+file.name.slice(file.name.indexOf('.'))
+        ref.put(file).then(e=>{
+            console.log('Archivo subido Correctamente')
+        })
+    }
     render(){
         return(
             <div className="container-fluid alert alertPlanta">

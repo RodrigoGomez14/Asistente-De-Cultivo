@@ -24,12 +24,11 @@ class FormularioAccion extends Component{
                         </div>
                     </div>
                     <div className="form-row mt-4 justify-content-center">
-                        {this.props.aditivos.map(aditivo=>(
-                            <div className="form-group col-auto ">
+                        {this.props.aditivos.map((aditivo,i)=>(
+                            <div className="form-group col-auto" key={'input'+i}>
                                 <label >{aditivo}</label>
                                 <input type="number" 
                                     className='form-control' 
-                                    id='inputFertilizante' 
                                     onChange={e=>{
                                         this.props.cambiarAditivo([aditivo],e.target.value)
                                     }}

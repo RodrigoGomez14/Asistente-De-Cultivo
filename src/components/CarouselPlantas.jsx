@@ -7,11 +7,11 @@ import './styles/alertPlanta.css'
 import '../Pages/styles/Accion.css'
 import { faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
-import * as firebase from 'firebase'
+import {database} from 'firebase'
 import AlertNuevaPlanta from '../alerts/AlertNuevaPlanta'
 class CarouselPlantas extends Component{
     guardarNuevaPlantaDB= async (nombre,genetica)=>{
-        await firebase.database().ref().child('plantas').push({
+        await database().ref().child('plantas').push({
             nombre:nombre,
             genetica:genetica,
             nacimiento:moment().format('L')

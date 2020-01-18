@@ -1,7 +1,5 @@
 import React , {Component} from 'react'
 import AlertNavBar from '../alert-components/AlertNavBar'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheckCircle, faTimesCircle} from '@fortawesome/free-solid-svg-icons'
 import AlertBotoneraConfirmacion from '../alert-components/AlertBotoneraConfirmacion'
 import InputCambiarHorario from '../alert-components/InputCambiarHorario'
 class AlertCambiarFinal extends Component{

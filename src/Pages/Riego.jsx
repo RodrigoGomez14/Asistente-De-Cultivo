@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion'
 import {connect} from 'react-redux'
 import './styles/Accion.css'
-import * as firebase from 'firebase'
+import {database} from 'firebase'
 import moment from 'moment'
 import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
@@ -65,7 +65,7 @@ class Riego extends Component{
                 [fertilizante]:fertilizantes[fertilizante]
             }
         })
-        await firebase.database().ref().child('plantas').child(idPlanta).child('riegos').push({
+        await database().ref().child('plantas').child(idPlanta).child('riegos').push({
             agua:agua,
             tipoDeRiego:tipoDeRiego,
             fecha:moment().format('LLL'),

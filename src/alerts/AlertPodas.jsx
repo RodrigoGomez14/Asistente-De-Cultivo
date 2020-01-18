@@ -1,6 +1,7 @@
 import React , {Component} from 'react'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
+import AccionDetallada from '../alert-components/AccionDetallada'
 class AlertPodas extends Component{
     render(){
         return(
@@ -13,9 +14,9 @@ class AlertPodas extends Component{
                 <div className="container-fluid submodalIn">
                     {this.props.podas?
                         <div className="list-group">
-                            {Object.values(this.props.podas).reverse().map(poda=>(
-                                <div className="list-group-item list-group-item-action list-group-item-info">
-                                    <h5 className='text-dark'>{poda.fecha}</h5>
+                            {Object.keys(this.props.podas).reverse().map(id=>(
+                                <div className="list-group-item list-group-item-action ">
+                                    <AccionDetallada alert={this.props.alert} accion={this.props.podas[id]} tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                 </div>
                             ))}
                         </div>
