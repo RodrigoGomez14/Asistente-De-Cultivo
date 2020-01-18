@@ -62,14 +62,39 @@ class BarraDeLuz extends Component{
     } 
     calcularFaltante=()=>{
         if(this.props.horaDeFinal<=this.props.horaDeInicio){
-            const time = moment(this.props.horaDeFinal,'h').add(1,'days').diff(moment(),'m')
-            const hours = parseInt(time/60)
-            const minutes = time%60
+            const dif = this.props.horaDeInicio-this.props.horaDeFinal
+            let time = undefined
+            console.log(dif)
+            dif<9?
+                this.state.descanso?
+                    time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+                    :
+                    time = moment().diff(moment(this.props.horaDeFinal,'h').add(1,'days'),'m')
+                :
+                this.state.descanso?
+                    time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
+                    :
+                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
+            const hours = parseInt(-time/60)
+            const minutes = -time%60
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
-            
-            const time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+            const dif = this.props.horaDeInicio-this.props.horaDeFinal
+            let time = undefined
+            console.log(dif)
+            dif<9?
+                this.state.descanso?
+                    time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+                    :
+                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
+                :
+                this.state.descanso?
+                    time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
+                    :
+                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
+                    
+                moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes} `
@@ -77,9 +102,9 @@ class BarraDeLuz extends Component{
     }
     calcularTranscurrido=()=>{
         if(this.props.horaDeFinal<=this.props.horaDeInicio){
-            const time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
-            const hours = parseInt(time/60)
-            const minutes = time%60
+            const time = moment(this.props.horaDeInicio,'h').diff(moment().add(1,'days'),'m')
+            const hours = parseInt(-time/60)
+            const minutes = -time%60
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
@@ -111,33 +136,33 @@ class BarraDeLuz extends Component{
         return(
             <div className="container-fluid">
                 <div className="row mt-4 mb-4">
-                    <div className="col form-group text-center">
+                    <div className="col text-center">
                         <h3>Periodo {this.props.periodo}</h3>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col form-group text-center">
+                    <div className="col text-center">
                         <h3>Ciclo Luminico {this.state.cicloLuminico} Hs ({this.props.horaDeInicio}:00 - {this.props.horaDeFinal}:00)</h3>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col form-group text-center">
+                    <div className="col text-center">
                         Transcurrido (Hs) {this.state.transcurrido}
                     </div>
-                    <div className="col form-group text-center">
+                    <div className="col text-center">
                         Faltante (Hs) {this.state.faltante}
                     </div>
                 </div>
                 <div className="row">
                     {this.state.descanso?
-                        <div className="col form-group text-center">
-                            <span className='badge badge-pill badge-dark'>
+                        <div className="col text-center">
+                            <span className='badge badge-pill p-3 badge-dark'>
                                 Descansando...
                             </span>
                         </div>
                         :
-                        <div className="col form-group text-center">
-                            <span className='badge badge-pill badge-success'>
+                        <div className="col text-center">
+                            <span className='badge badge-pill p-3 badge-success'>
                                 Creciendo...
                             </span>
                         </div>

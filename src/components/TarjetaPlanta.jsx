@@ -11,6 +11,7 @@ import AlertFumigaciones from '../alerts/AlertFumigaciones'
 import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
 import AlertCambiarCiclo from '../alerts/AlertCambiarCiclo';
 import {database} from 'firebase'
+import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'
 class TarjetaPlanta extends Component{
     state={
         edad:undefined
@@ -116,15 +117,24 @@ class TarjetaPlanta extends Component{
     }
     render(){
         return(
-            <div className="col-3">
-                <div className="card bg-success" >
-                    <img src={fotoPlanta} className="card-img-top" alt="..."/>
-                    <div className="card-body">
-                        <h5 className="card-title text-dark">{this.props.nombre}</h5>
-                        <h6 className="card-subtitle mb-2 text-dark">{this.state.edad} dias</h6>
-                        <button type='button' className='btn btn-outline-light card-link' onClick={this.alertPlanta}>Mas Info</button>
-                    </div>
-                </div>
+            <div className="col-auto">
+                <Card className="card bg-light" onClick={this.alertPlanta} >
+                    <Img src={fotoPlanta} className="card-img-top" alt="..."/>
+                    <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
+                        <div className="container-fluid">
+                            <div className="row">
+                                <div className="col text-left">
+                                    <h4 className="card-title">{this.props.nombre}</h4>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col text-left">
+                                    <h6 className="card-subtitle mb-2 text-white">{this.state.edad} dias</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </Overlay>
+                </Card>
             </div>
         )
     }

@@ -2,10 +2,9 @@ import React , {Component} from 'react'
 import CarouselPlantas from '../components/CarouselPlantas'
 import BarraDeLuz from '../components/BarraDeLuz'
 import FechaYHora from '../components/FechaYHora'
-import AccionesRapidas from '../components/AccionesRapidas'
 import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCogs} from '@fortawesome/free-solid-svg-icons'
+import {faCogs, faAlignRight} from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../components/styles/alertPlanta.css'
@@ -16,9 +15,12 @@ import AlertConfiguracionArmario from '../alerts/AlertConfiguracionArmario'
 import AlertCambiarFinal from '../alerts/AlertCambiarFinal'
 import AlertCambiarInicio from '../alerts/AlertCambiarInicio'
 import AlertCambiarPeriodo from '../alerts/AlertCambiarPeriodo'
+import {MenuButton} from './styles/ArmarioStyle'
+import Navbar from '../components/Navbar'
 class Armario extends Component{
     state={
-        nuevoPeriodo:undefined
+        nuevoPeriodo:undefined,
+        menuOpened:false
     }
     alertCambiarPeriodo=()=>confirmAlert({
         customUI: ({ onClose }) => {
@@ -101,39 +103,36 @@ class Armario extends Component{
             horaDeFinal: parseInt(horas)
         })
     }
-    //<div className='col-6 offset-3'>
-    //    <TemperaturaYHumedad/>
-    //</div>
+    changeStateOfNavbar =() =>{
+        this.setState({menuOpened:!this.state.menuOpened})
+    }
     render(){
         return(
-            <>
-                <div className="container-fluid d-flex flex-column justify-content-around h-100">
-                    <div className="row mt-3">
-                        <div className="col-10 text-right">
-                            <FontAwesomeIcon icon={faCogs} className='alert-icon' onClick={this.alertConfiguracion}/>
-                        </div>
+            <div className="container-fluid d-flex flex-column justify-content-around h-100">
+                {this.state.menuOpened?
+                    <Navbar alertConfiguracion={this.alertConfiguracion}closeNavbar={this.changeStateOfNavbar}/>
+                    :
+                    <MenuButton onClick={e=>{
+                        this.changeStateOfNavbar()
+                    }}>
+                        <FontAwesomeIcon icon={faAlignRight}/>
+                    </MenuButton>
+                }
+                <div className='row'>
+                    <div className='col-12 form-group'>
+                        <FechaYHora/>
                     </div>
-                    <div className='row'>
-                        <div className='col-12 form-group'>
-                            <FechaYHora/>
-                        </div>
-                        
-                    </div>
-                    <div className='row mb-2'>
-                        <div className='col'>
-                            <BarraDeLuz/>            
-                        </div>
-                    </div>
-                    {this.props.plantas?
-                        <AccionesRapidas/>
-                        :
-                        null
-                    }
-                    <div className='row mt-4'>
-                        <CarouselPlantas/>
+                    
+                </div>
+                <div className='row'>
+                    <div className='col'>
+                        <BarraDeLuz/>            
                     </div>
                 </div>
-            </>
+                <div className='row'>
+                    <CarouselPlantas/>
+                </div>
+            </div>
         )
     }
 }
