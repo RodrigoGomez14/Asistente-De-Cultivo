@@ -13,7 +13,7 @@ import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion
 import FormularioAccion from '../components/FormularioAccion'
 class Insecticida extends Component{
     state={
-        tipoDeRiego:'Tierra',
+        tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
         platnas:undefined
     }
@@ -21,7 +21,10 @@ class Insecticida extends Component{
         this.setState({
             plantas:{
                 ...this.state.plantas,
-                [id]:!this.state.plantas[id],
+                [id]:{
+                    ...this.state.plantas[id],
+                    selected:!this.state.plantas[id].selected,
+                }
             }
         })
     }
@@ -30,7 +33,10 @@ class Insecticida extends Component{
             Object.keys(this.props.plantas).map(key=>{
                 plantas={
                     ...plantas,
-                    [key]:false,
+                    [key]:{
+                        selected:false,
+                        nombre:this.props.plantas[key].nombre
+                    },
                 }
                 return
             })
@@ -92,28 +98,43 @@ class Insecticida extends Component{
             aditivos:{...this.state.aditivos,[fertilizante]:cantidad}
         })
     }
+    eliminarAditivo=(fertilizante)=>{
+        let newAditivos = this.state.aditivos
+        delete newAditivos[fertilizante]
+        if(Object.keys(newAditivos).length){
+            this.setState({aditivos:newAditivos})
+        }
+        else{
+            this.setState({aditivos:null})
+        }
+    }
     render(){
         return(
             <div className="container-fluid accion">
                 <NavBarAccion
                     title='Insecticida'
                 />
-                <ElegirPlantaAccion
-                    seleccionarPlanta={this.seleccionarPlanta}
-                    plantas={this.state.plantas}
-                />
-                <ElegirTipoDeRiego
-                    tipoDeRiego={this.state.tipoDeRiego}
-                    cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                />
-                <FormularioAccion
-                    cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                    cantidadDeAgua={this.state.cantidadDeAgua}
-                    cambiarAditivo={this.cambiarAditivo}
-                    aditivo='Insecticida'
-                    aditivos={this.props.aditivos}
-                />
+                <div className="container d-flex flex-column justify-content-start h-100">
+                    <ElegirPlantaAccion
+                        seleccionarPlanta={this.seleccionarPlanta}
+                        plantas={this.state.plantas}
+                    />
+                    <ElegirTipoDeRiego
+                        tipoDeRiego={this.state.tipoDeRiego}
+                        cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                    />
+                    <FormularioAccion
+                        cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                        cantidadDeAgua={this.state.cantidadDeAgua}
+                        cambiarAditivo={this.cambiarAditivo}
+                        aditivo='Insecticida'
+                        aditivos={this.props.aditivos}
+                        aditivosUsados={this.state.aditivos}
+                        eliminarAditivo={this.eliminarAditivo}
+                    />
+                </div>
                 <BotoneraConfirmacionAccion
+                    accion='Fumigacion'
                     confirmarAccion={this.confirmarAccion}
                 />
             </div>

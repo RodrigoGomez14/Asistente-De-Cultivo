@@ -22,7 +22,10 @@ class Riego extends Component{
         this.setState({
             plantas:{
                 ...this.state.plantas,
-                [id]:!this.state.plantas[id],
+                [id]:{
+                    ...this.state.plantas[id],
+                    selected:!this.state.plantas[id].selected,
+                }
             }
         })
     }
@@ -31,7 +34,10 @@ class Riego extends Component{
         Object.keys(this.props.plantas).map(key=>{
             plantas={
                 ...plantas,
-                [key]:false,
+                [key]:{
+                    selected:false,
+                    nombre:this.props.plantas[key].nombre
+                },
             }
         })
         this.setState({
@@ -91,48 +97,45 @@ class Riego extends Component{
             aditivos:{...this.state.aditivos,[fertilizante]:cantidad}
         })
     }
+    eliminarAditivo=(fertilizante)=>{
+        let newAditivos = this.state.aditivos
+        delete newAditivos[fertilizante]
+        if(Object.keys(newAditivos).length){
+            this.setState({aditivos:newAditivos})
+        }
+        else{
+            this.setState({aditivos:null})
+        }
+    }
     render(){
         return(
             <div className="container-fluid accion">
                 <NavBarAccion
                     title='Riego'
                 />
-                <ElegirPlantaAccion
-                    seleccionarPlanta={this.seleccionarPlanta}
-                    plantas={this.state.plantas}
-                />
-                <ElegirTipoDeRiego
-                    tipoDeRiego={this.state.tipoDeRiego}    
-                    cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                />
-                <FormularioAccion
-                    cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                    cantidadDeAgua={this.state.cantidadDeAgua}
-                    cambiarAditivo={this.cambiarAditivo}
-                    adivito='Fertlizante'
-                    aditivos={this.props.aditivos}
-                />
-                <div className="row">
-                    <div className="col-auto">
-                        {this.state.tipoDeRiego}
-                    </div>
-                    <div className="col-auto">
-                        {this.state.cantidadDeAgua}
-                    </div>
-                    <div className='col-auto'>
-                        {this.state.aditivos?
-                            Object.keys(this.state.aditivos).map(aditivo=>(
-                                <span className='badge badge-pill badge-info'>
-                                    {aditivo}
-                                    <hr/>
-                                    {this.state.aditivos[aditivo]}
-                                </span>
-                            ))
-                            :
-                        null}
-                    </div>
+                <div className="container d-flex flex-column justify-content-start h-100">
+                    <ElegirPlantaAccion
+                        seleccionarPlanta={this.seleccionarPlanta}
+                        plantas={this.state.plantas}
+                    />
+                    <ElegirTipoDeRiego
+                        tipoDeRiego={this.state.tipoDeRiego}    
+                        cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                    />
+                    <FormularioAccion
+                        cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                        cantidadDeAgua={this.state.cantidadDeAgua}
+                        cambiarAditivo={this.cambiarAditivo}
+                        adivito='Fertlizante'
+                        aditivos={this.props.aditivos}
+                        aditivosUsados={this.state.aditivos}
+                        eliminarAditivo={this.eliminarAditivo}
+                    />
                 </div>
                 <BotoneraConfirmacionAccion
+                    agua={this.state.cantidadDeAgua}
+                    tipoDeRiego={this.state.tipoDeRiego}
+                    accion='Riego'
                     confirmarAccion={this.confirmarAccion}
                     aditivos={this.props.aditivos}
                 />

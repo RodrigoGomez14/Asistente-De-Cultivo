@@ -18,7 +18,10 @@ class Poda extends Component{
         this.setState({
             plantas:{
                 ...this.state.plantas,
-                [id]:!this.state.plantas[id],
+                [id]:{
+                    ...this.state.plantas[id],
+                    selected:!this.state.plantas[id].selected,
+                }
             }
         })
     }
@@ -27,7 +30,10 @@ class Poda extends Component{
         Object.keys(this.props.plantas).map(key=>(
             plantas={
                 ...plantas,
-                [key]:false,
+                [key]:{
+                    selected:false,
+                    nombre:this.props.plantas[key].nombre
+                },
             }
         ))
         this.setState({
@@ -66,11 +72,14 @@ class Poda extends Component{
                 <NavBarAccion
                     title='Poda'
                 />
-                <ElegirPlantaAccion
-                    seleccionarPlanta={this.seleccionarPlanta}
-                    plantas={this.state.plantas}
-                />
+                <div className="container d-flex flex-column justify-content-start h-100">
+                    <ElegirPlantaAccion
+                        seleccionarPlanta={this.seleccionarPlanta}
+                        plantas={this.state.plantas}
+                    />
+                </div>
                 <BotoneraConfirmacionAccion
+                    accion='Poda'
                     confirmarAccion={this.confirmarAccion}
                 />
             </div>

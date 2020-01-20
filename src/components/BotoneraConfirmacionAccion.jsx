@@ -6,13 +6,13 @@ class BotoneraConfirmacionAccion extends Component {
     render(){
         return(
             <div className="row mb-2">
-                <div className="col text-center">
-                    <FontAwesomeIcon icon={faCheck} className='icon continueIcon' onClick={
-                        e=>{
-                            this.props.confirmarAccion('Riego')
-                        }
-                    }/>
-                </div>
+                    <div className="col text-center">
+                        <FontAwesomeIcon icon={faCheck} className='icon continueIcon' onClick={
+                            e=>{
+                                this.props.confirmarAccion(this.props.accion)
+                            }
+                        }/>
+                    </div>
                 <div className="col text-center">
                     <Link to='/'>
                         <FontAwesomeIcon icon={faTimes} className='icon cancelIcon'/>
