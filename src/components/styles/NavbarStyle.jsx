@@ -19,7 +19,7 @@ const slideRightKeyframes = keyframes`
         right:0%;
     }
     to{
-        right:-10%
+        right:-15%
     }
 `
 const slideRight = css`
@@ -29,11 +29,14 @@ export const Navbar=styled.nav`
     ${slideLeft};
     position:absolute;
     top:0;
-    right:-10%;
+    right:-15%;
     background-color:rgb(34,153,84,0.8);
     height:100%;
     width:10%;
     .out{
         ${slideRight}
     }
+`
+export const Hr = styled.hr`
+    border-top:1px solid white
 `

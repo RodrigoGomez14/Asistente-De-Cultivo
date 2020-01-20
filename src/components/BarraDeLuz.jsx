@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux'
+import FechaYHora from '../components/FechaYHora'
+
 
 
 class BarraDeLuz extends Component{
@@ -135,6 +137,11 @@ class BarraDeLuz extends Component{
     render(){
         return(
             <div className="container-fluid">
+                <div className="row">
+                    <div className="col-auto ml-auto mr-auto">
+                        <FechaYHora/>
+                    </div>
+                </div>
                 <div className="row mt-4 mb-4">
                     <div className="col text-center">
                         <h3>Periodo {this.props.periodo}</h3>

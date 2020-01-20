@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Navbar as Nav} from './styles/NavbarStyle'
+import {Navbar as Nav,Hr} from './styles/NavbarStyle'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes,faCogs } from '@fortawesome/free-solid-svg-icons'
 import AccionesRapidas from '../components/AccionesRapidas'
@@ -19,11 +19,24 @@ class Navbar extends Component{
                                 <FontAwesomeIcon icon={faTimes} className='alert-icon' onClick={e=>{this.props.closeNavbar()}}/>
                             </div>
                         </div>
+                        <Hr/>
                         {this.props.plantas?
                             <AccionesRapidas/>
                             :
                             null
                         }
+                        <Hr/>
+                        <div className="row d-flex flex-column justify-content-center">
+                            <div className="col-auto">
+                                <small>Aplicables</small>
+                            </div>
+                            <div className="col-auto form-group">
+                                <button type='button' className='btn btn-outline-light'>Fertilizantes</button>
+                            </div>
+                            <div className="col-auto form-group">
+                                <button type='button' className='btn btn-outline-light'>Insecticidas</button>
+                            </div>
+                        </div>
                 </div>
             </Nav>
         )

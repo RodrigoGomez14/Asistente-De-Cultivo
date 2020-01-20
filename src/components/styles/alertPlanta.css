@@ -67,8 +67,8 @@
     transition: 1s
 }
 .alertButton:hover{
-    background-color: greenyellow;
-    cursor: pointer
+    background-color: green;
+    cursor: pointer;
 }
 .borderline{
     border-bottom: 1px solid white;

@@ -11,9 +11,10 @@ import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import FormularioAccion from '../components/FormularioAccion';
+import {Tabs,Tab} from 'react-bootstrap'
 class Riego extends Component{
     state={
-        tipoDeRiego:'Tierra',
+        tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
         plantas: undefined
     }
@@ -42,6 +43,7 @@ class Riego extends Component{
             return (
                 <div className='custom-ui'>
                     <AlertConfirmarAccion
+                        history={this.props.history}
                         onClose={onClose}
                         accion={accion}
                         accionfn={this.regar}
@@ -59,12 +61,14 @@ class Riego extends Component{
     }
     guardarRiegoBD= async (idPlanta,agua,tipoDeRiego,fertilizantes)=>{
         let fertilizantesFinal = {}
-        Object.keys(fertilizantes).map(fertilizante=>{
-            fertilizantesFinal={
-                ...fertilizantesFinal,
-                [fertilizante]:fertilizantes[fertilizante]
-            }
-        })
+        if(fertilizantes){
+            Object.keys(fertilizantes).map(fertilizante=>{
+                fertilizantesFinal={
+                    ...fertilizantesFinal,
+                    [fertilizante]:fertilizantes[fertilizante]
+                }
+            })
+        }
         await database().ref().child('plantas').child(idPlanta).child('riegos').push({
             agua:agua,
             tipoDeRiego:tipoDeRiego,
@@ -108,6 +112,26 @@ class Riego extends Component{
                     adivito='Fertlizante'
                     aditivos={this.props.aditivos}
                 />
+                <div className="row">
+                    <div className="col-auto">
+                        {this.state.tipoDeRiego}
+                    </div>
+                    <div className="col-auto">
+                        {this.state.cantidadDeAgua}
+                    </div>
+                    <div className='col-auto'>
+                        {this.state.aditivos?
+                            Object.keys(this.state.aditivos).map(aditivo=>(
+                                <span className='badge badge-pill badge-info'>
+                                    {aditivo}
+                                    <hr/>
+                                    {this.state.aditivos[aditivo]}
+                                </span>
+                            ))
+                            :
+                        null}
+                    </div>
+                </div>
                 <BotoneraConfirmacionAccion
                     confirmarAccion={this.confirmarAccion}
                     aditivos={this.props.aditivos}

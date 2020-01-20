@@ -1,10 +1,9 @@
 import React , {Component} from 'react'
 import CarouselPlantas from '../components/CarouselPlantas'
 import BarraDeLuz from '../components/BarraDeLuz'
-import FechaYHora from '../components/FechaYHora'
 import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCogs, faAlignRight} from '@fortawesome/free-solid-svg-icons'
+import {faAlignRight} from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../components/styles/alertPlanta.css'
@@ -118,12 +117,6 @@ class Armario extends Component{
                         <FontAwesomeIcon icon={faAlignRight}/>
                     </MenuButton>
                 }
-                <div className='row'>
-                    <div className='col-12 form-group'>
-                        <FechaYHora/>
-                    </div>
-                    
-                </div>
                 <div className='row'>
                     <div className='col'>
                         <BarraDeLuz/>            

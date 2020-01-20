@@ -43,6 +43,7 @@ class Insecticida extends Component{
             return (
                 <div className='custom-ui'>
                     <AlertConfirmarAccion
+                        history={this.props.history}
                         onClose={onClose}
                         accion={accion}
                         accionfn={this.fumigar}
@@ -60,12 +61,14 @@ class Insecticida extends Component{
     }
     guardrarFumigacionDB= async (idPlanta,agua,cantidadDeAgua,insecticidas,tipoDeRiego)=>{
         let insecticidasFinal = {}
-        Object.keys(insecticidas).map(insecticida=>{
-            insecticidasFinal={
-                ...insecticidasFinal,
-                [insecticida]:insecticidas[insecticida]
-            }
-        })
+        if(insecticidas){
+            Object.keys(insecticidas).map(insecticida=>{
+                insecticidasFinal={
+                    ...insecticidasFinal,
+                    [insecticida]:insecticidas[insecticida]
+                }
+            })
+        }
         await database().ref().child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
@@ -107,7 +110,7 @@ class Insecticida extends Component{
                     cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
                     cantidadDeAgua={this.state.cantidadDeAgua}
                     cambiarAditivo={this.cambiarAditivo}
-                    adivito='Insecticida'
+                    aditivo='Insecticida'
                     aditivos={this.props.aditivos}
                 />
                 <BotoneraConfirmacionAccion

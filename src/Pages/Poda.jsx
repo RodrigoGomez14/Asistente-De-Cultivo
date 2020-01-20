@@ -39,6 +39,7 @@ class Poda extends Component{
             return (
                 <div className='custom-ui'>
                     <AlertConfirmarAccion
+                        history={this.props.history}
                         onClose={onClose}
                         accion={accion}
                         accionfn={this.podar}
