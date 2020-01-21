@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/Asistente-De-Cultivo/static/css/main.e0454e45.chunk.css",
-    "main.js": "/Asistente-De-Cultivo/static/js/main.00412b6f.chunk.js",
-    "main.js.map": "/Asistente-De-Cultivo/static/js/main.00412b6f.chunk.js.map",
+    "main.css": "/Asistente-De-Cultivo/static/css/main.847fc1e7.chunk.css",
+    "main.js": "/Asistente-De-Cultivo/static/js/main.3237a7a0.chunk.js",
+    "main.js.map": "/Asistente-De-Cultivo/static/js/main.3237a7a0.chunk.js.map",
     "runtime-main.js": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js",
     "runtime-main.js.map": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js.map",
-    "static/css/2.d13641dc.chunk.css": "/Asistente-De-Cultivo/static/css/2.d13641dc.chunk.css",
-    "static/js/2.242ca001.chunk.js": "/Asistente-De-Cultivo/static/js/2.242ca001.chunk.js",
-    "static/js/2.242ca001.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.242ca001.chunk.js.map",
+    "static/css/2.f41ec079.chunk.css": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css",
+    "static/js/2.df05307c.chunk.js": "/Asistente-De-Cultivo/static/js/2.df05307c.chunk.js",
+    "static/js/2.df05307c.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.df05307c.chunk.js.map",
     "index.html": "/Asistente-De-Cultivo/index.html",
-    "precache-manifest.266a816529c6f35ce1a101e61d0693ca.js": "/Asistente-De-Cultivo/precache-manifest.266a816529c6f35ce1a101e61d0693ca.js",
+    "precache-manifest.6f9508d41ee09e25e90617bce8acffd3.js": "/Asistente-De-Cultivo/precache-manifest.6f9508d41ee09e25e90617bce8acffd3.js",
     "service-worker.js": "/Asistente-De-Cultivo/service-worker.js",
-    "static/css/2.d13641dc.chunk.css.map": "/Asistente-De-Cultivo/static/css/2.d13641dc.chunk.css.map",
-    "static/css/main.e0454e45.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.e0454e45.chunk.css.map",
+    "static/css/2.f41ec079.chunk.css.map": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css.map",
+    "static/css/main.847fc1e7.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.847fc1e7.chunk.css.map",
     "static/media/apple cookies.jpg": "/Asistente-De-Cultivo/static/media/apple cookies.7617cb20.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.ae36a367.js",
-    "static/css/2.d13641dc.chunk.css",
-    "static/js/2.242ca001.chunk.js",
-    "static/css/main.e0454e45.chunk.css",
-    "static/js/main.00412b6f.chunk.js"
+    "static/css/2.f41ec079.chunk.css",
+    "static/js/2.df05307c.chunk.js",
+    "static/css/main.847fc1e7.chunk.css",
+    "static/js/main.3237a7a0.chunk.js"
   ]
 }
