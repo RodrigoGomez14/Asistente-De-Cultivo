@@ -14,7 +14,7 @@ class AlertNavBar extends Component{
                         null
                     }
                 </div>
-                <div className="col-auto text-center">
+                <div className="col-auto text-center text-light">
                     {this.props.title}
                 </div>
                 <div className="col text-right">

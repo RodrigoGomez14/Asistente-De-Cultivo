@@ -61,6 +61,7 @@ class App extends Component {
                 <Route exact path='/Poda' component={Poda}/>
                 <Route exact path='/Insecticida' component={Insecticida}/>
                 <Route exact path='/Aplicables' component={Aplicables}/>
+                <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
               </Switch>
             </HashRouter>
           </Layout>

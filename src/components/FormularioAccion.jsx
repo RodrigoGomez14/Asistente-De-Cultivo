@@ -59,15 +59,15 @@ class FormularioAccion extends Component{
                                                     <div className="form-row mt-4 justify-content-start w-80 flex-nowrap overflow-auto">
                                                         {this.props.aditivos.map((aditivo,i)=>(
                                                             <div className="form-group col-auto" key={'input'+i}>
-                                                                <label className='text-dark'>{aditivo}</label>
+                                                                <label className='text-dark'>{aditivo.nombre}</label>
                                                                 <input type="number" 
                                                                     className='form-control' 
                                                                     onChange={e=>{
                                                                         if(e.target.value){
-                                                                            this.props.cambiarAditivo([aditivo],e.target.value)
+                                                                            this.props.cambiarAditivo([aditivo.nombre],e.target.value)
                                                                         }
                                                                         else{
-                                                                            this.props.eliminarAditivo([aditivo])
+                                                                            this.props.eliminarAditivo([aditivo.nombre])
                                                                         }
                                                                     }}
                                                                 />

@@ -5,9 +5,8 @@ import { connect } from 'react-redux'
 
 class Aplicables extends Component{
     render(){
-        console.log(this.props.fertilizantes,this.props.insecticidas)
         return(
-            <div className="container-fluid">
+            <div className="container-fluid overflow-auto">
                 <NavBarAccion
                     title='Aditivos'
                 />

@@ -9,31 +9,36 @@ class Navbar extends Component{
     render(){
         return(
             <Nav>
-                <div className="container h-100">
-                    <div className="row mt-4">
+                <div className="container h-100 d-flex flex-column justify-content-around">
+                    <div className="row">
                         <div className="col text-left">
                             <FontAwesomeIcon icon={faCogs} className='alert-icon' onClick={e=>{
                                 this.props.alertConfiguracion()
                             }}/>
                         </div>
-                            <div className="col text-right">
-                                <FontAwesomeIcon icon={faTimes} className='alert-icon' onClick={e=>{this.props.closeNavbar()}}/>
-                            </div>
+                        <div className="col text-right">
+                            <FontAwesomeIcon icon={faTimes} className='alert-icon' onClick={e=>{this.props.closeNavbar()}}/>
                         </div>
-                        <Hr/>
-                        {this.props.plantas?
-                            <AccionesRapidas/>
-                            :
-                            null
-                        }
-                        <Hr/>
-                        <div className="row d-flex flex-column justify-content-center">
-                            <div className="col-auto">
-                                <Link to='/Aplicables'>
-                                    <button type='button' className='btn btn-light'>Administrar Aditivos</button>
-                                </Link>
-                            </div>
+                    </div>
+                    <Hr/>
+                    {this.props.plantas?
+                        <AccionesRapidas/>
+                        :
+                        null
+                    }
+                    <Hr/>
+                    <div className="row justify-content-center">
+                        <div className="col-auto">
+                            <Link to='/Aplicables'>
+                                <button type='button' className='btn btn-light'>Aditivos</button>
+                            </Link>
                         </div>
+                        <div className="col-auto">
+                            <Link to='/Deficiencias-Carencias'>
+                                <button type='button' className='btn btn-light'>Deficiencias y Carencias</button>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </Nav>
         )

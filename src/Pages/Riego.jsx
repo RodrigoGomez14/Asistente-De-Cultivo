@@ -133,11 +133,8 @@ class Riego extends Component{
                     />
                 </div>
                 <BotoneraConfirmacionAccion
-                    agua={this.state.cantidadDeAgua}
-                    tipoDeRiego={this.state.tipoDeRiego}
                     accion='Riego'
                     confirmarAccion={this.confirmarAccion}
-                    aditivos={this.props.aditivos}
                 />
             </div>
         )
