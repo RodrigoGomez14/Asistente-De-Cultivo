@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes,faCogs } from '@fortawesome/free-solid-svg-icons'
 import AccionesRapidas from '../components/AccionesRapidas'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 class Navbar extends Component{
     render(){
         return(
@@ -28,13 +29,9 @@ class Navbar extends Component{
                         <Hr/>
                         <div className="row d-flex flex-column justify-content-center">
                             <div className="col-auto">
-                                <small>Aplicables</small>
-                            </div>
-                            <div className="col-auto form-group">
-                                <button type='button' className='btn btn-outline-light'>Fertilizantes</button>
-                            </div>
-                            <div className="col-auto form-group">
-                                <button type='button' className='btn btn-outline-light'>Insecticidas</button>
+                                <Link to='/Aplicables'>
+                                    <button type='button' className='btn btn-light'>Administrar Aditivos</button>
+                                </Link>
                             </div>
                         </div>
                 </div>

@@ -7,6 +7,7 @@ import Armario from './Pages/Armario'
 import Layout from './Pages/Layout'
 import Riego from './Pages/Riego'
 import Insecticida from './Pages/Insecticida'
+import Aplicables from './Pages/Aplicables'
 import Poda from './Pages/Poda'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
@@ -59,6 +60,7 @@ class App extends Component {
                 <Route exact path='/Riego' component={Riego}/>
                 <Route exact path='/Poda' component={Poda}/>
                 <Route exact path='/Insecticida' component={Insecticida}/>
+                <Route exact path='/Aplicables' component={Aplicables}/>
               </Switch>
             </HashRouter>
           </Layout>
