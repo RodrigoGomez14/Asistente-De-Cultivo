@@ -11,7 +11,7 @@ import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import FormularioAccion from '../components/FormularioAccion';
-import {Tabs,Tab} from 'react-bootstrap'
+import {Accordion} from 'react-bootstrap'
 class Riego extends Component{
     state={
         tipoDeRiego:undefined,
@@ -60,7 +60,7 @@ class Riego extends Component{
     })
     regar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
-            if(this.state.plantas[planta]){
+            if(this.state.plantas[planta].selected){
                 this.guardarRiegoBD(planta,this.state.cantidadDeAgua,this.state.tipoDeRiego,this.state.aditivos)
             }
         })
@@ -113,24 +113,26 @@ class Riego extends Component{
                 <NavBarAccion
                     title='Riego'
                 />
-                <div className="container d-flex flex-column justify-content-start h-100">
-                    <ElegirPlantaAccion
-                        seleccionarPlanta={this.seleccionarPlanta}
-                        plantas={this.state.plantas}
-                    />
-                    <ElegirTipoDeRiego
-                        tipoDeRiego={this.state.tipoDeRiego}    
-                        cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                    />
-                    <FormularioAccion
-                        cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                        cantidadDeAgua={this.state.cantidadDeAgua}
-                        cambiarAditivo={this.cambiarAditivo}
-                        adivito='Fertlizante'
-                        aditivos={this.props.aditivos}
-                        aditivosUsados={this.state.aditivos}
-                        eliminarAditivo={this.eliminarAditivo}
-                    />
+                <div className="container d-flex flex-column justify-content-start h-100 overflow-auto">
+                    <Accordion defaultActiveKey='0'>
+                        <ElegirPlantaAccion
+                            seleccionarPlanta={this.seleccionarPlanta}
+                            plantas={this.state.plantas}
+                        />
+                        <ElegirTipoDeRiego
+                            tipoDeRiego={this.state.tipoDeRiego}    
+                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                        />
+                        <FormularioAccion
+                            cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                            cantidadDeAgua={this.state.cantidadDeAgua}
+                            cambiarAditivo={this.cambiarAditivo}
+                            adivito='Fertlizante'
+                            aditivos={this.props.aditivos}
+                            aditivosUsados={this.state.aditivos}
+                            eliminarAditivo={this.eliminarAditivo}
+                        />
+                    </Accordion>
                 </div>
                 <BotoneraConfirmacionAccion
                     accion='Riego'

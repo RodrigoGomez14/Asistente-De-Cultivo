@@ -6,20 +6,40 @@ import { confirmAlert } from 'react-confirm-alert';
 import {AlertNuevoAditivo} from '../alerts/AlertNuevoAditivo'
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles/table.css'
+import {database} from 'firebase'
 export const TableAditivos = ({title,aditivos}) =>{
 
-    const alertNuevoAditivo=(tipoDeAditivo)=>confirmAlert({
+    const alertNuevoAditivo=()=>confirmAlert({
         customUI: ({ onClose }) => {
             return (
                 <div className='custom-ui'>
                     <AlertNuevoAditivo
-                        tipoDeAditivo={tipoDeAditivo}
+                        aditivos={aditivos}
+                        tipoDeAditivo={title}
                         onClose={onClose}
                     />
                 </div>
             );
         }
     })
+    const eliminarAditivo=async (id)=>{
+        let newAditivos = aditivos
+        newAditivos.splice(id,1)
+        switch (title) {
+            case "Fertilizantes":
+                await database().ref().update({
+                   fertilizantes:newAditivos
+                })
+                break;
+            case "Insecticidas":
+                await database().ref().update({
+                    insecticidas:newAditivos
+                })
+                break;
+            default:
+                break;
+        }
+    }
     return(
         <div className='overflow-auto'>
             <Table striped bordered hover variant='dark'>
@@ -27,7 +47,7 @@ export const TableAditivos = ({title,aditivos}) =>{
                     <tr>
                         <th className=' justify-content-center align-items-center'>
                             <FontAwesomeIcon icon={faPlusCircle} onClick={e=>{
-                                alertNuevoAditivo(title)
+                                alertNuevoAditivo()
                             }}/>
                         </th>
                     </tr>
@@ -95,7 +115,9 @@ export const TableAditivos = ({title,aditivos}) =>{
                                                     </button>
                                                 </div>
                                                 <div className="col-auto ml-auto mr-auto">
-                                                    <button type='button' className='btn btn-outline-danger'>
+                                                    <button type='button' className='btn btn-outline-danger' onClick={e=>{
+                                                        eliminarAditivo(i)
+                                                    }}>
                                                         Eliminar aditivo
                                                     </button>
                                                 </div>

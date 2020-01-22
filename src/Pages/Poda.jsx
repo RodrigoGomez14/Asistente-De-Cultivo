@@ -9,10 +9,13 @@ import moment from 'moment'
 import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
+import ElegirTipoDePoda from '../components/ElegirTipoDePoda';
+import { Accordion } from 'react-bootstrap';
 
 class Poda extends Component{
     state={
-        plantas:undefined
+        plantas:undefined,
+        tipoDePoda:undefined
     }
     seleccionarPlanta=(id)=>{
         this.setState({
@@ -56,7 +59,7 @@ class Poda extends Component{
     })
     podar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
-            if(this.state.plantas[planta]){
+            if(this.state.plantas[planta].selected){
                 this.guardarPodaBD(planta)
             }
         })
@@ -64,6 +67,12 @@ class Poda extends Component{
     guardarPodaBD= async (idPlanta)=>{
         await database().ref().child('plantas').child(idPlanta).child('podas').push({
             fecha:moment().format('LLL'),
+            tipoDePoda:this.state.tipoDePoda
+        })
+    }
+    cambiarTipoDePoda=(nuevoTipoDePoda)=>{
+        this.setState({
+            tipoDePoda:nuevoTipoDePoda
         })
     }
     render(){
@@ -73,10 +82,18 @@ class Poda extends Component{
                     title='Poda'
                 />
                 <div className="container d-flex flex-column justify-content-start h-100">
-                    <ElegirPlantaAccion
-                        seleccionarPlanta={this.seleccionarPlanta}
-                        plantas={this.state.plantas}
-                    />
+                    <Accordion defaultActiveKey='0'>
+                        <ElegirPlantaAccion
+                            seleccionarPlanta={this.seleccionarPlanta}
+                            plantas={this.state.plantas}
+                        />
+                        <ElegirTipoDePoda
+                            handleChange={(nuevoTipoDePoda=>{
+                                this.cambiarTipoDePoda(nuevoTipoDePoda)
+                            })}
+                            tipoDePoda={this.state.tipoDePoda}
+                        />
+                    </Accordion>
                 </div>
                 <BotoneraConfirmacionAccion
                     accion='Poda'

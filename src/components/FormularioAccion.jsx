@@ -1,41 +1,39 @@
 import React , {Component} from 'react'
-import {Row,Col,Form,Accordion,Card,Button} from 'react-bootstrap'
-
+import {Row,Col,Form,Accordion,Card,Button,Popover,OverlayTrigger, Overlay} from 'react-bootstrap'
 class FormularioAccion extends Component{
     render(){
         return(
             <Row>
                 <Col sm={{span:8,offset:2}}>
-                    <Accordion defaultActiveKey="0">
-                        <Card>
-                            <button className='btn btn-link'>
-                                <Accordion.Toggle as={Card.Header} className={this.props.cantidadDeAgua || this.props.aditivosUsados?'text-light overflow-auto flex-nowrap bg-success':'text-dark overflow-auto flex-nowrap'} eventKey="2">
-                                    Cantidad de Agua y Aditivos
-                                    <div className="row">
-                                        <div className="col-auto mr-auto ml-auto">
-                                            {this.props.cantidadDeAgua?
-                                                this.props.cantidadDeAgua + ' L.'
-                                                :
-                                                null
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="row mt-2">
-                                        {this.props.aditivosUsados?
-                                            <div className="col-auto">
-                                                {Object.keys(this.props.aditivosUsados).map(aditivo=>(
-                                                    <span className='badge badge-pill badge-light mr-2 p-2'>
-                                                        {aditivo} {this.props.aditivosUsados[aditivo]}ml
-                                                    </span>
-                                                ))}
-                                            </div>
+                    <Card>
+                        <button className='btn btn-link'>
+                            <Accordion.Toggle as={Card.Header} className={this.props.cantidadDeAgua || this.props.aditivosUsados?'text-light overflow-auto flex-nowrap bg-success':'text-dark overflow-auto flex-nowrap'} eventKey="2">
+                                Cantidad de Agua y Aditivos
+                                <div className="row">
+                                    <div className="col-auto mr-auto ml-auto">
+                                        {this.props.cantidadDeAgua?
+                                            this.props.cantidadDeAgua + ' L.'
                                             :
-                                            null}
+                                            null
+                                        }
                                     </div>
-                                </Accordion.Toggle>
-                            </button>
-                            <Accordion.Collapse eventKey="2">
-                                <Form>
+                                </div>
+                                <div className="row mt-2">
+                                    {this.props.aditivosUsados?
+                                        <div className="col-auto">
+                                            {Object.keys(this.props.aditivosUsados).map(aditivo=>(
+                                                <span className='badge badge-pill badge-light mr-2 p-2'>
+                                                    {aditivo} {this.props.aditivosUsados[aditivo]}ml
+                                                </span>
+                                            ))}
+                                        </div>
+                                        :
+                                        null}
+                                </div>
+                            </Accordion.Toggle>
+                        </button>
+                        <Accordion.Collapse eventKey="2">
+                                <Form>  
                                     <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
                                         <Form.Group>
                                             <Form.Label htmlFor="inputLitos" className='text-dark'>Litros de Agua</Form.Label>
@@ -56,22 +54,59 @@ class FormularioAccion extends Component{
                                                     </div>
                                                 </div>
                                                 <div className="container">
-                                                    <div className="form-row mt-4 justify-content-start w-80 flex-nowrap overflow-auto">
+                                                    <div className="form-row mt-4 justify-content-start w-80`">
                                                         {this.props.aditivos.map((aditivo,i)=>(
-                                                            <div className="form-group col-auto" key={'input'+i}>
-                                                                <label className='text-dark'>{aditivo.nombre}</label>
-                                                                <input type="number" 
-                                                                    className='form-control' 
-                                                                    onChange={e=>{
-                                                                        if(e.target.value){
-                                                                            this.props.cambiarAditivo([aditivo.nombre],e.target.value)
-                                                                        }
-                                                                        else{
-                                                                            this.props.eliminarAditivo([aditivo.nombre])
-                                                                        }
-                                                                    }}
-                                                                />
-                                                            </div>
+                                                            <>  
+                                                                <div className="form-group col-4" key={'input'+i}>
+                                                                    <OverlayTrigger trigger="hover" placement='top' overlay={
+                                                                        <Popover  id="popover-basic">
+                                                                            <Popover.Title as="h1">{aditivo.nombre}</Popover.Title>
+                                                                            <Popover.Content>
+                                                                                <div className="container-fluid">
+                                                                                    {aditivo?
+                                                                                        Object.keys(aditivo.dosis).map(tipoDeDosis=>(
+                                                                                            <div className="container">
+                                                                                                <div className="row">
+                                                                                                    <span className='badge badge-pill badge-dark'>{tipoDeDosis}</span>
+                                                                                                </div>
+                                                                                                {Object.keys(aditivo.dosis[tipoDeDosis]).map(dosis=>(
+                                                                                                    <>
+                                                                                                        <div className="row">
+                                                                                                                <div className="col-auto p-0">
+                                                                                                                    {dosis}
+                                                                                                                </div>
+                                                                                                                <div className="col text-right align-self-center p-0">
+                                                                                                                    {aditivo.dosis[tipoDeDosis][dosis]}
+                                                                                                                </div>
+                                                                                                        </div>
+                                                                                                        <hr/>
+                                                                                                    </>
+                                                                                                ))}
+                                                                                            </div>
+                                                                                        ))
+                                                                                        :
+                                                                                        null
+                                                                                    }
+                                                                                </div>
+                                                                            </Popover.Content>
+                                                                        </Popover>}>
+                                                                        <div className='text-dark'>
+                                                                            {aditivo.nombre}
+                                                                        </div>
+                                                                    </OverlayTrigger>
+                                                                    <input type="number" 
+                                                                        className='form-control' 
+                                                                        onChange={e=>{
+                                                                            if(e.target.value){
+                                                                                this.props.cambiarAditivo([aditivo.nombre],e.target.value)
+                                                                            }
+                                                                            else{
+                                                                                this.props.eliminarAditivo([aditivo.nombre])
+                                                                            }
+                                                                        }}
+                                                                    />
+                                                                </div>
+                                                            </>
                                                         ))}
                                                     </div>
                                                 </div>
@@ -81,9 +116,8 @@ class FormularioAccion extends Component{
                                         }
                                     </Form.Row>
                                 </Form>
-                            </Accordion.Collapse>
-                        </Card>
-                    </Accordion>
+                        </Accordion.Collapse>
+                    </Card>
                 </Col>
             </Row>
         )

@@ -11,6 +11,7 @@ import ElegirPlantaAccion from '../components/ElegirPlantaAccion'
 import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import FormularioAccion from '../components/FormularioAccion'
+import { Accordion } from 'react-bootstrap';
 class Insecticida extends Component{
     state={
         tipoDeRiego:undefined,
@@ -60,7 +61,7 @@ class Insecticida extends Component{
     })
     fumigar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
-            if(this.state.plantas[planta]){
+            if(this.state.plantas[planta].selected){
                 this.guardrarFumigacionDB(planta,this.state.cantidadDeAgua,this.state.cantidadDeAgua,this.state.aditivos,this.state.tipoDeRiego)
             }
         })
@@ -114,24 +115,26 @@ class Insecticida extends Component{
                 <NavBarAccion
                     title='Insecticida'
                 />
-                <div className="container d-flex flex-column justify-content-start h-100">
-                    <ElegirPlantaAccion
-                        seleccionarPlanta={this.seleccionarPlanta}
-                        plantas={this.state.plantas}
-                    />
-                    <ElegirTipoDeRiego
-                        tipoDeRiego={this.state.tipoDeRiego}
-                        cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                    />
-                    <FormularioAccion
-                        cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                        cantidadDeAgua={this.state.cantidadDeAgua}
-                        cambiarAditivo={this.cambiarAditivo}
-                        aditivo='Insecticida'
-                        aditivos={this.props.aditivos}
-                        aditivosUsados={this.state.aditivos}
-                        eliminarAditivo={this.eliminarAditivo}
-                    />
+                <div className="container d-flex flex-column justify-content-start h-100 overflow-auto">
+                    <Accordion defaultActiveKey='0'>
+                        <ElegirPlantaAccion
+                            seleccionarPlanta={this.seleccionarPlanta}
+                            plantas={this.state.plantas}
+                        />
+                        <ElegirTipoDeRiego
+                            tipoDeRiego={this.state.tipoDeRiego}
+                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                        />
+                        <FormularioAccion
+                            cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                            cantidadDeAgua={this.state.cantidadDeAgua}
+                            cambiarAditivo={this.cambiarAditivo}
+                            aditivo='Insecticida'
+                            aditivos={this.props.aditivos}
+                            aditivosUsados={this.state.aditivos}
+                            eliminarAditivo={this.eliminarAditivo}
+                        />
+                    </Accordion>
                 </div>
                 <BotoneraConfirmacionAccion
                     accion='Fumigacion'

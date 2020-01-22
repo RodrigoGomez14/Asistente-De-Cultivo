@@ -6,7 +6,7 @@ class DetallePlanta extends Component{
     render(){
         return(
             <Row className="mt-4 mb-4 align-items-center">
-                <Col xs={{span:6,offset:3}} md={{span:4,offset:0}} className="text-center mb-2">
+                <Col xs={{span:8,offset:2}} sm={{span:6,offset:3}} md={{span:4,offset:0}} className="text-center mb-2">
                     <Image src={fotoPlanta} className='w-100' alt="" roundedCircle/>
                 </Col>
                 <Col md={8} className="align-self-center">

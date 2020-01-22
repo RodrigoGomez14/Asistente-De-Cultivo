@@ -16,7 +16,7 @@ class AlertPodas extends Component{
                         <div className="list-group">
                             {Object.keys(this.props.podas).reverse().map(id=>(
                                 <div className="list-group-item list-group-item-action ">
-                                    <AccionDetallada alert={this.props.alert} accion={this.props.podas[id]} tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                                    <AccionDetallada alert={this.props.alert} accion={this.props.podas[id]} tipoDePoda={this.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                 </div>
                             ))}
                         </div>

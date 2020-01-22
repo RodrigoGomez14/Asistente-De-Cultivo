@@ -14,6 +14,14 @@ class AccionDetallada extends Component{
                     {this.props.tipoDeAccion==='podas'?
                         <div className="col-auto">
                             <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                {this.props.tipoDePoda?
+                                <>
+                                    <hr/>
+                                    <h5 className='text-dark'>{this.props.tipoDePoda}</h5>
+                                </>
+                                :
+                                null
+                            }
                         </div>
                         :
                         <>

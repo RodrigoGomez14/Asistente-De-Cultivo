@@ -1,47 +1,77 @@
-import React from 'react'
+import React ,{useState}from 'react'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import {FormNuevoAditivo} from '../alert-components/FormNuevoAditivo'
 import AlertBotoneraConfirmacion from '../alert-components/AlertBotoneraConfirmacion'
-export const AlertNuevoAditivo = ({tipoDeAditivo,onClose}) =>{
-    const agregarAditivo=()=>{
-        const nombre = document.getElementById('nombre').value
-        const marca = document.getElementById('marca').value
-        const descripcion = document.getElementById('descripcion').value
-        const etapa1 = document.getElementById('etapa1').value
-        const cantidad1 = document.getElementById('cantidad1').value
-        const etapa2 = document.getElementById('etapa2').value
-        const cantidad2 = document.getElementById('cantidad2').value
-        const etapa3 = document.getElementById('etapa3').value
-        const cantidad3 = document.getElementById('cantidad3').value
-        const etapa4 = document.getElementById('etapa4').value
-        const cantidad4 = document.getElementById('cantidad4').value
-        let foliar={
-
-        }
-        const checkboxes = [
-            document.getElementById('checkbox1').value,
-            document.getElementById('checkbox2').value,
-            document.getElementById('checkbox3').value,
-            document.getElementById('checkbox4').value,
-        ]
-        checkboxes.map((checkbox,i)=>{
-            if(checkbox){
-            }
-        })
-        const newAditivo= {
-            nombre:nombre,
-            marca:marca,
-            descripcion:descripcion,
-            dosis:{
-                Riego:{
-                    etapa1:cantidad1,
-                    etapa2:cantidad2,
-                    etapa3:cantidad3,
-                    etapa4:cantidad4,
+import {database} from 'firebase'
+export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[]}) =>{
+    const [inputs,setInputs] = useState({})
+    const ClasificarDosis = ()=>{
+        const dosisArr = [inputs.dosis1,inputs.dosis2,inputs.dosis3,inputs.dosis4]
+        let Riego={}
+        let Foliar={}
+        dosisArr.map(dosis=>{
+            if(dosis){
+                if(dosis.check){
+                    Foliar={
+                        ...Foliar,
+                        [dosis.etapa]:dosis.cantidad
+                    }
+                }
+                else{
+                    Riego={
+                        ...Riego,
+                        [dosis.etapa]:dosis.cantidad
+                    }
                 }
             }
+        })
+        return{Riego,Foliar}
+    }
+    const agregarAditivo= async ()=>{
+        const {Riego,Foliar}=ClasificarDosis()
+        console.log(Riego,Foliar)
+        const newAditivo= {
+            nombre:inputs.nombre,
+            marca:inputs.marca,
+            descripcion:inputs.descripcion,
+            dosis:{
+                Riego:Riego,
+                Foliar:Foliar
+            }
         }
-        console.log(newAditivo)
+        const newAditivos=aditivos
+        newAditivos.push(newAditivo)
+        switch (tipoDeAditivo) {
+            case 'Fertilizantes':
+                await database().ref().update({
+                    fertilizantes:newAditivos
+                })
+                break;
+            case 'Insecticidas':
+                await database().ref().update({
+                    insecticidas:newAditivos
+                })
+                break;
+            default:
+                break;
+        }
+    }
+    const updateState=(valor,nombre,dosis)=>{
+        if(dosis){
+            setInputs({
+                ...inputs,
+                [dosis]:{
+                    ...inputs[dosis],
+                    [nombre]:valor
+                }
+            })
+        }
+        else{
+            setInputs({
+                ...inputs,
+                [nombre]:valor
+            })
+        }
     }
     return(
         <div className="container-fluid alert d-flex flex-column justify-content-between h-100">
@@ -49,8 +79,10 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose}) =>{
                 onClose={onClose}
                 title={tipoDeAditivo}
             />
-            <FormNuevoAditivo/>
-            <AlertBotoneraConfirmacion cambiarHora={agregarAditivo} alertConfiguracion={onClose}/>
+            <FormNuevoAditivo updateState={(valor,nombre,dosis)=>{
+                updateState(valor,nombre,dosis)
+            }}/>
+            <AlertBotoneraConfirmacion cambiarHora={agregarAditivo} alertConfiguracion={onClose} />
         </div>
     )
 }

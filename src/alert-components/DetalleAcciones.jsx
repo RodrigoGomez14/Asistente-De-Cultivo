@@ -5,7 +5,7 @@ import {Row,Col} from 'react-bootstrap'
 class DetalleAcciones extends Component{
     render(){
         return(
-            <Row className="pt-2 pb-2 botonera justify-content-around ">
+            <Row className="pt-2 pb-2 botonera justify-content-start ">
                 <Col md={'auto'} className="align-self-center">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertRiegos()
