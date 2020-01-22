@@ -15,7 +15,7 @@ class AlertPlanta extends Component{
     }
     render(){
         return(
-            <div className="container-fluid alert alertPlanta">
+            <div className="container-fluid alert alertPlanta overflow-auto">
                 <AlertNavBar 
                     alertPlanta={this.props.alertPlanta} 
                     onClose={this.props.onClose}
