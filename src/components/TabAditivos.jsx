@@ -5,7 +5,7 @@ export const TabAditivos = ({fertilizantes,insecticidas}) =>{
     const [key, setKey] = useState('Fertilizantes');
     return(
         <Row>
-            <Col xs={{span:6,offset:3}}>
+            <Col xs={{span:12,offset:0}} sm={{span:10,offset:1}} md={{span:8,offset:2}} lg={{span:6,offset:3}}>
                 <Tabs id="controlled-tab-example" activeKey={key} onSelect={k => setKey(k)}>
                     <Tab eventKey="Fertilizantes" title="Fertilizantes">
                         <TableAditivos title='Fertilizantes' aditivos={fertilizantes}/>

@@ -22,6 +22,20 @@ export const TableAditivos = ({title,aditivos}) =>{
             );
         }
     })
+    const alertEditarAditivo=(aditivo)=>confirmAlert({
+        customUI: ({ onClose }) => {
+            return (
+                <div className='custom-ui'>
+                    <AlertNuevoAditivo
+                        aditivos={aditivos}
+                        tipoDeAditivo={title}
+                        onClose={onClose}
+                        aditivo={aditivo}
+                    />
+                </div>
+            );
+        }
+    })
     const eliminarAditivo=async (id)=>{
         let newAditivos = aditivos
         newAditivos.splice(id,1)
@@ -110,7 +124,9 @@ export const TableAditivos = ({title,aditivos}) =>{
                                             ))}
                                             <div className="row mt-4">
                                                 <div className="col-auto ml-auto mr-auto">
-                                                    <button type='button' className='btn btn-dark'>
+                                                    <button type='button' className='btn btn-dark' onClick={e=>{
+                                                        alertEditarAditivo(aditivo)
+                                                    }}>
                                                         Editar aditivo
                                                     </button>
                                                 </div>

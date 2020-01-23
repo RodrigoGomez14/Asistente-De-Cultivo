@@ -3,7 +3,7 @@ import AlertNavBar from '../alert-components/AlertNavBar'
 import {FormNuevoAditivo} from '../alert-components/FormNuevoAditivo'
 import AlertBotoneraConfirmacion from '../alert-components/AlertBotoneraConfirmacion'
 import {database} from 'firebase'
-export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[]}) =>{
+export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =>{
     const [inputs,setInputs] = useState({})
     const ClasificarDosis = ()=>{
         const dosisArr = [inputs.dosis1,inputs.dosis2,inputs.dosis3,inputs.dosis4]
@@ -74,12 +74,12 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[]}) =>{
         }
     }
     return(
-        <div className="container-fluid alert d-flex flex-column justify-content-between h-100">
+        <div className="container-fluid alert d-flex flex-column justify-content-between h-100 overflow-auto">
             <AlertNavBar
                 onClose={onClose}
                 title={tipoDeAditivo}
             />
-            <FormNuevoAditivo updateState={(valor,nombre,dosis)=>{
+            <FormNuevoAditivo aditivo={aditivo} updateState={(valor,nombre,dosis)=>{
                 updateState(valor,nombre,dosis)
             }}/>
             <AlertBotoneraConfirmacion cambiarHora={agregarAditivo} alertConfiguracion={onClose} />

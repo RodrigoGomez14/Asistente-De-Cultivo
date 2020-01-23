@@ -6,7 +6,7 @@ class DetalleAcciones extends Component{
     render(){
         return(
             <Row className="pt-2 pb-2 botonera justify-content-start ">
-                <Col md={'auto'} className="align-self-center">
+                <Col xs={'auto'} className="align-self-center form-group d-flex justify-content-center">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertRiegos()
                     }}>
@@ -14,7 +14,7 @@ class DetalleAcciones extends Component{
                         <small className='alert-icon-text text-white'>Riegos</small>
                     </div>
                 </Col>
-                <Col md={'auto'} className="align-self-center">
+                <Col xs={'auto'} className="align-self-center form-group d-flex justify-content-center">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertPodas()
                     }}>
@@ -22,7 +22,7 @@ class DetalleAcciones extends Component{
                         <small className='alert-icon-text text-white'>Podas</small>
                     </div>
                 </Col>
-                <Col md={"auto"}className="align-self-center">
+                <Col xs={"auto"}className="align-self-center form-group d-flex justify-content-center">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertFumigaciones()
                     }}>
