@@ -32,7 +32,7 @@ class CarouselPlantas extends Component{
     render(){
         return(
             <div className="container">
-                <div className="row align-items-center justify-content-center">
+                <div className="row align-items-center justify-content-start flex-nowrap overflow-auto">
                     {this.props.plantas?
                         Object.keys(this.props.plantas).map(key=>(
                             <Planta 

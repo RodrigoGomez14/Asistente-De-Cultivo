@@ -15,7 +15,7 @@ import { Accordion } from 'react-bootstrap';
 class Poda extends Component{
     state={
         plantas:undefined,
-        tipoDePoda:undefined
+        tipoDePoda:undefined,
     }
     seleccionarPlanta=(id)=>{
         this.setState({
