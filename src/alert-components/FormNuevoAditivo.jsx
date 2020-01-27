@@ -11,6 +11,7 @@ export const FormNuevoAditivo = ({updateState,aditivo}) =>{
                         cantidad:aditivo.dosis[tipoDeRiego][dosificacion],
                         check:true
                     })
+                    return null
                 })
             }
             else{
@@ -20,8 +21,10 @@ export const FormNuevoAditivo = ({updateState,aditivo}) =>{
                         cantidad:aditivo.dosis[tipoDeRiego][dosificacion],
                         check:false
                     })
+                    return null
                 })
             }
+            return null
         })
     }
     return(

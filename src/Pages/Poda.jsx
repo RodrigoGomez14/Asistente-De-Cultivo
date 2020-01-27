@@ -62,6 +62,7 @@ class Poda extends Component{
             if(this.state.plantas[planta].selected){
                 this.guardarPodaBD(planta)
             }
+            return null
         })
     }
     guardarPodaBD= async (idPlanta)=>{

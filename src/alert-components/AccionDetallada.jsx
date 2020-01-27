@@ -1,7 +1,8 @@
 import React , {Component} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes} from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faSortDown} from '@fortawesome/free-solid-svg-icons'
 import * as firebase from 'firebase'
+import {Accordion,Card} from 'react-bootstrap'
 class AccionDetallada extends Component{
     eliminarAccion= async()=>{
         await firebase.database().ref().child('plantas').child(this.props.idPlanta).child(this.props.tipoDeAccion).child(this.props.id).remove()
@@ -9,60 +10,83 @@ class AccionDetallada extends Component{
     }
     render(){
         return(
-            <div className="container-fluid">
-                <div className="row">
-                    {this.props.tipoDeAccion==='podas'?
-                        <div className="col-auto">
-                            <h5 className='text-dark'>{this.props.accion.fecha}</h5>
-                                {this.props.tipoDePoda?
-                                <>
-                                    <hr/>
-                                    <h5 className='text-dark'>{this.props.tipoDePoda}</h5>
-                                </>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey={this.props.index}>
+                    <div className="container-fluid">
+                        <div className="row">
+                            {this.props.tipoDeAccion==='podas'?
+                                <div className="col-auto">
+                                    <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                        {this.props.tipoDePoda?
+                                        <>
+                                            <hr/>
+                                            <h5 className='text-dark'>{this.props.tipoDePoda}</h5>
+                                        </>
+                                        :
+                                        null
+                                    }
+                                </div>
                                 :
-                                null
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col-auto">
+                                            <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                        </div>
+                                        <div className="col-auto ml-auto">
+                                            <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-auto">
+                                            <h5 className='text-dark'>{this.props.accion.agua} L de agua</h5>
+                                        </div>
+                                        <div className="col-auto">
+                                            <h5>
+                                                <div className="badge badge-pill badge-dark">
+                                                    {this.props.accion.tipoDeRiego}
+                                                </div>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    {this.props.accion.aditivos?
+                                        <div className="row">
+                                            <div className="col-auto ml-auto mr-auto">
+                                                <FontAwesomeIcon icon={faSortDown}/>
+                                            </div>
+                                        </div>
+                                        :
+                                        null
+                                    }
+                                </div>
                             }
                         </div>
-                        :
-                        <>
-                            <div className="col-auto">
-                                <h5 className='text-dark'>{this.props.accion.fecha}</h5>
-                            </div>
-                            <div className="col-auto">
-                                <h5 className='text-dark'>{this.props.accion.agua} L de agua</h5>
-                            </div>
-                            <div className="col text-right">
-                                <h5>
-                                    <div className="badge badge-pill badge-dark">
-                                        {this.props.accion.tipoDeRiego}
-                                    </div>
-                                </h5>
-                            </div>
-                        </>
-                    }
-                    <div className="col-auto ml-auto">
-                        <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
                     </div>
-                </div>
-                <div className="row">
+                </Accordion.Toggle>
                     {this.props.accion.aditivos?
-                        Object.keys(this.props.accion.aditivos).map((aditivo,i)=>(
-                            <div className="col-auto" key={aditivo+i}>
-                                <span className='badge badge-pill badge-dark'>
-                                    <div className="col-auto">
-                                        {aditivo}
+                        <Accordion.Collapse eventKey={this.props.index}>
+                            <Card.Body>
+                                <div className="container-fluid">
+                                    <div className="row">
+                                            {Object.keys(this.props.accion.aditivos).map((aditivo,i)=>(
+                                                <div className="col-auto" key={aditivo+i}>
+                                                    <span className='badge badge-pill badge-dark'>
+                                                        <div className="col-auto">
+                                                            {aditivo}
+                                                        </div>
+                                                        <div className="col-auto">
+                                                            {this.props.accion.aditivos[aditivo]} ml
+                                                        </div>
+                                                    </span>
+                                                </div>
+                                            ))}
                                     </div>
-                                    <div className="col-auto">
-                                        {this.props.accion.aditivos[aditivo]} ml
-                                    </div>
-                                </span>
-                            </div>
-                        ))
+                                </div>
+                            </Card.Body>
+                        </Accordion.Collapse>
                         :
                         null
                     }
-                </div>
-            </div>
+                </Card>
         )
     }
 }

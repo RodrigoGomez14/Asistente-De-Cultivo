@@ -39,6 +39,7 @@ class Riego extends Component{
                     nombre:this.props.plantas[key].nombre
                 },
             }
+            return null
         })
         this.setState({
             plantas:plantas,
@@ -63,6 +64,7 @@ class Riego extends Component{
             if(this.state.plantas[planta].selected){
                 this.guardarRiegoBD(planta,this.state.cantidadDeAgua,this.state.tipoDeRiego,this.state.aditivos)
             }
+            return null
         })
     }
     guardarRiegoBD= async (idPlanta,agua,tipoDeRiego,fertilizantes)=>{
@@ -73,6 +75,7 @@ class Riego extends Component{
                     ...fertilizantesFinal,
                     [fertilizante]:fertilizantes[fertilizante]
                 }
+                return null
             })
         }
         await database().ref().child('plantas').child(idPlanta).child('riegos').push({

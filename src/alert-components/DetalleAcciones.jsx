@@ -5,8 +5,8 @@ import {Row,Col} from 'react-bootstrap'
 class DetalleAcciones extends Component{
     render(){
         return(
-            <Row className="pt-2 pb-2 botonera justify-content-start ">
-                <Col xs={'auto'} className="align-self-center form-group d-flex justify-content-center">
+            <Row className="pt-2 pb-2 botonera justify-content-center ">
+                <Col xs={'auto'} className="align-self-center mt-1 mb-1 d-flex">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertRiegos()
                     }}>
@@ -14,7 +14,7 @@ class DetalleAcciones extends Component{
                         <small className='alert-icon-text text-white'>Riegos</small>
                     </div>
                 </Col>
-                <Col xs={'auto'} className="align-self-center form-group d-flex justify-content-center">
+                <Col xs={'auto'} className="align-self-center mt-1 mb-1 d-flex">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertPodas()
                     }}>
@@ -22,7 +22,7 @@ class DetalleAcciones extends Component{
                         <small className='alert-icon-text text-white'>Podas</small>
                     </div>
                 </Col>
-                <Col xs={"auto"}className="align-self-center form-group d-flex justify-content-center">
+                <Col xs={"auto"}className="align-self-center mt-1 mb-1 d-flex">
                     <div className="alertButton" onClick={e=>{
                         this.props.alertFumigaciones()
                     }}>

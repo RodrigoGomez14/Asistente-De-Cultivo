@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import CheckboxPlanta from './CheckboxPlanta'
-import {Row,Col,Accordion,Card,Button} from 'react-bootstrap'
+import {Row,Col,Accordion,Card} from 'react-bootstrap'
 
 class ElegirPlantaAccion extends Component{
     render(){
@@ -10,6 +10,7 @@ class ElegirPlantaAccion extends Component{
                 if(this.props.plantas[key].selected){
                     selectedPlants[this.props.plantas[key].nombre]=true
                 }
+                return null
             })
         }
         return(

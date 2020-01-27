@@ -2,6 +2,7 @@ import React , {Component} from 'react'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
 import AccionDetallada from '../alert-components/AccionDetallada'
+import { Accordion } from 'react-bootstrap'
 class AlertPodas extends Component{
     render(){
         return(
@@ -12,28 +13,26 @@ class AlertPodas extends Component{
                     title={<BreadcrumbPlanta nombre={this.props.nombre} item='Podas' return={this.props.alertPlanta}/>}
                 />
                 <div className="container-fluid submodalIn">
-                    {this.props.podas?
-                        <div className="list-group">
-                            {Object.keys(this.props.podas).reverse().map(id=>(
-                                <div className="list-group-item list-group-item-action ">
-                                    <AccionDetallada alert={this.props.alert} accion={this.props.podas[id]} tipoDePoda={this.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                    <Accordion defaultActiveKey='0'>
+                        {this.props.podas?
+                            Object.keys(this.props.podas).reverse().map((id,i)=>(
+                                <AccionDetallada index={i} alert={this.props.alert} accion={this.props.podas[id]} tipoDePoda={this.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                            ))
+                            :
+                            <>
+                                <div className="row justify-content-center mt-4">
+                                    <div className="col-auto">
+                                        <h2 className='text-white'>Esta Planta aun no ha sido podada!</h2>
+                                    </div>
                                 </div>
-                            ))}
-                        </div>
-                        :
-                        <>
-                            <div className="row justify-content-center mt-4">
-                                <div className="col-auto">
-                                    <h2 className='text-white'>Esta Planta aun no ha sido podada!</h2>
+                                <div className="row justify-content-center mt-4">
+                                    <div className="col-auto">
+                                        <button type='button' className="btn btn-outline-light">Riego</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row justify-content-center mt-4">
-                                <div className="col-auto">
-                                    <button type='button' className="btn btn-outline-light">Riego</button>
-                                </div>
-                            </div>
-                        </>
-                    }
+                            </>
+                        }
+                    </Accordion>
                 </div>
             </div>
         )

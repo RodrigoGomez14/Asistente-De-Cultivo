@@ -1,5 +1,5 @@
 import React from 'react'
-import {Table,Accordion, Card,Button} from 'react-bootstrap'
+import {Table,Accordion, Card} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
@@ -65,17 +65,17 @@ export const TableAditivos = ({title,aditivos}) =>{
                             }}/>
                         </th>
                     </tr>
+                    <Accordion defaultActiveKey='0'>
                     {aditivos?
                         aditivos.map((aditivo,i)=>(
-                        <Accordion>
                             <Card>
-                                <Accordion.Toggle as={Card.Header} className='d-flex bg-dark justify-content-between px-4 hover' eventKey="1">
+                                <Accordion.Toggle as={Card.Header} className='d-flex bg-dark justify-content-between px-4 hover' eventKey={i}>
                                     <div>
                                         {aditivo.nombre} <span className='badge badge-pill badge-light'>{aditivo.marca}</span>
                                     </div>
                                     <FontAwesomeIcon icon={faSortDown}/>
                                 </Accordion.Toggle>
-                                <Accordion.Collapse eventKey="1">
+                                <Accordion.Collapse eventKey={i}>
                                     <Card.Body className='text-dark'>
                                         <div className="container">
                                             <div className="row">
@@ -142,11 +142,11 @@ export const TableAditivos = ({title,aditivos}) =>{
                                     </Card.Body>
                                 </Accordion.Collapse>
                             </Card>
-                        </Accordion>
                     ))
                     :
                     <h1>Agrega {title}</h1>
                     }
+                </Accordion>
                 </tbody>
             </Table>
         </div>

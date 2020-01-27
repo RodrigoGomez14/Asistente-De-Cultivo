@@ -24,6 +24,7 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =
                     }
                 }
             }
+            return null
         })
         return{Riego,Foliar}
     }

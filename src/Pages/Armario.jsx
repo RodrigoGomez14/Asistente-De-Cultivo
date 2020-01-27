@@ -1,7 +1,7 @@
 import React , {Component} from 'react'
 import CarouselPlantas from '../components/CarouselPlantas'
 import BarraDeLuz from '../components/BarraDeLuz'
-import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
+//import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faAlignRight} from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';

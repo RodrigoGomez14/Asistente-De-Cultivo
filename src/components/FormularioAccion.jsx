@@ -1,5 +1,5 @@
 import React , {Component} from 'react'
-import {Row,Col,Form,Accordion,Card,Button,Popover,OverlayTrigger, Overlay} from 'react-bootstrap'
+import {Row,Col,Form,Accordion,Card,Popover,OverlayTrigger} from 'react-bootstrap'
 class FormularioAccion extends Component{
     render(){
         return(

@@ -14,8 +14,14 @@ class BarraDeLuz extends Component{
         lamparaEncendida:undefined,
         descanso:false
     }
-    actualizarEstado =()=>{
-        let transcurrido = this.calcularTranscurrido()
+    actualizarEstado =(lamparaEncendida)=>{
+        let transcurrido = this.calcularTranscurrido(lamparaEncendida)
+        if(this.props.horaDeInicio>=this.props.horaDeFinal){
+            console.log(moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
+        }
+        else{
+            console.log(-moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
+        }
         const cicloLuminico = this.actualizarCicloLuminico()
         if(transcurrido.slice(0,2)>cicloLuminico){
             transcurrido = transcurrido.slice(0,2)-cicloLuminico+transcurrido.slice(2)
@@ -36,16 +42,25 @@ class BarraDeLuz extends Component{
         return [transcurrido,cicloLuminico]
     }
     actualizarBarraDeProgreso=()=>{
-        const elements=this.actualizarEstado()
+        const elements=this.actualizarEstado(this.calcularEstadoDeLampara())
         const barra = document.getElementById('barraLuz')
         barra.style.width=`${this.calcularEstadoDeBarra(elements[0],elements[1])}%`
     }
+    calcularEstadoDeLampara=()=>{
+        const hour = moment().format('LT').slice(0,2)
+        console.log()
+        if(hour>=this.props.horaDeInicio && hour < this.props.horaDeFinal){
+            return true
+        }
+        else{
+            return false
+        }
+    }
     componentDidMount(){
+        this.actualizarBarraDeProgreso()
         const interval = setInterval(() => {
             this.actualizarBarraDeProgreso()
         }, 1000);
-        this.actualizarBarraDeProgreso()
-        this.actualizarEstado()
         this.setState({
             interval: interval
         })
@@ -64,58 +79,54 @@ class BarraDeLuz extends Component{
     } 
     calcularFaltante=()=>{
         if(this.props.horaDeFinal<=this.props.horaDeInicio){
-            const dif = this.props.horaDeInicio-this.props.horaDeFinal
+            //const dif = this.props.horaDeInicio-this.props.horaDeFinal
             let time = undefined
-            console.log(dif)
-            dif<9?
-                this.state.descanso?
-                    time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
-                    :
-                    time = moment().diff(moment(this.props.horaDeFinal,'h').add(1,'days'),'m')
+            this.state.descanso?
+                time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
                 :
-                this.state.descanso?
-                    time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
-                    :
-                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
+                time = moment().diff(moment(this.props.horaDeFinal,'h').add(1,'days'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
+            //console.log(`faltante ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
-            const dif = this.props.horaDeInicio-this.props.horaDeFinal
+            //const dif = this.props.horaDeInicio-this.props.horaDeFinal
             let time = undefined
-            console.log(dif)
-            dif<9?
-                this.state.descanso?
-                    time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
-                    :
-                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
+            this.state.descanso?
+                time = -moment().diff(moment(this.props.horaDeInicio,'h'),'m')
                 :
-                this.state.descanso?
-                    time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
-                    :
-                    time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
-                    
-                moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+                time = moment().diff(moment(this.props.horaDeFinal,'h'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
+            //console.log(` faltante ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes} `
         }
     }
-    calcularTranscurrido=()=>{
+    calcularTranscurrido=(lamparaEncendida)=>{
         if(this.props.horaDeFinal<=this.props.horaDeInicio){
-            const time = moment(this.props.horaDeInicio,'h').diff(moment().add(1,'days'),'m')
+            let time = undefined
+            this.state.descanso?
+                time = moment().diff(moment(this.props.hora,'h'),'m')
+                :
+                time = -moment().diff(moment(this.props.horaDeFinal,'h'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
+            console.log(`transcurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
-            const time = moment().diff(moment(this.props.horaDeInicio,'h'),'m')
-            const hours = parseInt(time/60)
-            const minutes = time%60
-            return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
-        }
+            let time = undefined
+            this.state.descanso?
+                time = moment().diff(moment(this.props.horaDeInicio,'h').add(1,'days'),'m')
+                :
+                time = moment().diff(moment(this.props.horaDeFinal,'h').add(1,'days'),'m')
+            const hours = parseInt(-time/60)
+            const minutes = -time%60
+            console.log(` trasncurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
+            return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes} `
     }
+}
     cambiarEstadoDeLampara=()=>{
         this.setState({
             lamparaEncendida:!this.state.lamparaEncendida

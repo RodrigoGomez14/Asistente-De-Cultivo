@@ -1,6 +1,5 @@
 import React , {Component} from 'react'
-import CheckboxPlanta from './CheckboxPlanta'
-import {Row,Col,Accordion,Card,Button} from 'react-bootstrap'
+import {Row,Col,Accordion,Card} from 'react-bootstrap'
 
 class ElegirTipoDePoda extends Component{
     render(){

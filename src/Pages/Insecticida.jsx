@@ -39,7 +39,7 @@ class Insecticida extends Component{
                         nombre:this.props.plantas[key].nombre
                     },
                 }
-                return
+                return null
             })
         this.setState({
             plantas:plantas
@@ -64,6 +64,7 @@ class Insecticida extends Component{
             if(this.state.plantas[planta].selected){
                 this.guardrarFumigacionDB(planta,this.state.cantidadDeAgua,this.state.cantidadDeAgua,this.state.aditivos,this.state.tipoDeRiego)
             }
+            return null
         })
     }
     guardrarFumigacionDB= async (idPlanta,agua,cantidadDeAgua,insecticidas,tipoDeRiego)=>{
@@ -74,6 +75,7 @@ class Insecticida extends Component{
                     ...insecticidasFinal,
                     [insecticida]:insecticidas[insecticida]
                 }
+                return null
             })
         }
         await database().ref().child('plantas').child(idPlanta).child('fumigaciones').push({
