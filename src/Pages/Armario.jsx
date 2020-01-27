@@ -123,7 +123,7 @@ class Armario extends Component{
                     </div>
                 </div>
                 <div className='row'>
-                    <CarouselPlantas/>
+                    <CarouselPlantas history={this.props.history}/>
                 </div>
             </div>
         )

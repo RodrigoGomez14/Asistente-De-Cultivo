@@ -46,6 +46,7 @@ class CarouselPlantas extends Component{
                                 nombre={this.props.plantas[key].nombre}
                                 id={key}
                                 key={key}
+                                history={this.props.history}
                             />
                         ))
                         :

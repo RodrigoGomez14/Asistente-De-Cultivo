@@ -1,5 +1,5 @@
-import React from 'react'
-import {Table,Accordion, Card} from 'react-bootstrap'
+import React,{Fragment} from 'react'
+import {Table,Accordion, Card,Button} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
@@ -60,93 +60,98 @@ export const TableAditivos = ({title,aditivos}) =>{
                 <tbody>
                     <tr>
                         <th className=' justify-content-center align-items-center'>
-                            <FontAwesomeIcon icon={faPlusCircle} onClick={e=>{
-                                alertNuevoAditivo()
-                            }}/>
+                            <Button variant='outline-light' onClick={e=>{
+                                    alertNuevoAditivo()
+                                }}>
+                                Nuevo Aditivo
+                                <FontAwesomeIcon icon={faPlusCircle} className='ml-3'/>
+                            </Button>
                         </th>
                     </tr>
-                    <Accordion defaultActiveKey='0'>
-                    {aditivos?
-                        aditivos.map((aditivo,i)=>(
-                            <Card>
-                                <Accordion.Toggle as={Card.Header} className='d-flex bg-dark justify-content-between px-4 hover' eventKey={i}>
-                                    <div>
-                                        {aditivo.nombre} <span className='badge badge-pill badge-light'>{aditivo.marca}</span>
-                                    </div>
-                                    <FontAwesomeIcon icon={faSortDown}/>
-                                </Accordion.Toggle>
-                                <Accordion.Collapse eventKey={i}>
-                                    <Card.Body className='text-dark'>
-                                        <div className="container">
-                                            <div className="row">
-                                                <div className="col-12 text-center">
-                                                    <strong>
-                                                        Descripcion
-                                                    </strong>
-                                                </div>
+                    <tr>
+                        <Accordion defaultActiveKey='0'>
+                            {aditivos?
+                                aditivos.map((aditivo,i)=>(
+                                    <Card key={'aditivo'+i}>
+                                        <Accordion.Toggle as={Card.Header} className='d-flex bg-dark justify-content-between px-4 hover' eventKey={i} >
+                                            <div>
+                                                {aditivo.nombre} <span className='badge badge-pill badge-light'>{aditivo.marca}</span>
                                             </div>
-                                            <div className="row">
-                                                <div className="col text-left">
-                                                    <small>
-                                                        {aditivo.descripcion}
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <hr/>
-                                            <div className="row">
-                                                <div className="col-12 text-center">
-                                                    <strong>
-                                                        Dosificacion
-                                                    </strong>
-                                                </div>
-                                            </div>
-                                            {Object.keys(aditivo.dosis).map(tipoDeAplicacion=>(
-                                                <>
-                                                    <div className="row mb-2 mt-2">
-                                                        <div className="col-auto mr-auto">
-                                                            <span className='badge badge-pill badge-dark'>
-                                                                {tipoDeAplicacion}
-                                                            </span>
+                                            <FontAwesomeIcon icon={faSortDown}/>
+                                        </Accordion.Toggle>
+                                        <Accordion.Collapse eventKey={i}>
+                                            <Card.Body className='text-dark'>
+                                                <div className="container">
+                                                    <div className="row">
+                                                        <div className="col-12 text-center">
+                                                            <strong>
+                                                                Descripcion
+                                                            </strong>
                                                         </div>
-                                                    <hr/>
                                                     </div>
-                                                    {Object.keys(aditivo.dosis[tipoDeAplicacion]).map(aplicacion=>(
-                                                        <div className="row">
-                                                            <div className="col-auto mr-auto">
-                                                                {aplicacion}
-                                                            </div>
-                                                            <div className="col-auto ml-auto">
-                                                                {aditivo.dosis[tipoDeAplicacion][aplicacion]}
-                                                            </div>
+                                                    <div className="row">
+                                                        <div className="col text-left">
+                                                            <small>
+                                                                {aditivo.descripcion}
+                                                            </small>
                                                         </div>
+                                                    </div>
+                                                    <hr/>
+                                                    <div className="row">
+                                                        <div className="col-12 text-center">
+                                                            <strong>
+                                                                Dosificacion
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    {Object.keys(aditivo.dosis).map((tipoDeAplicacion,j)=>(
+                                                        <Fragment key={'tipoDeAplicacion'+j}>
+                                                            <div className="row mb-2 mt-2">
+                                                                <div className="col-auto mr-auto">
+                                                                    <span className='badge badge-pill badge-dark'>
+                                                                        {tipoDeAplicacion}
+                                                                    </span>
+                                                                </div>
+                                                            <hr/>
+                                                            </div>
+                                                            {Object.keys(aditivo.dosis[tipoDeAplicacion]).map((aplicacion,k)=>(
+                                                                <div className="row" key={'dosis'+k}>
+                                                                    <div className="col-auto mr-auto">
+                                                                        {aplicacion}
+                                                                    </div>
+                                                                    <div className="col-auto ml-auto">
+                                                                        {aditivo.dosis[tipoDeAplicacion][aplicacion]}
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </Fragment>
                                                     ))}
-                                                </>
-                                            ))}
-                                            <div className="row mt-4">
-                                                <div className="col-auto ml-auto mr-auto">
-                                                    <button type='button' className='btn btn-dark' onClick={e=>{
-                                                        alertEditarAditivo(aditivo)
-                                                    }}>
-                                                        Editar aditivo
-                                                    </button>
+                                                    <div className="row mt-4">
+                                                        <div className="col-auto ml-auto mr-auto">
+                                                            <button type='button' className='btn btn-dark' onClick={e=>{
+                                                                alertEditarAditivo(aditivo)
+                                                            }}>
+                                                                Editar aditivo
+                                                            </button>
+                                                        </div>
+                                                        <div className="col-auto ml-auto mr-auto">
+                                                            <button type='button' className='btn btn-outline-danger' onClick={e=>{
+                                                                eliminarAditivo(i)
+                                                            }}>
+                                                                Eliminar aditivo
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="col-auto ml-auto mr-auto">
-                                                    <button type='button' className='btn btn-outline-danger' onClick={e=>{
-                                                        eliminarAditivo(i)
-                                                    }}>
-                                                        Eliminar aditivo
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                    ))
-                    :
-                    <h1>Agrega {title}</h1>
-                    }
-                </Accordion>
+                                            </Card.Body>
+                                        </Accordion.Collapse>
+                                    </Card>
+                                ))
+                                :
+                                <h1>Agrega {title}</h1>
+                            }
+                        </Accordion>
+                    </tr>
                 </tbody>
             </Table>
         </div>

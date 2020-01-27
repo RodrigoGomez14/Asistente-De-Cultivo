@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React , {Component,Fragment} from 'react'
 import {Row,Col,Form,Accordion,Card,Popover,OverlayTrigger} from 'react-bootstrap'
 class FormularioAccion extends Component{
     render(){
@@ -21,8 +21,8 @@ class FormularioAccion extends Component{
                                 <div className="row mt-2">
                                     {this.props.aditivosUsados?
                                         <div className="col-auto">
-                                            {Object.keys(this.props.aditivosUsados).map(aditivo=>(
-                                                <span className='badge badge-pill badge-light mr-2 p-2'>
+                                            {Object.keys(this.props.aditivosUsados).map((aditivo,i)=>(
+                                                <span className='badge badge-pill badge-light mr-2 p-2' key={'aditivo'+i}>
                                                     {aditivo} {this.props.aditivosUsados[aditivo]}ml
                                                 </span>
                                             ))}
@@ -56,21 +56,21 @@ class FormularioAccion extends Component{
                                                 <div className="container">
                                                     <div className="form-row mt-4 justify-content-start w-80`">
                                                         {this.props.aditivos.map((aditivo,i)=>(
-                                                            <>  
-                                                                <div className="form-group col-4" key={'input'+i}>
+                                                            <Fragment key={'input'+i}>  
+                                                                <div className="form-group col-4">
                                                                     <OverlayTrigger trigger="hover" placement='top' overlay={
                                                                         <Popover  id="popover-basic">
                                                                             <Popover.Title as="h1">{aditivo.nombre}</Popover.Title>
                                                                             <Popover.Content>
                                                                                 <div className="container-fluid">
                                                                                     {aditivo?
-                                                                                        Object.keys(aditivo.dosis).map(tipoDeDosis=>(
-                                                                                            <div className="container">
+                                                                                        Object.keys(aditivo.dosis).map((tipoDeDosis,j)=>(
+                                                                                            <div className="container" key={'tipoDeDosis'+j}>
                                                                                                 <div className="row">
                                                                                                     <span className='badge badge-pill badge-dark'>{tipoDeDosis}</span>
                                                                                                 </div>
-                                                                                                {Object.keys(aditivo.dosis[tipoDeDosis]).map(dosis=>(
-                                                                                                    <>
+                                                                                                {Object.keys(aditivo.dosis[tipoDeDosis]).map((dosis,k)=>(
+                                                                                                    <Fragment key={'dosis'+k}>
                                                                                                         <div className="row">
                                                                                                                 <div className="col-auto p-0">
                                                                                                                     {dosis}
@@ -80,7 +80,7 @@ class FormularioAccion extends Component{
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                         <hr/>
-                                                                                                    </>
+                                                                                                    </Fragment>
                                                                                                 ))}
                                                                                             </div>
                                                                                         ))
@@ -106,7 +106,7 @@ class FormularioAccion extends Component{
                                                                         }}
                                                                     />
                                                                 </div>
-                                                            </>
+                                                            </Fragment>
                                                         ))}
                                                     </div>
                                                 </div>

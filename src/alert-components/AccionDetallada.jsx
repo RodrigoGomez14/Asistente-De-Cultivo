@@ -15,17 +15,26 @@ class AccionDetallada extends Component{
                     <div className="container-fluid">
                         <div className="row">
                             {this.props.tipoDeAccion==='podas'?
-                                <div className="col-auto">
-                                    <h5 className='text-dark'>{this.props.accion.fecha}</h5>
-                                        {this.props.tipoDePoda?
-                                        <>
+                            <div className='container-fluid'>
+                                <div className="row">
+                                    <div className="col-auto">
+                                        <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                    </div>
+                                    <div className="col-auto ml-auto">
+                                        <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    {this.props.tipoDePoda?
+                                        <div className='col'>
                                             <hr/>
                                             <h5 className='text-dark'>{this.props.tipoDePoda}</h5>
-                                        </>
+                                        </div>
                                         :
                                         null
                                     }
                                 </div>
+                            </div>
                                 :
                                 <div className="container-fluid">
                                     <div className="row">

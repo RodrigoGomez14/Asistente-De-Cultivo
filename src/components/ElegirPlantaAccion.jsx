@@ -22,8 +22,8 @@ class ElegirPlantaAccion extends Component{
                                 Elige Las Plantas
                                 <div className="row">
                                     {selectedPlants?
-                                    Object.keys(selectedPlants).map(nombre=>(
-                                        <div className="col-auto">
+                                    Object.keys(selectedPlants).map((nombre,i)=>(
+                                        <div className="col-auto" key={'selectedPlant'+i}>
                                             <span className='badge badge-pill badge-light p-2'>
                                                 {nombre}
                                             </span>

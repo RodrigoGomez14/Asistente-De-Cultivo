@@ -27,7 +27,10 @@ class AlertPodas extends Component{
                                 </div>
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-auto">
-                                        <button type='button' className="btn btn-outline-light">Riego</button>
+                                    <button type='button' className="btn btn-link" onClick={e=>{
+                                            this.props.onClose()
+                                            this.props.history.push('/Poda')
+                                        }}>Podala Ahora!</button>
                                     </div>
                                 </div>
                             </>

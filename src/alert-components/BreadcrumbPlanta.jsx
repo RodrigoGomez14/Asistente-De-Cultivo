@@ -3,7 +3,7 @@ import React , {Component} from 'react'
 class BreadcrumbPlanta extends Component{
     render(){
         return(
-            <div className='breadcrumb bg-light text-dark'>
+            <div className='breadcrumb bg-light text-dark mb-0'>
                 <div className={this.props.item? 'breadcrumb-item':'breadcrumb-item active'} onClick={e=>{
                     this.props.return()
                 }}>

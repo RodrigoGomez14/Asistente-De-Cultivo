@@ -70,6 +70,7 @@ class TarjetaPlanta extends Component{
                         alertPlanta={this.alertPlanta}
                         nombre={this.props.nombre}
                         riegos={this.props.riegos}
+                        history={this.props.history}
                     />
                 </div>
             );
@@ -86,6 +87,7 @@ class TarjetaPlanta extends Component{
                         alertPlanta={this.alertPlanta}
                         nombre={this.props.nombre}
                         podas={this.props.podas}
+                        history={this.props.history}
                     />
                 </div>
             );
@@ -102,6 +104,7 @@ class TarjetaPlanta extends Component{
                         alertPlanta={this.alertPlanta}
                         nombre={this.props.nombre}
                         fumigaciones={this.props.fumigaciones}
+                        history={this.props.history}
                     />
                 </div>
             );
