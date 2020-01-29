@@ -82,7 +82,7 @@ class Poda extends Component{
                 <NavBarAccion
                     title='Poda'
                 />
-                <div className="container d-flex flex-column justify-content-start h-100">
+                <div className="container-fluid d-flex flex-column justify-content-start h-100">
                     <Accordion defaultActiveKey='0'>
                         <ElegirPlantaAccion
                             seleccionarPlanta={this.seleccionarPlanta}

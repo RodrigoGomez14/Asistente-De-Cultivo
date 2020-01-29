@@ -1,5 +1,6 @@
 import React , {Component,Fragment} from 'react'
-import {Row,Col,Form,Accordion,Card,Popover,OverlayTrigger} from 'react-bootstrap'
+import {Row,Col,Form,Accordion,Card} from 'react-bootstrap'
+import {PopOver} from './Popover'
 class FormularioAccion extends Component{
     render(){
         return(
@@ -58,42 +59,7 @@ class FormularioAccion extends Component{
                                                         {this.props.aditivos.map((aditivo,i)=>(
                                                             <Fragment key={'input'+i}>  
                                                                 <div className="form-group col-4">
-                                                                    <OverlayTrigger trigger="hover" placement='top' overlay={
-                                                                        <Popover  id="popover-basic">
-                                                                            <Popover.Title as="h1">{aditivo.nombre}</Popover.Title>
-                                                                            <Popover.Content>
-                                                                                <div className="container-fluid">
-                                                                                    {aditivo?
-                                                                                        Object.keys(aditivo.dosis).map((tipoDeDosis,j)=>(
-                                                                                            <div className="container" key={'tipoDeDosis'+j}>
-                                                                                                <div className="row">
-                                                                                                    <span className='badge badge-pill badge-dark'>{tipoDeDosis}</span>
-                                                                                                </div>
-                                                                                                {Object.keys(aditivo.dosis[tipoDeDosis]).map((dosis,k)=>(
-                                                                                                    <Fragment key={'dosis'+k}>
-                                                                                                        <div className="row">
-                                                                                                                <div className="col-auto p-0">
-                                                                                                                    {dosis}
-                                                                                                                </div>
-                                                                                                                <div className="col text-right align-self-center p-0">
-                                                                                                                    {aditivo.dosis[tipoDeDosis][dosis]}
-                                                                                                                </div>
-                                                                                                        </div>
-                                                                                                        <hr/>
-                                                                                                    </Fragment>
-                                                                                                ))}
-                                                                                            </div>
-                                                                                        ))
-                                                                                        :
-                                                                                        null
-                                                                                    }
-                                                                                </div>
-                                                                            </Popover.Content>
-                                                                        </Popover>}>
-                                                                        <div className='text-dark'>
-                                                                            {aditivo.nombre}
-                                                                        </div>
-                                                                    </OverlayTrigger>
+                                                                    <PopOver aditivo={aditivo} cantidadDeAgua={this.props.cantidadDeAgua}/>
                                                                     <input type="number" 
                                                                         className='form-control' 
                                                                         onChange={e=>{

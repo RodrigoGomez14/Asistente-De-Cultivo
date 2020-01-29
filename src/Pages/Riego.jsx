@@ -116,7 +116,7 @@ class Riego extends Component{
                 <NavBarAccion
                     title='Riego'
                 />
-                <div className="container d-flex flex-column justify-content-start h-100 overflow-auto">
+                <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
                     <Accordion defaultActiveKey='0'>
                         <ElegirPlantaAccion
                             seleccionarPlanta={this.seleccionarPlanta}
