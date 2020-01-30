@@ -17,24 +17,22 @@ class ElegirPlantaAccion extends Component{
             <Row>
                 <Col sm={{span:8,offset:2}}>
                     <Card>
-                        <button className='btn btn-link'>
-                            <Accordion.Toggle as={Card.Header} className={Object.keys(selectedPlants).length?'text-light bg-success':'text-dark'} eventKey="0" role='button'>
-                                Elige Las Plantas
-                                <div className="row">
-                                    {selectedPlants?
-                                    Object.keys(selectedPlants).map((nombre,i)=>(
-                                        <div className="col-auto" key={'selectedPlant'+i}>
-                                            <span className='badge badge-pill badge-light p-2'>
-                                                {nombre}
-                                            </span>
-                                        </div>
-                                    ))
-                                    :
-                                    null
-                                    }
-                                </div>
-                            </Accordion.Toggle>
-                        </button>
+                        <Accordion.Toggle as={Card.Header} className={Object.keys(selectedPlants).length?'text-light bg-success':'text-light bg-dark'} eventKey="0" role='button'>
+                            Elige Las Plantas
+                            <div className="row">
+                                {selectedPlants?
+                                Object.keys(selectedPlants).map((nombre,i)=>(
+                                    <div className="col-auto" key={'selectedPlant'+i}>
+                                        <span className='badge badge-pill badge-light p-2'>
+                                            {nombre}
+                                        </span>
+                                    </div>
+                                ))
+                                :
+                                null
+                                }
+                            </div>
+                        </Accordion.Toggle>
                         <Accordion.Collapse eventKey="0">
                             <div className="row my-2 justify-content-center">
                                 {this.props.plantas?

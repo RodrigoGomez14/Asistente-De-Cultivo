@@ -15,8 +15,8 @@ class alertFumigaciones extends Component{
                 <div className="container-fluid submodalIn">
                     <Accordion defaultActiveKey='0'>
                         {this.props.fumigaciones?
-                            Object.keys(this.props.fumigaciones).reverse().map(id=>(
-                                <AccionDetallada alert={this.props.alert} accion={this.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                            Object.keys(this.props.fumigaciones).reverse().map((id,i)=>(
+                                <AccionDetallada index={i} alert={this.props.alert} accion={this.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                 ))
                                 :
                                 <>

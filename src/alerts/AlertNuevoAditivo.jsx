@@ -5,32 +5,29 @@ import AlertBotoneraConfirmacion from '../alert-components/AlertBotoneraConfirma
 import {database} from 'firebase'
 export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =>{
     const [inputs,setInputs] = useState({})
+    const [dosis,setDosis] = useState({})
     const ClasificarDosis = ()=>{
-        const dosisArr = [inputs.dosis1,inputs.dosis2,inputs.dosis3,inputs.dosis4]
         let Riego={}
         let Foliar={}
-        dosisArr.map(dosis=>{
-            if(dosis){
-                if(dosis.check){
-                    Foliar={
-                        ...Foliar,
-                        [dosis.etapa]:dosis.cantidad
-                    }
-                }
-                else{
-                    Riego={
-                        ...Riego,
-                        [dosis.etapa]:dosis.cantidad
-                    }
+        Object.keys(dosis).map(newDosis=>{
+            let tipoDeDosis= dosis[newDosis].tipoDeDosis?'gr/L':'ml/L'
+            if(dosis[newDosis].tipoDeRiego==='Foliar'){
+                Foliar={
+                    ...Foliar,
+                    [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
                 }
             }
-            return null
+            else{
+                Riego={
+                    ...Riego,
+                    [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
+                }
+            }
         })
         return{Riego,Foliar}
     }
     const agregarAditivo= async ()=>{
         const {Riego,Foliar}=ClasificarDosis()
-        console.log(Riego,Foliar)
         const newAditivo= {
             nombre:inputs.nombre,
             marca:inputs.marca,
@@ -40,7 +37,7 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =
                 Foliar:Foliar
             }
         }
-        const newAditivos=aditivos
+        let newAditivos=aditivos
         newAditivos.push(newAditivo)
         switch (tipoDeAditivo) {
             case 'Fertilizantes':
@@ -57,12 +54,13 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =
                 break;
         }
     }
-    const updateState=(valor,nombre,dosis)=>{
-        if(dosis){
-            setInputs({
-                ...inputs,
-                [dosis]:{
-                    ...inputs[dosis],
+    const updateState=(valor,nombre,indexDosis)=>{
+        console.log(valor)
+        if(indexDosis){
+            setDosis({
+                ...dosis,
+                [indexDosis]:{
+                    ...dosis[indexDosis],
                     [nombre]:valor
                 }
             })

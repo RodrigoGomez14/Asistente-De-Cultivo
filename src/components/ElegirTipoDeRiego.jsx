@@ -8,11 +8,9 @@ class ElegirTipoDeRiego extends Component{
             <Row>
                 <Col sm={{span:8,offset:2}}>
                     <Card>
-                        <button className='btn btn-link'>
-                            <Accordion.Toggle as={Card.Header} className={this.props.tipoDeRiego?'text-white bg-success ':'text-dark'} eventKey="1">
-                                Elige El tipo de Riego {this.props.tipoDeRiego?<strong>({this.props.tipoDeRiego})</strong>:null}
-                            </Accordion.Toggle>
-                        </button>
+                        <Accordion.Toggle as={Card.Header} className={this.props.tipoDeRiego?'text-white bg-success ':'text-light bg-dark'} eventKey="1">
+                            Elige El tipo de Riego {this.props.tipoDeRiego?<strong>({this.props.tipoDeRiego})</strong>:null}
+                        </Accordion.Toggle>
                         <Accordion.Collapse eventKey="1">
                             <div className="row my-2">
                                 <div className="col text-center">

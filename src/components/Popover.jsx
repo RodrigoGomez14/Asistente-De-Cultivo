@@ -13,43 +13,40 @@ export const PopOver = ({aditivo,cantidadDeAgua= 0}) =>{
                                 <div className="container-fluid mb-2">
                                     <div className="row">
                                         <div className="col text-left">
-                                            {aditivo.descripcion}
+                                            <small>
+                                                {aditivo.descripcion}
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
-                                <Table responsive striped variant='dark'>
-                                    <thead>
-                                        <Th>#</Th>
-                                        <Th>Dosis</Th>
-                                    </thead>
-                                    <tbody>
-                                        {Object.keys(aditivo.dosis).map((tipoDeDosis,j)=>(
-                                            <Fragment key={'tipoDeDosis'+j}>
-                                                <tr>
-                                                    <Td colSpan='2' className='py-1'>
-                                                        <div className="container">
-                                                            <div className="row">
-                                                                <div className="col text-center">
-                                                                    <span className='badge badge-pill badge-light p-2 ml-auto mr-auto'>{tipoDeDosis}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </Td>
-                                                </tr>
-                                                {Object.keys(aditivo.dosis[tipoDeDosis]).map((dosis,k)=>(
-                                                    <tr key={'dosis'+k}>
-                                                        <Td className='text-left'>
-                                                            {dosis}
-                                                        </Td>
-                                                        <Td className='text-right'>
-                                                            {parseInt(aditivo.dosis[tipoDeDosis][dosis].slice(0,aditivo.dosis[tipoDeDosis][dosis].indexOf(' ')))*cantidadDeAgua} ml
-                                                        </Td>
-                                                    </tr>
-                                                ))}
-                                            </Fragment>
-                                        ))}
-                                    </tbody>
-                                </Table>
+                                <hr/>
+                                {Object.keys(aditivo.dosis).map((tipoDeDosis,j)=>(
+                                    <Fragment key={'tipoDeDosis'+j}>
+                                        <div className="row mb-2">
+                                            <div className="col">
+                                                <span className='badge badge-pill badge-dark p-2'>{tipoDeDosis}</span>
+                                            </div>
+                                        </div>
+                                        <Table responsive striped variant='dark'>
+                                            <thead>
+                                                <Th>#</Th>
+                                                <Th>Dosis</Th>
+                                            </thead>
+                                            {Object.keys(aditivo.dosis[tipoDeDosis]).map((dosis,k)=>(
+                                                    <tbody>
+                                                        <tr key={'dosis'+k}>
+                                                            <Td className='text-left'>
+                                                                {dosis}
+                                                            </Td>
+                                                            <Td className='text-right'>
+                                                                {(parseFloat(aditivo.dosis[tipoDeDosis][dosis].slice(0,aditivo.dosis[tipoDeDosis][dosis].indexOf(' ')))*cantidadDeAgua).toFixed(2)} ml
+                                                            </Td>
+                                                        </tr>
+                                                    </tbody>
+                                            ))}
+                                        </Table>
+                                    </Fragment>
+                                ))}
                             </>
                             :
                             null
