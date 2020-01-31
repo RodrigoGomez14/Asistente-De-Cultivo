@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1bfb2ac6e4ccfba9e3d65e1d267a0901",
+    "revision": "ed2a5527f110a625a2ca9104910dd3b0",
     "url": "/Asistente-De-Cultivo/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Asistente-De-Cultivo/static/css/2.d13641dc.chunk.css"
   },
   {
-    "revision": "68638b08503ee9010fc7",
+    "revision": "95e44dc2886ed0bb2085",
     "url": "/Asistente-De-Cultivo/static/css/main.5a214657.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Asistente-De-Cultivo/static/js/2.3a95c7e4.chunk.js"
   },
   {
-    "revision": "68638b08503ee9010fc7",
-    "url": "/Asistente-De-Cultivo/static/js/main.c894214b.chunk.js"
+    "revision": "95e44dc2886ed0bb2085",
+    "url": "/Asistente-De-Cultivo/static/js/main.0b7d6955.chunk.js"
   },
   {
     "revision": "1b5965595d2f43616036",
