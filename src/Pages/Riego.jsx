@@ -12,11 +12,13 @@ import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import FormularioAccion from '../components/FormularioAccion';
 import {Accordion} from 'react-bootstrap'
+
 class Riego extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
         plantas: undefined,
+        expanded:'panel1',
         step2:false
     }
     seleccionarPlanta=(id)=>{
@@ -115,8 +117,8 @@ class Riego extends Component{
             this.setState({aditivos:null})
         }
     }
-    activeStep2=()=>{
-        this.setState({step2:!this.state.step2})
+    setExpansionExpanded=(panel)=>{
+        this.setState({expanded:panel})
     }
     render(){
         return(
@@ -125,14 +127,17 @@ class Riego extends Component{
                     title='Riego'
                 />
                 <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
-                    <Accordion defaultActiveKey='0' id='accordion'>
                         <ElegirPlantaAccion
                             seleccionarPlanta={this.seleccionarPlanta}
                             plantas={this.state.plantas}
+                            setExpansionExpanded={this.setExpansionExpanded}
+                            expanded={this.state.expanded}
                         />
                         <ElegirTipoDeRiego
                             tipoDeRiego={this.state.tipoDeRiego}    
                             cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                            setExpansionExpanded={this.setExpansionExpanded}
+                            expanded={this.state.expanded}
                         />
                         {this.state.tipoDeRiego?
                             <FormularioAccion
@@ -145,11 +150,12 @@ class Riego extends Component{
                                 aditivos={this.props.aditivos}
                                 aditivosUsados={this.state.aditivos}
                                 eliminarAditivo={this.eliminarAditivo}
+                                setExpansionExpanded={this.setExpansionExpanded}
+                                expanded={this.state.expanded}
                             />
                             :
                             null
                         }
-                    </Accordion>
                 </div>
                 {this.state.cantidadDeAgua?
                     <BotoneraConfirmacionAccion

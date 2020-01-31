@@ -3,7 +3,11 @@ import CheckboxPlanta from './CheckboxPlanta'
 import {Row,Col,Accordion,Card} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSortDown} from '@fortawesome/free-solid-svg-icons'
-
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 class ElegirPlantaAccion extends Component{
     render(){
         let selectedPlants= {}
@@ -18,27 +22,45 @@ class ElegirPlantaAccion extends Component{
         return(
             <Row>
                 <Col sm={{span:8,offset:2}}>
-                    <Card>
-                        <Accordion.Toggle as={Card.Header} className={Object.keys(selectedPlants).length?'text-light bg-success':'text-light bg-dark'} eventKey="0" role='button'>
-                            Elige Las Plantas
+                <ExpansionPanel expanded={this.props.expanded === 'panel1'} onChange={e=>{
+                    this.props.setExpansionExpanded('panel1')
+                }}>
+                    <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
+                    >
+                        <div className="container">
                             <div className="row">
-                                {selectedPlants?
-                                Object.keys(selectedPlants).map((nombre,i)=>(
-                                    <div className="col-auto ml-auto mr-auto" key={'selectedPlant'+i}>
-                                        <span className='badge badge-pill badge-light p-2'>
-                                            {nombre}
-                                        </span>
+                                <div className="col-auto">
+                                    <Typography>
+                                        Elige Las Plantas
+                                    </Typography>
+                                </div>
+                                <div className="col-auto">
+                                    <div className="container">
+                                        <div className="row">
+                                            {selectedPlants?
+                                            Object.keys(selectedPlants).map((nombre,i)=>(
+                                                <div className="col-auto mx-2" key={'selectedPlant'+i}>
+                                                    <Typography>
+                                                        <span className='badge badge-pill badge-dark p-2'>
+                                                            {nombre}
+                                                        </span>
+                                                    </Typography>
+                                                </div>
+                                            ))
+                                            :
+                                            null
+                                            }
+                                        </div>
                                     </div>
-                                ))
-                                :
-                                null
-                                }
-                                <div className="col-12 text-center">
-                                    <FontAwesomeIcon icon={faSortDown}/>
                                 </div>
                             </div>
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0" id='formCollapse'>
+                        </div>
+                    </ExpansionPanelSummary>
+                    <ExpansionPanelDetails>
+                        <div className="container">
                             <div className="row my-2 justify-content-center">
                                 {this.props.plantas?
                                     Object.keys(this.props.plantas).map(key=>(
@@ -50,8 +72,9 @@ class ElegirPlantaAccion extends Component{
                                 null
                                 }
                             </div>
-                        </Accordion.Collapse>
-                    </Card>
+                        </div>
+                    </ExpansionPanelDetails>
+                </ExpansionPanel>
                 </Col>
             </Row>
         )

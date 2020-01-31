@@ -16,7 +16,8 @@ class Insecticida extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
-        platnas:undefined
+        platnas:undefined,
+        expanded:'panel1'
     }
     seleccionarPlanta=(id)=>{
         this.setState({
@@ -114,6 +115,9 @@ class Insecticida extends Component{
     eliminarListaDeAditivos=()=>{
         this.setState({aditivos:undefined})
     }
+    setExpansionExpanded=(panel)=>{
+        this.setState({expanded:panel})
+    }
     render(){
         return(
             <div className="container-fluid accion">
@@ -121,14 +125,17 @@ class Insecticida extends Component{
                     title='Insecticida'
                 />
                 <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
-                    <Accordion defaultActiveKey='0'>
                         <ElegirPlantaAccion
                             seleccionarPlanta={this.seleccionarPlanta}
                             plantas={this.state.plantas}
+                            setExpansionExpanded={this.setExpansionExpanded}
+                            expanded={this.state.expanded}
                         />
                         <ElegirTipoDeRiego
                             tipoDeRiego={this.state.tipoDeRiego}
                             cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                            setExpansionExpanded={this.setExpansionExpanded}
+                            expanded={this.state.expanded}
                         />
                         {this.state.tipoDeRiego?
                             <FormularioAccion
@@ -141,11 +148,12 @@ class Insecticida extends Component{
                                 aditivos={this.props.aditivos}
                                 aditivosUsados={this.state.aditivos}
                                 eliminarAditivo={this.eliminarAditivo}
+                                setExpansionExpanded={this.setExpansionExpanded}
+                                expanded={this.state.expanded}
                             />
                             :
                             null
                         }
-                    </Accordion>
                 </div>
                 {this.state.cantidadDeAgua?
                     <BotoneraConfirmacionAccion
