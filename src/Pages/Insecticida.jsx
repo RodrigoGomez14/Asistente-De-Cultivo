@@ -111,6 +111,9 @@ class Insecticida extends Component{
             this.setState({aditivos:null})
         }
     }
+    eliminarListaDeAditivos=()=>{
+        this.setState({aditivos:undefined})
+    }
     render(){
         return(
             <div className="container-fluid accion">
@@ -127,21 +130,31 @@ class Insecticida extends Component{
                             tipoDeRiego={this.state.tipoDeRiego}
                             cambiarTipoDeRiego={this.cambiarTipoDeRiego}
                         />
-                        <FormularioAccion
-                            cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                            cantidadDeAgua={this.state.cantidadDeAgua}
-                            cambiarAditivo={this.cambiarAditivo}
-                            aditivo='Insecticida'
-                            aditivos={this.props.aditivos}
-                            aditivosUsados={this.state.aditivos}
-                            eliminarAditivo={this.eliminarAditivo}
-                        />
+                        {this.state.tipoDeRiego?
+                            <FormularioAccion
+                                eliminarListaDeAditivos={this.eliminarListaDeAditivos}
+                                tipoDeRiego={this.state.tipoDeRiego}
+                                cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                                cantidadDeAgua={this.state.cantidadDeAgua}
+                                cambiarAditivo={this.cambiarAditivo}
+                                aditivo='Insecticida'
+                                aditivos={this.props.aditivos}
+                                aditivosUsados={this.state.aditivos}
+                                eliminarAditivo={this.eliminarAditivo}
+                            />
+                            :
+                            null
+                        }
                     </Accordion>
                 </div>
-                <BotoneraConfirmacionAccion
-                    accion='Fumigacion'
-                    confirmarAccion={this.confirmarAccion}
-                />
+                {this.state.cantidadDeAgua?
+                    <BotoneraConfirmacionAccion
+                        accion='Fumigacion'
+                        confirmarAccion={this.confirmarAccion}
+                    />
+                    :
+                    null
+                }
             </div>
         )
     }

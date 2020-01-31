@@ -1,22 +1,20 @@
 import React, {Component} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
-import {Link} from 'react-router-dom'
+import {Button} from 'react-bootstrap'
 class BotoneraConfirmacionAccion extends Component {
     render(){
         return(
             <div className="row mb-2">
-                    <div className="col text-center">
-                        <FontAwesomeIcon icon={faCheck} className='icon continueIcon' onClick={
-                            e=>{
-                                this.props.confirmarAccion(this.props.accion)
-                            }
-                        }/>
-                    </div>
-                <div className="col text-center">
-                    <Link to='/'>
-                        <FontAwesomeIcon icon={faTimes} className='icon cancelIcon'/>
-                    </Link>
+                <div className="col-auto ml-auto mr-auto">
+                    <Button variant='success' onClick={
+                        e=>{
+                            this.props.confirmarAccion(this.props.accion)
+                        }
+                    }>
+                        <FontAwesomeIcon icon={faCheck} size='lg' className='mr-2'/>
+                        Finalizar {this.props.accion}
+                    </Button>
                 </div>
             </div>
         )

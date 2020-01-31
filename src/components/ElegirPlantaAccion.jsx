@@ -1,6 +1,8 @@
 import React , {Component} from 'react'
 import CheckboxPlanta from './CheckboxPlanta'
 import {Row,Col,Accordion,Card} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faSortDown} from '@fortawesome/free-solid-svg-icons'
 
 class ElegirPlantaAccion extends Component{
     render(){
@@ -22,7 +24,7 @@ class ElegirPlantaAccion extends Component{
                             <div className="row">
                                 {selectedPlants?
                                 Object.keys(selectedPlants).map((nombre,i)=>(
-                                    <div className="col-auto" key={'selectedPlant'+i}>
+                                    <div className="col-auto ml-auto mr-auto" key={'selectedPlant'+i}>
                                         <span className='badge badge-pill badge-light p-2'>
                                             {nombre}
                                         </span>
@@ -31,9 +33,12 @@ class ElegirPlantaAccion extends Component{
                                 :
                                 null
                                 }
+                                <div className="col-12 text-center">
+                                    <FontAwesomeIcon icon={faSortDown}/>
+                                </div>
                             </div>
                         </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="0">
+                        <Accordion.Collapse eventKey="0" id='formCollapse'>
                             <div className="row my-2 justify-content-center">
                                 {this.props.plantas?
                                     Object.keys(this.props.plantas).map(key=>(

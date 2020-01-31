@@ -4,9 +4,13 @@
   "private": true,
   "homepage": "https://rodrigogomez14.github.io/Asistente-De-Cultivo",
   "dependencies": {
+    "@date-io/date-fns": "^2.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/pickers": "^3.2.10",
     "bootstrap": "^4.3.1",
     "clockpicker": "0.0.7",
     "firebase": "^7.4.0",

@@ -33,7 +33,7 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =
             marca:inputs.marca,
             descripcion:inputs.descripcion,
             dosis:{
-                Riego:Riego,
+                Tierra:Riego,
                 Foliar:Foliar
             }
         }

@@ -5,7 +5,14 @@ import { faTimes,faCogs } from '@fortawesome/free-solid-svg-icons'
 import AccionesRapidas from '../components/AccionesRapidas'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
+import {Button} from 'react-bootstrap'
+import {auth} from 'firebase'
+import {Redirect} from 'react-router-dom'
 class Navbar extends Component{
+    signOut=async ()=>{
+        await auth().signOut()
+        return <Redirect to='/'/>
+    }
     render(){
         return(
             <Nav>
@@ -37,6 +44,14 @@ class Navbar extends Component{
                             <Link to='/Deficiencias-Carencias'>
                                 <button type='button' className='btn btn-light'>Deficiencias y Carencias</button>
                             </Link>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div className="row">
+                        <div className="col-auto ml-auto mr-auto">
+                            <Button variant="danger" onClick={e=>{this.signOut()}}>
+                                Cerrar Sesion
+                            </Button>
                         </div>
                     </div>
                 </div>

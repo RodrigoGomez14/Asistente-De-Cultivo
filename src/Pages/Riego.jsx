@@ -102,6 +102,9 @@ class Riego extends Component{
             aditivos:{...this.state.aditivos,[fertilizante]:cantidad}
         })
     }
+    eliminarListaDeAditivos=()=>{
+        this.setState({aditivos:undefined})
+    }
     eliminarAditivo=(fertilizante)=>{
         let newAditivos = this.state.aditivos
         delete newAditivos[fertilizante]
@@ -127,27 +130,22 @@ class Riego extends Component{
                             seleccionarPlanta={this.seleccionarPlanta}
                             plantas={this.state.plantas}
                         />
-                        {this.state.plantas?
-                        <>
-                            <ElegirTipoDeRiego
-                                tipoDeRiego={this.state.tipoDeRiego}    
-                                cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                        <ElegirTipoDeRiego
+                            tipoDeRiego={this.state.tipoDeRiego}    
+                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                        />
+                        {this.state.tipoDeRiego?
+                            <FormularioAccion
+                                eliminarListaDeAditivos={this.eliminarListaDeAditivos}
+                                tipoDeRiego={this.state.tipoDeRiego}
+                                cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                                cantidadDeAgua={this.state.cantidadDeAgua}
+                                cambiarAditivo={this.cambiarAditivo}
+                                adivito='Fertlizante'
+                                aditivos={this.props.aditivos}
+                                aditivosUsados={this.state.aditivos}
+                                eliminarAditivo={this.eliminarAditivo}
                             />
-                            {this.state.tipoDeRiego?
-                                <FormularioAccion
-                                    tipoDeRiego={this.state.tipoDeRiego}
-                                    cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                                    cantidadDeAgua={this.state.cantidadDeAgua}
-                                    cambiarAditivo={this.cambiarAditivo}
-                                    adivito='Fertlizante'
-                                    aditivos={this.props.aditivos}
-                                    aditivosUsados={this.state.aditivos}
-                                    eliminarAditivo={this.eliminarAditivo}
-                                />
-                                :
-                                null
-                            }
-                        </>
                             :
                             null
                         }

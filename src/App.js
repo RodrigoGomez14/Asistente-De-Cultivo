@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './components/styles/home.css'
-import {HashRouter,Route,Switch} from 'react-router-dom'
+import {HashRouter,Route,Switch,Redirect} from 'react-router-dom'
 import Armario from './Pages/Armario'
 import Layout from './Pages/Layout'
 import Riego from './Pages/Riego'
 import Insecticida from './Pages/Insecticida'
 import Aplicables from './Pages/Aplicables'
+import {LoginPage} from './Pages/Login'
 import Poda from './Pages/Poda'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
@@ -37,6 +38,7 @@ class App extends Component {
     })
   }
   async componentDidMount(){
+
     const databaseRef = await firebase.database().ref()
     databaseRef.on('value', snapshot=>{
       data= snapshot.val()
@@ -45,28 +47,35 @@ class App extends Component {
     })
   }
   render(){
+    const user = firebase.auth().currentUser
     if(this.state.loading){
       return(
         <PantallaDeCarga/>
       )
     }
     else{
-      return (
+      return(
         <Provider store={store}>
           <Layout>
             <HashRouter>
-              <Switch>
-                <Route exact path='/' component={Armario}/>
-                <Route exact path='/Riego' component={Riego}/>
-                <Route exact path='/Poda' component={Poda}/>
-                <Route exact path='/Insecticida' component={Insecticida}/>
-                <Route exact path='/Aplicables' component={Aplicables}/>
-                <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
-              </Switch>
-            </HashRouter>
+                <Switch>
+                  {!user?
+                    <Route exact path='/' component={LoginPage}/>
+                    :
+                    <>
+                      <Route exact path='/' component={Armario}/>
+                      <Route exact path='/Riego' component={Riego}/>
+                      <Route exact path='/Poda' component={Poda}/>
+                      <Route exact path='/Insecticida' component={Insecticida}/>
+                      <Route exact path='/Aplicables' component={Aplicables}/>
+                      <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
+                    </>
+                  }
+                </Switch>
+              </HashRouter>
           </Layout>
         </Provider>
-      );
+      )
     }
   }
 }

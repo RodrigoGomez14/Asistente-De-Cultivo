@@ -11,14 +11,14 @@ class AccionDetallada extends Component{
     render(){
         return(
             <Card>
-                <Accordion.Toggle as={Card.Header} eventKey={this.props.index}>
+                <Accordion.Toggle as={Card.Header} className='bg-dark text-light' eventKey={this.props.index}>
                     <div className="container-fluid">
                         <div className="row">
                             {this.props.tipoDeAccion==='podas'?
                             <div className='container-fluid'>
                                 <div className="row">
                                     <div className="col-auto">
-                                        <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                        <h5 className='text-light'>{this.props.accion.fecha}</h5>
                                     </div>
                                     <div className="col-auto ml-auto">
                                         <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
@@ -28,7 +28,7 @@ class AccionDetallada extends Component{
                                     {this.props.tipoDePoda?
                                         <div className='col'>
                                             <hr/>
-                                            <h5 className='text-dark'>{this.props.tipoDePoda}</h5>
+                                            <h5 className='text-light'>{this.props.tipoDePoda}</h5>
                                         </div>
                                         :
                                         null
@@ -39,7 +39,7 @@ class AccionDetallada extends Component{
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-auto">
-                                            <h5 className='text-dark'>{this.props.accion.fecha}</h5>
+                                            <h5 className='text-light'>{this.props.accion.fecha}</h5>
                                         </div>
                                         <div className="col-auto ml-auto">
                                             <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
@@ -47,11 +47,11 @@ class AccionDetallada extends Component{
                                     </div>
                                     <div className="row">
                                         <div className="col-auto">
-                                            <h5 className='text-dark'>{this.props.accion.agua} L de agua</h5>
+                                            <h5 className='text-light'>{this.props.accion.agua} L de agua</h5>
                                         </div>
                                         <div className="col-auto">
                                             <h5>
-                                                <div className="badge badge-pill badge-dark">
+                                                <div className="badge badge-pill badge-light">
                                                     {this.props.accion.tipoDeRiego}
                                                 </div>
                                             </h5>
