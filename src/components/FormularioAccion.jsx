@@ -7,7 +7,7 @@ class FormularioAccion extends Component{
             <Row>
                 <Col sm={{span:8,offset:2}}>
                     <Card>
-                        <Accordion.Toggle as={Card.Header} className={this.props.cantidadDeAgua || this.props.aditivosUsados?'text-light overflow-auto flex-nowrap bg-success':'text-light overflow-auto flex-nowrap bg-dark'} eventKey="2">
+                        <Accordion.Toggle as={Card.Header} disabled className={this.props.cantidadDeAgua || this.props.aditivosUsados?'text-light overflow-auto flex-nowrap bg-success':'text-light overflow-auto flex-nowrap bg-dark'} eventKey="2">
                             Cantidad de Agua y Aditivos
                             <div className="row">
                                 <div className="col-auto mr-auto ml-auto">
@@ -31,7 +31,7 @@ class FormularioAccion extends Component{
                                     null}
                             </div>
                         </Accordion.Toggle>
-                        <Accordion.Collapse eventKey="2">
+                        <Accordion.Collapse id='collapseFormulario' eventKey="2">
                                 <Form>  
                                     <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
                                         <Form.Group>
@@ -45,7 +45,7 @@ class FormularioAccion extends Component{
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row className='justify-content-center align-items-center flex-column'>
-                                        {this.props.aditivos?
+                                        {this.props.aditivos&&this.props.cantidadDeAgua?
                                             <>
                                                 <div className="form-row">
                                                     <div className="col-auto">
@@ -61,7 +61,7 @@ class FormularioAccion extends Component{
                                                                         <Form.Label>
                                                                             <PopOver aditivo={aditivo} cantidadDeAgua={this.props.cantidadDeAgua}/>
                                                                         </Form.Label>
-                                                                        <Form.Control type="number" 
+                                                                        <Form.Control as='select' type="number"
                                                                             onChange={e=>{
                                                                                 if(e.target.value){
                                                                                     this.props.cambiarAditivo([aditivo.nombre],e.target.value)
@@ -70,7 +70,16 @@ class FormularioAccion extends Component{
                                                                                     this.props.eliminarAditivo([aditivo.nombre])
                                                                                 }
                                                                             }}
-                                                                        />
+                                                                        >
+                                                                            <option value="">-</option>
+                                                                            {aditivo.dosis[this.props.tipoDeRiego]?
+                                                                                Object.keys(aditivo.dosis[this.props.tipoDeRiego]).map(key=>(
+                                                                                    <option value={((aditivo.dosis[this.props.tipoDeRiego][key]).slice(0,((aditivo.dosis[this.props.tipoDeRiego][key]).indexOf(' '))))*this.props.cantidadDeAgua}>{aditivo.dosis[this.props.tipoDeRiego][key]} {key}</option>
+                                                                                ))
+                                                                                :
+                                                                                null
+                                                                            }
+                                                                        </Form.Control>
                                                                     </Form.Group>
                                                                 </div>
                                                             </Fragment>

@@ -16,7 +16,8 @@ class Riego extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
-        plantas: undefined
+        plantas: undefined,
+        step2:false
     }
     seleccionarPlanta=(id)=>{
         this.setState({
@@ -89,6 +90,7 @@ class Riego extends Component{
         this.setState({
             tipoDeRiego:tipoDeRiego
         })
+        
     }
     cambiarLitrosDeAgua=(litros)=>{
         this.setState({
@@ -110,6 +112,9 @@ class Riego extends Component{
             this.setState({aditivos:null})
         }
     }
+    activeStep2=()=>{
+        this.setState({step2:!this.state.step2})
+    }
     render(){
         return(
             <div className="container-fluid accion">
@@ -117,30 +122,45 @@ class Riego extends Component{
                     title='Riego'
                 />
                 <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
-                    <Accordion defaultActiveKey='0'>
+                    <Accordion defaultActiveKey='0' id='accordion'>
                         <ElegirPlantaAccion
                             seleccionarPlanta={this.seleccionarPlanta}
                             plantas={this.state.plantas}
                         />
-                        <ElegirTipoDeRiego
-                            tipoDeRiego={this.state.tipoDeRiego}    
-                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                        />
-                        <FormularioAccion
-                            cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                            cantidadDeAgua={this.state.cantidadDeAgua}
-                            cambiarAditivo={this.cambiarAditivo}
-                            adivito='Fertlizante'
-                            aditivos={this.props.aditivos}
-                            aditivosUsados={this.state.aditivos}
-                            eliminarAditivo={this.eliminarAditivo}
-                        />
+                        {this.state.plantas?
+                        <>
+                            <ElegirTipoDeRiego
+                                tipoDeRiego={this.state.tipoDeRiego}    
+                                cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                            />
+                            {this.state.tipoDeRiego?
+                                <FormularioAccion
+                                    tipoDeRiego={this.state.tipoDeRiego}
+                                    cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                                    cantidadDeAgua={this.state.cantidadDeAgua}
+                                    cambiarAditivo={this.cambiarAditivo}
+                                    adivito='Fertlizante'
+                                    aditivos={this.props.aditivos}
+                                    aditivosUsados={this.state.aditivos}
+                                    eliminarAditivo={this.eliminarAditivo}
+                                />
+                                :
+                                null
+                            }
+                        </>
+                            :
+                            null
+                        }
                     </Accordion>
                 </div>
-                <BotoneraConfirmacionAccion
-                    accion='Riego'
-                    confirmarAccion={this.confirmarAccion}
-                />
+                {this.state.cantidadDeAgua?
+                    <BotoneraConfirmacionAccion
+                        accion='Riego'
+                        confirmarAccion={this.confirmarAccion}
+                    />
+                    :
+                    null
+                }
             </div>
         )
     }
