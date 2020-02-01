@@ -10,7 +10,7 @@ import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import ElegirTipoDePoda from '../components/ElegirTipoDePoda';
-import { Accordion } from 'react-bootstrap';
+import { StepperAccion } from '../components/StepperAccion';
 
 class Poda extends Component{
     state={
@@ -43,20 +43,10 @@ class Poda extends Component{
             plantas:plantas
         })
     }
-    confirmarAccion=(accion)=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui'>
-                    <AlertConfirmarAccion
-                        history={this.props.history}
-                        onClose={onClose}
-                        accion={accion}
-                        accionfn={this.podar}
-                    />
-                </div>
-            );
-        }
-    })
+    confirmarAccion=()=>{
+        this.podar()
+        this.props.history.push('/')
+    }
     podar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
             if(this.state.plantas[planta].selected){
@@ -82,23 +72,32 @@ class Poda extends Component{
                 <NavBarAccion
                     title='Poda'
                 />
-                <div className="container-fluid d-flex flex-column justify-content-start h-100">
-                    <Accordion defaultActiveKey='0'>
-                        <ElegirPlantaAccion
-                            seleccionarPlanta={this.seleccionarPlanta}
-                            plantas={this.state.plantas}
-                        />
-                        <ElegirTipoDePoda
-                            handleChange={(nuevoTipoDePoda=>{
-                                this.cambiarTipoDePoda(nuevoTipoDePoda)
-                            })}
-                            tipoDePoda={this.state.tipoDePoda}
-                        />
-                    </Accordion>
-                </div>
-                <BotoneraConfirmacionAccion
-                    accion='Poda'
+                <StepperAccion 
+                    cantidadDeAgua={this.state.cantidadDeAgua}
+                    tipoDePoda={this.state.tipoDePoda}
                     confirmarAccion={this.confirmarAccion}
+                    resumenAccion={<div>hola</div>}
+                    tipoDeAccion='Poda'
+                    steps={[
+                    {
+                        title:'Plantas',
+                        content:(
+                            <ElegirPlantaAccion
+                                seleccionarPlanta={this.seleccionarPlanta}
+                                plantas={this.state.plantas}
+                            />
+                        )},
+                    {
+                        title:'Tipo De Poda',
+                        content:(
+                            <ElegirTipoDePoda
+                                handleChange={(nuevoTipoDePoda=>{
+                                    this.cambiarTipoDePoda(nuevoTipoDePoda)
+                                })}
+                                tipoDePoda={this.state.tipoDePoda}
+                            />
+                    )}]
+                    }
                 />
             </div>
         )

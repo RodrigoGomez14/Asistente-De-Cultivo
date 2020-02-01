@@ -14,42 +14,18 @@ class ElegirTipoDeRiego extends Component{
         return(
             <Row>
                 <Col sm={{span:8,offset:2}}>
-                <ExpansionPanel expanded={this.props.expanded === 'panel2'} onChange={e=>{
-                    this.props.setExpansionExpanded('panel2')
-                }}>
-                    <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <div className="row">
-                            <div className="col-auto">
-                                <Typography>
-                                    Elige El tipo de Riego 
-                                </Typography>
-                            </div>
-                            <div className="col-auto mr-auto">
-                                <Typography>
-                                    {this.props.tipoDeRiego?<strong>({this.props.tipoDeRiego})</strong>:null}
-                                </Typography>
-                            </div>
+                    <div className="row my-2">
+                        <div className="col text-center">
+                            <button type='button' className={this.props.tipoDeRiego==='Tierra'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Tierra')}}>
+                                Tierra
+                            </button>
                         </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <div className="row my-2">
-                            <div className="col text-center">
-                                <button type='button' className={this.props.tipoDeRiego==='Tierra'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Tierra')}}>
-                                    Tierra
-                                </button>
-                            </div>
-                            <div className="col text-center">
-                                <button type='button' className={this.props.tipoDeRiego==='Foliar'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Foliar')}}>
-                                    Foliar
-                                </button>
-                            </div>
+                        <div className="col text-center">
+                            <button type='button' className={this.props.tipoDeRiego==='Foliar'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Foliar')}}>
+                                Foliar
+                            </button>
                         </div>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
+                    </div>
                 </Col>
             </Row>
         )

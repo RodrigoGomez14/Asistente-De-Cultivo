@@ -10,8 +10,8 @@ import NavBarAccion from '../components/NavBarAccion';
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion'
 import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
-import FormularioAccion from '../components/FormularioAccion'
-import { Accordion } from 'react-bootstrap';
+import {FormularioAccion} from '../components/FormularioAccion'
+import { StepperAccion } from '../components/StepperAccion';
 class Insecticida extends Component{
     state={
         tipoDeRiego:undefined,
@@ -46,22 +46,13 @@ class Insecticida extends Component{
             plantas:plantas
         })
     }
-    confirmarAccion=(accion)=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui'>
-                    <AlertConfirmarAccion
-                        history={this.props.history}
-                        onClose={onClose}
-                        accion={accion}
-                        accionfn={this.fumigar}
-                    />
-                </div>
-            );
-        }
-    })
+    confirmarAccion=()=>{
+        this.fumigar()
+        this.props.history.push('/')
+    }
     fumigar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
+            
             if(this.state.plantas[planta].selected){
                 this.guardrarFumigacionDB(planta,this.state.cantidadDeAgua,this.state.cantidadDeAgua,this.state.aditivos,this.state.tipoDeRiego)
             }
@@ -72,9 +63,10 @@ class Insecticida extends Component{
         let insecticidasFinal = {}
         if(insecticidas){
             Object.keys(insecticidas).map(insecticida=>{
+                const dosis= insecticidas[insecticida]
                 insecticidasFinal={
                     ...insecticidasFinal,
-                    [insecticida]:insecticidas[insecticida]
+                    [insecticida]:parseFloat(dosis.slice(0,dosis.indexOf(' '))*this.state.cantidadDeAgua).toFixed(2)
                 }
                 return null
             })
@@ -124,20 +116,34 @@ class Insecticida extends Component{
                 <NavBarAccion
                     title='Insecticida'
                 />
-                <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
-                        <ElegirPlantaAccion
-                            seleccionarPlanta={this.seleccionarPlanta}
-                            plantas={this.state.plantas}
-                            setExpansionExpanded={this.setExpansionExpanded}
-                            expanded={this.state.expanded}
-                        />
-                        <ElegirTipoDeRiego
-                            tipoDeRiego={this.state.tipoDeRiego}
-                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                            setExpansionExpanded={this.setExpansionExpanded}
-                            expanded={this.state.expanded}
-                        />
-                        {this.state.tipoDeRiego?
+                <StepperAccion 
+                    cantidadDeAgua={this.state.cantidadDeAgua}
+                    tipoDeRiego={this.state.tipoDeRiego}
+                    confirmarAccion={this.confirmarAccion}
+                    resumenAccion={<div>Hola</div>}
+                    tipoDeAccion='Fumigacion'
+                    steps={[
+                        {
+                        title:'Plantas',
+                        content:(
+                            <ElegirPlantaAccion
+                                seleccionarPlanta={this.seleccionarPlanta}
+                                plantas={this.state.plantas}
+                                setExpansionExpanded={this.setExpansionExpanded}
+                                expanded={this.state.expanded}
+                            />
+                        )},
+                        {title:'Tipo De Riego',
+                        content:(
+                            <ElegirTipoDeRiego
+                                tipoDeRiego={this.state.tipoDeRiego}
+                                cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                                setExpansionExpanded={this.setExpansionExpanded}
+                                expanded={this.state.expanded}
+                            />
+                        )},
+                        {title:'Cantidad De Agua y Aditivos',
+                        content:(
                             <FormularioAccion
                                 eliminarListaDeAditivos={this.eliminarListaDeAditivos}
                                 tipoDeRiego={this.state.tipoDeRiego}
@@ -151,18 +157,9 @@ class Insecticida extends Component{
                                 setExpansionExpanded={this.setExpansionExpanded}
                                 expanded={this.state.expanded}
                             />
-                            :
-                            null
-                        }
-                </div>
-                {this.state.cantidadDeAgua?
-                    <BotoneraConfirmacionAccion
-                        accion='Fumigacion'
-                        confirmarAccion={this.confirmarAccion}
-                    />
-                    :
-                    null
-                }
+                        )},
+                    ]}
+                />
             </div>
         )
     }

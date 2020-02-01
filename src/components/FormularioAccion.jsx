@@ -1,5 +1,5 @@
-import React , {Component,Fragment} from 'react'
-import {Row,Col,Form,Accordion,Card,InputGroup} from 'react-bootstrap'
+import React , {Component,Fragment,useRef} from 'react'
+import {Row,Col,Form,Container} from 'react-bootstrap'
 import {PopOver} from './Popover'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faSortDown} from '@fortawesome/free-solid-svg-icons'
@@ -7,118 +7,116 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import {FormControl,InputLabel,Select,MenuItem,makeStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-class FormularioAccion extends Component{
-    render(){
-        return(
-            <Row>
-                <Col sm={{span:8,offset:2}}>
-                <ExpansionPanel expanded={this.props.expanded === 'panel3'} onChange={e=>{
-                    this.props.setExpansionExpanded('panel3')
-                }}>
-                    <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >    
-                        <Typography>
-                            Cantidad de Agua y Aditivos
-                        </Typography>
-                        <div className="row">
-                            <div className="col-12 text-center">
-                                {this.props.cantidadDeAgua?
-                                    <Typography>
-                                        {this.props.cantidadDeAgua} L
-                                    </Typography>
-                                    :
-                                    null
-                                }
-                            </div>
-                            <div className="col-auto">
-                                {this.props.aditivosUsados?
-                                    <Typography className="col-auto">
-                                        {Object.keys(this.props.aditivosUsados).map((aditivo,i)=>{
-                                            const cantidad = this.props.aditivosUsados[aditivo]
-                                            return(
-                                                <span className='badge badge-pill badge-light mr-2 p-2' key={'aditivo'+i}>
-                                                    {aditivo} {parseFloat(cantidad.slice(0,cantidad.indexOf(' '))*this.props.cantidadDeAgua).toFixed(2)} ml
-                                                </span>
-                                            )
-                                        })}
-                                    </Typography>
-                                    :
-                                    null}
-                            </div>
+const useStyles = makeStyles(theme => ({
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+      width:"100% !important"
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  }));
+  /*
+  <ExpansionPanelSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1bh-content"
+                    id="panel1bh-header"
+                >    
+                    <Typography>
+                        Cantidad de Agua y Aditivos
+                    </Typography>
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            {props.cantidadDeAgua?
+                                <Typography>
+                                    {props.cantidadDeAgua} L
+                                </Typography>
+                                :
+                                null
+                            }
                         </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <Form>  
-                            <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
-                                <Form.Group>
-                                    <Form.Label  className='text-dark'>Litros de Agua</Form.Label>
-                                    <Form.Control type="number"
-                                        onChange={e=>{
-                                            this.props.cambiarLitrosDeAgua(e.target.value)
-                                            if(!e.target.value){
-                                                this.props.eliminarListaDeAditivos()
-                                            }
-                                        }} 
-                                        value={this.props.cantidadDeAgua}
-                                        id='inputLitros'/>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row className='justify-content-center align-items-center flex-column'>
-                                {this.props.aditivos&&this.props.cantidadDeAgua?
-                                    <>
-                                        <div className="form-row">
-                                            <div className="col-auto">
-                                                <p className='text-dark'>Aditivos (ml)</p>
-                                            </div>
-                                        </div>
-                                        <div className="container">
-                                            <div className="form-row mt-4 justify-content-start w-80`">
-                                                {this.props.aditivos.map((aditivo,i)=>(
-                                                    aditivo.dosis[this.props.tipoDeRiego]?
-                                                        <Fragment key={'input'+i}>  
-                                                            <div className="form-group col-4">
-                                                                <Form.Group>
-                                                                    <Form.Label>
-                                                                        <PopOver aditivo={aditivo} cantidadDeAgua={this.props.cantidadDeAgua}/>
-                                                                    </Form.Label>
-                                                                    <Form.Control as='select' type="number"
-                                                                        onChange={e=>{
-                                                                            if(e.target.value){
-                                                                                this.props.cambiarAditivo([aditivo.nombre],e.target.value)
-                                                                            }
-                                                                            else{
-                                                                                this.props.eliminarAditivo([aditivo.nombre])
-                                                                            }
-                                                                        }}
-                                                                    >
-                                                                        <option value="">-</option>
-                                                                            {Object.keys(aditivo.dosis[this.props.tipoDeRiego]).map(key=>(
-                                                                                <option value={aditivo.dosis[this.props.tipoDeRiego][key]}> {aditivo.dosis[this.props.tipoDeRiego][key]} {key}</option>
-                                                                            ))}
-                                                                    </Form.Control>
-                                                                </Form.Group>
-                                                            </div>
-                                                        </Fragment>
-                                                        :
-                                                        null
-                                                    ))}
-                                            </div>
-                                        </div>
-                                    </>
-                                    :
-                                    null
+                        <div className="col-auto">
+                            {props.aditivosUsados?
+                                <Typography className="col-auto">
+                                    {Object.keys(props.aditivosUsados).map((aditivo,i)=>{
+                                        const cantidad = props.aditivosUsados[aditivo]
+                                        return(
+                                            <span className='badge badge-pill badge-light mr-2 p-2' key={'aditivo'+i}>
+                                                {aditivo} {parseFloat(cantidad.slice(0,cantidad.indexOf(' '))*props.cantidadDeAgua).toFixed(2)} ml
+                                            </span>
+                                        )
+                                    })}
+                                </Typography>
+                                :
+                                null}
+                        </div>
+                    </div>
+                </ExpansionPanelSummary>*/
+export const FormularioAccion=(props)=>{
+    const classes = useStyles()
+    return(
+        <Row>
+            <Col sm={{span:8,offset:2}}>
+                <Container fluid>
+                    <Form>  
+                        <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
+                            <TextField id="outlined-basic" value={props.cantidadDeAgua} label="Litros de Agua" variant="outlined" onChange={e=>{
+                                props.cambiarLitrosDeAgua(e.target.value)
+                                if(!e.target.value){
+                                    props.eliminarListaDeAditivos()
                                 }
-                            </Form.Row>
-                        </Form>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
-                </Col>
-            </Row>
-        )
-    }
+                            }}/>
+                        </Form.Row>
+                        <Form.Row className='justify-content-center align-items-center flex-column'>
+                            <div className="form-row">
+                                <div className="col-auto">
+                                    <p className='text-dark'>Aditivos (ml)</p>
+                                </div>
+                            </div>
+                            <div className="container">
+                                <div className="form-row mt-4 justify-content-start w-80`">
+                                    {props.aditivos.map((aditivo,i)=>(
+                                        aditivo.dosis[props.tipoDeRiego]?
+                                            <Fragment key={'input'+i}>  
+                                                <div className="form-group col-4">
+                                                    <FormControl className={classes.formControl} >
+                                                        <InputLabel  id="emo-simple-select-helper-label">
+                                                            {aditivo.nombre}
+                                                        </InputLabel>
+                                                        <Select
+                                                            labelId="demo-simple-select-helper-label"
+                                                            id="demo-simple-select-helper"
+                                                            disabled={!props.cantidadDeAgua}
+                                                            onChange={e=>{
+                                                                if(e.target.value){
+                                                                    props.cambiarAditivo([aditivo.nombre],e.target.value)
+                                                                }
+                                                                else{
+                                                                    props.eliminarAditivo([aditivo.nombre])
+                                                                }
+                                                            }}
+                                                        >
+                                                        <MenuItem value=''>-</MenuItem>
+                                                                {Object.keys(aditivo.dosis[props.tipoDeRiego]).map(key=>(
+                                                                    <MenuItem value={aditivo.dosis[props.tipoDeRiego][key]}>{aditivo.dosis[props.tipoDeRiego][key]} {key}</MenuItem>
+                                                                ))}
+                                                        </Select>
+                                                    </FormControl>
+                                                </div>
+                                            </Fragment>
+                                            :
+                                            null
+                                        ))}
+                                </div>
+                            </div>
+                        </Form.Row>
+                    </Form>
+                </Container>
+            </Col>
+        </Row>
+    )
 }
-export default FormularioAccion

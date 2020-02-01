@@ -10,16 +10,16 @@ import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
-import FormularioAccion from '../components/FormularioAccion';
+import {FormularioAccion} from '../components/FormularioAccion';
 import {Accordion} from 'react-bootstrap'
 
+import {StepperAccion} from '../components/StepperAccion'
 class Riego extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
         plantas: undefined,
         expanded:'panel1',
-        step2:false
     }
     seleccionarPlanta=(id)=>{
         this.setState({
@@ -48,20 +48,10 @@ class Riego extends Component{
             plantas:plantas,
         })
     }
-    confirmarAccion=(accion)=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui'>
-                    <AlertConfirmarAccion
-                        history={this.props.history}
-                        onClose={onClose}
-                        accion={accion}
-                        accionfn={this.regar}
-                    />
-                </div>
-            );
-        }
-    })
+    confirmarAccion=()=>{
+        this.regar()
+        this.props.history.push('/')
+    }
     regar=()=>{
         Object.keys(this.state.plantas).map(planta=>{
             if(this.state.plantas[planta].selected){
@@ -74,9 +64,10 @@ class Riego extends Component{
         let fertilizantesFinal = {}
         if(fertilizantes){
             Object.keys(fertilizantes).map(fertilizante=>{
+                const dosis= fertilizantes[fertilizante]
                 fertilizantesFinal={
                     ...fertilizantesFinal,
-                    [fertilizante]:fertilizantes[fertilizante]
+                    [fertilizante]:parseFloat(dosis.slice(0,dosis.indexOf(' '))*this.state.cantidadDeAgua).toFixed(2)
                 }
                 return null
             })
@@ -126,45 +117,53 @@ class Riego extends Component{
                 <NavBarAccion
                     title='Riego'
                 />
-                <div className="container-fluid d-flex flex-column justify-content-start h-100 overflow-auto">
-                        <ElegirPlantaAccion
-                            seleccionarPlanta={this.seleccionarPlanta}
-                            plantas={this.state.plantas}
-                            setExpansionExpanded={this.setExpansionExpanded}
-                            expanded={this.state.expanded}
-                        />
-                        <ElegirTipoDeRiego
-                            tipoDeRiego={this.state.tipoDeRiego}    
-                            cambiarTipoDeRiego={this.cambiarTipoDeRiego}
-                            setExpansionExpanded={this.setExpansionExpanded}
-                            expanded={this.state.expanded}
-                        />
-                        {this.state.tipoDeRiego?
-                            <FormularioAccion
-                                eliminarListaDeAditivos={this.eliminarListaDeAditivos}
-                                tipoDeRiego={this.state.tipoDeRiego}
-                                cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
-                                cantidadDeAgua={this.state.cantidadDeAgua}
-                                cambiarAditivo={this.cambiarAditivo}
-                                adivito='Fertlizante'
-                                aditivos={this.props.aditivos}
-                                aditivosUsados={this.state.aditivos}
-                                eliminarAditivo={this.eliminarAditivo}
-                                setExpansionExpanded={this.setExpansionExpanded}
-                                expanded={this.state.expanded}
-                            />
-                            :
-                            null
-                        }
-                </div>
-                {this.state.cantidadDeAgua?
-                    <BotoneraConfirmacionAccion
-                        accion='Riego'
-                        confirmarAccion={this.confirmarAccion}
-                    />
-                    :
-                    null
-                }
+                <StepperAccion 
+                    step1='Plantas'
+                    step2='Tipo De Riego'
+                    step3='Cantidad de agua y aditivos'
+                    cantidadDeAgua={this.state.cantidadDeAgua}
+                    tipoDeRiego={this.state.tipoDeRiego}
+                    confirmarAccion={this.confirmarAccion}
+                    resumenAccion={<div>hola</div>}
+                    tipoDeAccion='Riego'
+                    steps={[
+                            {
+                            title:'Plantas',
+                            content:(
+                                <ElegirPlantaAccion
+                                    seleccionarPlanta={this.seleccionarPlanta}
+                                    plantas={this.state.plantas}
+                                    setExpansionExpanded={this.setExpansionExpanded}
+                                    expanded={this.state.expanded}
+                                />
+                            )},
+                            {title:'Tipo De Riego',
+                            content:(
+                                <ElegirTipoDeRiego
+                                    tipoDeRiego={this.state.tipoDeRiego}    
+                                    cambiarTipoDeRiego={this.cambiarTipoDeRiego}
+                                    setExpansionExpanded={this.setExpansionExpanded}
+                                    expanded={this.state.expanded}
+                                />
+                            )},
+                            {title:'Cantidad De Agua y Aditivos',
+                            content:(
+                                <FormularioAccion
+                                        eliminarListaDeAditivos={this.eliminarListaDeAditivos}
+                                        tipoDeRiego={this.state.tipoDeRiego}
+                                        cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
+                                        cantidadDeAgua={this.state.cantidadDeAgua}
+                                        cambiarAditivo={this.cambiarAditivo}
+                                        adivito='Fertlizante'
+                                        aditivos={this.props.aditivos}
+                                        aditivosUsados={this.state.aditivos}
+                                        eliminarAditivo={this.eliminarAditivo}
+                                        setExpansionExpanded={this.setExpansionExpanded}
+                                        expanded={this.state.expanded}
+                                    />
+                            )},
+                    ]}
+                />
             </div>
         )
     }

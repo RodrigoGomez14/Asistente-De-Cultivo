@@ -22,59 +22,19 @@ class ElegirPlantaAccion extends Component{
         return(
             <Row>
                 <Col sm={{span:8,offset:2}}>
-                <ExpansionPanel expanded={this.props.expanded === 'panel1'} onChange={e=>{
-                    this.props.setExpansionExpanded('panel1')
-                }}>
-                    <ExpansionPanelSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1bh-content"
-                        id="panel1bh-header"
-                    >
-                        <div className="container">
-                            <div className="row">
-                                <div className="col-auto">
-                                    <Typography>
-                                        Elige Las Plantas
-                                    </Typography>
-                                </div>
-                                <div className="col-auto">
-                                    <div className="container">
-                                        <div className="row">
-                                            {selectedPlants?
-                                            Object.keys(selectedPlants).map((nombre,i)=>(
-                                                <div className="col-auto mx-2" key={'selectedPlant'+i}>
-                                                    <Typography>
-                                                        <span className='badge badge-pill badge-dark p-2'>
-                                                            {nombre}
-                                                        </span>
-                                                    </Typography>
-                                                </div>
-                                            ))
-                                            :
-                                            null
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div className="container">
+                        <div className="row my-2 justify-content-center">
+                            {this.props.plantas?
+                                Object.keys(this.props.plantas).map(key=>(
+                                    <CheckboxPlanta checked={this.props.plantas[key].selected} llave={key} key={key} handleClick={e=>{
+                                        this.props.seleccionarPlanta(key)
+                                    }}/>
+                                ))
+                            :
+                            null
+                            }
                         </div>
-                    </ExpansionPanelSummary>
-                    <ExpansionPanelDetails>
-                        <div className="container">
-                            <div className="row my-2 justify-content-center">
-                                {this.props.plantas?
-                                    Object.keys(this.props.plantas).map(key=>(
-                                        <CheckboxPlanta checked={this.props.plantas[key].selected} llave={key} key={key} handleClick={e=>{
-                                            this.props.seleccionarPlanta(key)
-                                        }}/>
-                                    ))
-                                :
-                                null
-                                }
-                            </div>
-                        </div>
-                    </ExpansionPanelDetails>
-                </ExpansionPanel>
+                    </div>
                 </Col>
             </Row>
         )
