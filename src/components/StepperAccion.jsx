@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     height:'100%',
     display:'flex',
     flexDirection:'column',
-    justifyContent:'center'
+    justifyContent:'center',
   },
   button: {
     marginTop: theme.spacing(1),
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda})=>{
+export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants})=>{
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -45,7 +45,9 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
     setActiveStep(0);
   };
   const setDisabled=(activeStep,tipoDeRiego,cantidadDeAgua)=>{
-    if(activeStep===1){
+    if(activeStep===0){
+    }
+    else if(activeStep===1){
       if(tipoDeAccion==='Poda'){
         return tipoDePoda?false:true
       }
@@ -53,13 +55,13 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
         return tipoDeRiego?false:true
       }
     }
-    if(activeStep===2){
+    else if(activeStep===2){
         return cantidadDeAgua?false:true
     }
   }
   return (
     <div className={classes.root}>
-      <Stepper activeStep={activeStep} orientation="vertical">
+      <Stepper activeStep={activeStep} elevation={3} orientation="vertical">
         {steps.map((step, index) => (
             step?
                 <Step key={step.title}>
@@ -93,7 +95,7 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
         ))}
       </Stepper>
       {activeStep === steps.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
+        <Paper square elevation={6} className={classes.resetContainer}>
             {resumenAccion}
             <BotoneraConfirmacionAccion
                 accion={tipoDeAccion}

@@ -11,33 +11,31 @@ import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import ElegirTipoDePoda from '../components/ElegirTipoDePoda';
 import { StepperAccion } from '../components/StepperAccion';
+import {ResumenAccion} from '../components/ResumenAccion'
 
 class Poda extends Component{
     state={
         plantas:undefined,
         tipoDePoda:undefined,
+        plantas:[],
     }
-    seleccionarPlanta=(id)=>{
+    seleccionarPlanta=(index)=>{
+        let newSelectedPlants=this.state.plantas
+        newSelectedPlants[index].selected=!newSelectedPlants[index].selected
         this.setState({
-            plantas:{
-                ...this.state.plantas,
-                [id]:{
-                    ...this.state.plantas[id],
-                    selected:!this.state.plantas[id].selected,
-                }
-            }
+            plantas:newSelectedPlants
         })
     }
     componentDidMount(){
-        let plantas={}
+        let plantas=[]
         Object.keys(this.props.plantas).map(key=>(
-            plantas={
-                ...plantas,
-                [key]:{
-                    selected:false,
-                    nombre:this.props.plantas[key].nombre
-                },
-            }
+            plantas.push(
+                {
+                selected:false,
+                nombre:this.props.plantas[key].nombre,
+                id:key
+                }
+            )
         ))
         this.setState({
             plantas:plantas
@@ -48,9 +46,10 @@ class Poda extends Component{
         this.props.history.push('/')
     }
     podar=()=>{
-        Object.keys(this.state.plantas).map(planta=>{
-            if(this.state.plantas[planta].selected){
-                this.guardarPodaBD(planta)
+        this.state.plantas.map(planta=>{
+            if(planta.selected){
+                console.log(planta)
+                this.guardarPodaBD(planta.id)
             }
             return null
         })
@@ -76,7 +75,8 @@ class Poda extends Component{
                     cantidadDeAgua={this.state.cantidadDeAgua}
                     tipoDePoda={this.state.tipoDePoda}
                     confirmarAccion={this.confirmarAccion}
-                    resumenAccion={<div>hola</div>}
+                    selectedPlants={this.state.plantas}
+                    resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
                     tipoDeAccion='Poda'
                     steps={[
                     {

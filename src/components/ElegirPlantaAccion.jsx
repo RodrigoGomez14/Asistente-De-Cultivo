@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React , {Component,useState} from 'react'
 import CheckboxPlanta from './CheckboxPlanta'
 import {Row,Col,Accordion,Card} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,36 +8,45 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-class ElegirPlantaAccion extends Component{
-    render(){
-        let selectedPlants= {}
-        if(this.props.plantas){
-            Object.keys(this.props.plantas).map(key=>{
-                if(this.props.plantas[key].selected){
-                    selectedPlants[this.props.plantas[key].nombre]=true
-                }
-                return null
-            })
-        }
-        return(
-            <Row>
-                <Col sm={{span:8,offset:2}}>
-                    <div className="container">
-                        <div className="row my-2 justify-content-center">
-                            {this.props.plantas?
-                                Object.keys(this.props.plantas).map(key=>(
-                                    <CheckboxPlanta checked={this.props.plantas[key].selected} llave={key} key={key} handleClick={e=>{
-                                        this.props.seleccionarPlanta(key)
-                                    }}/>
-                                ))
-                            :
-                            null
-                            }
-                        </div>
+import {FormControl,InputLabel,Select,MenuItem,makeStyles,FormControlLabel,Checkbox,FormGroup} from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+        width:"100% !important"
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
+export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
+    const classes = useStyles()
+    return(
+        <Row>
+            <Col sm={{span:8,offset:2}}>
+                <div className="container">
+                    <div className="row my-2 justify-content-center">
+                        {plantas?
+                        <FormGroup row>
+                            {plantas.map((planta,i)=>(
+                                <FormControlLabel
+                                control={
+                                    <Checkbox color='default' checked={planta.selected} onChange={e=>{
+                                        seleccionarPlanta(i)}}
+                                    value={planta.nombre} />
+                                }
+                                label={planta.nombre}
+                                    />
+                            ))}
+                        </FormGroup>
+                        :
+                        null
+                        }
                     </div>
-                </Col>
-            </Row>
-        )
-    }
+                </div>
+            </Col>
+        </Row>
+    )
 }
 export default ElegirPlantaAccion

@@ -8,40 +8,36 @@ import moment from 'moment'
 import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion';
 import NavBarAccion from '../components/NavBarAccion';
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion'
-import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
+import {ElegirTipoDeRiego} from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import {FormularioAccion} from '../components/FormularioAccion'
 import { StepperAccion } from '../components/StepperAccion';
+import {ResumenAccion} from '../components/ResumenAccion'
 class Insecticida extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
-        platnas:undefined,
+        platnas:[],
         expanded:'panel1'
     }
-    seleccionarPlanta=(id)=>{
+    seleccionarPlanta=(index)=>{
+        let newSelectedPlants=this.state.plantas
+        newSelectedPlants[index].selected=!newSelectedPlants[index].selected
         this.setState({
-            plantas:{
-                ...this.state.plantas,
-                [id]:{
-                    ...this.state.plantas[id],
-                    selected:!this.state.plantas[id].selected,
-                }
-            }
+            plantas:newSelectedPlants
         })
     }
     componentDidMount(){
-        let plantas={}
-            Object.keys(this.props.plantas).map(key=>{
-                plantas={
-                    ...plantas,
-                    [key]:{
-                        selected:false,
-                        nombre:this.props.plantas[key].nombre
-                    },
+        let plantas=[]
+        Object.keys(this.props.plantas).map(key=>(
+            plantas.push(
+                {
+                selected:false,
+                nombre:this.props.plantas[key].nombre,
+                id:key
                 }
-                return null
-            })
+            )
+        ))
         this.setState({
             plantas:plantas
         })
@@ -51,10 +47,9 @@ class Insecticida extends Component{
         this.props.history.push('/')
     }
     fumigar=()=>{
-        Object.keys(this.state.plantas).map(planta=>{
-            
-            if(this.state.plantas[planta].selected){
-                this.guardrarFumigacionDB(planta,this.state.cantidadDeAgua,this.state.cantidadDeAgua,this.state.aditivos,this.state.tipoDeRiego)
+        this.state.plantas.map(planta=>{
+            if(planta.selected){
+                this.guardrarFumigacionDB(planta.id,this.state.cantidadDeAgua,this.state.cantidadDeAgua,this.state.aditivos,this.state.tipoDeRiego)
             }
             return null
         })
@@ -120,7 +115,7 @@ class Insecticida extends Component{
                     cantidadDeAgua={this.state.cantidadDeAgua}
                     tipoDeRiego={this.state.tipoDeRiego}
                     confirmarAccion={this.confirmarAccion}
-                    resumenAccion={<div>Hola</div>}
+                    resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
                     tipoDeAccion='Fumigacion'
                     steps={[
                         {

@@ -8,44 +8,40 @@ import {database} from 'firebase'
 import moment from 'moment'
 import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
-import ElegirTipoDeRiego from '../components/ElegirTipoDeRiego';
+import {ElegirTipoDeRiego} from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import {FormularioAccion} from '../components/FormularioAccion';
 import {Accordion} from 'react-bootstrap'
+import {ResumenAccion} from '../components/ResumenAccion'
 
 import {StepperAccion} from '../components/StepperAccion'
 class Riego extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
-        plantas: undefined,
+        plantas: [],
         expanded:'panel1',
     }
-    seleccionarPlanta=(id)=>{
+    seleccionarPlanta=(index)=>{
+        let newSelectedPlants=this.state.plantas
+        newSelectedPlants[index].selected=!newSelectedPlants[index].selected
         this.setState({
-            plantas:{
-                ...this.state.plantas,
-                [id]:{
-                    ...this.state.plantas[id],
-                    selected:!this.state.plantas[id].selected,
-                }
-            }
+            plantas:newSelectedPlants
         })
     }
     componentDidMount(){
-        let plantas={}
-        Object.keys(this.props.plantas).map(key=>{
-            plantas={
-                ...plantas,
-                [key]:{
-                    selected:false,
-                    nombre:this.props.plantas[key].nombre
-                },
-            }
-            return null
-        })
+        let plantas=[]
+        Object.keys(this.props.plantas).map(key=>(
+            plantas.push(
+                {
+                selected:false,
+                nombre:this.props.plantas[key].nombre,
+                id:key
+                }
+            )
+        ))
         this.setState({
-            plantas:plantas,
+            plantas:plantas
         })
     }
     confirmarAccion=()=>{
@@ -53,9 +49,9 @@ class Riego extends Component{
         this.props.history.push('/')
     }
     regar=()=>{
-        Object.keys(this.state.plantas).map(planta=>{
-            if(this.state.plantas[planta].selected){
-                this.guardarRiegoBD(planta,this.state.cantidadDeAgua,this.state.tipoDeRiego,this.state.aditivos)
+        this.state.plantas.map(planta=>{
+            if(planta.selected){
+                this.guardarRiegoBD(planta.id,this.state.cantidadDeAgua,this.state.tipoDeRiego,this.state.aditivos)
             }
             return null
         })
@@ -124,7 +120,7 @@ class Riego extends Component{
                     cantidadDeAgua={this.state.cantidadDeAgua}
                     tipoDeRiego={this.state.tipoDeRiego}
                     confirmarAccion={this.confirmarAccion}
-                    resumenAccion={<div>hola</div>}
+                    resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
                     tipoDeAccion='Riego'
                     steps={[
                             {

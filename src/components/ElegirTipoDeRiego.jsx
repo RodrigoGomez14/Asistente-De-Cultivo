@@ -1,34 +1,37 @@
-import React, {Component} from 'react'
-import {Row,Col,Accordion,Card} from 'react-bootstrap'
+import React, {useState} from 'react'
+import {Row,Col} from 'react-bootstrap'
 import './styles/accion-card.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSortDown} from '@fortawesome/free-solid-svg-icons'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
-class ElegirTipoDeRiego extends Component{
-    render(){
-        return(
-            <Row>
-                <Col sm={{span:8,offset:2}}>
-                    <div className="row my-2">
-                        <div className="col text-center">
-                            <button type='button' className={this.props.tipoDeRiego==='Tierra'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Tierra')}}>
-                                Tierra
-                            </button>
-                        </div>
-                        <div className="col text-center">
-                            <button type='button' className={this.props.tipoDeRiego==='Foliar'?'btn btn-success':'btn btn-outline-dark'} onClick={e=>{this.props.cambiarTipoDeRiego('Foliar')}}>
-                                Foliar
-                            </button>
-                        </div>
-                    </div>
-                </Col>
-            </Row>
-        )
-    }
+export const ElegirTipoDeRiego=({tipoDeRiego,cambiarTipoDeRiego})=>{
+    return(
+        <Row>
+            <div className="cola-auto ml-auto mr-auto">
+                <RadioGroup aria-label="position" name="position" value={tipoDeRiego} onChange={e=>{cambiarTipoDeRiego(e.target.value)}} row>
+                    <FormControlLabel
+                        value="top"
+                        control={<Radio
+                            value="Tierra" 
+                            name="Tierra"
+                            color='default'
+                        />}
+                        label='Tierra'
+                        labelPlacement="top"
+                    />
+                    <FormControlLabel
+                        value="top"
+                        control={<Radio
+                            value="Foliar"
+                            name="Foliar"
+                            color='default'
+                        />}
+                        label="Foliar"
+                        labelPlacement="top"
+                    />
+                </RadioGroup>
+            </div>
+        </Row>
+    )
 }
-export default ElegirTipoDeRiego
