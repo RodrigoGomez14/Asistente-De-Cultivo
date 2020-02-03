@@ -23,7 +23,6 @@ const useStyles = makeStyles(theme => ({
     },
     alert:{
         alignItems:'center',
-
     }
   }));
   /*
@@ -70,7 +69,7 @@ export const FormularioAccion=(props)=>{
                 <Container fluid>
                     <Form>  
                         <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
-                            <TextField id="outlined-basic" value={props.cantidadDeAgua} label="Litros de Agua" variant="outlined" onChange={e=>{
+                            <TextField id="outlined-basic" type='number' value={props.cantidadDeAgua} label="Litros de Agua" variant="outlined" onChange={e=>{
                                 props.cambiarLitrosDeAgua(e.target.value)
                                 if(!e.target.value){
                                     props.eliminarListaDeAditivos()
@@ -116,9 +115,7 @@ export const FormularioAccion=(props)=>{
                                                 </div>
                                             </Fragment>
                                             :
-                                            <div className="col-12">
-                                                <Alert severity="warning" className={classes.alert}> <div>No hay Aditivos disponibles - <Link to='/Aplicables'>Agrega uno ahora!</Link> </div> </Alert>
-                                            </div>
+                                            null
                                         ))
                                         :
                                         <div className="col-12">

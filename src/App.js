@@ -16,6 +16,8 @@ import reducer from './reducers'
 import {createStore} from 'redux'
 import * as firebase from 'firebase'
 import PantallaDeCarga from './Pages/PantallaDeCarga';
+import { Configuracion } from './Pages/Configuracion';
+import {Planta} from './Pages/Planta'
 
 let store 
 let data
@@ -65,7 +67,6 @@ class App extends Component {
       if(this.state.user){
         return (
           <Provider store={this.state.store}>
-            <Layout>
               <HashRouter>
                 <Switch>
                   <Route exact path='/' component={Armario}/>
@@ -73,23 +74,22 @@ class App extends Component {
                   <Route exact path='/Poda' component={Poda}/>
                   <Route exact path='/Insecticida' component={Insecticida}/>
                   <Route exact path='/Aplicables' component={Aplicables}/>
+                  <Route exact path='/Configuracion' component={Configuracion}/>
+                  <Route exact path='/Planta' component={Planta}/>
                   <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                 </Switch>
               </HashRouter>
-          </Layout>
         </Provider>
         )
       }
       else{
         return (
-          <Layout>
-            <HashRouter>
-              <Switch>
-                <Route exact path='/' component={SignInPage}/>
-                <Route exact path='/Login' component={LogInPage}/>
-              </Switch>
-            </HashRouter>
-        </Layout>
+          <HashRouter>
+            <Switch>
+              <Route exact path='/' component={SignInPage}/>
+              <Route exact path='/Login' component={LogInPage}/>
+            </Switch>
+          </HashRouter>
         )
       }
     }

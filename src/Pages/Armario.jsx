@@ -16,19 +16,13 @@ import AlertCambiarPeriodo from '../alerts/AlertCambiarPeriodo'
 import {MenuButton} from './styles/ArmarioStyle'
 import Navbar from '../components/Navbar'
 import { faTint, faCut , faBug , faCogs, faAlignRight, faTimes} from '@fortawesome/free-solid-svg-icons'
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import {Link} from 'react-router-dom'
-import {auth} from 'firebase'
+import {Layout} from './Layout'
+
 class Armario extends Component{
     state={
         nuevoPeriodo:undefined,
-        menuOpened:false
+        menuOpened:false,
+        selectedTab:'recents'
     }
     alertCambiarPeriodo=()=>confirmAlert({
         customUI: ({ onClose }) => {
@@ -111,102 +105,20 @@ class Armario extends Component{
             horaDeFinal: parseInt(horas)
         })
     }
-    changeStateOfNavbar =() =>{
-        this.setState({menuOpened:!this.state.menuOpened})
-    }
     render(){
         return(
-            <div className="container-fluid d-flex flex-column justify-content-around h-100">
-                <div className="row">
-                    <div className="col-11 text-right">
-                        <MenuButton onClick={e=>{
-                            this.setState({menuOpened:true})
-                        }}>
-                            <FontAwesomeIcon icon={faAlignRight}/>
-                        </MenuButton>
-                    </div>
-                </div>
-                <Drawer anchor="right" open={this.state.menuOpened} onClose={e=>{this.setState({menuOpened:false})}}>
-                    <div className="container d-flex flex-column h-100 justify-content-between">
-                        <div>
-                            <List>
-                                <Link to='Riego' className='outline-none text-dark'>
-                                    <ListItem button key={'Regar'} >
-                                        <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
-                                        <ListItemText primary={'Regar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='Poda' className='outline-none text-dark'>
-                                    <ListItem button key={'Podar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
-                                        <ListItemText primary={'Podar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='Insecticida' className='outline-none text-dark'>
-                                    <ListItem button key={'Fumigar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Fumigar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                        </div>
-                        <div>
-                            <Divider />
-                            <List>
-                                <Link to='/Aplicables' className='outline-none text-dark'>
-                                    <ListItem button key={'Aditivos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Aditivos'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Aditivos' className='outline-none text-dark'>
-                                    <ListItem button key={'Carencias y Excesos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Carencias y Excesos'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <ListItem button key={'Configuracion'} onClick={e=>{
-                                    this.alertConfiguracion()
-                                    this.setState({menuOpened:false})
-                                    }}>
-                                    <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
-                                    <ListItemText primary={'Configuracion'} />
-                                </ListItem>
-                            </List>
-                            <Divider />
-                            <List>
-                                <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
-                                        await auth().signOut()
-                                    }}>
-                                    <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
-                                    <ListItemText primary={'Cerrar Sesion'} />
-                                </ListItem>
-                            </List>
+            <Layout history={this.props.history} page="Armario">
+                <div className="container-fluid d-flex flex-column justify-content-around h-100">
+                    <div className='row'>
+                        <div className='col'>
+                            <BarraDeLuz/>            
                         </div>
                     </div>
-                </Drawer>
-                <div className='row'>
-                    <div className='col'>
-                        <BarraDeLuz/>            
+                    <div className='row'>
+                        <CarouselPlantas history={this.props.history}/>
                     </div>
                 </div>
-                <div className='row'>
-                    <CarouselPlantas history={this.props.history}/>
-                </div>
-            </div>
+            </Layout>
         )
     }
 }

@@ -20,12 +20,14 @@ import PantallaDeCarga from './PantallaDeCarga'
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
+    overflow:'auto'
   },
   image: {
     backgroundColor:
       theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50]
   },
   img:{
+    objectFit:'cover',
     width:"100%",
     height:"100%"
   },
@@ -60,6 +62,8 @@ export const SignInPage=({history})=> {
 
     const login=async()=>{
         setloading(true)
+        setUserError(undefined)
+        setPasswordError(undefined)
         await auth().signInWithEmailAndPassword(inputUser,inputPassword)
         .catch(error=>{
           if(error.code==='auth/user-not-found'){

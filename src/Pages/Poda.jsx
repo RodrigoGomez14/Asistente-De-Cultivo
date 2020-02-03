@@ -12,6 +12,8 @@ import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion
 import ElegirTipoDePoda from '../components/ElegirTipoDePoda';
 import { StepperAccion } from '../components/StepperAccion';
 import {ResumenAccion} from '../components/ResumenAccion'
+import {Layout} from './Layout'
+
 
 class Poda extends Component{
     state={
@@ -28,15 +30,17 @@ class Poda extends Component{
     }
     componentDidMount(){
         let plantas=[]
-        Object.keys(this.props.plantas).map(key=>(
-            plantas.push(
-                {
-                selected:false,
-                nombre:this.props.plantas[key].nombre,
-                id:key
-                }
-            )
-        ))
+        if(this.props.plantas){
+            Object.keys(this.props.plantas).map(key=>(
+                plantas.push(
+                    {
+                    selected:false,
+                    nombre:this.props.plantas[key].nombre,
+                    id:key
+                    }
+                )
+            ))
+        }
         this.setState({
             plantas:plantas
         })
@@ -66,40 +70,51 @@ class Poda extends Component{
         })
     }
     render(){
+        let selectedPlants=[]
+        if(this.state.plantas){
+            this.state.plantas.map(planta=>(
+                planta.selected?
+                    selectedPlants.push(planta.nombre)
+                    :
+                    null
+            ))
+        }
         return(
-            <div className="container-fluid accion">
-                <NavBarAccion
-                    title='Poda'
-                />
-                <StepperAccion 
-                    cantidadDeAgua={this.state.cantidadDeAgua}
-                    tipoDePoda={this.state.tipoDePoda}
-                    confirmarAccion={this.confirmarAccion}
-                    selectedPlants={this.state.plantas}
-                    resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
-                    tipoDeAccion='Poda'
-                    steps={[
-                    {
-                        title:'Plantas',
-                        content:(
-                            <ElegirPlantaAccion
-                                seleccionarPlanta={this.seleccionarPlanta}
-                                plantas={this.state.plantas}
-                            />
-                        )},
-                    {
-                        title:'Tipo De Poda',
-                        content:(
-                            <ElegirTipoDePoda
-                                handleChange={(nuevoTipoDePoda=>{
-                                    this.cambiarTipoDePoda(nuevoTipoDePoda)
-                                })}
-                                tipoDePoda={this.state.tipoDePoda}
-                            />
-                    )}]
-                    }
-                />
-            </div>
+            <Layout history={this.props.history} page='Poda'>
+                <div className="container-fluid accion">
+                    <div className="row">
+
+                        <StepperAccion 
+                            cantidadDeAgua={this.state.cantidadDeAgua}
+                            tipoDePoda={this.state.tipoDePoda}
+                            confirmarAccion={this.confirmarAccion}
+                            selectedPlants={selectedPlants}
+                            resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
+                            tipoDeAccion='Poda'
+                            steps={[
+                            {
+                                title:'Plantas',
+                                content:(
+                                    <ElegirPlantaAccion
+                                        seleccionarPlanta={this.seleccionarPlanta}
+                                        plantas={this.state.plantas}
+                                    />
+                                )},
+                            {
+                                title:'Tipo De Poda',
+                                content:(
+                                    <ElegirTipoDePoda
+                                        handleChange={(nuevoTipoDePoda=>{
+                                            this.cambiarTipoDePoda(nuevoTipoDePoda)
+                                        })}
+                                        tipoDePoda={this.state.tipoDePoda}
+                                    />
+                            )}]
+                            }
+                        />
+                    </div>
+                </div>
+            </Layout>
         )
     }
 }

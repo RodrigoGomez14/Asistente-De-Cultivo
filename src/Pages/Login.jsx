@@ -20,12 +20,14 @@ import {Link as LinkRouter} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
+    overflow:'auto'
   },
   image: {
     backgroundColor:
       theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50]
   },
   img:{
+    objectFit:'cover',
     width:"100%",
     height:"100%"
   },
@@ -99,7 +101,7 @@ export const LogInPage=({history})=> {
                       <LockOutlinedIcon />
                   </Avatar>
                   <Typography component="h1" variant="h5">
-                      Inicia Sesion
+                      Registrate
                   </Typography>
                   <form className={classes.form} noValidate>
                     <TextField

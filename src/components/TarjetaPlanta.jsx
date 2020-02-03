@@ -12,6 +12,8 @@ import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
 import AlertCambiarCiclo from '../alerts/AlertCambiarCiclo';
 import {database} from 'firebase'
 import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'
+import {Link} from 'react-router-dom'
+import {Paper} from '@material-ui/core'
 class TarjetaPlanta extends Component{
     state={
         edad:undefined
@@ -126,23 +128,37 @@ class TarjetaPlanta extends Component{
     render(){
         return(
             <div className="col-auto">
-                <Card className="card bg-light" onClick={this.alertPlanta} >
-                    <Img src={fotoPlanta} className="card-img-top" alt="..."/>
-                    <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
-                        <div className="container-fluid">
-                            <div className="row">
-                                <div className="col text-left">
-                                    <h4 className="card-title">{this.props.nombre}</h4>
+                <Paper elevation={6}>
+                    <Link to={{
+                        pathname:'/Planta',
+                        props:{
+                            ...this.props,
+                            alertFumigaciones:this.alertFumigaciones,
+                            alertRiegos:this.alertRiegos,
+                            alertPodas:this.alertPodas,
+                            alertCambiarCiclo:this.alertCambiarCiclo,
+                            alertEliminarPlanta:this.alertEliminarPlanta
+                        }
+                    }}>
+                        <Card className="card bg-light" >
+                            <Img src={fotoPlanta} className="card-img-top" alt="..."/>
+                            <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
+                                <div className="container-fluid">
+                                    <div className="row">
+                                        <div className="col text-left">
+                                            <h4 className="card-title">{this.props.nombre}</h4>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col text-left">
+                                            <h6 className="card-subtitle mb-2 text-white">{this.state.edad} dias</h6>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col text-left">
-                                    <h6 className="card-subtitle mb-2 text-white">{this.state.edad} dias</h6>
-                                </div>
-                            </div>
-                        </div>
-                    </Overlay>
-                </Card>
+                            </Overlay>
+                        </Card>
+                    </Link>
+                </Paper>
             </div>
         )
     }

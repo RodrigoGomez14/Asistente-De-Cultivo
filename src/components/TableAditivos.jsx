@@ -7,6 +7,29 @@ import {AlertNuevoAditivo} from '../alerts/AlertNuevoAditivo'
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles/table.css'
 import {database} from 'firebase'
+import { makeStyles } from '@material-ui/core/styles';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+
+
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+    },
+  }));
+
+
 export const TableAditivos = ({title,aditivos,user}) =>{
     const alertNuevoAditivo=()=>confirmAlert({
         customUI: ({ onClose }) => {
@@ -55,33 +78,39 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                 break;
         }
     }
+    const classes = useStyles();
+    const [expanded, setExpanded] = React.useState(false);
+  
+    const handleChange = panel => (event, isExpanded) => {
+      setExpanded(isExpanded ? panel : false);
+    };
     return(
         <div className='overflow-auto'>
-            <Table striped bordered hover variant='dark'>
-                <tbody>
-                    <tr>
-                        <th className=' justify-content-center align-items-center'>
-                            <Button variant='outline-light' onClick={e=>{
+            <div className="container mb-2">
+                <div className="row">
+                    <div className="col-auto ml-auto mr-auto">
+                            <Button variant='outline-dark my-2' onClick={e=>{
                                     alertNuevoAditivo()
                                 }}>
-                                Nuevo Aditivo
+                                Nuevo {title==="Fertilizantes"?'Fertilizante':"Insecticida"}
                                 <FontAwesomeIcon icon={faPlusCircle} className='ml-3'/>
                             </Button>
-                        </th>
-                    </tr>
-                    <tr>
-                        <Accordion defaultActiveKey='0'>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12">
                             {aditivos?
                                 aditivos.map((aditivo,i)=>(
-                                    <Card key={'aditivo'+i}>
-                                        <Accordion.Toggle as={Card.Header} className='d-flex bg-dark justify-content-between px-4 hover' eventKey={i} >
-                                            <div>
-                                                {aditivo.nombre} <span className='badge badge-pill badge-light'>{aditivo.marca}</span>
-                                            </div>
-                                            <FontAwesomeIcon icon={faSortDown}/>
-                                        </Accordion.Toggle>
-                                        <Accordion.Collapse eventKey={i}>
-                                            <Card.Body className='text-dark'>
+                                    <Paper elevation={4}>
+                                        <ExpansionPanel expanded={expanded === 'panel'+i} onChange={handleChange('panel'+i)}>
+                                            <ExpansionPanelSummary
+                                            expandIcon={<ExpandMoreIcon />}
+                                            aria-controls="panel1bh-content"
+                                            id="panel1bh-header"
+                                            >
+                                                <Typography className={classes.heading}>{aditivo.nombre} <span className='badge badge-pill badge-dark'>{aditivo.marca}</span></Typography>
+                                            </ExpansionPanelSummary>
+                                            <ExpansionPanelDetails>
                                                 <div className="container">
                                                     <div className="row">
                                                         <div className="col-12 text-center">
@@ -144,17 +173,16 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </Card.Body>
-                                        </Accordion.Collapse>
-                                    </Card>
+                                            </ExpansionPanelDetails>
+                                        </ExpansionPanel>
+                                    </Paper>
                                 ))
                                 :
                                 <h1>Agrega {title}</h1>
                             }
-                        </Accordion>
-                    </tr>
-                </tbody>
-            </Table>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

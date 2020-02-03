@@ -54,8 +54,8 @@ class CarouselPlantas extends Component{
                         :
                         <div className="col-12 text-center">
                             <h2 className='text-white'>Aun No hay plantas</h2>
-                            <Button variant="contained" color="primary">
-                                Agrega una! <FontAwesomeIcon icon={faPlusCircle} className='alert-icon ml-2' onClick={this.alertNuevaPlanta}/>
+                            <Button variant="contained" color="primary" onClick={this.alertNuevaPlanta}>
+                                Agrega una! <FontAwesomeIcon icon={faPlusCircle} className='alert-icon ml-2'/>
                             </Button>
                         </div>
                     }

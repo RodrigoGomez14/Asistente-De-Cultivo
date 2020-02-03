@@ -9,7 +9,8 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FormControl,InputLabel,Select,MenuItem,makeStyles,FormControlLabel,Checkbox,FormGroup} from '@material-ui/core'
-
+import {Alert} from '@material-ui/lab/'
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
@@ -19,6 +20,9 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
+    alert:{
+        alignItems:'center',
+    }
 }));
 export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
     const classes = useStyles()
@@ -27,7 +31,7 @@ export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
             <Col sm={{span:8,offset:2}}>
                 <div className="container">
                     <div className="row my-2 justify-content-center">
-                        {plantas?
+                        {plantas.length?
                         <FormGroup row>
                             {plantas.map((planta,i)=>(
                                 <FormControlLabel
@@ -41,7 +45,9 @@ export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
                             ))}
                         </FormGroup>
                         :
-                        null
+                        <div className="col-12">
+                            <Alert severity="warning" className={classes.alert}> <div>No hay Plantas En el Armario - <Link to='/Aplicables'>Agrega una ahora!</Link> </div> </Alert>
+                        </div>
                         }
                     </div>
                 </div>

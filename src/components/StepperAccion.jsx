@@ -46,6 +46,7 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
   };
   const setDisabled=(activeStep,tipoDeRiego,cantidadDeAgua)=>{
     if(activeStep===0){
+      return selectedPlants.length?false:true
     }
     else if(activeStep===1){
       if(tipoDeAccion==='Poda'){
