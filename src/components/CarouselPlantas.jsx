@@ -11,7 +11,7 @@ import {database} from 'firebase'
 import AlertNuevaPlanta from '../alerts/AlertNuevaPlanta'
 class CarouselPlantas extends Component{
     guardarNuevaPlantaDB= async (nombre,genetica)=>{
-        await database().ref().child('plantas').push({
+        await database().ref().child(this.props.user).child('plantas').push({
             nombre:nombre,
             genetica:genetica,
             nacimiento:moment().format('L')
@@ -35,7 +35,8 @@ class CarouselPlantas extends Component{
                 <div className="row align-items-center justify-content-start flex-nowrap overflow-auto">
                     {this.props.plantas?
                         Object.keys(this.props.plantas).map(key=>(
-                            <Planta 
+                            <Planta
+                                user={this.props.user}
                                 nacimiento={this.props.plantas[key].nacimiento} 
                                 genetica={this.props.plantas[key].genetica}
                                 inicioVegetativo={this.props.plantas[key].inicioVegetativo} 
@@ -67,7 +68,8 @@ class CarouselPlantas extends Component{
 }
 const mapStateToProps = state =>{
     return{
-        plantas:state.plantas,
+        user:state.user,
+        plantas:state.data.plantas,
     }
 }
 export default connect(mapStateToProps,null)(CarouselPlantas)

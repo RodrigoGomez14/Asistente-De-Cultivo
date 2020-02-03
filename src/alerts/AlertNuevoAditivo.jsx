@@ -3,7 +3,7 @@ import AlertNavBar from '../alert-components/AlertNavBar'
 import {FormNuevoAditivo} from '../alert-components/FormNuevoAditivo'
 import AlertBotoneraConfirmacion from '../alert-components/AlertBotoneraConfirmacion'
 import {database} from 'firebase'
-export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =>{
+export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo,user}) =>{
     const [inputs,setInputs] = useState({})
     const [dosis,setDosis] = useState({})
     const ClasificarDosis = ()=>{
@@ -41,12 +41,12 @@ export const AlertNuevoAditivo = ({tipoDeAditivo,onClose,aditivos=[],aditivo}) =
         newAditivos.push(newAditivo)
         switch (tipoDeAditivo) {
             case 'Fertilizantes':
-                await database().ref().update({
+                await database().ref().child(user).update({
                     fertilizantes:newAditivos
                 })
                 break;
             case 'Insecticidas':
-                await database().ref().update({
+                await database().ref().child(user).update({
                     insecticidas:newAditivos
                 })
                 break;

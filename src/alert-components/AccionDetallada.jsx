@@ -5,7 +5,7 @@ import * as firebase from 'firebase'
 import {Accordion,Card} from 'react-bootstrap'
 class AccionDetallada extends Component{
     eliminarAccion= async()=>{
-        await firebase.database().ref().child('plantas').child(this.props.idPlanta).child(this.props.tipoDeAccion).child(this.props.id).remove()
+        await firebase.database().ref().child(this.props.user).child('plantas').child(this.props.idPlanta).child(this.props.tipoDeAccion).child(this.props.id).remove()
         this.props.alert()
     }
     render(){

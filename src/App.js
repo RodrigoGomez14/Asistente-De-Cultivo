@@ -8,7 +8,8 @@ import Layout from './Pages/Layout'
 import Riego from './Pages/Riego'
 import Insecticida from './Pages/Insecticida'
 import Aplicables from './Pages/Aplicables'
-import {LoginPage} from './Pages/Login'
+import {SignInPage} from './Pages/SignIn'
+import {LogInPage} from './Pages/Login'
 import Poda from './Pages/Poda'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
@@ -38,44 +39,59 @@ class App extends Component {
     })
   }
   async componentDidMount(){
-
-    const databaseRef = await firebase.database().ref()
-    databaseRef.on('value', snapshot=>{
-      data= snapshot.val()
-      store=createStore(reducer, data)
-      this.setState({loading:false})
+    firebase.auth().onAuthStateChanged(async user=>{
+      if(user){
+        const databaseRef = await firebase.database().ref().child(user.uid)
+        databaseRef.on('value', snapshot=>{
+          data= snapshot.val()
+          store=createStore(reducer, {user:user.uid,data:data})
+          this.setState({store,user:user,loading:false})
+        })
+      }
+      else{
+        this.setState({user:null,loading:false})
+      }
     })
   }
   render(){
-    const user = firebase.auth().currentUser
     if(this.state.loading){
       return(
-        <PantallaDeCarga/>
+        <div className="App justify-content-center">
+          <PantallaDeCarga/>
+        </div>
       )
     }
     else{
-      return(
-        <Provider store={store}>
-          <Layout>
-            <HashRouter>
+      if(this.state.user){
+        return (
+          <Provider store={this.state.store}>
+            <Layout>
+              <HashRouter>
                 <Switch>
-                  {!user?
-                    <Route exact path='/' component={LoginPage}/>
-                    :
-                    <>
-                      <Route exact path='/' component={Armario}/>
-                      <Route exact path='/Riego' component={Riego}/>
-                      <Route exact path='/Poda' component={Poda}/>
-                      <Route exact path='/Insecticida' component={Insecticida}/>
-                      <Route exact path='/Aplicables' component={Aplicables}/>
-                      <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
-                    </>
-                  }
+                  <Route exact path='/' component={Armario}/>
+                  <Route exact path='/Riego' component={Riego}/>
+                  <Route exact path='/Poda' component={Poda}/>
+                  <Route exact path='/Insecticida' component={Insecticida}/>
+                  <Route exact path='/Aplicables' component={Aplicables}/>
+                  <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                 </Switch>
               </HashRouter>
           </Layout>
         </Provider>
-      )
+        )
+      }
+      else{
+        return (
+          <Layout>
+            <HashRouter>
+              <Switch>
+                <Route exact path='/' component={SignInPage}/>
+                <Route exact path='/Login' component={LogInPage}/>
+              </Switch>
+            </HashRouter>
+        </Layout>
+        )
+      }
     }
   }
 }

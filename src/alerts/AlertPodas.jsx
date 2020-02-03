@@ -16,7 +16,7 @@ class AlertPodas extends Component{
                     <Accordion defaultActiveKey='0'>
                         {this.props.podas?
                             Object.keys(this.props.podas).reverse().map((id,i)=>(
-                                <AccionDetallada index={i} alert={this.props.alert} accion={this.props.podas[id]} tipoDePoda={this.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                                <AccionDetallada user={this.props.user} index={i} alert={this.props.alert} accion={this.props.podas[id]} tipoDePoda={this.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={this.props.idPlanta} id={id} key={id}/>
                             ))
                             :
                             <>

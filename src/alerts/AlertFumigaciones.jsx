@@ -16,7 +16,7 @@ class alertFumigaciones extends Component{
                     <Accordion defaultActiveKey='0'>
                         {this.props.fumigaciones?
                             Object.keys(this.props.fumigaciones).reverse().map((id,i)=>(
-                                <AccionDetallada index={i} alert={this.props.alert} accion={this.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                                <AccionDetallada user={this.props.user}index={i} alert={this.props.alert} accion={this.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={this.props.idPlanta} id={id} key={id}/>
                                 ))
                                 :
                                 <>

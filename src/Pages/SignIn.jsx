@@ -14,8 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {auth} from 'firebase'
 import foto from '../images/sea of green.jpg'
-import PantallaDeCarga from './PantallaDeCarga'
 import {Link as LinkRouter} from 'react-router-dom'
+import PantallaDeCarga from './PantallaDeCarga'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const LogInPage=({history})=> {
+export const SignInPage=({history})=> {
     const classes = useStyles();
     let [inputUser,setInputUser]=useState(undefined)
     let [loading,setloading]=useState(false)
@@ -58,13 +58,9 @@ export const LogInPage=({history})=> {
     let [passwordError,setPasswordError]=useState(undefined)
     
 
-    const signin=async()=>{
+    const login=async()=>{
         setloading(true)
-        await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
-        .then(async e=>{
-            this.props.history.push('/')
-        })
-        .catch(error=>{
+        await auth().signInWithEmailAndPassword(inputUser,inputPassword).catch(error=>{
           if(error.code==='auth/user-not-found'){
             setUserError(error)
           }
@@ -104,6 +100,8 @@ export const LogInPage=({history})=> {
                     fullWidth
                     id="email"
                     label="Email"
+                    error={userError}
+                    helperText={userError?'Usuario No Encontrado':null}
                     name="email"
                     value={inputUser}
                     onChange={e=>{setInputUser(e.target.value)}}
@@ -116,26 +114,37 @@ export const LogInPage=({history})=> {
                     fullWidth
                     name="password"
                     value={inputPassword}
+                    helperText={passwordError?'Contraseña incorrecta':null}
+                    error={passwordError}
                     onChange={e=>{setInputPassword(e.target.value)}}
                     label="contraseña"
                     type="password"
                     id="password"
+                    />
+                    <FormControlLabel
+                    control={<Checkbox value="remember" color="primary" />}
+                    label="Recuerdame"
                     />
                     <Button
                     fullWidth
                     variant="outlined"
                     color="primary"
                     className={classes.submit}
-                    onClick={e=>{signin()}}
+                    onClick={e=>{login()}}
                     >
-                    Registrate!
+                    Ingresar!
                     </Button>
                     <Grid container>
                     <Grid item xs>
+                        <Link href="#" variant="body2">
+                        Olvidaste tu contraseña?
+                        </Link>
+                    </Grid>
+                    <Grid item>
                         <Link variant="body2">
-                            <LinkRouter to='/'>
-                                Ya tienes una cuenta? Ingresa!
-                            </LinkRouter>
+                          <LinkRouter to='/Login'>
+                            {"No tienes una cuenta? Registrate!"}
+                          </LinkRouter>
                         </Link>
                     </Grid>
                     </Grid>

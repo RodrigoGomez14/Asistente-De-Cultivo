@@ -66,7 +66,7 @@ class Insecticida extends Component{
                 return null
             })
         }
-        await database().ref().child('plantas').child(idPlanta).child('fumigaciones').push({
+        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
             fecha:moment().format('LLL'),
@@ -161,8 +161,9 @@ class Insecticida extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        plantas:state.plantas,
-        aditivos:state.insecticidas,
+        user:state.user,
+        plantas:state.data.plantas,
+        aditivos:state.data.insecticidas,
     }
 }
 export default connect(mapStateToProps,null)(Insecticida)

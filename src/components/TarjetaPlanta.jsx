@@ -21,6 +21,7 @@ class TarjetaPlanta extends Component{
             return(
                 <div className="custom-ui">
                     <AlertEliminarPlanta
+                        user={this.props.user}
                         nombre={this.props.nombre}
                         eliminarPlanta={this.eliminarPlanta}
                         onClose={onClose}
@@ -34,6 +35,7 @@ class TarjetaPlanta extends Component{
             return(
                 <div className="custom-ui">
                     <AlertCambiarCiclo
+                        user={this.props.user}
                         alertPlanta={this.alertPlanta}
                         onClose={onClose}
                         nombre={this.props.nombre}
@@ -64,6 +66,7 @@ class TarjetaPlanta extends Component{
             return (
                 <div className='custom-ui scroll'>
                     <AlertRiego
+                        user={this.props.user}
                         idPlanta={this.props.id}
                         alert={this.alertRiegos}
                         onClose={onClose}
@@ -81,6 +84,7 @@ class TarjetaPlanta extends Component{
             return (
                 <div className='custom-ui scroll'>
                     <AlertPodas
+                        user={this.props.user}
                         idPlanta={this.props.id}
                         alert={this.alertPodas}
                         onClose={onClose}
@@ -98,6 +102,7 @@ class TarjetaPlanta extends Component{
             return (
                 <div className='custom-ui scroll'>
                     <AlertFumigaciones
+                        user={this.props.user}
                         idPlanta={this.props.id}
                         alert={this.alertFumigaciones}
                         onClose={onClose}
@@ -116,7 +121,7 @@ class TarjetaPlanta extends Component{
         })
     }
     eliminarPlanta=async ()=>{
-        await database().ref().child('plantas').child(this.props.id).remove()
+        await database().ref().child(this.props.user).child('plantas').child(this.props.id).remove()
     }
     render(){
         return(

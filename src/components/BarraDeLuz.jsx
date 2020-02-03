@@ -199,9 +199,9 @@ class BarraDeLuz extends Component{
 }
 const mapStateToProps=state=>{
     return{
-        periodo:state.periodo,
-        horaDeInicio:state.horaDeInicio,
-        horaDeFinal:state.horaDeFinal,
+        periodo:state.data.periodo,
+        horaDeInicio:state.data.horaDeInicio,
+        horaDeFinal:state.data.horaDeFinal,
     }
 }
 export default connect(mapStateToProps,null)(BarraDeLuz)

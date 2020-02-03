@@ -10,7 +10,7 @@ class Aplicables extends Component{
                 <NavBarAccion
                     title='Aditivos'
                 />
-                <TabAditivos fertilizantes={this.props.fertilizantes} insecticidas={this.props.insecticidas}/>
+                <TabAditivos user={this.props.user} fertilizantes={this.props.fertilizantes} insecticidas={this.props.insecticidas}/>
             </div>
         )
     }
@@ -18,8 +18,9 @@ class Aplicables extends Component{
 
 const mapStateToProps =(state)=>{
     return{
-        fertilizantes:state.fertilizantes,
-        insecticidas:state.insecticidas
+        user:state.user,
+        fertilizantes:state.data.fertilizantes,
+        insecticidas:state.data.insecticidas
     }
 }
 export default connect(mapStateToProps,null)(Aplicables)

@@ -16,7 +16,7 @@ class AlertRiego extends Component{
                     <Accordion defaultActiveKey='0'>
                         {this.props.riegos?
                             Object.keys(this.props.riegos).reverse().map((id,i)=>(
-                                <AccionDetallada index={i} alert={this.props.alert} accion={this.props.riegos[id]} tipoDeAccion='riegos' idPlanta={this.props.idPlanta} id={id} key={id}/>
+                                <AccionDetallada user={this.props.user} index={i} alert={this.props.alert} accion={this.props.riegos[id]} tipoDeAccion='riegos' idPlanta={this.props.idPlanta} id={id} key={id}/>
                             ))
                             :
                             <>

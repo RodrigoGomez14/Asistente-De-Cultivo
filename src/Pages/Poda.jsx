@@ -55,7 +55,7 @@ class Poda extends Component{
         })
     }
     guardarPodaBD= async (idPlanta)=>{
-        await database().ref().child('plantas').child(idPlanta).child('podas').push({
+        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('podas').push({
             fecha:moment().format('LLL'),
             tipoDePoda:this.state.tipoDePoda
         })
@@ -105,7 +105,8 @@ class Poda extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        plantas:state.plantas,
+        user:state.user,
+        plantas:state.data.plantas,
     }
 }
 export default connect(mapStateToProps,null)(Poda)

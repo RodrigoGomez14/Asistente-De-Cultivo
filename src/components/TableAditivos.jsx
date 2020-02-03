@@ -7,13 +7,13 @@ import {AlertNuevoAditivo} from '../alerts/AlertNuevoAditivo'
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles/table.css'
 import {database} from 'firebase'
-export const TableAditivos = ({title,aditivos}) =>{
-
+export const TableAditivos = ({title,aditivos,user}) =>{
     const alertNuevoAditivo=()=>confirmAlert({
         customUI: ({ onClose }) => {
             return (
                 <div className='custom-ui'>
                     <AlertNuevoAditivo
+                        user={user}
                         aditivos={aditivos}
                         tipoDeAditivo={title}
                         onClose={onClose}
@@ -27,6 +27,7 @@ export const TableAditivos = ({title,aditivos}) =>{
             return (
                 <div className='custom-ui'>
                     <AlertNuevoAditivo
+                        user={user}
                         aditivos={aditivos}
                         tipoDeAditivo={title}
                         onClose={onClose}
@@ -41,12 +42,12 @@ export const TableAditivos = ({title,aditivos}) =>{
         newAditivos.splice(id,1)
         switch (title) {
             case "Fertilizantes":
-                await database().ref().update({
+                await database().ref().child(user).update({
                    fertilizantes:newAditivos
                 })
                 break;
             case "Insecticidas":
-                await database().ref().update({
+                await database().ref().child(user).update({
                     insecticidas:newAditivos
                 })
                 break;

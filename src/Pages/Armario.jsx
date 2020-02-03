@@ -93,21 +93,21 @@ class Armario extends Component{
         }
     })
     cambioDePeriodo=async()=>{
-        await database().ref().update({
+        await database().ref().child(this.props.user).update({
             periodo:this.state.nuevoPeriodo
         })
     }
     cambiarHoraDeInicio=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().update({
+        await database().ref().child(this.props.user).update({
             horaDeInicio: parseInt(horas)
         })
     }
     cambiarHoraDeFinal=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().update({
+        await database().ref().child(this.props.user).update({
             horaDeFinal: parseInt(horas)
         })
     }
@@ -212,10 +212,11 @@ class Armario extends Component{
 }
 const mapStateToProps = state =>{
     return{
-        plantas:state.plantas,
-        periodo:state.periodo,
-        horaDeInicio:state.horaDeInicio,
-        horaDeFinal:state.horaDeFinal,
+        user:state.user,
+        plantas:state.data.plantas,
+        periodo:state.data.periodo,
+        horaDeInicio:state.data.horaDeInicio,
+        horaDeFinal:state.data.horaDeFinal,
     }
 }
 export default connect(mapStateToProps,null)(Armario)
