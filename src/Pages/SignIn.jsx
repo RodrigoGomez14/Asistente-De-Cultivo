@@ -60,7 +60,8 @@ export const SignInPage=({history})=> {
 
     const login=async()=>{
         setloading(true)
-        await auth().signInWithEmailAndPassword(inputUser,inputPassword).catch(error=>{
+        await auth().signInWithEmailAndPassword(inputUser,inputPassword)
+        .catch(error=>{
           if(error.code==='auth/user-not-found'){
             setUserError(error)
           }
@@ -80,7 +81,7 @@ export const SignInPage=({history})=> {
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
               {loading?
                 <div className={classes.paper}>
-                    <Typography>
+                    <Typography component="h1" variant="h5">
                       <PantallaDeCarga/>
                     </Typography>
                 </div>

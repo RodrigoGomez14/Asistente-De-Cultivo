@@ -12,7 +12,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import {auth} from 'firebase'
+import {auth, database} from 'firebase'
 import foto from '../images/sea of green.jpg'
 import PantallaDeCarga from './PantallaDeCarga'
 import {Link as LinkRouter} from 'react-router-dom'
@@ -62,7 +62,12 @@ export const LogInPage=({history})=> {
         setloading(true)
         await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
         .then(async e=>{
-            this.props.history.push('/')
+            await database().ref().child(e.user.uid).update({
+                horaDeInicio:0,
+                horaDeFinal:0,
+                periodo:'Vegetativo'
+            })
+            history.push('/')
         })
         .catch(error=>{
           if(error.code==='auth/user-not-found'){

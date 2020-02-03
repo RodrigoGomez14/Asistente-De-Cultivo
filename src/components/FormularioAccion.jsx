@@ -8,8 +8,10 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Alert from '@material-ui/lab/Alert';
 import {FormControl,InputLabel,Select,MenuItem,makeStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
     formControl: {
       margin: theme.spacing(1),
@@ -19,6 +21,10 @@ const useStyles = makeStyles(theme => ({
     selectEmpty: {
       marginTop: theme.spacing(2),
     },
+    alert:{
+        alignItems:'center',
+
+    }
   }));
   /*
   <ExpansionPanelSummary
@@ -79,7 +85,8 @@ export const FormularioAccion=(props)=>{
                             </div>
                             <div className="container">
                                 <div className="form-row mt-4 justify-content-start w-80`">
-                                    {props.aditivos.map((aditivo,i)=>(
+                                    {props.aditivos?
+                                        props.aditivos.map((aditivo,i)=>(
                                         aditivo.dosis[props.tipoDeRiego]?
                                             <Fragment key={'input'+i}>  
                                                 <div className="form-group col-4">
@@ -109,8 +116,15 @@ export const FormularioAccion=(props)=>{
                                                 </div>
                                             </Fragment>
                                             :
-                                            null
-                                        ))}
+                                            <div className="col-12">
+                                                <Alert severity="warning" className={classes.alert}> <div>No hay Aditivos disponibles - <Link to='/Aplicables'>Agrega uno ahora!</Link> </div> </Alert>
+                                            </div>
+                                        ))
+                                        :
+                                        <div className="col-12">
+                                            <Alert severity="warning" className={classes.alert}> <div>No hay Aditivos disponibles - <Link to='/Aplicables'>Agrega uno ahora!</Link> </div> </Alert>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </Form.Row>

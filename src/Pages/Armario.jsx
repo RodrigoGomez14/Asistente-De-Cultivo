@@ -215,7 +215,7 @@ const mapStateToProps = state =>{
         user:state.user,
         plantas:state.data.plantas,
         periodo:state.data.periodo,
-        horaDeInicio:state.data.horaDeInicio,
+        horaDeInicio:state.data.hora,
         horaDeFinal:state.data.horaDeFinal,
     }
 }
