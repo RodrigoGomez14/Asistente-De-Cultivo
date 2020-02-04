@@ -35,8 +35,32 @@ export const Layout=({page,children,history})=>{
     let [menuOpened,setMenuOpened]=useState(false)
     let [selectedTabs,setSelectedTabs]=useState('recents')
         return(
-            <div className="App d-flex flex-column justify-content-between">
-                <div className="container-fluid px-0">
+            <div className="App d-flex flex-column justify-content-start">
+                 <AppBar position="static">
+                        <Toolbar>
+                        {page!=='Armario'?
+                            <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                                history.goBack()
+                            }} color="inherit" aria-label="menu">
+                                <ArrowBackRounded />
+                            </IconButton>
+                            :
+                            <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                                
+                            }} color="inherit" aria-label="menu">
+                                <AccountCircle />
+                            </IconButton>
+                        }
+                        <Typography variant="h6" className={classes.title} >
+                            {page}
+                        </Typography>
+                        <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                            setMenuOpened(true)
+                        }} color="inherit" aria-label="menu">
+                            <MenuIcon />
+                        </IconButton>
+                        </Toolbar>
+                    </AppBar>
                     <Drawer anchor="right" open={menuOpened} onClose={e=>{setMenuOpened(false)}}>
                         <div className="container d-flex flex-column h-100 justify-content-between">
                             <div>
@@ -117,36 +141,6 @@ export const Layout=({page,children,history})=>{
                             </div>
                         </div>
                     </Drawer>
-                    <div className="row">
-                        <div className="col">
-                        <AppBar position="static">
-                            <Toolbar>
-                            {page!=='Armario'?
-                                <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                                    history.goBack()
-                                }} color="inherit" aria-label="menu">
-                                    <ArrowBackRounded />
-                                </IconButton>
-                                :
-                                <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                                    
-                                }} color="inherit" aria-label="menu">
-                                    <AccountCircle />
-                                </IconButton>
-                            }
-                            <Typography variant="h6" className={classes.title} >
-                                {page}
-                            </Typography>
-                            <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                                setMenuOpened(true)
-                            }} color="inherit" aria-label="menu">
-                                <MenuIcon />
-                            </IconButton>
-                            </Toolbar>
-                        </AppBar>
-                        </div>
-                    </div>
-                </div>
                 {children}
             </div>
         )

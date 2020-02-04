@@ -108,7 +108,7 @@ class Armario extends Component{
     render(){
         return(
             <Layout history={this.props.history} page="Armario">
-                <div className="container-fluid d-flex flex-column justify-content-around h-100">
+                <div className="container-fluid d-flex flex-column justify-content-start h-100">
                     <div className='row'>
                         <div className='col'>
                             <BarraDeLuz/>            
