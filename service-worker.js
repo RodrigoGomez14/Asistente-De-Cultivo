@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Asistente-De-Cultivo/precache-manifest.8489e44baca7d8e4db3ac8a411111669.js"
+  "/Asistente-De-Cultivo/precache-manifest.e8fd5154eaeaa13f8c05b447fe40984c.js"
 );
 
 self.addEventListener('message', (event) => {
