@@ -15,9 +15,6 @@ export const Planta =(props)=>{
                         inicioVegetativo={props.location.props.inicioVegetativo}
                         inicioFloracion={props.location.props.inicioFloracion}
                     />
-                    <DetalleAcciones
-                        {...props.location.props}
-                    />
                     <div className="row mt-4 justify-content-center">
                         <div className="col-auto">
                             <div className="btn-group">

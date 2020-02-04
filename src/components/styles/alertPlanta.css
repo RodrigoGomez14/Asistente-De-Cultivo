@@ -40,7 +40,8 @@
     border-bottom: 1px solid white 
 }
 .alert-icon{
-    color: black;
+    color: #062727;
+    text-shadow: 1px 1px white;
     font-size: 2rem;
     transition: .5s;
     cursor: pointer;
