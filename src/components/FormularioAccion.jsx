@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     alert:{
         alignItems:'center',
-    }
+    },
   }));
   /*
   <ExpansionPanelSummary

@@ -7,7 +7,7 @@ class Aplicables extends Component{
     render(){
         return(
             <Layout history={this.props.history} page='Aditivos'>
-                <div className="container-fluid d-flex flex-column justify-content-start h-100 px-0 position-fixed zindex-fixed">
+                <div className="container-fluid overflow-auto">
                     <div className="row">
                         <div className="col-12">
                             <TabAditivos user={this.props.user} fertilizantes={this.props.fertilizantes} insecticidas={this.props.insecticidas}/>

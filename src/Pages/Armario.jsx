@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import CarouselPlantas from '../components/CarouselPlantas'
-import BarraDeLuz from '../components/BarraDeLuz'
+import {BarraDeLuz} from '../components/BarraDeLuz'
 //import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { confirmAlert } from 'react-confirm-alert';
@@ -17,7 +17,6 @@ import {MenuButton} from './styles/ArmarioStyle'
 import Navbar from '../components/Navbar'
 import { faTint, faCut , faBug , faCogs, faAlignRight, faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Layout} from './Layout'
-import {Paper }from '@material-ui/core'
 
 class Armario extends Component{
     state={
@@ -111,7 +110,7 @@ class Armario extends Component{
             <Layout history={this.props.history} page="Armario">
                 <div className="container-fluid overflow-auto">
                     <div className="row">
-                        <BarraDeLuz/>       
+                        <BarraDeLuz periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} horaDeFinal={this.props.horaDeFinal}/>      
                     </div>
                     <div className="row">
                         <CarouselPlantas history={this.props.history}/>

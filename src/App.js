@@ -21,6 +21,7 @@ import {Planta} from './Pages/Planta'
 import {PlantaRiegos} from './Pages/PlantaRiegos'
 import {PlantaPodas} from './Pages/PlantaPodas'
 import {PlantaFumigaciones} from './Pages/PlantaFumigaciones'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
 let store 
 let data
@@ -34,6 +35,23 @@ const config = {
   appId: "1:89543318439:web:ad0692faa495a539"
 }
 firebase.initializeApp(config)
+const theme = createMuiTheme({
+  palette: {
+    white:'#fff',
+    primary: {
+      light: '#4ebaaa',
+      main: '#00897b',
+      dark: '#005b4f',
+      contrastText: '#000',
+    },
+    secondary: {
+      light: '#4f83cc',
+      main: '#01579b',
+      dark: '#002f6c',
+      contrastText: '#fff',
+    },
+  },
+});
 class App extends Component {
   state={
     loading:true
@@ -69,7 +87,8 @@ class App extends Component {
     else{
       if(this.state.user){
         return (
-          <Provider store={this.state.store}>
+          <ThemeProvider theme={theme}>
+            <Provider store={this.state.store}>
               <HashRouter>
                 <Switch>
                   <Route exact path='/' component={Armario}/>
@@ -85,17 +104,20 @@ class App extends Component {
                   <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                 </Switch>
               </HashRouter>
-        </Provider>
+            </Provider>
+          </ThemeProvider>
         )
       }
       else{
         return (
-          <HashRouter>
-            <Switch>
-              <Route exact path='/' component={SignInPage}/>
-              <Route exact path='/Login' component={LogInPage}/>
-            </Switch>
-          </HashRouter>
+          <ThemeProvider theme={theme}>
+            <HashRouter>
+              <Switch>
+                <Route exact path='/' component={SignInPage}/>
+                <Route exact path='/Login' component={LogInPage}/>
+              </Switch>
+            </HashRouter>
+          </ThemeProvider>
         )
       }
     }

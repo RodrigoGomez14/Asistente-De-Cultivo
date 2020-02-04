@@ -39,14 +39,14 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: "#4f83cc",
+    backgroundColor: theme.palette.secondary.dark
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
-  '.MuiFormLabel-root.Mui-focused':{
-    color:'#4f83cc'
+  '&.MuiFormLabel-root.Mui-focused':{
+    color:theme.palette.secondary.contrastText
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     color:'black'
   },
   link:{
-    color:'#000000'
+    color:'#ffffff'
   }
 }));
 

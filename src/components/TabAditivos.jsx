@@ -2,6 +2,26 @@ import React,{useState} from 'react'
 import {Row,Col} from 'react-bootstrap'
 import {Tabs,Tab,Paper,Typography,Box} from '@material-ui/core'
 import {TableAditivos} from './TableAditivos'
+import { makeStyles,Theme } from '@material-ui/core/styles';
+import {Grow} from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+    paperMain: {
+      backgroundColor: theme.palette.primary.light,
+    },
+    paperDark: {
+    backgroundColor: theme.palette.primary.dark,
+    },
+    tab:{
+        "&.MuiTab-textColorPrimary.Mui-selected":{
+            color: '#fff'
+        },
+    },
+    ".MuiTabs-flexContainer.PrivateTabIndicator-colorPrimary-135":{
+        color: '#fff'
+    },
+  }));
+
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
@@ -18,30 +38,41 @@ function TabPanel(props) {
       </Typography>
     );
   }
+
 export const TabAditivos = ({fertilizantes,insecticidas,user}) =>{
     const [value, setValue] = useState(0);
+    const classes = useStyles()
     return(
-        <Paper square elevation={2}>
-            <Paper>
-                <Tabs
-                    value={value}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    onChange={(e,value)=>{
-                        setValue(value)
-                    }}
-                    aria-label="disabled tabs example"
-                >
-                    <Tab label="Fertilizantes" />
-                    <Tab label="Insecticidas" />
-                </Tabs>
-            </Paper>
-            <TabPanel value={value} index={0}>
-                <TableAditivos user={user} title='Fertilizantes' aditivos={fertilizantes}/>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                <TableAditivos user={user} title='Insecticidas' aditivos={insecticidas}/>
-            </TabPanel>
-        </Paper>
+        <div className="container">
+            <div className="row">
+                <div className="col-12 col-md-6 offset-md-3">
+                    <Grow in={true}
+                        {...(true ? { timeout: 1500 } : {})}>
+                        <Paper square elevation={2} className={classes.paperMain}>
+                            <Paper className={classes.paperDark}>
+                                <Tabs
+                                    value={value}
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    onChange={(e,value)=>{
+                                        setValue(value)
+                                    }}
+                                    aria-label="disabled tabs example"
+                                >
+                                    <Tab label="Fertilizantes" className={classes.tab}/>
+                                    <Tab label="Insecticidas" className={classes.tab}/>
+                                </Tabs>
+                            </Paper>
+                            <TabPanel value={value} index={0}>
+                                <TableAditivos user={user} title='Fertilizantes' aditivos={fertilizantes}/>
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                <TableAditivos user={user} title='Insecticidas' aditivos={insecticidas}/>
+                            </TabPanel>
+                        </Paper>
+                    </Grow>
+                </div>
+            </div>
+        </div>
     )
 }

@@ -15,7 +15,7 @@ export const ElegirTipoDeRiego=({tipoDeRiego,cambiarTipoDeRiego})=>{
                         control={<Radio
                             value="Tierra" 
                             name="Tierra"
-                            color='default'
+                            color='primary'
                         />}
                         label='Tierra'
                         labelPlacement="top"
@@ -25,7 +25,7 @@ export const ElegirTipoDeRiego=({tipoDeRiego,cambiarTipoDeRiego})=>{
                         control={<Radio
                             value="Foliar"
                             name="Foliar"
-                            color='default'
+                            color='primary'
                         />}
                         label="Foliar"
                         labelPlacement="top"

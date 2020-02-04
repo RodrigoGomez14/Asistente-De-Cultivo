@@ -9,7 +9,7 @@ import { faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import {database} from 'firebase'
 import AlertNuevaPlanta from '../alerts/AlertNuevaPlanta'
-import {Button,Typography} from '@material-ui/core'
+import {Button,Typography,Grow} from '@material-ui/core'
 class CarouselPlantas extends Component{
     guardarNuevaPlantaDB= async (nombre,genetica)=>{
         await database().ref().child(this.props.user).child('plantas').push({
@@ -35,9 +35,12 @@ class CarouselPlantas extends Component{
             <div className="container h-100 justify-content-center d-flex flex-column ">
                 <div className="row mb-3">
                     <div className="col-auto ml-auto mr-auto">
-                        <Typography>
-                            Plantas Dentro Del Armario
-                        </Typography>
+                        <Grow in={true}
+                            {...(true ? { timeout: 1500 } : {})}>
+                            <Typography>
+                                Plantas Dentro Del Armario
+                            </Typography>
+                        </Grow>
                     </div>
                 </div>
                 <div className="row align-items-center justify-content-start flex-nowrap overflow-auto">
@@ -67,7 +70,10 @@ class CarouselPlantas extends Component{
                         </div>
                     }
                     <div className="col-3">
-                        <FontAwesomeIcon icon={faPlusCircle} className='alert-icon' onClick={this.alertNuevaPlanta}/>
+                        <Grow in={true}
+                        {...(true ? { timeout: 1500 } : {})}>
+                            <FontAwesomeIcon icon={faPlusCircle} className='alert-icon' onClick={this.alertNuevaPlanta}/>
+                        </Grow>
                     </div>
                 </div>
             </div>

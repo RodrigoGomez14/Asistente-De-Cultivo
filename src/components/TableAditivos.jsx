@@ -27,6 +27,14 @@ const useStyles = makeStyles(theme => ({
       fontSize: theme.typography.pxToRem(15),
       color: theme.palette.text.secondary,
     },
+    paperMain: {
+        backgroundColor: theme.palette.secondary.light,
+        color:theme.palette.secondary.contrastText
+    },
+    paperDark: {
+        backgroundColor: theme.palette.secondary.main,
+        color:theme.palette.secondary.contrastText
+    },
   }));
 
 
@@ -101,8 +109,8 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                     <div className="col-12">
                             {aditivos?
                                 aditivos.map((aditivo,i)=>(
-                                    <Paper elevation={4}>
-                                        <ExpansionPanel expanded={expanded === 'panel'+i} onChange={handleChange('panel'+i)}>
+                                    <ExpansionPanel expanded={expanded === 'panel'+i} onChange={handleChange('panel'+i)}>
+                                        <Paper elevation={4} className={classes.paperDark}>
                                             <ExpansionPanelSummary
                                             expandIcon={<ExpandMoreIcon />}
                                             aria-controls="panel1bh-content"
@@ -110,6 +118,8 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                             >
                                                 <Typography className={classes.heading}>{aditivo.nombre} <span className='badge badge-pill badge-dark'>{aditivo.marca}</span></Typography>
                                             </ExpansionPanelSummary>
+                                        </Paper>
+                                        <Paper elevation={4} className={classes.paperMain}>
                                             <ExpansionPanelDetails>
                                                 <div className="container">
                                                     <div className="row">
@@ -165,7 +175,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                             </button>
                                                         </div>
                                                         <div className="col-auto ml-auto mr-auto">
-                                                            <button type='button' className='btn btn-outline-danger' onClick={e=>{
+                                                            <button type='button' className='btn btn-danger' onClick={e=>{
                                                                 eliminarAditivo(i)
                                                             }}>
                                                                 Eliminar aditivo
@@ -174,8 +184,8 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                     </div>
                                                 </div>
                                             </ExpansionPanelDetails>
+                                            </Paper>
                                         </ExpansionPanel>
-                                    </Paper>
                                 ))
                                 :
                                 <h1>Agrega {title}</h1>

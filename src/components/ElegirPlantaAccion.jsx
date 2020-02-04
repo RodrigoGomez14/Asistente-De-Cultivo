@@ -36,7 +36,7 @@ export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
                             {plantas.map((planta,i)=>(
                                 <FormControlLabel
                                 control={
-                                    <Checkbox color='default' checked={planta.selected} onChange={e=>{
+                                    <Checkbox color='primary' checked={planta.selected} onChange={e=>{
                                         seleccionarPlanta(i)}}
                                     value={planta.nombre} />
                                 }

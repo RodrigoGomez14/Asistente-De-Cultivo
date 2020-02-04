@@ -53,50 +53,49 @@ export const DetallePlanta=(props)=>{
             width: '100%',
             maxWidth: 360,
         },
+        paper:{
+            backgroundColor:theme.palette.primary.main
+        }
     }));
     const classes = useStyles()
     return(
         <>
-            <Row className='mb-2'>
-                <Col xs={12}>
-                    <GridList className={classes.gridList} cols={2.5}>
-                        {tileData.map(tile => (
-                        <GridListTile key={tile.img}>
-                            <img src={tile.img}  />
-                        </GridListTile>
-                        ))}
-                    </GridList>
-                </Col>
-            </Row>
-            <Row className='mb-2'>
-                <Col>
-                    <div className={classes.listRoot}>
-                        <Paper elevation={3}>
-                            <List component='nav'>
-                                <ListItem>
-                                    <ListItemText primary="Genetica" secondary={props.genetica}/>
-                                </ListItem>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText primary="Edad" secondary={props.edad}/>
-                                </ListItem>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText primary="Fecha De Germinacion" secondary={`${props.nacimiento} (${moment().diff(moment(props.nacimiento),'days')} Dias)`}/>
-                                </ListItem>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText primary="Fecha De Vegetativo" secondary={`${props.inicioVegetativo} (${moment().diff(moment(props.inicioVegetativo),'days')} Dias)`}/>
-                                </ListItem>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
-                                </ListItem>
-                            </List>
-                        </Paper>
-                    </div>
-                </Col>
-            </Row>
+            <Col xs={12}>
+                <GridList className={classes.gridList} cols={2.5}>
+                    {tileData.map(tile => (
+                    <GridListTile key={tile.img}>
+                        <img src={tile.img}  />
+                    </GridListTile>
+                    ))}
+                </GridList>
+            </Col>
+            <div className='col-3 mt-2'>
+                <div className={classes.listRoot}>
+                    <Paper elevation={3} className={classes.paper}>
+                        <List component='nav'>
+                            <ListItem>
+                                <ListItemText primary="Genetica" secondary={props.genetica}/>
+                            </ListItem>
+                            <Divider/>
+                            <ListItem>
+                                <ListItemText primary="Edad" secondary={props.edad}/>
+                            </ListItem>
+                            <Divider/>
+                            <ListItem>
+                                <ListItemText primary="Fecha De Germinacion" secondary={`${props.nacimiento} (${moment().diff(moment(props.nacimiento),'days')} Dias)`}/>
+                            </ListItem>
+                            <Divider/>
+                            <ListItem>
+                                <ListItemText primary="Fecha De Vegetativo" secondary={`${props.inicioVegetativo} (${moment().diff(moment(props.inicioVegetativo),'days')} Dias)`}/>
+                            </ListItem>
+                            <Divider/>
+                            <ListItem>
+                                <ListItemText primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
+                            </ListItem>
+                        </List>
+                    </Paper>
+                </div>
+            </div>
         </>
     )
 }

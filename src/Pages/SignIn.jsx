@@ -39,15 +39,25 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.dark
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  '.MuiFormLabel-root.Mui-focused':{
+    color:'#ffffff'
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  background:{
+    background:'#00897b !important',
+    color:'black'
+  },
+  link:{
+    color:'#ffffff'
+  }
 }));
 
 
@@ -82,7 +92,7 @@ export const SignInPage=({history})=> {
             <Grid item xs={false} sm={4} md={7} className={classes.image}>
               <img src={foto} alt="" className={classes.img}/>
             </Grid>
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.background} elevation={6} square>
               {loading?
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h5">
@@ -141,13 +151,13 @@ export const SignInPage=({history})=> {
                     </Button>
                     <Grid container>
                     <Grid item xs>
-                        <Link href="#" variant="body2">
+                        <Link href="#" variant="body2" className={classes.link}>
                         Olvidaste tu contraseña?
                         </Link>
                     </Grid>
                     <Grid item>
                         <Link variant="body2">
-                          <LinkRouter to='/Login'>
+                          <LinkRouter to='/Login' className={classes.link}>
                             {"No tienes una cuenta? Registrate!"}
                           </LinkRouter>
                         </Link>

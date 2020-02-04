@@ -19,7 +19,7 @@ import {AppBar,Toolbar,IconButton,Typography,Menu} from '@material-ui/core'
 import {Menu as MenuIcon,ArrowBackRounded,AccountCircle,HomeOutlined} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
 import {Redirect} from 'react-router-dom'
-
+import { createMuiTheme } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
     root: {
       flexGrow: 1,
@@ -30,8 +30,13 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     },
+    drawer:{
+        height:'100%',
+        backgroundColor: theme.palette.primary.light
+    },
     appBar:{
-        backgroundColor:"#00897b"
+        backgroundColor:theme.palette.primary.dark,
+        color:theme.palette.primary.contrastText
     }
   }));
 export const Layout=({page,children,history,planta})=>{
@@ -49,7 +54,7 @@ export const Layout=({page,children,history,planta})=>{
     }
     return(
         <div className="App d-flex flex-column justify-content-start">
-                <AppBar color='default' position="static" className={classes.appBar}>
+                <AppBar className={classes.appBar} position="static" >
                     <Toolbar>
                     {page!=='Armario'?
                         <IconButton edge="end" className={classes.menuButton} onClick={e=>{
@@ -84,83 +89,85 @@ export const Layout=({page,children,history,planta})=>{
                     </IconButton>
                     </Toolbar>
                 </AppBar>
-                <Drawer anchor="right" open={menuOpened} onClose={e=>{setMenuOpened(false)}}>
-                    <div className="container d-flex flex-column h-100 justify-content-between">
-                        <div>
-                            <List>
-                                <Link to='/' className='outline-none text-dark'>
-                                    <ListItem button key={'Armario'} >
-                                        <ListItemIcon><HomeOutlined/></ListItemIcon>
-                                        <ListItemText primary={'Armario'} />
+                <Drawer anchor="right" open={menuOpened}  onClose={e=>{setMenuOpened(false)}}>
+                    <div className={classes.drawer}>
+                        <div className="container d-flex flex-column h-100 justify-content-between">
+                            <div>
+                                <List>
+                                    <Link to='/' className='outline-none text-dark'>
+                                        <ListItem button key={'Armario'} >
+                                            <ListItemIcon><HomeOutlined/></ListItemIcon>
+                                            <ListItemText primary={'Armario'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <Link to='/Riego' className='outline-none text-dark'>
+                                        <ListItem button key={'Regar'} >
+                                            <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
+                                            <ListItemText primary={'Regar'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <Link to='/Poda' className='outline-none text-dark'>
+                                        <ListItem button key={'Podar'}>
+                                            <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
+                                            <ListItemText primary={'Podar'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <Link to='/Insecticida' className='outline-none text-dark'>
+                                        <ListItem button key={'Fumigar'}>
+                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                            <ListItemText primary={'Fumigar'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                            </div>
+                            <div>
+                                <Divider />
+                                <List>
+                                    <Link to='/Aplicables' className='outline-none text-dark'>
+                                        <ListItem button key={'Aditivos'}>
+                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                            <ListItemText primary={'Aditivos'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <Link to='/Aditivos' className='outline-none text-dark'>
+                                        <ListItem button key={'Carencias y Excesos'}>
+                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                            <ListItemText primary={'Carencias y Excesos'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <Link to='/Configuracion' className='outline-none text-dark'>
+                                        <ListItem button key={'Configuracion'}>
+                                            <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
+                                            <ListItemText primary={'Configuracion'} />
+                                        </ListItem>
+                                    </Link>
+                                </List>
+                                <Divider />
+                                <List>
+                                    <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
+                                            await auth().signOut()
+                                        }}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
+                                        <ListItemText primary={'Cerrar Sesion'} />
                                     </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Riego' className='outline-none text-dark'>
-                                    <ListItem button key={'Regar'} >
-                                        <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
-                                        <ListItemText primary={'Regar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Poda' className='outline-none text-dark'>
-                                    <ListItem button key={'Podar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
-                                        <ListItemText primary={'Podar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Insecticida' className='outline-none text-dark'>
-                                    <ListItem button key={'Fumigar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Fumigar'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                        </div>
-                        <div>
-                            <Divider />
-                            <List>
-                                <Link to='/Aplicables' className='outline-none text-dark'>
-                                    <ListItem button key={'Aditivos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Aditivos'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Aditivos' className='outline-none text-dark'>
-                                    <ListItem button key={'Carencias y Excesos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Carencias y Excesos'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <Link to='/Configuracion' className='outline-none text-dark'>
-                                    <ListItem button key={'Configuracion'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
-                                        <ListItemText primary={'Configuracion'} />
-                                    </ListItem>
-                                </Link>
-                            </List>
-                            <Divider />
-                            <List>
-                                <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
-                                        await auth().signOut()
-                                    }}>
-                                    <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
-                                    <ListItemText primary={'Cerrar Sesion'} />
-                                </ListItem>
-                            </List>
+                                </List>
+                            </div>
                         </div>
                     </div>
                 </Drawer>

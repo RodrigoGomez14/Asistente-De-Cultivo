@@ -83,35 +83,36 @@ class Poda extends Component{
             <Layout history={this.props.history} page='Poda'>
                 <div className="container-fluid accion">
                     <div className="row">
-
-                        <StepperAccion 
-                            cantidadDeAgua={this.state.cantidadDeAgua}
-                            tipoDePoda={this.state.tipoDePoda}
-                            confirmarAccion={this.confirmarAccion}
-                            selectedPlants={selectedPlants}
-                            resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
-                            tipoDeAccion='Poda'
-                            steps={[
-                            {
-                                title:'Plantas',
-                                content:(
-                                    <ElegirPlantaAccion
-                                        seleccionarPlanta={this.seleccionarPlanta}
-                                        plantas={this.state.plantas}
-                                    />
-                                )},
-                            {
-                                title:'Tipo De Poda',
-                                content:(
-                                    <ElegirTipoDePoda
-                                        handleChange={(nuevoTipoDePoda=>{
-                                            this.cambiarTipoDePoda(nuevoTipoDePoda)
-                                        })}
-                                        tipoDePoda={this.state.tipoDePoda}
-                                    />
-                            )}]
-                            }
-                        />
+                        <div className="col-12 col-md-6 offset-md-3">
+                            <StepperAccion 
+                                cantidadDeAgua={this.state.cantidadDeAgua}
+                                tipoDePoda={this.state.tipoDePoda}
+                                confirmarAccion={this.confirmarAccion}
+                                selectedPlants={selectedPlants}
+                                resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
+                                tipoDeAccion='Poda'
+                                steps={[
+                                {
+                                    title:'Plantas',
+                                    content:(
+                                        <ElegirPlantaAccion
+                                            seleccionarPlanta={this.seleccionarPlanta}
+                                            plantas={this.state.plantas}
+                                        />
+                                    )},
+                                {
+                                    title:'Tipo De Poda',
+                                    content:(
+                                        <ElegirTipoDePoda
+                                            handleChange={(nuevoTipoDePoda=>{
+                                                this.cambiarTipoDePoda(nuevoTipoDePoda)
+                                            })}
+                                            tipoDePoda={this.state.tipoDePoda}
+                                        />
+                                )}]
+                                }
+                            />
+                        </div>
                     </div>
                 </div>
             </Layout>
