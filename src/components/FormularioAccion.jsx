@@ -88,7 +88,7 @@ export const FormularioAccion=(props)=>{
                                         props.aditivos.map((aditivo,i)=>(
                                         aditivo.dosis[props.tipoDeRiego]?
                                             <Fragment key={'input'+i}>  
-                                                <div className="form-group col-4">
+                                                <div className="form-group col-12 col-sm-6 cols-md-4">
                                                     <FormControl className={classes.formControl} >
                                                         <InputLabel  id="emo-simple-select-helper-label">
                                                             {aditivo.nombre}

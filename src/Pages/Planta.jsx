@@ -15,7 +15,7 @@ export const Planta =(props)=>{
                         inicioVegetativo={props.location.props.inicioVegetativo}
                         inicioFloracion={props.location.props.inicioFloracion}
                     />
-                    <div className="row mt-4 justify-content-center">
+                    <div className="row my-2 justify-content-center">
                         <div className="col-auto">
                             <div className="btn-group">
                                 <button type='button' className='btn btn-danger mr-4'onClick={props.location.props.alertEliminarPlanta} >Eliminar Planta</button>

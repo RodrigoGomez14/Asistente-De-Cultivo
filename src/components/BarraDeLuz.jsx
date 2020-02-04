@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import FechaYHora from '../components/FechaYHora'
-
+import './styles/table.css'
+import {Paper,Typography} from '@material-ui/core'
 
 
 class BarraDeLuz extends Component{
@@ -146,50 +147,66 @@ class BarraDeLuz extends Component{
     }
     render(){
         return(
-            <div className="container-fluid">
+            <div className="container">
                 <div className="row">
-                    <div className="col-auto ml-auto mr-auto">
-                        <FechaYHora/>
-                    </div>
-                </div>
-                <div className="row mt-4 mb-4">
-                    <div className="col text-center">
-                        <h3>Periodo {this.props.periodo}</h3>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col text-center">
-                        <h3>Ciclo Luminico {this.state.cicloLuminico} Hs ({this.props.horaDeInicio}:00 - {this.props.horaDeFinal}:00)</h3>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col text-center">
-                        Transcurrido (Hs) {this.state.transcurrido}
-                    </div>
-                    <div className="col text-center">
-                        Faltante (Hs) {this.state.faltante}
-                    </div>
-                </div>
-                <div className="row">
-                    {this.state.descanso?
-                        <div className="col text-center">
-                            <span className='badge badge-pill p-3 badge-dark'>
-                                Descansando...
-                            </span>
-                        </div>
-                        :
-                        <div className="col text-center">
-                            <span className='badge badge-pill p-3 badge-success'>
-                                Creciendo...
-                            </span>
-                        </div>
-                    }
-                </div>
-                <div className="row mt-4">
-                    <div className="col-10 offset-1">
-                        <div className="progress">
-                            <div className={this.state.descanso?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                    <div className="col-12 col-md-8 offset-md-2">
+                        <Paper elevation={3} className='py-2 my-2'>
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-auto ml-auto mr-auto">
+                                        <FechaYHora/>
+                                    </div>
+                                </div>
+                                <div className="row mt-4 mb-4">
+                                    <div className="col text-center">
+                                        <Typography>Periodo {this.props.periodo}</Typography>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col text-center">
+                                        <Typography>Ciclo Luminico {this.state.cicloLuminico} Hs ({this.props.horaDeInicio}:00 - {this.props.horaDeFinal}:00)</Typography>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col text-center">
+                                        <Typography>
+                                            Transcurrido (Hs) {this.state.transcurrido}
+                                        </Typography>
+                                    </div>
+                                    <div className="col text-center">
+                                        <Typography>
+                                            Faltante (Hs) {this.state.faltante}
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    {this.state.descanso?
+                                        <div className="col text-center">
+                                            <span className='badge badge-pill p-3 badge-dark'>
+                                                <Typography>
+                                                    Descansando...
+                                                </Typography>
+                                            </span>
+                                        </div>
+                                        :
+                                        <div className="col text-center">
+                                            <span className='badge badge-pill p-3 badge-success'>
+                                                <Typography>
+                                                    Creciendo...
+                                                </Typography>
+                                            </span>
+                                        </div>
+                                    }
+                                </div>
+                                <div className="row mt-4">
+                                    <div className="col-10 offset-1">
+                                        <div className="progress">
+                                            <div className={this.state.descanso?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Paper>
                     </div>
                 </div>
             </div>

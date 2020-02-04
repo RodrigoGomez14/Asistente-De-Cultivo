@@ -16,8 +16,8 @@
     color: red;
 }
 .accion{
-    min-height: 95vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start
+    justify-content: flex-start;
+    overflow: auto
 }

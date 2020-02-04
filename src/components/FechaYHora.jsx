@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import moment from 'moment'
+import {Typography} from '@material-ui/core'
 
 class FechaYHora extends Component{
     state={
@@ -14,8 +15,7 @@ class FechaYHora extends Component{
     }
     render(){
         return(
-            
-            <h1>{this.state.fecha}</h1>
+            <h3>{this.state.fecha}</h3>
         )
     }
 }

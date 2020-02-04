@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
     },
     appBar:{
-        backgroundColor:"#062727"
+        backgroundColor:"#00897b"
     }
   }));
 export const Layout=({page,children,history,planta})=>{
@@ -49,7 +49,7 @@ export const Layout=({page,children,history,planta})=>{
     }
     return(
         <div className="App d-flex flex-column justify-content-start">
-                <AppBar color='primary' position="static" className={classes.appBar}>
+                <AppBar color='default' position="static" className={classes.appBar}>
                     <Toolbar>
                     {page!=='Armario'?
                         <IconButton edge="end" className={classes.menuButton} onClick={e=>{

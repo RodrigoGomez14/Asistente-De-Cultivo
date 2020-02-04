@@ -39,15 +39,25 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#4f83cc",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  '.MuiFormLabel-root.Mui-focused':{
+    color:'#4f83cc'
+  },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  background:{
+    background:'#00897b !important',
+    color:'black'
+  },
+  link:{
+    color:'#000000'
+  }
 }));
 
 
@@ -88,7 +98,7 @@ export const LogInPage=({history})=> {
             <Grid item xs={false} sm={4} md={7} className={classes.image}>
               <img src={foto} alt="" className={classes.img}/>
             </Grid>
-            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.background} elevation={6} square>
               {loading?
                 <div className={classes.paper}>
                     <Typography>
@@ -105,33 +115,32 @@ export const LogInPage=({history})=> {
                   </Typography>
                   <form className={classes.form} noValidate>
                     <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    name="email"
-                    value={inputUser}
-                    onChange={e=>{setInputUser(e.target.value)}}
-                    autoFocus
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      name="email"
+                      value={inputUser}
+                      onChange={e=>{setInputUser(e.target.value)}}
+                      autoFocus
                     />
                     <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    value={inputPassword}
-                    onChange={e=>{setInputPassword(e.target.value)}}
-                    label="contraseña"
-                    type="password"
-                    id="password"
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      name="password"
+                      value={inputPassword}
+                      onChange={e=>{setInputPassword(e.target.value)}}
+                      label="contraseña"
+                      type="password"
+                      id="password"
                     />
                     <Button
                     fullWidth
                     variant="outlined"
-                    color="primary"
                     className={classes.submit}
                     onClick={e=>{signin()}}
                     >
@@ -139,8 +148,8 @@ export const LogInPage=({history})=> {
                     </Button>
                     <Grid container>
                     <Grid item xs>
-                        <Link variant="body2">
-                            <LinkRouter to='/'>
+                        <Link>
+                            <LinkRouter to='/' className={classes.link}>
                                 Ya tienes una cuenta? Ingresa!
                             </LinkRouter>
                         </Link>

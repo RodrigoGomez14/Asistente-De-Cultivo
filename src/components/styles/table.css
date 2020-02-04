@@ -1,3 +1,9 @@
 .hover{
     cursor: pointer
 }
+.barraDeLuz{
+    background: linear-gradient( #ffffff,#000000);
+    border-bottom-left-radius: 100%;
+    border-bottom-right-radius: 100%;
+    padding-top: 5%;
+}
