@@ -18,6 +18,9 @@ import * as firebase from 'firebase'
 import PantallaDeCarga from './Pages/PantallaDeCarga';
 import { Configuracion } from './Pages/Configuracion';
 import {Planta} from './Pages/Planta'
+import {PlantaRiegos} from './Pages/PlantaRiegos'
+import {PlantaPodas} from './Pages/PlantaPodas'
+import {PlantaFumigaciones} from './Pages/PlantaFumigaciones'
 
 let store 
 let data
@@ -76,6 +79,9 @@ class App extends Component {
                   <Route exact path='/Aplicables' component={Aplicables}/>
                   <Route exact path='/Configuracion' component={Configuracion}/>
                   <Route exact path='/Planta' component={Planta}/>
+                  <Route exact path='/Planta/Riegos' component={PlantaRiegos}/>
+                  <Route exact path='/Planta/Podas' component={PlantaPodas}/>
+                  <Route exact path='/Planta/Fumigaciones' component={PlantaFumigaciones}/>
                   <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                 </Switch>
               </HashRouter>

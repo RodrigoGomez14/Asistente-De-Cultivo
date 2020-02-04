@@ -7,13 +7,13 @@ import './styles/alertPlanta.css'
 import AlertPlanta from '../alerts/AlertPlanta'
 import AlertPodas from '../alerts/AlertPodas'
 import AlertRiego from '../alerts/AlertRiego'
-import AlertFumigaciones from '../alerts/AlertFumigaciones'
 import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
 import AlertCambiarCiclo from '../alerts/AlertCambiarCiclo';
 import {database} from 'firebase'
 import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'
 import {Link} from 'react-router-dom'
 import {Paper} from '@material-ui/core'
+import {Grow} from '@material-ui/core' 
 class TarjetaPlanta extends Component{
     state={
         edad:undefined
@@ -55,63 +55,7 @@ class TarjetaPlanta extends Component{
                         onClose={onClose}
                         alertEliminarPlanta={this.alertEliminarPlanta}
                         alertCambiarCiclo={this.alertCambiarCiclo}
-                        alertRiegos={this.alertRiegos}
                         alertPodas={this.alertPodas}
-                        alertFumigaciones={this.alertFumigaciones}
-                    />
-                </div>
-            );
-        }
-    })
-    alertRiegos=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui scroll'>
-                    <AlertRiego
-                        user={this.props.user}
-                        idPlanta={this.props.id}
-                        alert={this.alertRiegos}
-                        onClose={onClose}
-                        alertPlanta={this.alertPlanta}
-                        nombre={this.props.nombre}
-                        riegos={this.props.riegos}
-                        history={this.props.history}
-                    />
-                </div>
-            );
-        }
-    })
-    alertPodas=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui scroll'>
-                    <AlertPodas
-                        user={this.props.user}
-                        idPlanta={this.props.id}
-                        alert={this.alertPodas}
-                        onClose={onClose}
-                        alertPlanta={this.alertPlanta}
-                        nombre={this.props.nombre}
-                        podas={this.props.podas}
-                        history={this.props.history}
-                    />
-                </div>
-            );
-        }
-    })
-    alertFumigaciones=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui scroll'>
-                    <AlertFumigaciones
-                        user={this.props.user}
-                        idPlanta={this.props.id}
-                        alert={this.alertFumigaciones}
-                        onClose={onClose}
-                        alertPlanta={this.alertPlanta}
-                        nombre={this.props.nombre}
-                        fumigaciones={this.props.fumigaciones}
-                        history={this.props.history}
                     />
                 </div>
             );
@@ -128,37 +72,35 @@ class TarjetaPlanta extends Component{
     render(){
         return(
             <div className="col-auto">
-                <Paper elevation={6}>
-                    <Link to={{
-                        pathname:'/Planta',
-                        props:{
-                            ...this.props,
-                            alertFumigaciones:this.alertFumigaciones,
-                            alertRiegos:this.alertRiegos,
-                            alertPodas:this.alertPodas,
-                            alertCambiarCiclo:this.alertCambiarCiclo,
-                            alertEliminarPlanta:this.alertEliminarPlanta
-                        }
-                    }}>
-                        <Card className="card bg-light" >
-                            <Img src={fotoPlanta} className="card-img-top" alt="..."/>
-                            <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col text-left">
-                                            <h4 className="card-title">{this.props.nombre}</h4>
+                <Grow in={true}
+                    {...(true ? { timeout: 1500 } : {})}>
+                    <Paper elevation={6}>
+                        <Link className='text-white' to={{
+                            pathname:'/Planta',
+                            props:{
+                                ...this.props,
+                            }
+                        }}>
+                            <Card className="card bg-light" >
+                                <Img src={fotoPlanta} className="card-img-top" alt="..."/>
+                                <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
+                                    <div className="container-fluid">
+                                        <div className="row">
+                                            <div className="col text-left">
+                                                <h4 className="card-title">{this.props.nombre}</h4>
+                                            </div>
+                                        </div>
+                                        <div className="row">
+                                            <div className="col text-left">
+                                                <h6 className="card-subtitle mb-2 text-white">{this.state.edad} dias</h6>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="row">
-                                        <div className="col text-left">
-                                            <h6 className="card-subtitle mb-2 text-white">{this.state.edad} dias</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Overlay>
-                        </Card>
-                    </Link>
-                </Paper>
+                                </Overlay>
+                            </Card>
+                        </Link>
+                    </Paper>
+                </Grow>
             </div>
         )
     }

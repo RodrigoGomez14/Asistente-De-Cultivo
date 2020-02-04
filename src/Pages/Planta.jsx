@@ -16,6 +16,11 @@ export const Planta =(props)=>{
                         inicioFloracion={props.location.props.inicioFloracion}
                     />
                     <DetalleAcciones
+                        user={props.location.props.user}
+                        nombrePlanta={props.location.props.nombre}
+                        riegos={props.location.props.riegos}
+                        podas={props.location.props.podas}
+                        fumigaciones={props.location.props.fumigaciones}
                         alertRiegos={props.location.props.alertRiegos}
                         alertPodas={props.location.props.alertPodas}
                         alertFumigaciones={props.location.props.alertFumigaciones}

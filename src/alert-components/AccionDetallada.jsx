@@ -3,14 +3,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faSortDown} from '@fortawesome/free-solid-svg-icons'
 import * as firebase from 'firebase'
 import {Accordion,Card} from 'react-bootstrap'
+import {Grow} from '@material-ui/core'
 class AccionDetallada extends Component{
     eliminarAccion= async()=>{
         await firebase.database().ref().child(this.props.user).child('plantas').child(this.props.idPlanta).child(this.props.tipoDeAccion).child(this.props.id).remove()
-        this.props.alert()
+    }
+    state={
+        show:false
+    }
+    componentDidMount=()=>{
+        setTimeout(() => {
+            this.setState({show:true})
+        }, 100);
     }
     render(){
         return(
-            <Card>
+            <Grow in={this.state.show} 
+            {...(this.state.show ? { timeout: 1500 } : {})}>
+                <Card>
                 <Accordion.Toggle as={Card.Header} className='bg-dark text-light' eventKey={this.props.index}>
                     <div className="container-fluid">
                         <div className="row">
@@ -96,6 +106,7 @@ class AccionDetallada extends Component{
                         null
                     }
                 </Card>
+            </Grow>
         )
     }
 }

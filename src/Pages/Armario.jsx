@@ -17,6 +17,7 @@ import {MenuButton} from './styles/ArmarioStyle'
 import Navbar from '../components/Navbar'
 import { faTint, faCut , faBug , faCogs, faAlignRight, faTimes} from '@fortawesome/free-solid-svg-icons'
 import {Layout} from './Layout'
+import {Paper }from '@material-ui/core'
 
 class Armario extends Component{
     state={
@@ -108,16 +109,16 @@ class Armario extends Component{
     render(){
         return(
             <Layout history={this.props.history} page="Armario">
-                <div className="container-fluid d-flex flex-column justify-content-start h-100">
-                    <div className='row'>
-                        <div className='col'>
-                            <BarraDeLuz/>            
+                    <div className="container-fluid d-flex flex-column justify-content-around h-100">
+                        <div className='row'>
+                            <div className='col'>
+                                <BarraDeLuz/>            
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <CarouselPlantas history={this.props.history}/>
                         </div>
                     </div>
-                    <div className='row'>
-                        <CarouselPlantas history={this.props.history}/>
-                    </div>
-                </div>
             </Layout>
         )
     }
