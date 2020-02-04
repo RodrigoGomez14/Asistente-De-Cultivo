@@ -18,6 +18,7 @@ import {auth} from 'firebase'
 import {AppBar,Toolbar,IconButton,Typography,Menu} from '@material-ui/core'
 import {Menu as MenuIcon,ArrowBackRounded,AccountCircle,HomeOutlined} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
+import {Redirect} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -30,121 +31,140 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
     },
   }));
-export const Layout=({page,children,history})=>{
+export const Layout=({page,children,history,planta})=>{
     const classes = useStyles();
     let [menuOpened,setMenuOpened]=useState(false)
     let [selectedTabs,setSelectedTabs]=useState('recents')
+    let [redirect,setRedirect]=useState(false)
+    if(redirect){
         return(
-            <div className="App d-flex flex-column justify-content-start">
-                 <AppBar position="static">
-                        <Toolbar>
-                        {page!=='Armario'?
-                            <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                                history.goBack()
-                            }} color="inherit" aria-label="menu">
-                                <ArrowBackRounded />
-                            </IconButton>
-                            :
-                            <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                                
-                            }} color="inherit" aria-label="menu">
-                                <AccountCircle />
-                            </IconButton>
-                        }
-                        <Typography variant="h6" className={classes.title} >
-                            {page}
-                        </Typography>
-                        <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                            setMenuOpened(true)
-                        }} color="inherit" aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
-                        </Toolbar>
-                    </AppBar>
-                    <Drawer anchor="right" open={menuOpened} onClose={e=>{setMenuOpened(false)}}>
-                        <div className="container d-flex flex-column h-100 justify-content-between">
-                            <div>
-                                <List>
-                                    <Link to='/' className='outline-none text-dark'>
-                                        <ListItem button key={'Armario'} >
-                                            <ListItemIcon><HomeOutlined/></ListItemIcon>
-                                            <ListItemText primary={'Armario'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <Link to='Riego' className='outline-none text-dark'>
-                                        <ListItem button key={'Regar'} >
-                                            <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
-                                            <ListItemText primary={'Regar'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <Link to='Poda' className='outline-none text-dark'>
-                                        <ListItem button key={'Podar'}>
-                                            <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
-                                            <ListItemText primary={'Podar'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <Link to='Insecticida' className='outline-none text-dark'>
-                                        <ListItem button key={'Fumigar'}>
-                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                            <ListItemText primary={'Fumigar'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                            </div>
-                            <div>
-                                <Divider />
-                                <List>
-                                    <Link to='/Aplicables' className='outline-none text-dark'>
-                                        <ListItem button key={'Aditivos'}>
-                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                            <ListItemText primary={'Aditivos'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <Link to='/Aditivos' className='outline-none text-dark'>
-                                        <ListItem button key={'Carencias y Excesos'}>
-                                            <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                            <ListItemText primary={'Carencias y Excesos'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <Link to='/Configuracion' className='outline-none text-dark'>
-                                        <ListItem button key={'Configuracion'}>
-                                            <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
-                                            <ListItemText primary={'Configuracion'} />
-                                        </ListItem>
-                                    </Link>
-                                </List>
-                                <Divider />
-                                <List>
-                                    <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
-                                            await auth().signOut()
-                                        }}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
-                                        <ListItemText primary={'Cerrar Sesion'} />
-                                    </ListItem>
-                                </List>
-                            </div>
-                        </div>
-                    </Drawer>
-                {children}
-            </div>
+            <Redirect to={{
+                pathname:'/Planta',
+                props:{...planta}
+            }}/>
         )
     }
+    return(
+        <div className="App d-flex flex-column justify-content-start">
+                <AppBar position="static">
+                    <Toolbar>
+                    {page!=='Armario'?
+                        <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                            if(!planta){
+                                if(history.location.pathname==='/Planta'){
+                                    history.replace('/')
+                                }
+                                else{
+                                    history.goBack()
+                                }
+                            }
+                            else{
+                                setRedirect(true)
+                            }
+                        }} color="inherit" aria-label="menu">
+                            <ArrowBackRounded />
+                        </IconButton>
+                        :
+                        <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                            
+                        }} color="inherit" aria-label="menu">
+                            <AccountCircle />
+                        </IconButton>
+                    }
+                    <Typography variant="h6" className={classes.title} >
+                        {page}
+                    </Typography>
+                    <IconButton edge="end" className={classes.menuButton} onClick={e=>{
+                        setMenuOpened(true)
+                    }} color="inherit" aria-label="menu">
+                        <MenuIcon />
+                    </IconButton>
+                    </Toolbar>
+                </AppBar>
+                <Drawer anchor="right" open={menuOpened} onClose={e=>{setMenuOpened(false)}}>
+                    <div className="container d-flex flex-column h-100 justify-content-between">
+                        <div>
+                            <List>
+                                <Link to='/' className='outline-none text-dark'>
+                                    <ListItem button key={'Armario'} >
+                                        <ListItemIcon><HomeOutlined/></ListItemIcon>
+                                        <ListItemText primary={'Armario'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <Link to='/Riego' className='outline-none text-dark'>
+                                    <ListItem button key={'Regar'} >
+                                        <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
+                                        <ListItemText primary={'Regar'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <Link to='/Poda' className='outline-none text-dark'>
+                                    <ListItem button key={'Podar'}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
+                                        <ListItemText primary={'Podar'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <Link to='/Insecticida' className='outline-none text-dark'>
+                                    <ListItem button key={'Fumigar'}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText primary={'Fumigar'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                        </div>
+                        <div>
+                            <Divider />
+                            <List>
+                                <Link to='/Aplicables' className='outline-none text-dark'>
+                                    <ListItem button key={'Aditivos'}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText primary={'Aditivos'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <Link to='/Aditivos' className='outline-none text-dark'>
+                                    <ListItem button key={'Carencias y Excesos'}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText primary={'Carencias y Excesos'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <Link to='/Configuracion' className='outline-none text-dark'>
+                                    <ListItem button key={'Configuracion'}>
+                                        <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
+                                        <ListItemText primary={'Configuracion'} />
+                                    </ListItem>
+                                </Link>
+                            </List>
+                            <Divider />
+                            <List>
+                                <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
+                                        await auth().signOut()
+                                    }}>
+                                    <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
+                                    <ListItemText primary={'Cerrar Sesion'} />
+                                </ListItem>
+                            </List>
+                        </div>
+                    </div>
+                </Drawer>
+            {children}
+        </div>
+    )
+}
 /*
                             <BottomNavigation value={this.state.selectedTab} onChange={(e,value)=>{
                                 this.setState({selectedTab:value})

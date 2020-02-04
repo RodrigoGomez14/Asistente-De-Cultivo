@@ -17,10 +17,10 @@ class BarraDeLuz extends Component{
     actualizarEstado =(lamparaEncendida)=>{
         let transcurrido = this.calcularTranscurrido(lamparaEncendida)
         if(this.props.horaDeInicio>=this.props.horaDeFinal){
-            console.log(moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
+            //console.log(moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
         }
         else{
-            console.log(-moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
+            //console.log(-moment(this.props.horaDeInicio,'h').diff(moment(),'h'))
         }
         const cicloLuminico = this.actualizarCicloLuminico()
         if(transcurrido.slice(0,2)>cicloLuminico){
@@ -48,7 +48,6 @@ class BarraDeLuz extends Component{
     }
     calcularEstadoDeLampara=()=>{
         const hour = moment().format('LT').slice(0,2)
-        console.log()
         if(hour>=this.props.horaDeInicio && hour < this.props.horaDeFinal){
             return true
         }
@@ -112,7 +111,7 @@ class BarraDeLuz extends Component{
                 time = -moment().diff(moment(this.props.horaDeFinal,'h'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
-            console.log(`transcurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
+            //console.log(`transcurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`
         }
         else{
@@ -123,7 +122,7 @@ class BarraDeLuz extends Component{
                 time = moment().diff(moment(this.props.horaDeFinal,'h').add(1,'days'),'m')
             const hours = parseInt(-time/60)
             const minutes = -time%60
-            console.log(` trasncurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
+            //console.log(` trasncurrido ${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes}`)
             return `${hours<10? '0'+hours:hours}:${minutes<10? '0'+minutes:minutes} `
     }
 }

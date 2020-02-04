@@ -8,7 +8,7 @@ import {Layout} from './Layout'
 export const PlantaRiegos =(props)=>{
     return(
         props.location.props?
-            <Layout history={props.history} page={props.location.props.nombrePlanta+'/Riegos'}>
+            <Layout history={props.history} page={props.location.props.nombre+'/Riegos'} planta={props.location.props}>
                 <div className="container-fluid overflow-auto pt-4">
                     <Accordion defaultActiveKey='0'>
                         {props.location.props.riegos?

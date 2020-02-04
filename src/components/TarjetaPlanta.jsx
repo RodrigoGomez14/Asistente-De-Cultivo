@@ -3,8 +3,6 @@ import moment from 'moment'
 import fotoPlanta from '../images/apple cookies.jpg'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import './styles/alertPlanta.css'
-import AlertPlanta from '../alerts/AlertPlanta'
 import AlertPodas from '../alerts/AlertPodas'
 import AlertRiego from '../alerts/AlertRiego'
 import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
@@ -38,27 +36,11 @@ class TarjetaPlanta extends Component{
                 <div className="custom-ui">
                     <AlertCambiarCiclo
                         user={this.props.user}
-                        alertPlanta={this.alertPlanta}
                         onClose={onClose}
                         nombre={this.props.nombre}
                     />
                 </div>
             )
-        }
-    })
-    alertPlanta=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui submodalOut'>
-                    <AlertPlanta
-                        {...this.props}
-                        onClose={onClose}
-                        alertEliminarPlanta={this.alertEliminarPlanta}
-                        alertCambiarCiclo={this.alertCambiarCiclo}
-                        alertPodas={this.alertPodas}
-                    />
-                </div>
-            );
         }
     })
     componentDidMount(){

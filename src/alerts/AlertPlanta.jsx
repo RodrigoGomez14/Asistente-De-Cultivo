@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import DetallePlanta from '../alert-components/DetallePlanta'
-import DetalleAcciones from '../alert-components/DetalleAcciones'
+import {DetalleAcciones} from '../alert-components/DetalleAcciones'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
 import {storage} from 'firebase'

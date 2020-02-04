@@ -1,7 +1,7 @@
 import React from 'react'
 import {Layout} from './Layout'
-import DetallePlanta from '../alert-components/DetallePlanta'
-import DetalleAcciones from '../alert-components/DetalleAcciones'
+import {DetallePlanta} from '../alert-components/DetallePlanta'
+import {DetalleAcciones} from '../alert-components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
 export const Planta =(props)=>{
     return(
@@ -16,14 +16,7 @@ export const Planta =(props)=>{
                         inicioFloracion={props.location.props.inicioFloracion}
                     />
                     <DetalleAcciones
-                        user={props.location.props.user}
-                        nombrePlanta={props.location.props.nombre}
-                        riegos={props.location.props.riegos}
-                        podas={props.location.props.podas}
-                        fumigaciones={props.location.props.fumigaciones}
-                        alertRiegos={props.location.props.alertRiegos}
-                        alertPodas={props.location.props.alertPodas}
-                        alertFumigaciones={props.location.props.alertFumigaciones}
+                        {...props.location.props}
                     />
                     <div className="row mt-4 justify-content-center">
                         <div className="col-auto">
