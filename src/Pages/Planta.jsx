@@ -3,8 +3,9 @@ import {Layout} from './Layout'
 import {DetallePlanta} from '../alert-components/DetallePlanta'
 import {DetalleAcciones} from '../alert-components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {DeleteOutline} from '@material-ui/icons'
-import {Button} from '@material-ui/core'
+import {DeleteOutline, EditOutlined} from '@material-ui/icons'
+import {Button,ButtonGroup,makeStyles,Typography} from '@material-ui/core'
+
 export const Planta =(props)=>{
     return(
         props.location.props?
@@ -24,16 +25,31 @@ export const Planta =(props)=>{
                     </div>
                     <div className="row my-2 justify-content-center">
                         <div className="col-auto">
-                            <div className="btn-group">
+                            <Typography>
+                            <ButtonGroup>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    startIcon={<DeleteOutline/>}
+                                    onClick={props.location.props.alertEliminarPlanta}
+                                    >Cosechar Planta!
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    startIcon={<EditOutlined/>}
+                                    onClick={props.location.props.alertEliminarPlanta}
+                                    >Editar Planta
+                                </Button>
                                 <Button
                                     variant="contained"
                                     color="secondary"
                                     startIcon={<DeleteOutline/>}
                                     onClick={props.location.props.alertEliminarPlanta}
-                                >Eliminar Planta
+                                    >Eliminar Planta
                                 </Button>
-                                <button type='button' className='btn btn-outline-light'onClick={props.location.props.alertCambiarCiclo} >Cambiar Ciclo</button>                                
-                            </div>
+                            </ButtonGroup>
+                            </Typography>
                         </div>
                     </div>
                 </div>

@@ -108,14 +108,12 @@ class Armario extends Component{
     render(){
         return(
             <Layout history={this.props.history} page="Armario">
-                <div className="container-fluid overflow-auto">
+                <div className="container">
                     <div className="row">
                         <BarraDeLuz periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} horaDeFinal={this.props.horaDeFinal}/>      
                     </div>
-                    <div className="row">
-                        <CarouselPlantas history={this.props.history}/>
-                    </div>
                 </div>
+                <CarouselPlantas history={this.props.history}/>
             </Layout>
         )
     }

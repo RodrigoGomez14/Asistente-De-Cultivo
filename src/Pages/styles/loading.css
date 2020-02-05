@@ -10,14 +10,14 @@
 @keyframes loading{
     from{
         transform: translateY(0px) rotateY(0deg);
-        color: green
+        color: #004c40
     }
     50%{
         transform: translateY(-25px) rotateY(360deg);
-        color: white
+        color: #48a999
     }
     to{
         transform: translateY(0px) rotateY(0deg);
-        color:green
+        color:#004c40
     }
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Planta from './TarjetaPlanta'
+import {TarjetaPlanta} from './TarjetaPlanta'
 import {connect} from 'react-redux'
 import {confirmAlert} from 'react-confirm-alert'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
@@ -9,7 +9,9 @@ import { faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import {database} from 'firebase'
 import AlertNuevaPlanta from '../alerts/AlertNuevaPlanta'
-import {Button,Typography,Grow} from '@material-ui/core'
+import {Button,Typography,Grow,IconButton} from '@material-ui/core'
+import {AddCircleOutline} from '@material-ui/icons'
+
 class CarouselPlantas extends Component{
     guardarNuevaPlantaDB= async (nombre,genetica)=>{
         await database().ref().child(this.props.user).child('plantas').push({
@@ -32,7 +34,7 @@ class CarouselPlantas extends Component{
     })
     render(){
         return(
-            <div className="container h-100 justify-content-center d-flex flex-column ">
+            <div className="container h-100 mt-2 mb-2 justify-content-center d-flex flex-column ">
                 <div className="row mb-3">
                     <div className="col-auto ml-auto mr-auto">
                         <Grow in={true}
@@ -46,7 +48,7 @@ class CarouselPlantas extends Component{
                 <div className="row align-items-center justify-content-start flex-nowrap overflow-auto">
                     {this.props.plantas?
                         Object.keys(this.props.plantas).map(key=>(
-                            <Planta
+                            <TarjetaPlanta
                                 user={this.props.user}
                                 nacimiento={this.props.plantas[key].nacimiento} 
                                 genetica={this.props.plantas[key].genetica}
@@ -72,7 +74,9 @@ class CarouselPlantas extends Component{
                     <div className="col-3">
                         <Grow in={true}
                         {...(true ? { timeout: 1500 } : {})}>
-                            <FontAwesomeIcon icon={faPlusCircle} className='alert-icon' onClick={this.alertNuevaPlanta}/>
+                            <IconButton onClick={this.alertNuevaPlanta} color='primary' >
+                                <AddCircleOutline />
+                            </IconButton>
                         </Grow>
                     </div>
                 </div>

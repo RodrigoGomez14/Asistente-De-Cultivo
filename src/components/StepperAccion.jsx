@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
   },
   padding:{
     paddingBottom:theme.spacing(1)
+  },
+  '.MuiStepLabel-label':{
+    color:theme.palette.primary.contrastText
   }
 }));
 
@@ -78,7 +81,7 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
               step?
                     <Step key={step.title}>
                       <Paper elevation={3} className={classes.paperSecondary}>
-                        <StepLabel>{step.title}</StepLabel>
+                        <StepLabel className={classes.stepTitle}>{step.title}</StepLabel>
                       </Paper>
                     <StepContent>
                       <Paper elevation={6} className={classes.padding}>

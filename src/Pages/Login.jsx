@@ -39,24 +39,37 @@ const useStyles = makeStyles(theme => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.dark
+    backgroundColor: theme.palette.primary.dark
   },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
-  },
-  '&.MuiFormLabel-root.Mui-focused':{
-    color:theme.palette.secondary.contrastText
+    '& .MuiOutlinedInput-input':{
+      color:theme.palette.primary.contrastText,
+    },
+    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':{
+      borderColor: theme.palette.primary.contrastText
+    },
+    '& .MuiFormLabel-root.Mui-focused':{
+      color:theme.palette.secondary.contrastText
+    },
+    '& .MuiOutlinedInput-notchedOutline':{
+      borderColor: theme.palette.secondary.dark,
+    },
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    color:theme.palette.primary.contrastText,
+    '&.MuiButton-outlined':{
+      border: `1px solid ${theme.palette.primary.contrastText}`
+    },
   },
   background:{
-    background:'#00897b !important',
-    color:'black'
+    background:theme.palette.primary.main,
+    color:theme.palette.primary.contrastText
   },
   link:{
-    color:'#ffffff'
+    color:theme.palette.primary.contrastText
   }
 }));
 
@@ -140,6 +153,7 @@ export const LogInPage=({history})=> {
                     />
                     <Button
                     fullWidth
+                    color='#fff'
                     variant="outlined"
                     className={classes.submit}
                     onClick={e=>{signin()}}

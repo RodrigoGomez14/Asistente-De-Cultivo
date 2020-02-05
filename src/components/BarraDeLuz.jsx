@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
         padding:theme.spacing(2),
         backgroundColor: theme.palette.primary.main,
     },
+    text:{
+        color: theme.palette.primary.contrastText
+    }
 }));
 
 export const BarraDeLuz=(props)=>{
@@ -158,24 +161,24 @@ export const BarraDeLuz=(props)=>{
                                         <FechaYHora/>
                                     </div>
                                 </div>
-                                <div className="row mt-4 mb-4">
+                                <div className="row">
                                     <div className="col text-center">
-                                        <Typography>Periodo {props.periodo}</Typography>
+                                        <Typography className={classes.text}>Periodo {props.periodo}</Typography>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col text-center">
-                                        <Typography>Ciclo Luminico {cicloLuminico} Hs ({props.horaDeInicio}:00 - {props.horaDeFinal}:00)</Typography>
+                                        <Typography className={classes.text}>Ciclo Luminico {cicloLuminico} Hs ({props.horaDeInicio}:00 - {props.horaDeFinal}:00)</Typography>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="col text-center">
-                                        <Typography>
+                                        <Typography className={classes.text}>
                                             Transcurrido (Hs) {transcurrido}
                                         </Typography>
                                     </div>
                                     <div className="col text-center">
-                                        <Typography>
+                                        <Typography className={classes.text}>
                                             Faltante (Hs) {faltante}
                                         </Typography>
                                     </div>

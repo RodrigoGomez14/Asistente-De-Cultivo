@@ -12,13 +12,17 @@ const useStyles = makeStyles(theme => ({
     paperDark: {
     backgroundColor: theme.palette.primary.dark,
     },
-    tab:{
-        "&.MuiTab-textColorPrimary.Mui-selected":{
-            color: '#fff'
+    tabs:{
+        "&.MuiTabs-scroller":{
+            '&.MuiTabs-indicator':{
+                color: '#fff'
+            }
         },
     },
-    ".MuiTabs-flexContainer.PrivateTabIndicator-colorPrimary-135":{
-        color: '#fff'
+    tab:{
+        "&.MuiTab-textColorPrimary.Mui-selected":{
+            color: '#fff',
+        }
     },
   }));
 
@@ -57,6 +61,7 @@ export const TabAditivos = ({fertilizantes,insecticidas,user}) =>{
                                     onChange={(e,value)=>{
                                         setValue(value)
                                     }}
+                                    className={classes.tabs}
                                     aria-label="disabled tabs example"
                                 >
                                     <Tab label="Fertilizantes" className={classes.tab}/>

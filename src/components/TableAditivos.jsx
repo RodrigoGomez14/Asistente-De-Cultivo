@@ -35,6 +35,9 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: theme.palette.secondary.main,
         color:theme.palette.secondary.contrastText
     },
+    expansionPanel:{
+        backgroundColor:'transparent'
+    }
   }));
 
 
@@ -97,7 +100,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
             <div className="container mb-2">
                 <div className="row">
                     <div className="col-auto ml-auto mr-auto">
-                            <Button variant='outline-dark my-2' onClick={e=>{
+                            <Button variant='outline-light mb-2' onClick={e=>{
                                     alertNuevoAditivo()
                                 }}>
                                 Nuevo {title==="Fertilizantes"?'Fertilizante':"Insecticida"}
@@ -109,7 +112,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                     <div className="col-12">
                             {aditivos?
                                 aditivos.map((aditivo,i)=>(
-                                    <ExpansionPanel expanded={expanded === 'panel'+i} onChange={handleChange('panel'+i)}>
+                                    <ExpansionPanel expanded={expanded === 'panel'+i} className={classes.expansionPanel}onChange={handleChange('panel'+i)}>
                                         <Paper elevation={4} className={classes.paperDark}>
                                             <ExpansionPanelSummary
                                             expandIcon={<ExpandMoreIcon />}
