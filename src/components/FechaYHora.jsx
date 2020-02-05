@@ -1,22 +1,21 @@
-import React, {Component} from 'react'
+import React, {useEffect, useState} from 'react'
 import moment from 'moment'
-import {Typography} from '@material-ui/core'
+import {Typography,makeStyles} from '@material-ui/core'
 
-class FechaYHora extends Component{
-    state={
-        fecha:`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`
+const useStyles=makeStyles(theme=>({
+    text:{
+        color:theme.palette.primary.contrastText
     }
-    componentDidMount(){
+}))
+export const  FechaYHora=()=>{
+    const classes = useStyles()
+    let [fecha,setFecha] = useState(`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`)
+    useEffect(() => {
         setInterval(() => {
-            this.setState({
-                fecha: `${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`
-            })
+            setFecha(`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`)
         }, 1000);
-    }
-    render(){
-        return(
-            <h3>{this.state.fecha}</h3>
-        )
-    }
+    });
+    return(
+        <Typography variant='h4' className={classes.text}>{fecha}</Typography>
+    )
 }
-export default FechaYHora

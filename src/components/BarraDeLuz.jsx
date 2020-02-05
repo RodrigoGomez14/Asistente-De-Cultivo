@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import moment from 'moment'
 import {connect} from 'react-redux'
-import FechaYHora from '../components/FechaYHora'
+import {FechaYHora} from '../components/FechaYHora'
 import './styles/table.css'
 import {Paper,Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';

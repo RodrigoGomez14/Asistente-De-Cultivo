@@ -108,49 +108,42 @@ export const Layout=({page,children,history,planta})=>{
                                         <ListItemText primary={'Armario'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Riego' className='outline-none text-dark'>
                                     <ListItem button key={'Regar'} >
                                         <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
                                         <ListItemText primary={'Regar'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Poda' className='outline-none text-dark'>
                                     <ListItem button key={'Podar'}>
                                         <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
                                         <ListItemText primary={'Podar'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Insecticida' className='outline-none text-dark'>
                                     <ListItem button key={'Fumigar'}>
                                         <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
                                         <ListItemText primary={'Fumigar'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Aplicables' className='outline-none text-dark'>
                                     <ListItem button key={'Aditivos'}>
                                         <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
                                         <ListItemText primary={'Aditivos'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Aditivos' className='outline-none text-dark'>
                                     <ListItem button key={'Carencias y Excesos'}>
                                         <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
                                         <ListItemText primary={'Carencias y Excesos'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <Link to='/Configuracion' className='outline-none text-dark'>
                                     <ListItem button key={'Configuracion'}>
                                         <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
                                         <ListItemText primary={'Configuracion'} />
                                     </ListItem>
                                 </Link>
-                                <Divider />
                                 <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
                                         await auth().signOut()
                                     }}>
@@ -164,23 +157,3 @@ export const Layout=({page,children,history,planta})=>{
         </div>
     )
 }
-/*
-                            <BottomNavigation value={this.state.selectedTab} onChange={(e,value)=>{
-                                this.setState({selectedTab:value})
-                                if(value==='recents'){
-                                    this.props.history.push('/')
-                                }
-                                else if(value==='favorites'){
-                                    this.props.history.push('/Riego')
-                                }
-                                else if(value==='nearby'){
-                                    this.props.history.push('/Aplicables')
-                                }
-                            }}>
-                                <BottomNavigationAction label="Recents" value="recents" icon={<RestoreIcon />} />
-                                <BottomNavigationAction label="Favorites" value="favorites" icon={<FavoriteIcon />} />
-                                <BottomNavigationAction label="Nearby" value="nearby" icon={<LocationOnIcon />} />
-                                <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
-                            </BottomNavigation>
-
-*/

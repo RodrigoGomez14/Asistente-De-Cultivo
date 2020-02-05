@@ -5,7 +5,7 @@ import {Table,Row,Col,Container,Image} from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import {List, ListItem,ListItemText,Paper, Divider} from '@material-ui/core'
+import {List, ListItem,ListItemText,Paper, Divider,CardMedia} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme => ({
         flexWrap: 'nowrap',
       // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)',
+        '& .MuiGridListTile-root':{
+            width:'30% !important'
+        }
     },
     title: {
         color: theme.palette.primary.light,
@@ -30,6 +33,8 @@ const useStyles = makeStyles(theme => ({
     listRoot: {
         width: '100%',
         maxWidth: 360,
+        backgroundImage:`url(${fotoPlanta})`,
+
     },
     listItem:{
         color:theme.palette.primary.contrastText,
@@ -39,7 +44,10 @@ const useStyles = makeStyles(theme => ({
     },
     paper:{
         backgroundColor:theme.palette.primary.main
-    }
+    },
+    media: {
+        height:'100%'
+    },
 }))
 
 export const DetallePlanta=(props)=>{
@@ -66,13 +74,17 @@ export const DetallePlanta=(props)=>{
         }
     ]
     const classes = useStyles()
+            
     return(
         <>
-            <Col xs={12}>
+            <Col xs={12} className='p-0'>
                 <GridList className={classes.gridList} cols={2.5}>
                     {tileData.map(tile => (
-                    <GridListTile key={tile.img}>
-                        <img src={tile.img}  />
+                    <GridListTile key={tile.img} className={classes.tile}>
+                        <CardMedia
+                            className={classes.media}
+                            image={fotoPlanta}
+                        />
                     </GridListTile>
                     ))}
                 </GridList>
