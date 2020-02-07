@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
         }
     },
     paper:{
-        backgroundColor:theme.palette.primary.main
+        backgroundColor:theme.palette.primary.dark
     },
     media: {
         height:'100%'

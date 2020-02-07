@@ -1,14 +1,34 @@
 import React, {Component} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
-import {Button} from '@material-ui/core'
-class BotoneraConfirmacionAccion extends Component {
-    render(){
-        return(
-            <div className="row mb-2">
-                <div className="col-auto ml-auto mr-auto">
+import {Button,makeStyles} from '@material-ui/core'
+
+const useStyles = makeStyles(theme => ({
+    button: {
+        marginRight: theme.spacing(1),
+        backgroundColor:theme.palette.secondary.main,
+        color:theme.palette.secondary.contrastText,
+        '& :hover':{
+            color:theme.palette.primary.contrastText,
+        }
+    },
+    actionsContainer: {
+        marginBottom: theme.spacing(2),
+    },
+    buttonPrimary:{
+        marginTop: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+}));
+
+export const BotoneraConfirmacionAccion=(props)=>{
+    const classes = useStyles()
+    return(
+            <div className={classes.actionsContainer}>
+                <div>
                     <Button
-                        onClick={this.props.handleBack}
+                        className={classes.button}
+                        onClick={props.handleBack}
                         className='mr-2'
                     >
                         Atras
@@ -16,18 +36,17 @@ class BotoneraConfirmacionAccion extends Component {
                     <Button
                         variant="contained"
                         color="primary"
+                        className={classes.button}
                         onClick={
                             e=>{
-                                this.props.confirmarAccion(this.props.accion)
+                                props.confirmarAccion(props.accion)
                             }
                         }
                     >
-                        <FontAwesomeIcon icon={faCheck} size='lg' className='mr-2'/>
-                        Guardar {this.props.accion}
-                    </Button>
+                    <FontAwesomeIcon icon={faCheck} size='lg' className='mr-2'/>
+                    Guardar {props.accion}
+                </Button>
                 </div>
             </div>
-        )
-    }
+    )
 }
-export default BotoneraConfirmacionAccion

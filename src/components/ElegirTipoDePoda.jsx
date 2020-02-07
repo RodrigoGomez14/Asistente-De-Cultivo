@@ -1,27 +1,36 @@
 import React , {Component} from 'react'
-import {Row,Col} from 'react-bootstrap'
-import {TextField} from '@material-ui/core'
-class ElegirTipoDePoda extends Component{
-    render(){
-        return(
+import {Row,Col,Container} from 'react-bootstrap'
+import {TextField,makeStyles} from '@material-ui/core'
+
+const useStyles= makeStyles(theme=>({
+    radio:{
+        '& .MuiIconButton-label':{
+            color: theme.palette.secondary.contrastText
+        }
+    }
+}))
+
+export const ElegirTipoDePoda=(props)=>{
+    const classes = useStyles()
+    return(
+        <Container className='pt-4'>
             <Row>
                 <Col sm={{span:8,offset:2}}>
                     <div className="row my-2 justify-content-center">
                         <div className="col-4">
                             <TextField id="outlined-basic" 
-                            value={this.props.tipoDePoda} 
+                            value={props.tipoDePoda}
+                            className={classes.radio}
                             label="Tipo de poda" 
                             variant="outlined"
                                 onChange={e=>{
-                                    this.props.handleChange(e.target.value)
+                                    props.handleChange(e.target.value)
                                 }}
                             />
                         </div>
                     </div>
                 </Col>
             </Row>
-        )
-    }
+        </Container>
+    )
 }
-
-export default ElegirTipoDePoda

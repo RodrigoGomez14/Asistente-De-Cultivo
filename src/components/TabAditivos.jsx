@@ -7,7 +7,7 @@ import {Grow} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     paperMain: {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: 'transparent',
     },
     paperDark: {
     backgroundColor: theme.palette.primary.dark,
@@ -47,35 +47,30 @@ export const TabAditivos = ({fertilizantes,insecticidas,user}) =>{
     const [value, setValue] = useState(0);
     const classes = useStyles()
     return(
-        <div className="container">
+        <div className="container-fluid overflow-auto">
             <div className="row">
-                <div className="col-12 col-md-6 offset-md-3">
-                    <Grow in={true}
-                        {...(true ? { timeout: 1500 } : {})}>
-                        <Paper square elevation={2} className={classes.paperMain}>
-                            <Paper className={classes.paperDark}>
-                                <Tabs
-                                    value={value}
-                                    indicatorColor="primary"
-                                    textColor="primary"
-                                    onChange={(e,value)=>{
-                                        setValue(value)
-                                    }}
-                                    className={classes.tabs}
-                                    aria-label="disabled tabs example"
-                                >
-                                    <Tab label="Fertilizantes" className={classes.tab}/>
-                                    <Tab label="Insecticidas" className={classes.tab}/>
-                                </Tabs>
-                            </Paper>
-                            <TabPanel value={value} index={0}>
-                                <TableAditivos user={user} title='Fertilizantes' aditivos={fertilizantes}/>
-                            </TabPanel>
-                            <TabPanel value={value} index={1}>
-                                <TableAditivos user={user} title='Insecticidas' aditivos={insecticidas}/>
-                            </TabPanel>
-                        </Paper>
-                    </Grow>
+                <div className="col-12 px-0">
+                    <Paper className={classes.paperDark}>
+                        <Tabs
+                            value={value}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            onChange={(e,value)=>{
+                                setValue(value)
+                            }}
+                            className={classes.tabs}
+                            aria-label="disabled tabs example"
+                        >
+                            <Tab label="Fertilizantes" className={classes.tab}/>
+                            <Tab label="Insecticidas" className={classes.tab}/>
+                        </Tabs>
+                    </Paper>
+                    <TabPanel value={value} index={0}>
+                        <TableAditivos user={user} title='Fertilizantes' aditivos={fertilizantes}/>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <TableAditivos user={user} title='Insecticidas' aditivos={insecticidas}/>
+                    </TabPanel>
                 </div>
             </div>
         </div>

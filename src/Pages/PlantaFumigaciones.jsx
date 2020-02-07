@@ -1,19 +1,23 @@
-import React , {Component} from 'react'
-import AccionDetallada from '../alert-components/AccionDetallada'
+import React , {useState} from 'react'
+import {AccionDetallada} from '../alert-components/AccionDetallada'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
 import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {Layout} from './Layout'
 export const PlantaFumigaciones =(props)=>{
+    let [expanded,setExpanded]= useState(false)
+
+    const handleChange = panel => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
     return(
         props.location.props?
             <Layout history={props.history} page={props.location.props.nombre+'/Fumigaciones'} planta={props.location.props}>
                 <div className="container-fluid overflow-auto pt-4">
-                    <Accordion defaultActiveKey='0'>
                         {props.location.props.fumigaciones?
                             Object.keys(props.location.props.fumigaciones).reverse().map((id,i)=>(
-                                <AccionDetallada user={props.location.props.user}index={i} accion={props.location.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={props.location.props.idPlanta} id={id} key={id}/>
+                                <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} user={props.location.props.user}index={i} accion={props.location.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={props.location.props.id} id={id} key={id}/>
                                 ))
                                 :
                                 <>
@@ -31,7 +35,6 @@ export const PlantaFumigaciones =(props)=>{
                                 </div>
                             </>
                         }
-                    </Accordion>
                 </div>
             </Layout>
             :

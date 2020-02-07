@@ -121,9 +121,9 @@ class Insecticida extends Component{
         }
         return(
             <Layout history={this.props.history} page='Fumigacion'>
-                <div className="container-fluid accion">
-                    <div className="row">
-                        <div className="col-12 col-md-6 offset-md-3">
+                <div className="container-fluid overflow-auto h-100">
+                    <div className="row h-100">
+                        <div className="col-12 px-0">
                             <StepperAccion 
                                 cantidadDeAgua={this.state.cantidadDeAgua}
                                 tipoDeRiego={this.state.tipoDeRiego}

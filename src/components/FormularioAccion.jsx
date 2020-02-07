@@ -66,7 +66,7 @@ export const FormularioAccion=(props)=>{
     return(
         <Row>
             <Col sm={{span:8,offset:2}}>
-                <Container fluid>
+                <Container fluid className='pt-4'>
                     <Form>  
                         <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
                             <TextField id="outlined-basic" type='number' value={props.cantidadDeAgua} label="Litros de Agua" variant="outlined" onChange={e=>{

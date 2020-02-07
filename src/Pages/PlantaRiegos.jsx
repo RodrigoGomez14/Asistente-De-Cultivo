@@ -1,22 +1,28 @@
-import React , {Component} from 'react'
-import AccionDetallada from '../alert-components/AccionDetallada'
+import React , {useState,useEffect} from 'react'
+import {AccionDetallada} from '../alert-components/AccionDetallada'
 import AlertNavBar from '../alert-components/AlertNavBar'
 import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
 import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
+import {makeStyles} from '@material-ui/core';
 import {Layout} from './Layout'
+
 export const PlantaRiegos =(props)=>{
+    let [expanded,setExpanded]= useState(false)
+
+    const handleChange = panel => (event, isExpanded) => {
+        setExpanded(isExpanded ? panel : false);
+    };
     return(
         props.location.props?
             <Layout history={props.history} page={props.location.props.nombre+'/Riegos'} planta={props.location.props}>
                 <div className="container-fluid overflow-auto pt-4">
-                    <Accordion defaultActiveKey='0'>
                         {props.location.props.riegos?
                             Object.keys(props.location.props.riegos).reverse().map((id,i)=>(
-                                <AccionDetallada user={props.location.props.user} index={i}  accion={props.location.props.riegos[id]} tipoDeAccion='riegos' idPlanta={props.location.props.idPlanta} id={id} key={id}/>
-                                ))
-                                :
-                                <>
+                                <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} user={props.location.props.user} accion={props.location.props.riegos[id]} tipoDeAccion='riegos' idPlanta={props.location.props.id} id={id} key={id}/>
+                            ))
+                            :
+                            <>
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-auto">
                                         <h2 className='text-white'>Esta Planta aun no ha sido regada!</h2>
@@ -31,7 +37,6 @@ export const PlantaRiegos =(props)=>{
                                 </div>
                             </>
                         }
-                    </Accordion>
                 </div>
             </Layout>
             :

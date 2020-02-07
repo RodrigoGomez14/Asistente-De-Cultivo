@@ -4,7 +4,7 @@ import {DetallePlanta} from '../alert-components/DetallePlanta'
 import {DetalleAcciones} from '../alert-components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
 import {DeleteOutline, EditOutlined} from '@material-ui/icons'
-import {IconButton,ButtonGroup,makeStyles,Typography} from '@material-ui/core'
+import {IconButton,Button,ButtonGroup,makeStyles,Typography} from '@material-ui/core'
 
 const useStyles=makeStyles(theme=>({
     button:{
@@ -16,12 +16,12 @@ const useStyles=makeStyles(theme=>({
         textShadow:'1px 1px 10px black'
     },
     buttonDanger:{
-        color:theme.palette.danger,
-        textShadow:'1px 1px 20px black'
+        color:theme.palette.primary.contrastText,
+        textShadow:`1px 1px 20px ${theme.palette.danger}`
     },
     buttonTextDanger:{
-        color:theme.palette.danger,
-        textShadow:'1px 1px 20px black'
+        color:theme.palette.primary.contrastText,
+        textShadow:`1px 1px 20px ${theme.palette.danger}`
     }
 }))
 
@@ -44,48 +44,35 @@ export const Planta =(props)=>{
                         />
                     </div>
                     <div className="row my-2 justify-content-around">
-                        <div className="col-auto">
-                            <IconButton
-                                variant="contained"
-                                color="primary"
-                                onClick={props.location.props.alertEliminarPlanta}
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={props.location.props.alertEliminarPlanta}
+                            endIcon={
+                                <DeleteOutline/>
+                            }
                             >
-                                <div className='d-flex flex-column justify-content-center align-items-center'>
-                                    <DeleteOutline className={classes.buttonText}/>
-                                    <Typography variant='caption' className={classes.buttonText} gutterBottom>
-                                        Cosechar
-                                    </Typography>
-                                </div>
-                            </IconButton>
-                        </div>
-                        <div className="col-auto">
-                            <IconButton
-                                variant="contained"
-                                color="primary"
-                                onClick={props.location.props.alertEliminarPlanta}
-                            >   
-                            <div className='d-flex flex-column justify-content-center align-items-center'>
-                                <EditOutlined className={classes.buttonText}/>
-                                <Typography variant='caption' className={classes.buttonText} gutterBottom>
-                                    Editar
-                                </Typography>
-                            </div>
-                            </IconButton>
-                        </div>
-                        <div className="col-auto">                        
-                            <IconButton
-                                variant="contained"
-                                size='medium'
-                                color="primary"
-                                onClick={props.location.props.alertEliminarPlanta}>
-                                <div className='d-flex flex-column justify-content-center align-items-center'>
-                                    <DeleteOutline className={classes.buttonTextDanger}/>
-                                    <Typography variant='caption' className={classes.buttonTextDanger}gutterBottom>
-                                        Eliminar
-                                    </Typography>
-                                </div>
-                            </IconButton>
-                        </div>
+                            Cosechar
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={props.location.props.alertEliminarPlanta}
+                            endIcon={
+                                <EditOutlined/>
+                            }
+                        >   
+                            Editar
+                        </Button>                 
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={props.location.props.alertEliminarPlanta}
+                            endIcon={
+                                <DeleteOutline/>
+                            }>
+                                Eliminar
+                        </Button>
                     </div>
                 </div>
             </Layout>

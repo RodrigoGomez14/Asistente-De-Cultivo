@@ -3,8 +3,6 @@ import moment from 'moment'
 import fotoPlanta from '../images/apple cookies.jpg'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import AlertPodas from '../alerts/AlertPodas'
-import AlertRiego from '../alerts/AlertRiego'
 import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
 import AlertCambiarCiclo from '../alerts/AlertCambiarCiclo';
 import {database} from 'firebase'
@@ -17,7 +15,7 @@ import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     paper: {
-      backgroundColor:theme.palette.primary.main,
+      backgroundColor:theme.palette.primary.dark,
       padding:theme.spacing(1)
     },
   }));

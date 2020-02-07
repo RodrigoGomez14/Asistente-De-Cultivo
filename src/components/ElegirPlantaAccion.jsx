@@ -22,6 +22,11 @@ const useStyles = makeStyles(theme => ({
     },
     alert:{
         alignItems:'center',
+    },
+    checkbox:{
+        '& .MuiIconButton-label':{
+            color: theme.palette.secondary.contrastText
+        }
     }
 }));
 export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
@@ -29,14 +34,14 @@ export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
     return(
         <Row>
             <Col sm={{span:8,offset:2}}>
-                <div className="container">
+                <div className="container pt-4">
                     <div className="row my-2 justify-content-center">
                         {plantas.length?
                         <FormGroup row>
                             {plantas.map((planta,i)=>(
                                 <FormControlLabel
                                 control={
-                                    <Checkbox color='primary' checked={planta.selected} onChange={e=>{
+                                    <Checkbox color='primary' className={classes.checkbox} checked={planta.selected} onChange={e=>{
                                         seleccionarPlanta(i)}}
                                     value={planta.nombre} />
                                 }

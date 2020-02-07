@@ -32,12 +32,12 @@ const useStyles = makeStyles(theme => ({
       flexGrow: 1,
     },
     drawer:{
-        maxWidth:'350px',
+        maxWidth:'300px',
         height:'100%',
         backgroundColor: theme.palette.primary.light
     },
     appBar:{
-        backgroundColor:theme.palette.primary.dark,
+        backgroundColor:theme.palette.primary.main,
         color:theme.palette.primary.contrastText
     }
   }));
@@ -86,7 +86,7 @@ export const Layout=({page,children,history,planta})=>{
                     </Typography>
                     <IconButton edge="end" className={classes.menuButton} onClick={e=>{
                         setMenuOpened(true)
-                    }} color="inherit" aria-label="menu">
+                    }} color="inherit" aria-label="menu" size='large'>
                         <MenuIcon />
                     </IconButton>
                     </Toolbar>

@@ -1,113 +1,171 @@
-import React , {Component} from 'react'
+import React , {useState,useEffect} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes, faSortDown} from '@fortawesome/free-solid-svg-icons'
 import * as firebase from 'firebase'
 import {Accordion,Card} from 'react-bootstrap'
-import {Grow} from '@material-ui/core'
-class AccionDetallada extends Component{
-    eliminarAccion= async()=>{
-        await firebase.database().ref().child(this.props.user).child('plantas').child(this.props.idPlanta).child(this.props.tipoDeAccion).child(this.props.id).remove()
+import {Grow, ListItem,List,ListItemText} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
+
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import {DeleteOutline, EditOutlined} from '@material-ui/icons'
+import {IconButton,ButtonGroup,ExpansionPanel,Divider} from '@material-ui/core'
+const useStyles = makeStyles(theme => ({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+    },
+    secondaryHeading: {
+      fontSize: theme.typography.pxToRem(15),
+      color: theme.palette.text.secondary,
+    },
+    paperMain: {
+        backgroundColor: theme.palette.secondary.light,
+        color:theme.palette.secondary.contrastText
+    },
+    paperDark: {
+        backgroundColor: theme.palette.primary.dark,
+        color:theme.palette.secondary.contrastText
+    },
+    expansionPanel:{
+        backgroundColor:'transparent'
+    },
+    button:{
+        color:theme.palette.primary.contrastText,
+        textShadow:'1px 1px 10px black'
+    },
+    buttonText:{
+        color:theme.palette.primary.contrastText,
+        textShadow:'1px 1px 10px black'
+    },
+  }));
+export const AccionDetallada=(props)=>{
+    const classes= useStyles()
+    let [show,setShow] = useState(false)
+    
+    const eliminarAccion= async()=>{
+        await firebase.database().ref().child(props.user).child('plantas').child(props.idPlanta).child(props.tipoDeAccion).child(props.id).remove()
     }
-    state={
-        show:false
-    }
-    componentDidMount=()=>{
+    
+    useEffect(() => {
         setTimeout(() => {
-            this.setState({show:true})
+            setShow(true)
         }, 100);
-    }
-    render(){
-        return(
-            <Grow in={this.state.show} 
-            {...(this.state.show ? { timeout: 1500 } : {})}>
-                <Card>
-                <Accordion.Toggle as={Card.Header} className='bg-dark text-light' eventKey={this.props.index}>
-                    <div className="container-fluid">
-                        <div className="row">
-                            {this.props.tipoDeAccion==='podas'?
-                            <div className='container-fluid'>
-                                <div className="row">
-                                    <div className="col-auto">
-                                        <h5 className='text-light'>{this.props.accion.fecha}</h5>
-                                    </div>
-                                    <div className="col-auto ml-auto">
-                                        <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    {this.props.tipoDePoda?
-                                        <div className='col'>
-                                            <hr/>
-                                            <h5 className='text-light'>{this.props.tipoDePoda}</h5>
-                                        </div>
-                                        :
-                                        null
-                                    }
-                                </div>
-                            </div>
-                                :
-                                <div className="container-fluid">
-                                    <div className="row">
-                                        <div className="col-auto">
-                                            <h5 className='text-light'>{this.props.accion.fecha}</h5>
-                                        </div>
-                                        <div className="col-auto ml-auto">
-                                            <FontAwesomeIcon icon={faTimes} onClick={e=>{this.eliminarAccion()}}/>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col-auto">
-                                            <h5 className='text-light'>{this.props.accion.agua} L de agua</h5>
-                                        </div>
-                                        <div className="col-auto">
-                                            <h5>
-                                                <div className="badge badge-pill badge-light">
-                                                    {this.props.accion.tipoDeRiego}
-                                                </div>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    {this.props.accion.aditivos?
+    })
+    return(
+        <div className="row">
+            <div className="col-10 offset-1">
+                <Grow in={true}
+                        {...(true ? { timeout: 1500 } : {})}>
+                    <ExpansionPanel expanded={props.expanded === 'panel'+props.index} className={classes.expansionPanel} onChange={props.handleChange('panel'+props.index)}>
+                        <Paper elevation={4} className={classes.paperDark}>
+                            <ExpansionPanelSummary
+                            expandIcon={<ExpandMoreIcon/>}
+                            aria-controls="panel1bh-content"
+                            id="panel1bh-header"
+                            >
+                                <Typography className={classes.heading}>{props.accion.fecha}</Typography>
+                            </ExpansionPanelSummary>
+                        </Paper>
+                        <Paper elevation={4} className={classes.paperMain}>
+                            <ExpansionPanelDetails>
+                                <div className="container">
+                                    {props.accion.agua?
                                         <div className="row">
-                                            <div className="col-auto ml-auto mr-auto">
-                                                <FontAwesomeIcon icon={faSortDown}/>
+                                            <div className="col-12 text-center">
+                                                <Typography variant='h5'>
+                                                    {props.accion.agua} L. De Agua 
+                                                </Typography>
                                             </div>
                                         </div>
                                         :
                                         null
                                     }
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </Accordion.Toggle>
-                    {this.props.accion.aditivos?
-                        <Accordion.Collapse eventKey={this.props.index}>
-                            <Card.Body>
-                                <div className="container-fluid">
-                                    <div className="row">
-                                            {Object.keys(this.props.accion.aditivos).map((aditivo,i)=>(
-                                                <div className="col-auto" key={aditivo+i}>
-                                                    <span className='badge badge-pill badge-dark'>
-                                                        <div className="col-auto">
-                                                            {aditivo}
-                                                        </div>
-                                                        <div className="col-auto">
-                                                            {this.props.accion.aditivos[aditivo]} ml
-                                                        </div>
-                                                    </span>
+                                    <div className="row my-2">
+                                        {props.accion.tipoDeRiego?
+                                            <div className="col-12 text-center">
+                                                <Typography variant='h5'>
+                                                    {props.accion.tipoDeRiego==='Tierra'?' en Tierra':' Foliar'}
+                                                </Typography>
+                                            </div>
+                                            :
+                                            <div className="col text-left">
+                                                <Typography variant='h5'>
+                                                    Poda {props.accion.tipoDePoda}
+                                                </Typography>
+                                            </div>
+                                        }
+                                    </div>
+                                    <Divider/>
+                                    {props.tipoDeAccion!=='podas'?
+                                        <div className="row my-2">
+                                            <div className="col-12 text-left">
+                                                <Typography variant='h5'>
+                                                    Aditivos Usados
+                                                </Typography>
+                                            </div>
+                                            {props.accion.aditivos?
+                                                <List>
+                                                    {Object.keys(props.accion.aditivos).map((aditivo,i)=>(
+                                                        <>
+                                                            <Divider/>
+                                                            <ListItem>
+                                                                <ListItemText
+                                                                    primary={aditivo}
+                                                                    secondary={props.accion.aditivos[aditivo]+' ml'} 
+                                                                />
+                                                            </ListItem>
+                                                        </>
+                                                    ))}
+                                                </List>
+                                                :
+                                                <div className="col-12 text-center">
+                                                    <Typography>
+                                                        No se utilizaron Aditivos
+                                                    </Typography>
                                                 </div>
-                                            ))}
+                                            }
+                                        </div>
+                                        :
+                                        null
+                                    }
+                                    <Divider/>
+                                    <div className="row my-2 justify-content-around">
+                                        <IconButton
+                                            variant="contained"
+                                            color="inherit"
+                                        >   
+                                            <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                <EditOutlined className={classes.buttonText}/>
+                                                <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                    Editar
+                                                </Typography>
+                                            </div>
+                                        </IconButton>
+                                        <IconButton
+                                            variant="contained"
+                                            color="inherit"
+                                            onClick={e=>{eliminarAccion()}}
+                                        >
+                                            <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                <DeleteOutline className={classes.buttonText}/>
+                                                <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                    Eliminar
+                                                </Typography>
+                                            </div>
+                                        </IconButton>
                                     </div>
                                 </div>
-                            </Card.Body>
-                        </Accordion.Collapse>
-                        :
-                        null
-                    }
-                </Card>
-            </Grow>
-        )
-    }
+                            </ExpansionPanelDetails>
+                        </Paper>
+                    </ExpansionPanel>
+                </Grow>
+            </div>
+        </div>
+    )
 }
-export default AccionDetallada

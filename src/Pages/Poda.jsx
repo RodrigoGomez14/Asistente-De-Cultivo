@@ -9,7 +9,7 @@ import moment from 'moment'
 import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
-import ElegirTipoDePoda from '../components/ElegirTipoDePoda';
+import {ElegirTipoDePoda} from '../components/ElegirTipoDePoda';
 import { StepperAccion } from '../components/StepperAccion';
 import {ResumenAccion} from '../components/ResumenAccion'
 import {Layout} from './Layout'
@@ -81,9 +81,9 @@ class Poda extends Component{
         }
         return(
             <Layout history={this.props.history} page='Poda'>
-                <div className="container-fluid accion">
-                    <div className="row">
-                        <div className="col-12 col-md-6 offset-md-3">
+                <div className="container-fluid overflow-auto h-100 ">
+                    <div className="row h-100">
+                        <div className="col-12 px-0">
                             <StepperAccion 
                                 cantidadDeAgua={this.state.cantidadDeAgua}
                                 tipoDePoda={this.state.tipoDePoda}
