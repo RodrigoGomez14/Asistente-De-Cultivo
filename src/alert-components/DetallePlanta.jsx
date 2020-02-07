@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import {List, ListItem,ListItemText,Paper, Divider,CardMedia} from '@material-ui/core'
+import { PortableWifiOff } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -112,6 +113,22 @@ export const DetallePlanta=(props)=>{
                             <ListItem>
                                 <ListItemText className={classes.listItem} primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
                             </ListItem>
+                            {props.plantaDelHistorial && props.fechaDeCorte &&
+                            <>
+                                <Divider/>
+                                <ListItem>
+                                    <ListItemText className={classes.listItem} primary="Fecha de Corte" secondary={`${props.fechaDeCorte}`}/>
+                                </ListItem>
+                            </>
+                            }
+                            {props.plantaDelHistorial && props.cantidadDeGramos &&
+                            <>
+                                <Divider/>
+                                <ListItem>
+                                    <ListItemText className={classes.listItem} primary="Cantidad Cosechada" secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
+                                </ListItem>
+                            </>
+                            }
                         </List>
                     </Paper>
                 </div>

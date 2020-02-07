@@ -17,6 +17,7 @@ import {createStore} from 'redux'
 import * as firebase from 'firebase'
 import PantallaDeCarga from './Pages/PantallaDeCarga';
 import { Configuracion } from './Pages/Configuracion';
+import Historial from './Pages/Historial';
 import {Planta} from './Pages/Planta'
 import {PlantaRiegos} from './Pages/PlantaRiegos'
 import {PlantaPodas} from './Pages/PlantaPodas'
@@ -98,10 +99,15 @@ class App extends Component {
                   <Route exact path='/Insecticida' component={Insecticida}/>
                   <Route exact path='/Aplicables' component={Aplicables}/>
                   <Route exact path='/Configuracion' component={Configuracion}/>
+                  <Route exact path='/Historial' component={Historial}/>
                   <Route exact path='/Planta' component={Planta}/>
+                  <Route exact path='/Historial/Planta' component={Planta}/>
                   <Route exact path='/Planta/Riegos' component={PlantaRiegos}/>
                   <Route exact path='/Planta/Podas' component={PlantaPodas}/>
                   <Route exact path='/Planta/Fumigaciones' component={PlantaFumigaciones}/>
+                  <Route exact path='/Historial/Planta/Riegos' component={PlantaRiegos}/>
+                  <Route exact path='/Historial/Planta/Podas' component={PlantaPodas}/>
+                  <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaFumigaciones}/>
                   <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                 </Switch>
               </HashRouter>

@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   resetContainer:{
-    background:'linear-gradient(transparent 10%, #000)',
+    background:'linear-gradient(transparent 15%, #000)',
     height:'100%',
     paddingTop:theme.spacing(1)
   }

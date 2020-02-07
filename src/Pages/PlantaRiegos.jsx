@@ -19,22 +19,24 @@ export const PlantaRiegos =(props)=>{
                 <div className="container-fluid overflow-auto pt-4">
                         {props.location.props.riegos?
                             Object.keys(props.location.props.riegos).reverse().map((id,i)=>(
-                                <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} user={props.location.props.user} accion={props.location.props.riegos[id]} tipoDeAccion='riegos' idPlanta={props.location.props.id} id={id} key={id}/>
+                                <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} plantaDelHistorial={props.location.props.plantaDelHistorial} user={props.location.props.user} accion={props.location.props.riegos[id]} tipoDeAccion='riegos' idPlanta={props.location.props.id} id={id} key={id}/>
                             ))
                             :
                             <>
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-auto">
-                                        <h2 className='text-white'>Esta Planta aun no ha sido regada!</h2>
+                                        <h2 className='text-white'>Esta Planta no ha sido regada!</h2>
                                     </div>
                                 </div>
-                                <div className="row justify-content-center mt-4">
-                                    <div className="col-auto">
-                                        <button type='button' className="btn btn-link" onClick={e=>{
-                                            props.history.push('/Riego')
-                                        }}>Riegala Ahora!</button>
+                                {!props.location.props.plantaDelHistorial &&
+                                    <div className="row justify-content-center mt-4">
+                                        <div className="col-auto">
+                                            <button type='button' className="btn btn-link" onClick={e=>{
+                                                props.history.push('/Riego')
+                                            }}>Riegala Ahora!</button>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </>
                         }
                 </div>

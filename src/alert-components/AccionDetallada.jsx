@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme => ({
     },
     heading: {
       fontSize: theme.typography.pxToRem(15),
+      color:theme.palette.primary.contrastText
     },
     secondaryHeading: {
       fontSize: theme.typography.pxToRem(15),
@@ -30,7 +31,6 @@ const useStyles = makeStyles(theme => ({
     },
     paperDark: {
         backgroundColor: theme.palette.primary.dark,
-        color:theme.palette.secondary.contrastText
     },
     expansionPanel:{
         backgroundColor:'transparent'
@@ -40,9 +40,12 @@ const useStyles = makeStyles(theme => ({
         textShadow:'1px 1px 10px black'
     },
     buttonText:{
-        color:theme.palette.primary.contrastText,
-        textShadow:'1px 1px 10px black'
+        color:theme.palette.secondary.contrastText,
+        textShadow:'1px 1px 10px white'
     },
+    expandIcon:{
+        color:theme.palette.primary.contrastText
+    }
   }));
 export const AccionDetallada=(props)=>{
     const classes= useStyles()
@@ -65,7 +68,7 @@ export const AccionDetallada=(props)=>{
                     <ExpansionPanel expanded={props.expanded === 'panel'+props.index} className={classes.expansionPanel} onChange={props.handleChange('panel'+props.index)}>
                         <Paper elevation={4} className={classes.paperDark}>
                             <ExpansionPanelSummary
-                            expandIcon={<ExpandMoreIcon/>}
+                            expandIcon={<ExpandMoreIcon className={classes.expandIcon}/>}
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                             >
@@ -135,31 +138,33 @@ export const AccionDetallada=(props)=>{
                                         null
                                     }
                                     <Divider/>
-                                    <div className="row my-2 justify-content-around">
-                                        <IconButton
-                                            variant="contained"
-                                            color="inherit"
-                                        >   
+                                    {!props.plantaDelHistorial &&
+                                        <div className="row my-2 justify-content-around">
                                             <div className='d-flex flex-column justify-content-center align-items-center'>
-                                                <EditOutlined className={classes.buttonText}/>
+                                                <IconButton
+                                                    variant="contained"
+                                                    color="inherit"
+                                                >   
+                                                        <EditOutlined className={classes.buttonText}/>
+                                                </IconButton>
                                                 <Typography variant='caption' className={classes.buttonText} gutterBottom>
                                                     Editar
                                                 </Typography>
                                             </div>
-                                        </IconButton>
-                                        <IconButton
-                                            variant="contained"
-                                            color="inherit"
-                                            onClick={e=>{eliminarAccion()}}
-                                        >
                                             <div className='d-flex flex-column justify-content-center align-items-center'>
-                                                <DeleteOutline className={classes.buttonText}/>
+                                                <IconButton
+                                                    variant="contained"
+                                                    color="inherit"
+                                                    onClick={e=>{eliminarAccion()}}
+                                                >
+                                                        <DeleteOutline className={classes.buttonText}/>
+                                                </IconButton>
                                                 <Typography variant='caption' className={classes.buttonText} gutterBottom>
                                                     Eliminar
                                                 </Typography>
                                             </div>
-                                        </IconButton>
-                                    </div>
+                                        </div>
+                                    }
                                 </div>
                             </ExpansionPanelDetails>
                         </Paper>

@@ -17,22 +17,24 @@ export const PlantaPodas =(props)=>{
                 <div className="container-fluid overflow-auto pt-4">
                     {props.location.props.podas?
                         Object.keys(props.location.props.podas).reverse().map((id,i)=>(
-                            <AccionDetallada user={props.location.props.user} index={i} expanded={expanded} handleChange={handleChange} accion={props.location.props.podas[id]} tipoDePoda={props.location.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={props.location.props.id} id={id} key={id}/>
+                            <AccionDetallada user={props.location.props.user} index={i}  plantaDelHistorial={props.location.props.plantaDelHistorial} expanded={expanded} handleChange={handleChange} accion={props.location.props.podas[id]} tipoDePoda={props.location.props.podas[id].tipoDePoda}tipoDeAccion='podas' idPlanta={props.location.props.id} id={id} key={id}/>
                         ))
                         :
                         <>
                             <div className="row justify-content-center mt-4">
                                 <div className="col-auto">
-                                    <h2 className='text-white'>Esta Planta aun no ha sido podada!</h2>
+                                    <h2 className='text-white'>Esta Planta no ha sido podada!</h2>
                                 </div>
                             </div>
-                            <div className="row justify-content-center mt-4">
-                                <div className="col-auto">
-                                <button type='button' className="btn btn-link" onClick={e=>{
-                                        props.history.push('/Poda')
-                                    }}>Podala Ahora!</button>
+                            {!props.location.props.plantaDelHistorial &&
+                                <div className="row justify-content-center mt-4">
+                                    <div className="col-auto">
+                                    <button type='button' className="btn btn-link" onClick={e=>{
+                                            props.history.push('/Poda')
+                                        }}>Podala Ahora!</button>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         </>
                     }
                 </div>        

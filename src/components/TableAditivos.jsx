@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     },
     paperDark: {
         backgroundColor: theme.palette.primary.main,
-        color:theme.palette.secondary.contrastText
+        color:theme.palette.primary.contrastText
     },
     expansionPanel:{
         backgroundColor:'transparent'
@@ -44,9 +44,12 @@ const useStyles = makeStyles(theme => ({
         textShadow:'1px 1px 10px black'
     },
     buttonText:{
-        color:theme.palette.primary.contrastText,
-        textShadow:'1px 1px 10px black'
+        color:theme.palette.secondary.contrastText,
+        textShadow:'1px 1px 10px white'
     },
+    expandIcon:{
+        color:theme.palette.primary.contrastText
+    }
   }));
 
 
@@ -126,7 +129,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                             <ExpansionPanel expanded={expanded === 'panel'+i} className={classes.expansionPanel}onChange={handleChange('panel'+i)}>
                                 <Paper elevation={4} className={classes.paperDark}>
                                     <ExpansionPanelSummary
-                                    expandIcon={<ExpandMoreIcon />}
+                                    expandIcon={<ExpandMoreIcon className={classes.expandIcon}/>}
                                     aria-controls="panel1bh-content"
                                     id="panel1bh-header"
                                     >
@@ -178,30 +181,30 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                 </Fragment>
                                             ))}
                                             <div className="row my-2 justify-content-around">
-                                                <IconButton
-                                                    variant="contained"
-                                                    color="inherit"
-                                                    onClick={e=>{alertEditarAditivo(aditivo)}}
-                                                >   
-                                                    <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                    <IconButton
+                                                        variant="contained"
+                                                        color="inherit"
+                                                        onClick={e=>{alertEditarAditivo(aditivo)}}
+                                                    >   
                                                         <EditOutlined className={classes.buttonText}/>
-                                                        <Typography variant='caption' className={classes.buttonText} gutterBottom>
-                                                            Editar
-                                                        </Typography>
-                                                    </div>
-                                                </IconButton>
-                                                <IconButton
-                                                    variant="contained"
-                                                    color="inherit"
-                                                    onClick={e=>{eliminarAditivo(i)}}
-                                                >
-                                                    <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                    </IconButton>
+                                                    <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                        Editar
+                                                    </Typography>
+                                                </div>
+                                                <div className='d-flex flex-column justify-content-center align-items-center'>
+                                                    <IconButton
+                                                        variant="contained"
+                                                        color="inherit"
+                                                        onClick={e=>{eliminarAditivo(i)}}
+                                                    >
                                                         <DeleteOutline className={classes.buttonText}/>
-                                                        <Typography variant='caption' className={classes.buttonText} gutterBottom>
-                                                            Eliminar
-                                                        </Typography>
-                                                    </div>
-                                                </IconButton>
+                                                    </IconButton>
+                                                    <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                        Eliminar
+                                                    </Typography>
+                                                </div>
                                             </div>
                                         </div>
                                     </ExpansionPanelDetails>

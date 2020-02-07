@@ -74,7 +74,7 @@ class CarouselPlantas extends Component{
                     <div className="col-3">
                         <Grow in={true}
                         {...(true ? { timeout: 1500 } : {})}>
-                            <IconButton onClick={this.alertNuevaPlanta} color='primary' >
+                            <IconButton variant='container' size='large' onClick={this.alertNuevaPlanta} color='primary' >
                                 <AddCircleOutline />
                             </IconButton>
                         </Grow>

@@ -16,7 +16,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import {Link} from 'react-router-dom'
 import {auth} from 'firebase'
 import {AppBar,Toolbar,IconButton,Typography,Card,CardMedia} from '@material-ui/core'
-import {Menu as MenuIcon,ArrowBackRounded,AccountCircle,HomeOutlined} from '@material-ui/icons'
+import {Menu as MenuIcon,ArrowBackRounded,AccountCircle,HomeOutlined,NatureOutlined} from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles';
 import {Redirect} from 'react-router-dom'
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -34,12 +34,18 @@ const useStyles = makeStyles(theme => ({
     drawer:{
         maxWidth:'300px',
         height:'100%',
-        backgroundColor: theme.palette.primary.light
+        backgroundColor: theme.palette.primary.light,
     },
     appBar:{
         backgroundColor:theme.palette.primary.main,
         color:theme.palette.primary.contrastText
-    }
+    },
+    icon:{
+        color:theme.palette.primary.contrastText
+    },
+    text:{
+        color:theme.palette.primary.contrastText
+    },
   }));
 export const Layout=({page,children,history,planta})=>{
     const classes = useStyles();
@@ -104,44 +110,50 @@ export const Layout=({page,children,history,planta})=>{
                             <List>
                                 <Link to='/' className='outline-none text-dark'>
                                     <ListItem button key={'Armario'} >
-                                        <ListItemIcon><HomeOutlined/></ListItemIcon>
-                                        <ListItemText primary={'Armario'} />
+                                        <ListItemIcon className={classes.icon}><HomeOutlined/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Armario'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Riego' className='outline-none text-dark'>
                                     <ListItem button key={'Regar'} >
-                                        <ListItemIcon><FontAwesomeIcon icon={faTint}/></ListItemIcon>
-                                        <ListItemText primary={'Regar'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faTint}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Regar'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Poda' className='outline-none text-dark'>
                                     <ListItem button key={'Podar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faCut}/></ListItemIcon>
-                                        <ListItemText primary={'Podar'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faCut}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Podar'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Insecticida' className='outline-none text-dark'>
                                     <ListItem button key={'Fumigar'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Fumigar'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Fumigar'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Aplicables' className='outline-none text-dark'>
                                     <ListItem button key={'Aditivos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Aditivos'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Aditivos'} />
+                                    </ListItem>
+                                </Link>
+                                <Link to='/Historial' className='outline-none text-dark'>
+                                    <ListItem button key={'Historial'}>
+                                        <ListItemIcon className={classes.icon}><NatureOutlined/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Historial De Cosechas'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Aditivos' className='outline-none text-dark'>
                                     <ListItem button key={'Carencias y Excesos'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faBug}/></ListItemIcon>
-                                        <ListItemText primary={'Carencias y Excesos'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Carencias y Excesos'} />
                                     </ListItem>
                                 </Link>
                                 <Link to='/Configuracion' className='outline-none text-dark'>
                                     <ListItem button key={'Configuracion'}>
-                                        <ListItemIcon><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
-                                        <ListItemText primary={'Configuracion'} />
+                                        <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faCogs}/></ListItemIcon>
+                                        <ListItemText  className={classes.text} primary={'Configuracion'} />
                                     </ListItem>
                                 </Link>
                                 <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{

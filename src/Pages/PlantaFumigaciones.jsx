@@ -17,7 +17,7 @@ export const PlantaFumigaciones =(props)=>{
                 <div className="container-fluid overflow-auto pt-4">
                         {props.location.props.fumigaciones?
                             Object.keys(props.location.props.fumigaciones).reverse().map((id,i)=>(
-                                <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} user={props.location.props.user}index={i} accion={props.location.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={props.location.props.id} id={id} key={id}/>
+                                <AccionDetallada handleChange={handleChange} index={i} plantaDelHistorial={props.location.props.plantaDelHistorial} expanded={expanded} user={props.location.props.user}index={i} accion={props.location.props.fumigaciones[id]} tipoDeAccion='fumigaciones' idPlanta={props.location.props.id} id={id} key={id}/>
                                 ))
                                 :
                                 <>
@@ -26,13 +26,15 @@ export const PlantaFumigaciones =(props)=>{
                                         <h2 className='text-white'>Esta Planta aun no ha sido fumigada!</h2>
                                     </div>
                                 </div>
-                                <div className="row justify-content-center mt-4">
-                                    <div className="col-auto">
-                                    <button type='button' className="btn btn-link" onClick={e=>{
-                                            props.history.push('/Insecticida')
-                                        }}>Fumigala Ahora!</button>
+                                {!props.location.props.plantaDelHistorial &&
+                                    <div className="row justify-content-center mt-4">
+                                        <div className="col-auto">
+                                        <button type='button' className="btn btn-link" onClick={e=>{
+                                                props.history.push('/Insecticida')
+                                            }}>Fumigala Ahora!</button>
+                                        </div>
                                     </div>
-                                </div>
+                                }
                             </>
                         }
                 </div>
