@@ -121,7 +121,7 @@ export const Planta =(props)=>{
                         <div className="row my-2 justify-content-around">
                             <Button
                                 variant="contained"
-                                color="secondary"
+                                color={{xs:'primary',md:'secondary'}}
                                 onClick={cosecharPlanta}
                                 endIcon={
                                     <DeleteOutline/>
