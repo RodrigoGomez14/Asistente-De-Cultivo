@@ -79,7 +79,7 @@ export const FormularioAccion=(props)=>{
                         <Form.Row className='justify-content-center align-items-center flex-column'>
                             <div className="form-row">
                                 <div className="col-auto">
-                                    <p className='text-dark'>Aditivos (ml)</p>
+                                    <p className='text-light'>Aditivos (ml)</p>
                                 </div>
                             </div>
                             <div className="container">

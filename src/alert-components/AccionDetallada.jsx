@@ -37,11 +37,9 @@ const useStyles = makeStyles(theme => ({
     },
     button:{
         color:theme.palette.primary.contrastText,
-        textShadow:'1px 1px 10px black'
     },
     buttonText:{
         color:theme.palette.secondary.contrastText,
-        textShadow:'1px 1px 10px white'
     },
     expandIcon:{
         color:theme.palette.primary.contrastText

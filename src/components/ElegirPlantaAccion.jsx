@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     },
     checkbox:{
         '& .MuiIconButton-label':{
-            color: theme.palette.secondary.contrastText
+            color: theme.palette.primary.contrastText
         }
     }
 }));

@@ -22,39 +22,9 @@ const useStyles = makeStyles(theme => ({
 
 export const TarjetaPlanta=(props)=>{
     let [edad,setEdad]=useState(undefined)
-    const alertEliminarPlanta=()=>confirmAlert({
-        customUI : ({onClose}) =>{
-            return(
-                <div className="custom-ui">
-                    <AlertEliminarPlanta
-                        user={props.user}
-                        nombre={props.nombre}
-                        eliminarPlanta={eliminarPlanta}
-                        onClose={onClose}
-                    />
-                </div>
-            )
-        }
-    })
-    const alertCambiarCiclo=()=>confirmAlert({
-        customUI : ({onClose}) =>{
-            return(
-                <div className="custom-ui">
-                    <AlertCambiarCiclo
-                        user={props.user}
-                        onClose={onClose}
-                        nombre={props.nombre}
-                    />
-                </div>
-            )
-        }
-    })
     useEffect(()=>{
         setEdad(moment().diff(moment(props.nacimiento),'days'))
     })
-    const eliminarPlanta=async ()=>{
-        await database().ref().child(props.user).child('plantas').child(props.id).remove()
-    }
     const classes = useStyles()
     return(
         <div className="col-auto">
@@ -64,7 +34,7 @@ export const TarjetaPlanta=(props)=>{
                     <Link className='text-white' to={{
                         pathname:'/Planta',
                         props:{
-                            ...props,
+                            ...props
                         }
                     }}>
                         <Card className="card" >

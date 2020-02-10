@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {Layout} from './Layout'
-export const Configuracion =({history})=>{
-    return(
-        <Layout history={history} page='Configuracion'>
-            <div className="container-fluid accion">
-                <div className="row">
-                    <div className="col">
-                        Configuracion
+import {connect} from 'react-redux'
+class Configuracion extends Component{
+    render(){
+        return(
+            <Layout history={this.props.history} page='Configuracion' user={this.props.user}>
+                <div className="container-fluid accion">
+                    <div className="row">
+                        <div className="col">
+                            Configuracion
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
-    )
+            </Layout>
+        )
+    }
 }
+const mapStateToProps = state=>({
+    user:state.user
+})
+export default connect(mapStateToProps,null)(Configuracion)

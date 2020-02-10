@@ -7,9 +7,9 @@ import {CardHistorial} from '../components/CardHistorial'
 class Historial extends Component{
     render(){
         return(
-            <Layout history={this.props.history} page={'Historial'}>
-                <div className="container">
-                    <div className="row">
+            <Layout history={this.props.history} page={'Historial'} user={this.props.user}>
+                <div className="container-fluid overflow-auto">
+                    <div className="row justify-content-center">
                         {this.props.historial?
                             Object.keys(this.props.historial).map(planta=>(
                                 <div className="col-auto mt-3">
@@ -23,7 +23,7 @@ class Historial extends Component{
                                             plantaDelHistorial:true
                                         }
                                     }}>
-                                        <CardHistorial nombre={this.props.historial[planta].nombre} fechaDeCorte={this.props.historial[planta].fechaDeCorte}/>
+                                        <CardHistorial cantidadDeGramos={this.props.historial[planta].cantidadDeGramos} nombre={this.props.historial[planta].nombre} fechaDeCorte={this.props.historial[planta].fechaDeCorte}/>
                                     </Link>
                                 </div>
                             )):

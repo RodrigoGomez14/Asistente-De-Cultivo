@@ -8,30 +8,10 @@ import '../Pages/styles/Accion.css'
 import { faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import {database} from 'firebase'
-import AlertNuevaPlanta from '../alerts/AlertNuevaPlanta'
 import {Button,Typography,Grow,IconButton} from '@material-ui/core'
 import {AddCircleOutline} from '@material-ui/icons'
-
+import {Link} from 'react-router-dom'
 class CarouselPlantas extends Component{
-    guardarNuevaPlantaDB= async (nombre,genetica)=>{
-        await database().ref().child(this.props.user).child('plantas').push({
-            nombre:nombre,
-            genetica:genetica,
-            nacimiento:moment().format('L')
-        })
-    }
-    alertNuevaPlanta=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui submodalOut'>
-                    <AlertNuevaPlanta
-                        onClose={onClose}
-                        guardarNuevaPlantaDB={this.guardarNuevaPlantaDB}
-                    />
-                </div>
-            );
-        }
-    })
     render(){
         return(
             <div className="container h-100 mt-2 mb-2 justify-content-center d-flex flex-column ">
@@ -66,17 +46,24 @@ class CarouselPlantas extends Component{
                         :
                         <div className="col-12 text-center">
                             <h2 className='text-white'>Aun No hay plantas</h2>
-                            <Button variant="contained" color="primary" onClick={this.alertNuevaPlanta}>
-                                Agrega una! <FontAwesomeIcon icon={faPlusCircle} className='alert-icon ml-2'/>
-                            </Button>
+                            <Link to='/Nueva-Planta'>
+                                <Button variant="contained" color="primary">
+                                    Agrega una! <FontAwesomeIcon icon={faPlusCircle} className='alert-icon ml-2'/>
+                                </Button>
+                            </Link>
                         </div>
                     }
-                    <div className="col-3">
+                    <div className="col-auto">
                         <Grow in={true}
                         {...(true ? { timeout: 1500 } : {})}>
-                            <IconButton variant='container' size='large' onClick={this.alertNuevaPlanta} color='primary' >
-                                <AddCircleOutline />
-                            </IconButton>
+                            <Link to='/Nueva-Planta'>
+                                <IconButton
+                                    variant="contained"
+                                    color="primary"
+                                >
+                                    <AddCircleOutline />
+                                </IconButton>
+                            </Link>
                         </Grow>
                     </div>
                 </div>

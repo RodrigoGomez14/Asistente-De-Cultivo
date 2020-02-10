@@ -1,5 +1,6 @@
 .loading-icon{
-    animation: loading 1s infinite alternate-reverse 
+    animation: loading 1s infinite alternate-reverse;
+    color:#004c40
 }
 #loading-icon2{
     animation-delay: .1s
@@ -14,7 +15,7 @@
     }
     50%{
         transform: translateY(-25px) rotateY(360deg);
-        color: #48a999
+        color: #b2fab4
     }
     to{
         transform: translateY(0px) rotateY(0deg);

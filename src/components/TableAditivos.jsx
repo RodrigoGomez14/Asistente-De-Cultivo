@@ -1,5 +1,4 @@
 import React,{Fragment} from 'react'
-import {Table,Accordion, Card,Button} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
@@ -11,11 +10,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import {DeleteOutline, EditOutlined} from '@material-ui/icons'
+import {DeleteOutline, EditOutlined,AddOutlined} from '@material-ui/icons'
 import {IconButton,ButtonGroup,Grow, ListItemText,List,ListItem} from '@material-ui/core'
+import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,8 +30,7 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.text.secondary,
     },
     paperMain: {
-        backgroundColor: theme.palette.secondary.light,
-        color:theme.palette.secondary.contrastText
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
     },
     paperDark: {
         backgroundColor: theme.palette.primary.main,
@@ -44,11 +44,14 @@ const useStyles = makeStyles(theme => ({
         textShadow:'1px 1px 10px black'
     },
     buttonText:{
-        color:theme.palette.secondary.contrastText,
+        color:theme.palette.primary.contrastText,
         textShadow:'1px 1px 10px white'
     },
     expandIcon:{
         color:theme.palette.primary.contrastText
+    },
+    addButton:{
+        marginBottom:theme.spacing(1)
     }
   }));
 
@@ -112,12 +115,20 @@ export const TableAditivos = ({title,aditivos,user}) =>{
             <div className="container mb-2">
                 <div className="row">
                     <div className="col-auto ml-auto mr-auto">
-                            <Button variant='outline-light mb-2' onClick={e=>{
-                                    alertNuevoAditivo()
-                                }}>
-                                Nuevo {title==="Fertilizantes"?'Fertilizante':"Insecticida"}
-                                <FontAwesomeIcon icon={faPlusCircle} className='ml-3'/>
+                        <Link to={{
+                            pathname:'/Nuevo-Aditivo',
+                            props:{
+                                tipoDeAditivo:title
+                            }
+                        }}>
+                            <Button 
+                                variant='primary' 
+                                className={classes.addButton} 
+                                startIcon={<AddOutlined/>}
+                                >
+                                    Nuevo {title==="Fertilizantes"?'Fertilizante':"Insecticida"}
                             </Button>
+                        </Link>
                     </div>
                 </div>
                 {aditivos?
@@ -136,41 +147,36 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                         <Typography className={classes.heading}>{aditivo.nombre} <span className='badge badge-pill badge-dark'>{aditivo.marca}</span></Typography>
                                     </ExpansionPanelSummary>
                                 </Paper>
-                                <Paper elevation={4} className={classes.paperMain}>
+                                <Paper elevation={6} className={classes.paperMain}>
                                     <ExpansionPanelDetails>
                                         <div className="container">
-                                            <div className="row">
+                                            <div className="row mb-2">
                                                 <div className="col-12 text-center">
-                                                    <strong>
+                                                    <Typography variant='h5'>
                                                         Descripcion
-                                                    </strong>
+                                                    </Typography>
                                                 </div>
                                             </div>
                                             <div className="row">
                                                 <div className="col text-left">
-                                                    <small>
+                                                    <Typography variant='body2'>
                                                         {aditivo.descripcion}
-                                                    </small>
+                                                    </Typography>
                                                 </div>
                                             </div>
                                             <hr/>
                                             <div className="row">
                                                 <div className="col-12 text-center">
-                                                    <strong>
+                                                    <Typography variant='h5'>
                                                         Dosificacion
-                                                    </strong>
+                                                    </Typography>
                                                 </div>
                                             </div>
                                             {Object.keys(aditivo.dosis).map((tipoDeAplicacion,j)=>(
                                                 <Fragment key={'tipoDeAplicacion'+j}>
-                                                    <div className="row mb-2 mt-2">
-                                                        <div className="col-auto mr-auto">
-                                                            <span className='badge badge-pill badge-dark'>
-                                                                {tipoDeAplicacion}
-                                                            </span>
-                                                        </div>
-                                                    <hr/>
-                                                    </div>
+                                                    <Typography  variant ='h6'>
+                                                            {tipoDeAplicacion}
+                                                    </Typography>
                                                     <List>
                                                         {Object.keys(aditivo.dosis[tipoDeAplicacion]).map((aplicacion,k)=>(
                                                             <ListItem>

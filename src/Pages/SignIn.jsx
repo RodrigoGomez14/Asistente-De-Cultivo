@@ -15,7 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {auth} from 'firebase'
 import foto from '../images/sea of green.jpg'
 import {Link as LinkRouter} from 'react-router-dom'
-import PantallaDeCarga from './PantallaDeCarga'
+import {PantallaDeCarga} from './PantallaDeCarga'
 
 const useStyles = makeStyles(theme => ({
   root: {

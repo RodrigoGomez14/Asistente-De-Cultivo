@@ -6,7 +6,6 @@ import {connect} from 'react-redux'
 import './styles/Accion.css'
 import {database} from 'firebase'
 import moment from 'moment'
-import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import {ElegirTipoDeRiego} from '../components/ElegirTipoDeRiego';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
@@ -121,7 +120,7 @@ class Riego extends Component{
             ))
         }
         return(
-            <Layout history={this.props.history} page='Riego'>
+            <Layout history={this.props.history} page='Riego' user={this.props.user}>
                 <div className="container-fluid overflow-auto h-100">
                     <div className="row h-100">
                         <div className="col-12 px-0">

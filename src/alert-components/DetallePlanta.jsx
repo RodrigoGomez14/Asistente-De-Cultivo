@@ -92,7 +92,7 @@ export const DetallePlanta=(props)=>{
             </Col>
             <div className='col-12 col-sm-8 col-md-6 col-lg-3 mt-2'>
                 <div className={classes.listRoot}>
-                    <Paper elevation={3} className={classes.paper}>
+                    <Paper elevation={3}>
                         <List component='nav'>
                             <ListItem>
                                 <ListItemText className={classes.listItem} primary="Genetica" secondary={props.genetica}/>

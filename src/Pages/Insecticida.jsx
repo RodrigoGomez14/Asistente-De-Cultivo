@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import {connect} from 'react-redux'
 import './styles/Accion.css'
 import {database} from 'firebase'
 import moment from 'moment'
-import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion';
-import NavBarAccion from '../components/NavBarAccion';
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion'
 import {ElegirTipoDeRiego} from '../components/ElegirTipoDeRiego';
-import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import {FormularioAccion} from '../components/FormularioAccion'
 import { StepperAccion } from '../components/StepperAccion';
 import {ResumenAccion} from '../components/ResumenAccion'
@@ -120,7 +115,7 @@ class Insecticida extends Component{
             ))
         }
         return(
-            <Layout history={this.props.history} page='Fumigacion'>
+            <Layout history={this.props.history} page='Fumigacion' user={this.props.user}>
                 <div className="container-fluid overflow-auto h-100">
                     <div className="row h-100">
                         <div className="col-12 px-0">

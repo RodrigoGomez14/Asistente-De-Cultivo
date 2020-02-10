@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {auth, database} from 'firebase'
 import foto from '../images/sea of green.jpg'
-import PantallaDeCarga from './PantallaDeCarga'
+import {PantallaDeCarga} from './PantallaDeCarga'
 import {Link as LinkRouter} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({

@@ -6,7 +6,6 @@ import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion'
 import './styles/Accion.css'
 import {database} from 'firebase'
 import moment from 'moment'
-import NavBarAccion from '../components/NavBarAccion'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import {ElegirTipoDePoda} from '../components/ElegirTipoDePoda';
@@ -80,7 +79,7 @@ class Poda extends Component{
             ))
         }
         return(
-            <Layout history={this.props.history} page='Poda'>
+            <Layout history={this.props.history} page='Poda' user={this.props.user}>
                 <div className="container-fluid overflow-auto h-100 ">
                     <div className="row h-100">
                         <div className="col-12 px-0">

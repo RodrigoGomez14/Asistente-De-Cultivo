@@ -15,13 +15,13 @@ const useStyles= makeStyles(theme=>({
         color:theme.palette.primary.contrastText
     }
 }))
-export const CardHistorial=({nombre,fechaDeCorte})=>{
+export const CardHistorial=({nombre,fechaDeCorte,cantidadDeGramos})=>{
     const classes= useStyles()
     return(
         <Card className={classes.root}>
             <CardHeader
                 className={classes.cardHeader}
-                title={nombre}
+                title={cantidadDeGramos?`${nombre} (${cantidadDeGramos})`:nombre}
                 subheader={fechaDeCorte}
             />
             <CardMedia

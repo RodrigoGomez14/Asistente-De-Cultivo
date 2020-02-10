@@ -61,9 +61,13 @@ export const Planta =(props)=>{
         })
         props.location.props.history.goBack()
     }
+    const eliminarPlanta=async ()=>{
+        await database().ref().child(props.location.props.user).child('plantas').child(props.location.props.id).remove()
+        props.location.props.history.replace('/')
+    }
     return(
         props.location.props?
-            <Layout history={props.history} page={props.location.props.nombre}>
+            <Layout history={props.history} page={props.location.props.nombre} user={props.location.props.user}>
                 <div className="container-fluid accion">
                     <div className="row">
                         <DetallePlanta 
@@ -121,7 +125,7 @@ export const Planta =(props)=>{
                         <div className="row my-2 justify-content-around">
                             <Button
                                 variant="contained"
-                                color={{xs:'primary',md:'secondary'}}
+                                color='secondary'
                                 onClick={cosecharPlanta}
                                 endIcon={
                                     <DeleteOutline/>
@@ -142,6 +146,9 @@ export const Planta =(props)=>{
                             <Button
                                 variant="contained"
                                 color="secondary"
+                                onClick={e=>{
+                                    eliminarPlanta()
+                                }}
                                 endIcon={
                                     <DeleteOutline/>
                                 }>

@@ -38,14 +38,13 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   paperSecondary:{
+    backgroundColor:theme.palette.primary.dark,
     paddingBottom:theme.spacing(2),
     paddingTop:theme.spacing(2),
-    backgroundColor:theme.palette.primary.dark,
   },
   padding:{
     paddingBottom:theme.spacing(1),
-    backgroundColor:theme.palette.secondary.light,
-    color:theme.palette.secondary.contrastText
+    color:theme.palette.primary.contrastText,
   },
   stepper:{
     backgroundColor:'transparent'
