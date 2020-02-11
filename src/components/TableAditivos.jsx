@@ -57,20 +57,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export const TableAditivos = ({title,aditivos,user}) =>{
-    const alertNuevoAditivo=()=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui'>
-                    <AlertNuevoAditivo
-                        user={user}
-                        aditivos={aditivos}
-                        tipoDeAditivo={title}
-                        onClose={onClose}
-                    />
-                </div>
-            );
-        }
-    })
     const alertEditarAditivo=(aditivo)=>confirmAlert({
         customUI: ({ onClose }) => {
             return (
@@ -221,7 +207,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                     </div>
                     ))
                     :
-                    <h1>Agrega {title}</h1>
+                    <Typography>Aun no hay ningun Aditivo</Typography>
                 }
             </div>
         </div>

@@ -8,7 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import Alert from '@material-ui/lab/Alert';
+import {Alert,AlertTitle} from '@material-ui/lab';
 import {FormControl,InputLabel,Select,MenuItem,makeStyles} from '@material-ui/core'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {Link} from 'react-router-dom'
@@ -24,43 +24,11 @@ const useStyles = makeStyles(theme => ({
     alert:{
         alignItems:'center',
     },
+    title:{
+        color: theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        marginTop:theme.spacing(1)
+    }
   }));
-  /*
-  <ExpansionPanelSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1bh-content"
-                    id="panel1bh-header"
-                >    
-                    <Typography>
-                        Cantidad de Agua y Aditivos
-                    </Typography>
-                    <div className="row">
-                        <div className="col-12 text-center">
-                            {props.cantidadDeAgua?
-                                <Typography>
-                                    {props.cantidadDeAgua} L
-                                </Typography>
-                                :
-                                null
-                            }
-                        </div>
-                        <div className="col-auto">
-                            {props.aditivosUsados?
-                                <Typography className="col-auto">
-                                    {Object.keys(props.aditivosUsados).map((aditivo,i)=>{
-                                        const cantidad = props.aditivosUsados[aditivo]
-                                        return(
-                                            <span className='badge badge-pill badge-light mr-2 p-2' key={'aditivo'+i}>
-                                                {aditivo} {parseFloat(cantidad.slice(0,cantidad.indexOf(' '))*props.cantidadDeAgua).toFixed(2)} ml
-                                            </span>
-                                        )
-                                    })}
-                                </Typography>
-                                :
-                                null}
-                        </div>
-                    </div>
-                </ExpansionPanelSummary>*/
 export const FormularioAccion=(props)=>{
     const classes = useStyles()
     return(
@@ -79,7 +47,7 @@ export const FormularioAccion=(props)=>{
                         <Form.Row className='justify-content-center align-items-center flex-column'>
                             <div className="form-row">
                                 <div className="col-auto">
-                                    <p className='text-light'>Aditivos (ml)</p>
+                                    <Typography variant='h6' className={classes.title}>Aditivos (ml)</Typography>
                                 </div>
                             </div>
                             <div className="container">
@@ -119,7 +87,7 @@ export const FormularioAccion=(props)=>{
                                         ))
                                         :
                                         <div className="col-12">
-                                            <Alert severity="warning" className={classes.alert}> <div>No hay Aditivos disponibles - <Link to='/Aplicables'>Agrega uno ahora!</Link> </div> </Alert>
+                                            <Alert severity="warning" variant='outlined' className={classes.alert}> <AlertTitle>No hay Aditivos disponibles - <Link to='/Aplicables'>Agrega uno ahora!</Link> </AlertTitle> </Alert>
                                         </div>
                                     }
                                 </div>

@@ -13,7 +13,7 @@ export const PlantaPodas =(props)=>{
     };
     return(
         props.location.props?
-            <Layout history={props.history} page={props.location.props.nombre+'/Podas'} planta={props.location.props}>
+            <Layout history={props.history} page={props.location.props.nombre+'/Podas'} planta={props.location.props} user={props.location.props.user}>
                 <div className="container-fluid overflow-auto pt-4">
                     {props.location.props.podas?
                         Object.keys(props.location.props.podas).reverse().map((id,i)=>(

@@ -38,9 +38,9 @@ const useStyles = makeStyles(theme => ({
 
     },
     listItem:{
-        color:theme.palette.primary.contrastText,
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
         '& .MuiTypography-colorTextSecondary':{
-            color:theme.palette.primary.contrastText,
+            color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
         }
     },
     paper:{
@@ -101,18 +101,30 @@ export const DetallePlanta=(props)=>{
                             <ListItem>
                                 <ListItemText className={classes.listItem} primary="Edad" secondary={props.edad}/>
                             </ListItem>
-                            <Divider/>
-                            <ListItem>
-                                <ListItemText className={classes.listItem} primary="Fecha De Germinacion" secondary={`${props.nacimiento} (${moment().diff(moment(props.nacimiento),'days')} Dias)`}/>
-                            </ListItem>
-                            <Divider/>
-                            <ListItem>
-                                <ListItemText className={classes.listItem} primary="Fecha De Vegetativo" secondary={`${props.inicioVegetativo} (${moment().diff(moment(props.inicioVegetativo),'days')} Dias)`}/>
-                            </ListItem>
-                            <Divider/>
-                            <ListItem>
-                                <ListItemText className={classes.listItem} primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
-                            </ListItem>
+                            {props.nacimiento &&
+                                <>
+                                    <Divider/>
+                                    <ListItem>
+                                        <ListItemText className={classes.listItem} primary="Fecha De Germinacion" secondary={`${props.nacimiento} (${moment().diff(moment(props.nacimiento),'days')} Dias)`}/>
+                                    </ListItem>
+                                </>
+                            }
+                            {props.inicioVegetativo && 
+                                <>
+                                    <Divider/>
+                                    <ListItem>
+                                        <ListItemText className={classes.listItem} primary="Fecha De Vegetativo" secondary={`${props.inicioVegetativo} (${moment().diff(moment(props.inicioVegetativo),'days')} Dias)`}/>
+                                    </ListItem>
+                                </>
+                            }
+                            {props.inicioFloracion &&
+                                <>
+                                    <Divider/>
+                                    <ListItem>
+                                        <ListItemText className={classes.listItem} primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
+                                    </ListItem>
+                                </>
+                            }
                             {props.plantaDelHistorial && props.fechaDeCorte &&
                             <>
                                 <Divider/>

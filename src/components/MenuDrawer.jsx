@@ -1,5 +1,5 @@
 import React from 'react'
-import foto from '../images/sea of green.jpg'
+import foto from '../images/cannabis.jpg'
 import {auth} from 'firebase'
 import {Card,CardMedia,} from '@material-ui/core'
 import {HomeOutlined,NatureOutlined} from '@material-ui/icons'

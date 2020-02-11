@@ -8,8 +8,9 @@ import {makeStyles} from '@material-ui/core'
 
 const useStyles= makeStyles(theme=>({
     radio:{
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
         '& .MuiIconButton-label':{
-            color: theme.palette.secondary.contrastText
+            color: theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
         }
     }
 }))

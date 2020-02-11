@@ -9,7 +9,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import {FormControl,InputLabel,Select,MenuItem,makeStyles,FormControlLabel,Checkbox,FormGroup} from '@material-ui/core'
-import {Alert} from '@material-ui/lab/'
+import {Alert,AlertTitle} from '@material-ui/lab/'
 import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -23,9 +23,10 @@ const useStyles = makeStyles(theme => ({
     alert:{
         alignItems:'center',
     },
-    checkbox:{
+    formControl:{
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
         '& .MuiIconButton-label':{
-            color: theme.palette.primary.contrastText
+            color: theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
         }
     }
 }));
@@ -40,18 +41,19 @@ export const ElegirPlantaAccion=({plantas,seleccionarPlanta})=>{
                         <FormGroup row>
                             {plantas.map((planta,i)=>(
                                 <FormControlLabel
+                                className={classes.formControl}
                                 control={
-                                    <Checkbox color='primary' className={classes.checkbox} checked={planta.selected} onChange={e=>{
+                                    <Checkbox color='primary'  checked={planta.selected} onChange={e=>{
                                         seleccionarPlanta(i)}}
                                     value={planta.nombre} />
                                 }
                                 label={planta.nombre}
-                                    />
+                                />
                             ))}
                         </FormGroup>
                         :
                         <div className="col-12">
-                            <Alert severity="warning" className={classes.alert}> <div>No hay Plantas En el Armario - <Link to='/Aplicables'>Agrega una ahora!</Link> </div> </Alert>
+                            <Alert severity="warning" variant='outlined' className={classes.alert}> <AlertTitle>No hay Plantas En el Armario - <Link to='/Nueva-Planta'>Agrega una ahora!</Link> </AlertTitle> </Alert>
                         </div>
                         }
                     </div>

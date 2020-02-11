@@ -15,7 +15,7 @@ const useStyles = makeStyles( theme=>({
     }
 }))
 
-export const NavBar = ({page,planta,history,switchTheme,setSwitchTheme,setRedirect,theme,setTheme,setMenuOpened}) =>{
+export const NavBar = ({page,planta,history,setRedirect,theme,setTheme,setMenuOpened}) =>{
     const classes = useStyles()
     return(
         <AppBar className={classes.appBar} position="static" >
@@ -46,24 +46,6 @@ export const NavBar = ({page,planta,history,switchTheme,setSwitchTheme,setRedire
             <Typography variant="h6" className={classes.title} >
                 {page}
             </Typography>
-            <Hidden
-                xsDown
-            >
-                <FormControlLabel 
-                    control={
-                        <Switch
-                            checked={switchTheme}
-                            onChange={e=>{
-                                setSwitchTheme(e.target.checked)
-                                localStorage.setItem('theme',theme==='dark'?'light':'dark')
-                                setTheme(theme==='dark'?'light':'dark')
-                            }}
-                            value="theme"
-                        />
-                    }
-                    label='Modo Oscuro'
-                />
-            </Hidden>
             <IconButton edge="end" className={classes.menuButton} onClick={e=>{
                 setMenuOpened(true)
             }} color="inherit" aria-label="menu" size='large'>

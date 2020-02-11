@@ -39,7 +39,6 @@ export const Layout=({page,children,history,planta,user})=>{
     let [selectedTabs,setSelectedTabs]=useState('recents')
     let [redirect,setRedirect]=useState(false)
     let [theme,setTheme]=useState()
-    let [switchTheme,setSwitchTheme]=useState(false)
     const themeProvider = createMuiTheme({
         palette: {
             white:'#fff',
@@ -63,12 +62,10 @@ export const Layout=({page,children,history,planta,user})=>{
         const theme = localStorage.getItem('theme')
         if(theme){
             setTheme(theme)
-            setSwitchTheme(theme==='light'?false:true)
         }
         else{
             setTheme('light')
             localStorage.setItem('theme','light')
-            setSwitchTheme(theme==='light'?false:true)
         }
     },)
     if(redirect){
@@ -84,7 +81,7 @@ export const Layout=({page,children,history,planta,user})=>{
             <Paper className={classes.app}>
                 {user &&
                 <>
-                    <NavBar page={page} planta={planta} history={history} switchTheme={switchTheme} setSwitchTheme={setSwitchTheme} theme={theme} setTheme={setTheme} setRedirect={setRedirect} setMenuOpened={setMenuOpened}/>
+                    <NavBar page={page} planta={planta} history={history}  theme={theme} setTheme={setTheme} setRedirect={setRedirect} setMenuOpened={setMenuOpened}/>
                     <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
                 </>
                 }

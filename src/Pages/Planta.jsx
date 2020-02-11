@@ -7,6 +7,7 @@ import {DeleteOutline, EditOutlined, CheckCircle,ExpandMore} from '@material-ui/
 import {IconButton,Button,ButtonGroup,makeStyles,TextField,Paper,ExpansionPanel,ExpansionPanelSummary,Typography,ExpansionPanelDetails} from '@material-ui/core'
 import {database} from 'firebase'
 import moment from 'moment'
+import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
 
 const useStyles=makeStyles(theme=>({
     button:{
@@ -68,8 +69,8 @@ export const Planta =(props)=>{
     return(
         props.location.props?
             <Layout history={props.history} page={props.location.props.nombre} user={props.location.props.user}>
-                <div className="container-fluid accion">
-                    <div className="row">
+                <div className="container-fluid accion h-100 overflow-auto">
+                    <div className="row h-100">
                         <DetallePlanta 
                             genetica={props.location.props.genetica}
                             cantidadDeGramos={props.location.props.cantidadDeGramos}
@@ -122,39 +123,11 @@ export const Planta =(props)=>{
                         </div>
                     }
                     {!props.location.props.plantaDelHistorial &&
-                        <div className="row my-2 justify-content-around">
-                            <Button
-                                variant="contained"
-                                color='secondary'
-                                onClick={cosecharPlanta}
-                                endIcon={
-                                    <DeleteOutline/>
-                                }
-                                >
-                                Cosechar
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={props.location.props.alertEliminarPlanta}
-                                endIcon={
-                                    <EditOutlined/>
-                                }
-                            >   
-                                Editar
-                            </Button>                 
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                onClick={e=>{
-                                    eliminarPlanta()
-                                }}
-                                endIcon={
-                                    <DeleteOutline/>
-                                }>
-                                    Eliminar
-                            </Button>
-                        </div>
+                        <BotoneraConfiguracionPlanta
+                            inicioFloracion={props.location.props.inicioFloracion}
+                            cosecharPlanta={cosecharPlanta}
+                            eliminarPlanta={eliminarPlanta}
+                        />
                     }
                 </div>
             </Layout>

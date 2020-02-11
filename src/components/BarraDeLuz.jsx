@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     paper: {
         marginTop:theme.spacing(3),
         padding:theme.spacing(2),
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor:theme.palette.primary.dark
     },
     text:{
         color: theme.palette.primary.contrastText
@@ -33,19 +33,70 @@ export const BarraDeLuz=(props)=>{
         return minutes
     }
     const actualizarEstadoDeLampara=(minutes)=>{
-        if(props.horaDeInicio*60+props.cicloLuminico*60> minutes){
-            setLampraEncendida(true)
+        let minutoDeInicio = props.horaDeInicio*60
+        let minutoFinal = minutoDeInicio+(props.cicloLuminico*60)
+        if(minutoFinal>1440){
+            if(minutes<minutoDeInicio){
+                minutoFinal=minutoFinal-1440
+                if(minutes<minutoFinal){
+                    setLampraEncendida(true)
+                }
+                else{
+                    setLampraEncendida(false)
+                }
+            }
+            else{
+                setLampraEncendida(true)
+            }
         }
         else{
-            setLampraEncendida(false)
+            if(minutoDeInicio < minutes && minutoFinal > minutes){
+                setLampraEncendida(true)
+            }
+            else{
+                setLampraEncendida(false)
+            }
         }
     }
     const actualizarTranscurrido=minutes=>{
-        if(lamparaEncendida){
-            setTranscurrido(minutes-(props.horaDeInicio*60))
+
+        let minutoDeInicio = props.horaDeInicio*60
+        let minutoFinal = minutoDeInicio+(props.cicloLuminico*60)
+        if(minutoFinal>1440){
+            if(minutes<minutoDeInicio){
+                minutoFinal=minutoFinal-1440
+                if(minutes<minutoFinal){
+                    console.log(minutes+(1440-minutoDeInicio))
+                }
+                else{
+                    console.log(minutes-minutoFinal)
+                }
+            }
+            else{
+                console.log(minutes-minutoDeInicio)
+            }
         }
         else{
-            setTranscurrido(minutes-((props.horaDeInicio+props.cicloLuminico)*60))
+            if(minutoDeInicio < minutes && minutoFinal > minutes){
+                console.log(minutes-minutoDeInicio)
+            }
+            else{
+                console.log(minutoFinal-minutes)
+            }
+        }
+
+
+        if(lamparaEncendida){
+            setTranscurrido(minutes-(props.horaDeInicio*60))
+            console.log(minutes-(props.horaDeInicio*60))
+        }
+        else{
+            if(props.horaDeInicio+props.cicloLuminico>24){
+                setTranscurrido(minutes-((props.horaDeInicio+props.cicloLuminico-24)*60))
+            }
+            else{
+
+            }
         }
     }
     const actualizarFaltante=minutes=>{
@@ -54,8 +105,13 @@ export const BarraDeLuz=(props)=>{
             setFaltante(diferencia)
         }
         else{
-            const diferencia = ((props.horaDeInicio+24)*60)-minutes
-            setFaltante(diferencia)
+            if(props.horaDeInicio+props.cicloLuminico>24){
+                const diferencia = ((props.horaDeInicio)*60)-minutes
+                setFaltante(diferencia)
+            }
+            else{
+
+            }
         }
     }
     const actualizarBarraDeEstado=()=>{
@@ -95,71 +151,39 @@ export const BarraDeLuz=(props)=>{
     }
     const classes = useStyles()
     return(
-        <div className="container">
-            <div className="row">
-                <div className="col-12 col-md-8 offset-md-2">
-                    <Grow in={true}
-                    {...(true ? { timeout: 1500 } : {})}>
-                        <Paper elevation={3} className={classes.paper}>
-                            <div className="container">
-                                <div className="row">
-                                    <div className="col-auto ml-auto mr-auto">
-                                        <FechaYHora/>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col text-center">
-                                        <Typography className={classes.text}>Periodo {props.periodo}</Typography>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col text-center">
-                                        <Typography className={classes.text}>Ciclo Luminico {props.cicloLuminico} Hs ({props.horaDeInicio}:00 - {calcularHoraFinal()})</Typography>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="col text-center">
-                                        <Typography className={classes.text}>
-                                            Transcurrido {` ${parseInt(transcurrido/60)<10? '0'+parseInt(transcurrido/60):parseInt(transcurrido/60) } : ${parseInt(transcurrido%60)<10? '0'+parseInt(transcurrido%60):parseInt(transcurrido%60)}`}
-                                        </Typography>
-                                    </div>
-                                    <div className="col text-center">
-                                        <Typography className={classes.text}>
-                                            Faltante (Hs)  {` ${parseInt(faltante/60)<10? '0'+parseInt(faltante/60):parseInt(faltante/60) } : ${parseInt(faltante%60)<10? '0'+parseInt(faltante%60):parseInt(faltante%60)}`}
-                                        </Typography>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    {!lamparaEncendida?
-                                        <div className="col text-center">
-                                            <span className='badge badge-pill p-3 badge-dark'>
-                                                <Typography>
-                                                    Descansando...
-                                                </Typography>
-                                            </span>
-                                        </div>
-                                        :
-                                        <div className="col text-center">
-                                            <span className='badge badge-pill p-3 badge-success'>
-                                                <Typography>
-                                                    Creciendo...
-                                                </Typography>
-                                            </span>
-                                        </div>
-                                    }
-                                </div>
-                                <div className="row mt-4">
-                                    <div className="col-10 offset-1">
-                                        <div className="progress">
-                                            <div className={!lamparaEncendida?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
+        <Grow in={true}
+        {...(true ? { timeout: 1500 } : {})}>
+            <Paper elevation={3} className={classes.paper}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-auto ml-auto mr-auto">
+                            <FechaYHora/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        {!lamparaEncendida?
+                            <div className="col text-center">
+                                <Typography variant='h4' className={classes.text}>
+                                    Descansando...
+                                </Typography>
                             </div>
-                        </Paper>
-                    </Grow>
+                            :
+                            <div className="col text-center">
+                                <Typography variant ='h4' className={classes.text}>
+                                    Creciendo...
+                                </Typography>
+                            </div>
+                        }
+                    </div>
+                    <div className="row mt-4">
+                        <div className="col-10 offset-1">
+                            <div className="progress">
+                                <div className={!lamparaEncendida?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </Paper>
+        </Grow>
     )
 }

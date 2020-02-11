@@ -10,6 +10,7 @@ import './styles/Accion.css'
 import {connect} from 'react-redux'
 import  {database} from 'firebase'
 import {Layout} from './Layout'
+import {TarjetaArmario} from '../components/TarjetaArmario'
 
 class Armario extends Component{
     state={
@@ -41,7 +42,14 @@ class Armario extends Component{
             <Layout history={this.props.history} page="Armario" user={this.props.user}>
                 <div className="container">
                     <div className="row">
-                        <BarraDeLuz periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} cicloLuminico={this.props.cicloLuminico}/>      
+                        <div className="col-12">
+                            <BarraDeLuz periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} cicloLuminico={this.props.cicloLuminico}/>      
+                        </div>
+                    </div>
+                    <div className="row mt-2">
+                        <div className="col-12">
+                            <TarjetaArmario periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} cicloLuminico={this.props.cicloLuminico} />
+                        </div>
                     </div>
                 </div>
                 <CarouselPlantas history={this.props.history}/>

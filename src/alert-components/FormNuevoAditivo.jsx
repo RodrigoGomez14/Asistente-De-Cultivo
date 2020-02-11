@@ -12,18 +12,21 @@ const useStyles = makeStyles(theme=>({
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-around',
-        alignItems:'center'
+        alignItems:'center',
+        overflow:'auto'
     },
     firstPaper:{
         width:'75%',
         display:'flex',
         flexDirection:'column',
         justifyContent:'space-around',
+        marginTop:theme.spacing(1),
         padding:theme.spacing(4)
     },
     secondPaper:{
         padding:theme.spacing(4),
-        maxWidth:'75%',
+        marginTop:theme.spacing(1),
+        width:'75%',
     },
     dosisList:{
         display:'flex',
@@ -37,10 +40,14 @@ const useStyles = makeStyles(theme=>({
         minWidth:'200px',
         margin:theme.spacing(1),
         flexDirection:'column'
+    },
+    button:{
+        marginTop:theme.spacing(2),
+        marginBottom:theme.spacing(2),
     }
 }))
 
-export const FormNuevoAditivo = ({aditivos,tipoDeAditivo,user,history}) =>{
+export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
     const [inputs,setInputs] = useState({})
     const [dosis,setDosis] = useState({})
 
@@ -83,11 +90,13 @@ export const FormNuevoAditivo = ({aditivos,tipoDeAditivo,user,history}) =>{
                 await database().ref().child(user).update({
                     fertilizantes:newAditivos
                 })
+                history.goBack()
                 break;
             case 'Insecticidas':
                 await database().ref().child(user).update({
                     insecticidas:newAditivos
                 })
+                history.goBack()
                 break;
             default:
                 break;
@@ -133,7 +142,7 @@ export const FormNuevoAditivo = ({aditivos,tipoDeAditivo,user,history}) =>{
             </Paper>
             <Paper elevation={4} className={classes.secondPaper}>
                 <Typography>
-                    Dosificacion
+                    Dosificaciones
                 </Typography>
                 <Button
                     variant='text'
@@ -187,6 +196,7 @@ export const FormNuevoAditivo = ({aditivos,tipoDeAditivo,user,history}) =>{
             <Button
                 variant='contained'
                 color='primary'
+                className={classes.button}
                 onClick={e=>{
                     agregarAditivo()
                 }}

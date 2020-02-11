@@ -7,32 +7,26 @@ import moment from 'moment'
 import {FormNuevaPlanta} from '../components/FormNuevaPlanta'
 import addFile from '../images/addFile.svg'
 class NuevaPlanta extends Component{
-    guardarNuevaPlantaDB= async (nombre,genetica,etapa)=>{
+    guardarNuevaPlantaDB= async (nombre,genetica,etapa,inicioGerminacion,inicioVegetativo,inicioFloracion)=>{
         await database().ref().child(this.props.user).child('plantas').push({
             nombre:nombre,
-            genetica:genetica,
-            etapa:etapa,
-            nacimiento:moment().format('L')
+            genetica:genetica?genetica:null,
+            nacimiento:inicioGerminacion?inicioGerminacion:null,
+            inicioVegetativo:inicioVegetativo?inicioVegetativo:null,
+            inicioFloracion:inicioFloracion?inicioFloracion:null
         })
         this.props.history.replace('/')
     }
     render(){
         return(
             <Layout page='Nueva Planta' user={this.props.user} history={this.props.history}>
-                <Grid container component="main">
-                    <Grid item xs={false} sm={4} md={7}>
-                        <img src={addFile}/>
-                    </Grid>
-                    <Grid item xs={12} sm={8} md={5}square>
-                        <FormNuevaPlanta guardarNuevaPlantaDB={this.guardarNuevaPlantaDB} />
-                    </Grid>
-                </Grid>
+                <FormNuevaPlanta guardarNuevaPlantaDB={this.guardarNuevaPlantaDB} periodoArmario={this.props.periodo}/>
             </Layout>
-    
         )
     }
 }
 const mapStateToProps=state=>({
-    user:state.user
+    user:state.user,
+    periodo:state.data.periodo
 })
 export default connect(mapStateToProps,null)(NuevaPlanta)

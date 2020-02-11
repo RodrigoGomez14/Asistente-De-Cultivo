@@ -17,18 +17,12 @@ class NuevoAditivo extends Component{
         else{
             return(
                 <Layout page='Nuevo Aditivo' user={this.props.user} history={this.props.history}>
-                    <Grid container component="main">
-                        <Grid item xs={0} sm={0} md={7}>
-                            <img src={addFile}/>
-                        </Grid>
-                        <Grid item xs={12} sm={8} md={5}square>
-                            <FormNuevoAditivo  
-                                aditivos={this.props.location.props.tipoDeAditivo==='Fertilizantes'?this.props.fertilizantes:this.props.insecticidas}
-                                tipoDeAditivo={this.props.location.props.tipoDeAditivo}
-                                user={this.props.user}
-                            />
-                        </Grid>
-                    </Grid>
+                    <FormNuevoAditivo  
+                        history={this.props.history}
+                        aditivos={this.props.location.props.tipoDeAditivo==='Fertilizantes'?this.props.fertilizantes:this.props.insecticidas}
+                        tipoDeAditivo={this.props.location.props.tipoDeAditivo}
+                        user={this.props.user}
+                    />
                 </Layout>
             )
         }

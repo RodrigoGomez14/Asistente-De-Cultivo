@@ -89,7 +89,7 @@ export const LogInPage=({history})=> {
         .then(async e=>{
             await database().ref().child(e.user.uid).update({
                 horaDeInicio:0,
-                horaDeFinal:0,
+                cicloLuminico:1,
                 periodo:'Vegetativo'
             })
             history.push('/')
