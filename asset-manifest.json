@@ -1,27 +1,28 @@
 {
   "files": {
-    "main.css": "/Asistente-De-Cultivo/static/css/main.3f120986.chunk.css",
-    "main.js": "/Asistente-De-Cultivo/static/js/main.1ee2abc6.chunk.js",
-    "main.js.map": "/Asistente-De-Cultivo/static/js/main.1ee2abc6.chunk.js.map",
+    "main.css": "/Asistente-De-Cultivo/static/css/main.1967fe1a.chunk.css",
+    "main.js": "/Asistente-De-Cultivo/static/js/main.5237a32b.chunk.js",
+    "main.js.map": "/Asistente-De-Cultivo/static/js/main.5237a32b.chunk.js.map",
     "runtime-main.js": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js",
     "runtime-main.js.map": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js.map",
     "static/css/2.f41ec079.chunk.css": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css",
-    "static/js/2.e7a606a1.chunk.js": "/Asistente-De-Cultivo/static/js/2.e7a606a1.chunk.js",
-    "static/js/2.e7a606a1.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.e7a606a1.chunk.js.map",
+    "static/js/2.65f3384d.chunk.js": "/Asistente-De-Cultivo/static/js/2.65f3384d.chunk.js",
+    "static/js/2.65f3384d.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.65f3384d.chunk.js.map",
     "index.html": "/Asistente-De-Cultivo/index.html",
-    "precache-manifest.ff9c849572d22a4bf08e19bf39738600.js": "/Asistente-De-Cultivo/precache-manifest.ff9c849572d22a4bf08e19bf39738600.js",
+    "precache-manifest.571c155781bc0ecf7e6268bebfd1d09b.js": "/Asistente-De-Cultivo/precache-manifest.571c155781bc0ecf7e6268bebfd1d09b.js",
     "service-worker.js": "/Asistente-De-Cultivo/service-worker.js",
     "static/css/2.f41ec079.chunk.css.map": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css.map",
-    "static/css/main.3f120986.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.3f120986.chunk.css.map",
+    "static/css/main.1967fe1a.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.1967fe1a.chunk.css.map",
     "static/media/addFile.svg": "/Asistente-De-Cultivo/static/media/addFile.84371f25.svg",
     "static/media/apple cookies.jpg": "/Asistente-De-Cultivo/static/media/apple cookies.7617cb20.jpg",
+    "static/media/cannabis.jpg": "/Asistente-De-Cultivo/static/media/cannabis.2512da42.jpg",
     "static/media/sea of green.jpg": "/Asistente-De-Cultivo/static/media/sea of green.4e28c360.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.ae36a367.js",
     "static/css/2.f41ec079.chunk.css",
-    "static/js/2.e7a606a1.chunk.js",
-    "static/css/main.3f120986.chunk.css",
-    "static/js/main.1ee2abc6.chunk.js"
+    "static/js/2.65f3384d.chunk.js",
+    "static/css/main.1967fe1a.chunk.css",
+    "static/js/main.5237a32b.chunk.js"
   ]
 }
