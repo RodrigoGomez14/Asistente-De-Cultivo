@@ -52,7 +52,7 @@ class App extends Component {
         const databaseRef = await firebase.database().ref().child(user.uid)
         databaseRef.on('value', snapshot=>{
           data= snapshot.val()
-          store=createStore(reducer, {user:user.uid,data:data})
+          store=createStore(reducer, {user:user,data:data})
           this.setState({store,user:user,loading:false})
         })
       }

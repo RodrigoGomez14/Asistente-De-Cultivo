@@ -175,7 +175,7 @@ class Riego extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        user:state.user,
+        user:state.user.uid,
         plantas:state.data.plantas,
         aditivos:state.data.fertilizantes
     }

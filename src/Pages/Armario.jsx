@@ -50,7 +50,7 @@ const Armario=(props)=>{
 }
 const mapStateToProps = state =>{
     return{
-        user:state.user,
+        user:state.user.uid,
         plantas:state.data.plantas,
         periodo:state.data.periodo,
         horaDeInicio:state.data.horaDeInicio,

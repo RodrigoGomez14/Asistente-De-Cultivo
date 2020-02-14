@@ -120,7 +120,7 @@ import moment from 'moment'
     }
  }
  const mapStateToProps=state=>({
-     user:state.user,
+     user:state.user.uid,
      plantas:state.data.plantas,
 
  })

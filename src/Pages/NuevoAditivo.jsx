@@ -41,7 +41,7 @@ const NuevoAditivo=(props)=>{
     }
 }
 const mapStateToProps=state=>({
-    user:state.user,
+    user:state.user.uid,
     fertilizantes:state.data.fertilizantes,
     insecticidas:state.data.insecticidas
 })

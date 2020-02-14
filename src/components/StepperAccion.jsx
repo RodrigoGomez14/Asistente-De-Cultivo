@@ -17,6 +17,7 @@ const useStyles = makeStyles(theme => ({
     display:'flex',
     flexDirection:'column',
     justifyContent:'space.around',
+    overflow:'auto',
     backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
   },
   button: {
@@ -52,9 +53,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   resetContainer:{
-    background:'linear-gradient(transparent 15%, #000)',
-    height:'100%',
-    paddingTop:theme.spacing(1)
+    backgroundColor:theme.palette.secondary.light,
+    width:'500px'
+  },
+  rootLastStep:{
+    display:'flex',
+    justifyContent:'center'
   }
 }));
 
@@ -135,14 +139,19 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
             ))}
           </Stepper>
           {activeStep === steps.length && (
-            <Paper square elevation={6} className={classes.resetContainer}>
-                {resumenAccion}
-                <BotoneraConfirmacionAccion
-                    accion={tipoDeAccion}
-                    handleBack={handleBack}
-                    confirmarAccion={confirmarAccion}
-                />
-            </Paper>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
+              <div className={classes.rootLastStep}>
+                <Paper square elevation={6} className={classes.resetContainer}>
+                    {resumenAccion}
+                    <BotoneraConfirmacionAccion
+                        accion={tipoDeAccion}
+                        handleBack={handleBack}
+                        confirmarAccion={confirmarAccion}
+                    />
+                </Paper>
+              </div>
+            </Grow>
           )}
         </div>
       </Grow>

@@ -1,17 +1,17 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {Paper,Typography,Avatar,TextField,Grid,Button,makeStyles,Link} from '@material-ui/core'
 import {LockOutlined} from '@material-ui/icons'
 import {Link as LinkRouter} from 'react-router-dom'
 import {PantallaDeCarga} from '../Pages/PantallaDeCarga'
+import {auth,database} from 'firebase'
 
 const useStyles = makeStyles(theme => ({
     paper: {
-      margin: theme.spacing(8, 4),
+      margin: theme.spacing(0, 4),
       padding:theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      backgroundColor:theme.palette.primary.main
     },
     avatar: {
         margin: theme.spacing(1),
@@ -50,24 +50,48 @@ const useStyles = makeStyles(theme => ({
     },
     root:{
         width:'100%',
-        height:'100%'
     },
     title:{
       color:theme.palette.primary.contrastText
     }
   }));
-export const FormLogin=({inputUser,setInputUser,inputPassword,setInputPassword,loading,signIn})=>{
+export const FormLogin=({setloading,history})=>{
     const classes = useStyles()
+    let [inputUser,setInputUser]=useState(undefined)
+    let [inputNombre,setInputNombre]=useState(undefined)
+    let [inputPassword,setInputPassword]=useState(undefined)
+    let [userError,setUserError]=useState(undefined)
+    let [nombreError,setNombreError]=useState(undefined)
+    let [passwordError,setPasswordError]=useState(undefined)
+
+    const signIn=async()=>{
+      setloading(true)
+      await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
+      .then(async e=>{
+          e.user.updateProfile({
+            displayName:inputNombre
+          })
+          await database().ref().child(e.user.uid).update({
+              horaDeInicio:0,
+              cicloLuminico:1,
+              periodo:'Vegetativo'
+          })
+          history.push('/')
+          setloading(false)
+      })
+      .catch(error=>{
+        if(error.code==='auth/user-not-found'){
+          setUserError(error)
+        }
+        else{
+          setPasswordError(error)
+        }
+        setloading(false)
+      })
+  }
     return(
-        loading?
-          <div className={classes.paper}>
-              <Typography>
-                <PantallaDeCarga/>
-              </Typography>
-          </div>
-          :
           <div className={classes.root}>
-            <Paper elevation={3} className={classes.paper}>
+            <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlined/>
                 </Avatar>
@@ -81,12 +105,24 @@ export const FormLogin=({inputUser,setInputUser,inputPassword,setInputPassword,l
                     color='primary'
                     required
                     fullWidth
+                    id="Nombre"
+                    label="Nombre"
+                    name="nombre"
+                    value={inputNombre}
+                    onChange={e=>{setInputNombre(e.target.value)}}
+                    autoFocus
+                />
+                <TextField
+                    variant="filled"
+                    margin="normal"
+                    color='primary'
+                    required
+                    fullWidth
                     id="email"
                     label="Email"
                     name="email"
                     value={inputUser}
                     onChange={e=>{setInputUser(e.target.value)}}
-                    autoFocus
                 />
                 <TextField
                     variant="filled"
@@ -116,7 +152,7 @@ export const FormLogin=({inputUser,setInputUser,inputPassword,setInputPassword,l
                       </LinkRouter>
                   </Link>
             </form>
-            </Paper>
+            </div>
           </div>
     )
 }

@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Paper, TextField,makeStyles,Typography,FormControl,InputLabel,Select,MenuItem,Button} from '@material-ui/core'
+import {Paper, TextField,makeStyles,Typography,FormControl,InputLabel,Select,MenuItem,Button,InputAdornment} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab'
 import {CheckCircleOutlineOutlined} from '@material-ui/icons'
 const useStyles = makeStyles(theme=>({
@@ -23,6 +23,10 @@ const useStyles = makeStyles(theme=>({
     },
     paper:{
         backgroundColor:theme.palette.primary.main
+    },
+    input:{
+        marginTop:theme.spacing(1),
+        marginBottom:theme.spacing(1),
     }
 }))
 
@@ -44,6 +48,7 @@ export const FormNuevaPlanta =({guardarNuevaPlantaDB,periodoArmario})=>{
     let [inicioGerminacion,setInicioGerminacion]= useState(getDate())
     let [inicioVegetativo,setInicioVegetativo]= useState(undefined)
     let [inicioFloracion,setInicioFloracion]= useState(undefined)
+    let [volumenMaceta,setVolumenMaceta]= useState(undefined)
 
     const handleDateChange = date => {
         setSelectedDate(date);
@@ -107,8 +112,21 @@ export const FormNuevaPlanta =({guardarNuevaPlantaDB,periodoArmario})=>{
                     <Typography className={classes.title}>
                         Ingresa los siguientes datos
                     </Typography>
-                    <TextField label="Nombre" value={nombre} onChange={e=>{setNombre(e.target.value)}}/>
-                    <TextField label="Genetica" value={genetica} onChange={e=>{setGenetica(e.target.value)}}/>
+                    <TextField label="Nombre" className={classes.input} value={nombre} onChange={e=>{setNombre(e.target.value)}}/>
+                    <TextField label="Genetica"  className={classes.input} value={genetica} onChange={e=>{setGenetica(e.target.value)}}/>
+                    <TextField 
+                        label="Volumen De Maceta" 
+                        className={classes.input}
+                        value={volumenMaceta} 
+                        type='number'  
+                        InputProps={{
+                            startAdornment: (
+                            <InputAdornment position="start">
+                                Lt
+                            </InputAdornment>
+                            ),
+                        }}
+                        onChange={e=>{setVolumenMaceta(e.target.value)}}/>
                     <FormControl className={classes.formControl}>
                         <InputLabel id="etapa-select-label">Etapa</InputLabel>
                         <Select
@@ -147,7 +165,7 @@ export const FormNuevaPlanta =({guardarNuevaPlantaDB,periodoArmario})=>{
                 disabled={!nombre&&true}
                 startIcon={<CheckCircleOutlineOutlined/>}
                 onClick={e=>{
-                    guardarNuevaPlantaDB(nombre,genetica,etapa,inicioGerminacion,inicioVegetativo,inicioFloracion)
+                    guardarNuevaPlantaDB(nombre,genetica,inicioGerminacion,inicioVegetativo,inicioFloracion,volumenMaceta)
                 }}
             >
                 Agregar Planta!

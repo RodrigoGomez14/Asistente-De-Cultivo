@@ -27,7 +27,7 @@ const Aplicables=(props)=>{
 
 const mapStateToProps =(state)=>{
     return{
-        user:state.user,
+        user:state.user.uid,
         fertilizantes:state.data.fertilizantes,
         insecticidas:state.data.insecticidas
     }

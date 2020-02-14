@@ -1,5 +1,4 @@
 import React from 'react'
-import foto from '../images/cannabis.jpg'
 import {auth} from 'firebase'
 import {Card,CardMedia,} from '@material-ui/core'
 import {HomeOutlined,NatureOutlined} from '@material-ui/icons'
@@ -34,7 +33,7 @@ const useStyles = makeStyles(theme=>({
         color:theme.palette.primary.contrastText
     },
 }))
-export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
+export const MenuDrawer = ({menuOpened,setMenuOpened,image,history})=>{
     const classes = useStyles()
     return(
         <Drawer anchor="right" open={menuOpened}  onClose={e=>{setMenuOpened(false)}}>
@@ -43,7 +42,7 @@ export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
                     <CardMedia
                         component="img"
                         alt="Sea Of Green"
-                        image={foto}
+                        image={image}
                         title="Sea Of Green"
                     />
                 </Card>
@@ -104,6 +103,7 @@ export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
                     </Link>
                     <ListItem button key={'Cerrar Sesion'} className='text-danger' onClick={async e=>{
                             await auth().signOut()
+                            history.replace('/')
                         }}>
                         <ListItemIcon><FontAwesomeIcon icon={faTimes} className='text-danger'/></ListItemIcon>
                         <ListItemText primary={'Cerrar Sesion'} />

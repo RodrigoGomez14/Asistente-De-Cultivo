@@ -54,7 +54,7 @@ const Historial=(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user,
+    user:state.user.uid,
     historial:state.data.historial
 })
 export default connect(mapStateToProps,null)(Historial)

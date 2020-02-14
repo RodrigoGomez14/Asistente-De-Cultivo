@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {auth} from 'firebase'
-import foto from '../images/sea of green.jpg'
+import foto from '../images/background.png'
 import {Link as LinkRouter} from 'react-router-dom'
 import {PantallaDeCarga} from './PantallaDeCarga'
 import {Layout} from './Layout'
@@ -34,10 +34,12 @@ const useStyles = makeStyles(theme => ({
     height:"100%"
   },
   paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    width:"100%",
+    height:"100%",
+    backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.main,
+    borderRadius:'0',
+    display:'flex',
+    alignItems:'center'
   },
   
   form: {
@@ -87,6 +89,9 @@ export const SignInPage=({history})=> {
         setUserError(undefined)
         setPasswordError(undefined)
         await auth().signInWithEmailAndPassword(inputUser,inputPassword)
+        .then(()=>{
+          setloading(false)
+        })
         .catch(error=>{
           if(error.code==='auth/user-not-found'){
             setUserError(error)
@@ -94,8 +99,8 @@ export const SignInPage=({history})=> {
           else{
             setPasswordError(error)
           }
+          setloading(false)
         })
-        setloading(false)
     }
 
     return (
@@ -105,14 +110,13 @@ export const SignInPage=({history})=> {
               <img src={foto} alt="" className={classes.img}/>
             </Grid>
             <Grid item xs={12} sm={8} md={5}>
-              loading?
-              <FormSignIn logIn={logIn} inputUser={inputUser} setInputUser={setInputUser} inputPassword={inputPassword} setInputPassword={setInputPassword} userError={userError} passwordError={passwordError} />
+              {!loading?
+              <Paper elevation={3} className={classes.paper}>
+                <FormSignIn logIn={logIn} inputUser={inputUser} setInputUser={setInputUser} inputPassword={inputPassword} setInputPassword={setInputPassword} userError={userError} passwordError={passwordError} />
+              </Paper>
               :
-              <div className={classes.paper}>
-                <Typography component="h1" variant="h5">
-                  <PantallaDeCarga/>
-                </Typography>
-            </div>
+              <PantallaDeCarga/>
+              }
         </Grid>
         </Grid>
       </Layout>

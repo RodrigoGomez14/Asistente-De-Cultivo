@@ -15,67 +15,71 @@ class CarouselPlantas extends Component{
     render(){
         return(
             <div className="container">
-                <div className="row mb-3">
-                    <div className="col-auto ml-auto mr-auto">
-                        <Grow in={true}
-                            {...(true ? { timeout: 1500 } : {})}>
-                            <Typography>
-                                Plantas Dentro Del Armario
-                            </Typography>
-                        </Grow>
-                    </div>
-                </div>
-                <div className="row align-items-center justify-content-start flex-nowrap overflow-auto">
-                    {this.props.plantas?
-                        Object.keys(this.props.plantas).map(key=>(
-                            <TarjetaPlanta
-                                user={this.props.user}
-                                nacimiento={this.props.plantas[key].nacimiento} 
-                                genetica={this.props.plantas[key].genetica}
-                                inicioVegetativo={this.props.plantas[key].inicioVegetativo} 
-                                inicioFloracion={this.props.plantas[key].inicioFloracion} 
-                                podas={this.props.plantas[key].podas} 
-                                riegos={this.props.plantas[key].riegos}
-                                fumigaciones={this.props.plantas[key].fumigaciones}
-                                transplantes={this.props.plantas[key].transplantes}
-                                volumenMaceta={this.props.plantas[key].volumenMaceta}
-                                nombre={this.props.plantas[key].nombre}
-                                id={key}
-                                key={key}
-                                history={this.props.history}
-                            />
-                        ))
-                        :
+                {this.props.plantas?
+                    <>
+                        <div className="row">
+                            <div className="col-12 text-center">
+                                <Grow in={true}
+                                    {...(true ? { timeout: 1500 } : {})}>
+                                    <Typography variant='h5'>
+                                        Plantas Dentro Del Armario
+                                    </Typography>
+                                </Grow>
+                            </div>
+                        </div>
+                        <div className="row mt-3">
+                            {Object.keys(this.props.plantas).map(key=>(
+                                <TarjetaPlanta
+                                    user={this.props.user}
+                                    nacimiento={this.props.plantas[key].nacimiento} 
+                                    genetica={this.props.plantas[key].genetica}
+                                    inicioVegetativo={this.props.plantas[key].inicioVegetativo} 
+                                    inicioFloracion={this.props.plantas[key].inicioFloracion} 
+                                    podas={this.props.plantas[key].podas} 
+                                    riegos={this.props.plantas[key].riegos}
+                                    fumigaciones={this.props.plantas[key].fumigaciones}
+                                    transplantes={this.props.plantas[key].transplantes}
+                                    volumenMaceta={this.props.plantas[key].volumenMaceta}
+                                    nombre={this.props.plantas[key].nombre}
+                                    id={key}
+                                    key={key}
+                                    history={this.props.history}
+                                />
+                            ))}
+                            <div className="col-auto align-self-center">
+                                <Grow in={true}
+                                {...(true ? { timeout: 1500 } : {})}>
+                                    <Link to='/Nueva-Planta'>
+                                        <IconButton
+                                            variant="contained"
+                                            color="primary"
+                                        >
+                                            <AddCircleOutline />
+                                        </IconButton>
+                                    </Link>
+                                </Grow>
+                            </div>
+                        </div>
+                    </>
+                    :
+                    <div className="row mb-3">
                         <div className="col-12 text-center">
-                            <Typography  variant='h5'>Aun No hay plantas</Typography>
+                            <Typography  variant='h6' className='text-lihgt'>No hay plantas</Typography>
                             <Link to='/Nueva-Planta'>
                                 <Button variant="contained" color="primary" endIcon={<AddCircleOutline/>}>
                                     Agrega una!
                                 </Button>
                             </Link>
                         </div>
-                    }
-                    <div className="col-auto">
-                        <Grow in={true}
-                        {...(true ? { timeout: 1500 } : {})}>
-                            <Link to='/Nueva-Planta'>
-                                <IconButton
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    <AddCircleOutline />
-                                </IconButton>
-                            </Link>
-                        </Grow>
                     </div>
-                </div>
+                }
             </div>
         )
     }
 }
 const mapStateToProps = state =>{
     return{
-        user:state.user,
+        user:state.user.uid,
         plantas:state.data.plantas,
     }
 }

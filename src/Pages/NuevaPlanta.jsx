@@ -20,10 +20,11 @@ const useStyles = makeStyles(theme=>({
 
 const  NuevaPlanta=(props)=>{
     const classes = useStyles()
-    const guardarNuevaPlantaDB= async (nombre,genetica,etapa,inicioGerminacion,inicioVegetativo,inicioFloracion)=>{
+    const guardarNuevaPlantaDB= async (nombre,genetica,inicioGerminacion,inicioVegetativo,inicioFloracion,volumenMaceta)=>{
         await database().ref().child(props.user).child('plantas').push({
             nombre:nombre,
-            genetica:genetica?genetica:null,
+            genetica:genetica?genetica:'Desconocida',
+            volumenMaceta:volumenMaceta?volumenMaceta:null,
             nacimiento:inicioGerminacion?inicioGerminacion:null,
             inicioVegetativo:inicioVegetativo?inicioVegetativo:null,
             inicioFloracion:inicioFloracion?inicioFloracion:null
@@ -39,7 +40,7 @@ const  NuevaPlanta=(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user,
+    user:state.user.uid,
     periodo:state.data.periodo
 })
 export default connect(mapStateToProps,null)(NuevaPlanta)

@@ -26,7 +26,7 @@ export const BotoneraConfirmacionAccion=(props)=>{
                         onClick={props.handleBack}
                         className='mr-2'
                     >
-                        Atras
+                        Volver
                     </Button>
                     <Button
                         variant="contained"

@@ -1,11 +1,19 @@
 import React from 'react'
-import {Paper,List,ListItem,ListItemText,makeStyles,Grow} from '@material-ui/core'
+import {Paper,List,ListItem,ListItemText,makeStyles,Grow,Avatar} from '@material-ui/core'
+import periodoImg from '../images/periodo.svg'
+
 const useStyles=makeStyles(theme=>({
     paper:{
+        backgroundColor:theme.palette.primary.main,
+        padding:theme.spacing(1),
         flexGrow:'1',
+        marginTop:theme.spacing(2),
         marginLeft:theme.spacing(1),
         marginRight:theme.spacing(1),
-        backgroundColor:theme.palette.primary.main,
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        maxWidth:'220px'
     },
     listText:{
         color:theme.palette.primary.contrastText,
@@ -25,6 +33,11 @@ const useStyles=makeStyles(theme=>({
         padding:theme.spacing(1),
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
         borderRadius:'0'
+    },
+    avatar:{
+        padding:theme.spacing(1),
+        width:theme.spacing(7),
+        height:theme.spacing(7)
     }
 }))
 export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
@@ -37,6 +50,7 @@ export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
             {...(true ? { timeout: 1500 } : {})}>
             <div className={classes.itemList}>
                 <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={periodoImg} className={classes.avatar}/>
                     <ListItemText className={classes.listText} primary='Periodo' secondary={periodo}/>
                 </Paper>
                 <Paper elevation={3} className={classes.paper}>

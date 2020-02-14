@@ -62,7 +62,7 @@ const Configuracion=(props)=>{
     )
 }
 const mapStateToProps = state=>({
-    user:state.user,
+    user:state.user.uid,
     periodo:state.data.periodo,
     horaDeInicio:state.data.horaDeInicio,
     cicloLuminico:state.data.cicloLuminico

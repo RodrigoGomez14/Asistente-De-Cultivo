@@ -27,11 +27,17 @@ const useStyles = makeStyles(theme => ({
     },
     paperMain: {
         backgroundColor: theme.palette.secondary.light,
-        color:theme.palette.secondary.contrastText
+        color:theme.palette.primary.contrastText
     },
     paperDark: {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor:theme.palette.primary.main,
         borderRadius:'0'
+    },
+    edit:{
+        color:theme.palette.primary.contrastText,
+    },
+    delete:{
+        color:theme.palette.error.main
     },
     expansionPanel:{
         backgroundColor:'transparent'
@@ -112,25 +118,27 @@ export const AccionDetallada=(props)=>{
                                     <Divider/>
                                     {props.tipoDeAccion!=='podas' && props.tipoDeAccion!=='transplantes' && 
                                         <div className="row my-2">
-                                            <div className="col-12 text-left">
-                                                <Typography variant='h5'>
-                                                    Aditivos Usados
-                                                </Typography>
-                                            </div>
                                             {props.accion.aditivos?
-                                                <List>
-                                                    {Object.keys(props.accion.aditivos).map((aditivo,i)=>(
-                                                        <>
-                                                            <Divider/>
-                                                            <ListItem>
-                                                                <ListItemText
-                                                                    primary={aditivo}
-                                                                    secondary={props.accion.aditivos[aditivo]+' ml'} 
-                                                                />
-                                                            </ListItem>
-                                                        </>
-                                                    ))}
-                                                </List>
+                                                <>
+                                                    <div className="col-12 text-left">
+                                                        <Typography variant='h5'>
+                                                            Aditivos Usados
+                                                        </Typography>
+                                                    </div>
+                                                    <List>
+                                                        {Object.keys(props.accion.aditivos).map((aditivo,i)=>(
+                                                            <>
+                                                                <Divider/>
+                                                                <ListItem>
+                                                                    <ListItemText
+                                                                        primary={aditivo}
+                                                                        secondary={props.accion.aditivos[aditivo]+' ml'} 
+                                                                    />
+                                                                </ListItem>
+                                                            </>
+                                                        ))}
+                                                    </List>
+                                                </>
                                                 :
                                                 <div className="col-12 text-center">
                                                     <Typography>
@@ -148,9 +156,9 @@ export const AccionDetallada=(props)=>{
                                                     variant="contained"
                                                     color="inherit"
                                                 >   
-                                                        <EditOutlined className={classes.buttonText}/>
+                                                        <EditOutlined className={classes.edit}/>
                                                 </IconButton>
-                                                <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                <Typography variant='caption' className={classes.edit} gutterBottom>
                                                     Editar
                                                 </Typography>
                                             </div>
@@ -160,9 +168,9 @@ export const AccionDetallada=(props)=>{
                                                     color="inherit"
                                                     onClick={e=>{eliminarAccion()}}
                                                 >
-                                                        <DeleteOutline className={classes.buttonText}/>
+                                                        <DeleteOutline className={classes.delete}/>
                                                 </IconButton>
-                                                <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                <Typography variant='caption' className={classes.delete} gutterBottom>
                                                     Eliminar
                                                 </Typography>
                                             </div>

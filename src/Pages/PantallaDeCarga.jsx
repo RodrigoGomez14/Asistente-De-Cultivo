@@ -10,7 +10,7 @@ const useStyles=makeStyles(theme=>({
         justifyContent:'center',
         flexDirection:'column',
         alignItems:'center',
-        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.main,
         height:'100vh',
         widht:'100%'
     },

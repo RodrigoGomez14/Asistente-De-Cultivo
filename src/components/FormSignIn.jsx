@@ -5,12 +5,11 @@ import {Link as LinkRouter} from 'react-router-dom'
 import {PantallaDeCarga} from '../Pages/PantallaDeCarga'
 const useStyles = makeStyles(theme => ({
     paper: {
-      margin: theme.spacing(8, 4),
+      margin: theme.spacing(0, 4),
       padding:theme.spacing(1),
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      backgroundColor:theme.palette.primary.main
     },
     avatar: {
         margin: theme.spacing(1),
@@ -45,7 +44,11 @@ const useStyles = makeStyles(theme => ({
       color:theme.palette.primary.contrastText
     },
     link:{
-      color:theme.palette.primary.contrastText
+      color:theme.palette.primary.contrastText,
+      '& .MuiLink-underlineHover':{
+        textDecoration:'none',
+        color:theme.palette.primary.contrastText,
+      }
     },
     root:{
         width:'100%',
@@ -68,7 +71,7 @@ export const FormSignIn = ({inputUser,setInputUser,inputPassword,setInputPasswor
     const classes = useStyles()
     return(
         <div className={classes.root}>
-            <Paper className={classes.paper}>
+            <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlined/>
                 </Avatar>
@@ -131,7 +134,7 @@ export const FormSignIn = ({inputUser,setInputUser,inputPassword,setInputPasswor
                     </Link>
                 </div>
             </form>
-            </Paper>
+            </div>
         </div>
     )
 }
