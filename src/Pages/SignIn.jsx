@@ -16,6 +16,8 @@ import {auth} from 'firebase'
 import foto from '../images/sea of green.jpg'
 import {Link as LinkRouter} from 'react-router-dom'
 import {PantallaDeCarga} from './PantallaDeCarga'
+import {Layout} from './Layout'
+import {FormSignIn} from '../components/FormSignIn'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,10 +39,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.dark
-  },
+  
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -83,7 +82,7 @@ export const SignInPage=({history})=> {
     let [passwordError,setPasswordError]=useState(undefined)
     
 
-    const login=async()=>{
+    const logIn=async()=>{
         setloading(true)
         setUserError(undefined)
         setPasswordError(undefined)
@@ -100,88 +99,22 @@ export const SignInPage=({history})=> {
     }
 
     return (
+      <Layout>
         <Grid container component="main" className={classes.root}>
-            <CssBaseline />
             <Grid item xs={false} sm={4} md={7} className={classes.image}>
               <img src={foto} alt="" className={classes.img}/>
             </Grid>
-            <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.background} elevation={6} square>
-              {loading?
-                <div className={classes.paper}>
-                    <Typography component="h1" variant="h5">
-                      <PantallaDeCarga/>
-                    </Typography>
-                </div>
-                :
-                <div className={classes.paper}>
-                  <Avatar className={classes.avatar}>
-                      <LockOutlinedIcon />
-                  </Avatar>
-                  <Typography component="h1" variant="h5">
-                      Inicia Sesion
-                  </Typography>
-                  <form className={classes.form} noValidate>
-                    <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    error={userError}
-                    helperText={userError?'Usuario No Encontrado':null}
-                    name="email"
-                    value={inputUser}
-                    onChange={e=>{setInputUser(e.target.value)}}
-                    autoFocus
-                    />
-                    <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    value={inputPassword}
-                    helperText={passwordError?'Contraseña incorrecta':null}
-                    error={passwordError}
-                    onChange={e=>{setInputPassword(e.target.value)}}
-                    label="contraseña"
-                    type="password"
-                    id="password"
-                    />
-                    <FormControlLabel
-                    control={<Checkbox value="remember" color="secondary" />}
-                    label="Recuerdame"
-                    />
-                    <Button
-                    fullWidth
-                    variant="outlined"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={e=>{login()}}
-                    >
-                    Ingresar!
-                    </Button>
-                    <Grid container>
-                    <Grid item xs>
-                        <Link href="#" variant="body2" className={classes.link}>
-                        Olvidaste tu contraseña?
-                        </Link>
-                    </Grid>
-                    <Grid item>
-                        <Link variant="body2">
-                          <LinkRouter to='/Login' className={classes.link}>
-                            {"No tienes una cuenta? Registrate!"}
-                          </LinkRouter>
-                        </Link>
-                    </Grid>
-                    </Grid>
-                    <Box mt={5}>
-                    </Box>
-                </form>
-                </div>
-              }
+            <Grid item xs={12} sm={8} md={5}>
+              loading?
+              <FormSignIn logIn={logIn} inputUser={inputUser} setInputUser={setInputUser} inputPassword={inputPassword} setInputPassword={setInputPassword} userError={userError} passwordError={passwordError} />
+              :
+              <div className={classes.paper}>
+                <Typography component="h1" variant="h5">
+                  <PantallaDeCarga/>
+                </Typography>
+            </div>
         </Grid>
         </Grid>
+      </Layout>
     );
 }

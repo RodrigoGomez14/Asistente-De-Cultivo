@@ -10,10 +10,12 @@ const useStyles=makeStyles(theme=>({
         justifyContent:'center',
         flexDirection:'column',
         alignItems:'center',
-        height:'100%'
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        height:'100vh',
+        widht:'100%'
     },
     title:{
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        color:theme.palette.primary.contrastText,
     }
 }))
 export const PantallaDeCarga =()=>{

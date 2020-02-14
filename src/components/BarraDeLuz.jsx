@@ -6,12 +6,12 @@ import './styles/table.css'
 import {Paper,Typography} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import {Grow}from '@material-ui/core'
+import {TarjetaArmario} from '../components/TarjetaArmario'
 
 const useStyles = makeStyles(theme => ({
-    paper: {
-        marginTop:theme.spacing(3),
-        padding:theme.spacing(2),
-        backgroundColor:theme.palette.primary.dark
+    root:{
+        width:'100%',
+        padding:theme.spacing(2),  
     },
     text:{
         color: theme.palette.primary.contrastText
@@ -153,7 +153,7 @@ export const BarraDeLuz=(props)=>{
     return(
         <Grow in={true}
         {...(true ? { timeout: 1500 } : {})}>
-            <Paper elevation={3} className={classes.paper}>
+            <div className={classes.root}>
                 <div className="container">
                     <div className="row">
                         <div className="col-auto ml-auto mr-auto">
@@ -182,8 +182,11 @@ export const BarraDeLuz=(props)=>{
                             </div>
                         </div>
                     </div>
+                    <div className="row">
+                        <TarjetaArmario periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico} />
+                    </div>
                 </div>
-            </Paper>
+            </div>
         </Grow>
     )
 }

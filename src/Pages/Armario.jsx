@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React , {Component,useState} from 'react'
 import CarouselPlantas from '../components/CarouselPlantas'
 import {BarraDeLuz} from '../components/BarraDeLuz'
 //import TemperaturaYHumedad from '../components/TemperaturaYHumedad'
@@ -10,52 +10,43 @@ import './styles/Accion.css'
 import {connect} from 'react-redux'
 import  {database} from 'firebase'
 import {Layout} from './Layout'
-import {TarjetaArmario} from '../components/TarjetaArmario'
+import {makeStyles,Paper} from '@material-ui/core'
 
-class Armario extends Component{
-    state={
-        nuevoPeriodo:undefined,
-        menuOpened:false,
-        selectedTab:'recents'
+const useStyles=makeStyles(theme=>({
+    root:{
+        height:'100%',
+        width:'100%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-around',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        borderRadius:'0'
     }
-    cambioDePeriodo=async()=>{
-        await database().ref().child(this.props.user).update({
-            periodo:this.state.nuevoPeriodo
-        })
-    }
-    cambiarHoraDeInicio=async ()=>{
+}))
+const Armario=(props)=>{
+    const classes = useStyles()
+    const cambiarHoraDeInicio=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().child(this.props.user).update({
+        await database().ref().child(props.user).update({
             horaDeInicio: parseInt(horas)
         })
     }
-    cambiarHoraDeFinal=async ()=>{
+    const cambiarHoraDeFinal=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().child(this.props.user).update({
+        await database().ref().child(props.user).update({
             horaDeFinal: parseInt(horas)
         })
     }
-    render(){
-        return(
-            <Layout history={this.props.history} page="Armario" user={this.props.user}>
-                <div className="container">
-                    <div className="row">
-                        <div className="col-12">
-                            <BarraDeLuz periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} cicloLuminico={this.props.cicloLuminico}/>      
-                        </div>
-                    </div>
-                    <div className="row mt-2">
-                        <div className="col-12">
-                            <TarjetaArmario periodo={this.props.periodo} horaDeInicio={this.props.horaDeInicio} cicloLuminico={this.props.cicloLuminico} />
-                        </div>
-                    </div>
-                </div>
-                <CarouselPlantas history={this.props.history}/>
-            </Layout>
-        )
-    }
+    return(
+        <Layout history={props.history} page="Armario" user={props.user}>
+            <Paper className={classes.root}>
+                <BarraDeLuz periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico}/>
+                <CarouselPlantas history={props.history}/>
+            </Paper>
+        </Layout>
+    )
 }
 const mapStateToProps = state =>{
     return{

@@ -4,26 +4,40 @@ import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
 import {Button,Typography} from '@material-ui/core'
 import {CardHistorial} from '../components/CardHistorial'
-class Historial extends Component{
-    render(){
-        return(
-            <Layout history={this.props.history} page={'Historial'} user={this.props.user}>
+import {makeStyles,Paper} from '@material-ui/core'
+
+const useStyles=makeStyles(theme=>({
+    root:{
+        height:'100%',
+        width:'100%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-around',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        borderRadius:'0'
+    }
+}))
+const Historial=(props)=>{
+    const classes = useStyles()
+    return(
+        <Layout history={props.history} page={'Historial'} user={props.user}>
+            <Paper elevation={3} className={classes.root}>
                 <div className="container-fluid overflow-auto">
                     <div className="row justify-content-center">
-                        {this.props.historial?
-                            Object.keys(this.props.historial).map(planta=>(
+                        {props.historial?
+                            Object.keys(props.historial).map(planta=>(
                                 <div className="col-auto mt-3">
                                     <Link className='text-white' to={{
                                         pathname:'/Historial/Planta',
                                         props:{
-                                            ...this.props.historial[planta],
-                                            user:this.props.user,
+                                            ...props.historial[planta],
+                                            user:props.user,
                                             id:planta,
-                                            history:this.props.history,
+                                            history:props.history,
                                             plantaDelHistorial:true
                                         }
                                     }}>
-                                        <CardHistorial cantidadDeGramos={this.props.historial[planta].cantidadDeGramos} nombre={this.props.historial[planta].nombre} fechaDeCorte={this.props.historial[planta].fechaDeCorte}/>
+                                        <CardHistorial cantidadDeGramos={props.historial[planta].cantidadDeGramos} nombre={props.historial[planta].nombre} fechaDeCorte={props.historial[planta].fechaDeCorte}/>
                                     </Link>
                                 </div>
                             )):
@@ -35,9 +49,9 @@ class Historial extends Component{
                         }
                     </div>
                 </div>
-            </Layout>
-        )
-    }
+            </Paper>
+        </Layout>
+    )
 }
 const mapStateToProps=state=>({
     user:state.user,

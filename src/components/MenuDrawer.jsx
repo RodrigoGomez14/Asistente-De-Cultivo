@@ -15,31 +15,30 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import {makeStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
+import Paper from '@material-ui/core/Paper';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme=>({
-    drawer:{
+    paper:{
         maxWidth:'300px',
         height:'100%',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.main
     },
     icon:{
-        color:theme.palette.type==='dark'?
-            theme.palette.primary.contrastText:
-            theme.palette.secondary.contrastText
+        color:
+            theme.palette.primary.contrastText
     },
     text:{
-        color:theme.palette.type==='dark'?
-            theme.palette.primary.contrastText:
-            theme.palette.secondary.contrastText
+        color:theme.palette.primary.contrastText
     },
 }))
 export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
     const classes = useStyles()
     return(
         <Drawer anchor="right" open={menuOpened}  onClose={e=>{setMenuOpened(false)}}>
-            <div className={classes.drawer}>
+            <Paper className={classes.paper} elevation={6}>
                 <Card>
                     <CardMedia
                         component="img"
@@ -73,6 +72,12 @@ export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
                             <ListItemText  className={classes.text} primary={'Fumigar'} />
                         </ListItem>
                     </Link>
+                    <Link to='/Transplante' className='outline-none text-dark'>
+                        <ListItem button key={'Transplantar'}>
+                            <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faBug}/></ListItemIcon>
+                            <ListItemText  className={classes.text} primary={'Transplantar'} />
+                        </ListItem>
+                    </Link>
                     <Link to='/Aplicables' className='outline-none text-dark'>
                         <ListItem button key={'Aditivos'}>
                             <ListItemIcon className={classes.icon}><FontAwesomeIcon icon={faBug}/></ListItemIcon>
@@ -104,7 +109,7 @@ export const MenuDrawer = ({menuOpened,setMenuOpened,})=>{
                         <ListItemText primary={'Cerrar Sesion'} />
                     </ListItem>
                 </List>
-            </div>
+            </Paper>
         </Drawer>
     )
 }

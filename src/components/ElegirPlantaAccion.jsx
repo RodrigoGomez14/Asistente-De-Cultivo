@@ -24,9 +24,9 @@ const useStyles = makeStyles(theme => ({
         alignItems:'center',
     },
     formControl:{
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        color:theme.palette.primary.contrastText,
         '& .MuiIconButton-label':{
-            color: theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
+            color: theme.palette.primary.contrastText
         }
     }
 }));

@@ -11,12 +11,13 @@ import {BotoneraConfirmacionAccion} from './BotoneraConfirmacionAccion'
 import {Grow} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
+  root:{
     height:'100%',
+    width:'100%',
     display:'flex',
     flexDirection:'column',
-    justifyContent:'center',
+    justifyContent:'space.around',
+    backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
   },
   button: {
     marginTop: theme.spacing(1),
@@ -25,11 +26,6 @@ const useStyles = makeStyles(theme => ({
   buttonPrimary:{
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
-    backgroundColor:theme.palette.secondary.main,
-    color:theme.palette.secondary.contrastText,
-    '& :hover':{
-      color:theme.palette.primary.contrastText,
-    }
   },
   actionsContainer: {
     marginBottom: theme.spacing(2),
@@ -38,13 +34,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3),
   },
   paperSecondary:{
-    backgroundColor:theme.palette.primary.dark,
+    backgroundColor:theme.palette.type==='dark'?theme.palette.primary.dark:theme.palette.primary.main,
     paddingBottom:theme.spacing(2),
     paddingTop:theme.spacing(2),
   },
   padding:{
     paddingBottom:theme.spacing(1),
     color:theme.palette.primary.contrastText,
+    backgroundColor:theme.palette.secondary.light
   },
   stepper:{
     backgroundColor:'transparent'
@@ -62,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants})=>{
+export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants,nuevaMaceta})=>{
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -84,6 +81,9 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
       if(tipoDeAccion==='Poda'){
         return tipoDePoda?false:true
       }
+      else if(tipoDeAccion==='Transplante'){
+        return nuevaMaceta?false:true
+      }
       else{
         return tipoDeRiego?false:true
       }
@@ -93,9 +93,10 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
     }
   }
   return (
+    <Paper className={classes.root}>
     <Grow in={true}
       {...(true ? { timeout: 1500 } : {})}>
-      <div className={classes.root}>
+        <div>
           <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
             {steps.map((step, index) => (
               step?
@@ -143,7 +144,8 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
                 />
             </Paper>
           )}
-      </div>
-    </Grow>
+        </div>
+      </Grow>
+    </Paper>
   );
 }

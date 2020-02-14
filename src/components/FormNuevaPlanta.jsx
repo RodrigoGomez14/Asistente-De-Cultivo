@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme=>({
         margin: theme.spacing(1),
         minWidth: 120,
     },
+    paper:{
+        backgroundColor:theme.palette.primary.main
+    }
 }))
 
 
@@ -99,7 +102,7 @@ export const FormNuevaPlanta =({guardarNuevaPlantaDB,periodoArmario})=>{
     }
     return(
         <div className={classes.root}>
-            <Paper elevation={6}>
+            <Paper elevation={6} className={classes.paper}>
                 <form className={classes.form}>
                     <Typography className={classes.title}>
                         Ingresa los siguientes datos

@@ -2,14 +2,27 @@ import React, { Component } from 'react'
 import { TabAditivos } from '../components/TabAditivos'
 import { connect } from 'react-redux'
 import {Layout} from './Layout'
-class Aplicables extends Component{
-    render(){
-        return(
-            <Layout history={this.props.history} page='Aditivos' user={this.props.user}>
-                <TabAditivos user={this.props.user} fertilizantes={this.props.fertilizantes} insecticidas={this.props.insecticidas}/>
-            </Layout>
-        )
+import {makeStyles,Paper} from '@material-ui/core'
+const useStyles = makeStyles(theme=>({
+    root:{
+        height:'100%',
+        width:'100%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'flex-start',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        borderRadius:'0'
     }
+}))
+const Aplicables=(props)=>{
+    const classes = useStyles()
+    return(
+        <Layout history={props.history} page='Aditivos' user={props.user}>
+            <Paper elevation={3} className={classes.root}>
+                <TabAditivos user={props.user} fertilizantes={props.fertilizantes} insecticidas={props.insecticidas}/>
+            </Paper>
+        </Layout>
+    )
 }
 
 const mapStateToProps =(state)=>{

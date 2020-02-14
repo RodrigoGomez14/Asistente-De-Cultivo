@@ -3,7 +3,7 @@ import {Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import {Redirect} from 'react-router-dom'
 import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
-import {NavBar} from '../components/NavBar'
+import {NavBar} from '../components/Navbar'
 import {MenuDrawer} from '../components/MenuDrawer'
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
     app:{
         minHeight: '100vh',
         height: '100vh',
+        maxHeight:'100vh',
         display: 'flex',
         textAlign: 'center',
         flexDirection: 'column',
@@ -38,36 +39,6 @@ export const Layout=({page,children,history,planta,user})=>{
     let [menuOpened,setMenuOpened]=useState(false)
     let [selectedTabs,setSelectedTabs]=useState('recents')
     let [redirect,setRedirect]=useState(false)
-    let [theme,setTheme]=useState()
-    const themeProvider = createMuiTheme({
-        palette: {
-            white:'#fff',
-            primary: {
-            light: '#48a999',
-            main: '#00796b',
-            dark: '#004c40',
-            contrastText: '#fff',
-            },
-            secondary: {
-            light: '#519657',
-            main: '#81c784',
-            dark: '#b2fab4',
-            contrastText: '#000',
-            },
-            danger:'#c62828',
-            type:theme
-        },
-    });
-    useEffect(()=>{
-        const theme = localStorage.getItem('theme')
-        if(theme){
-            setTheme(theme)
-        }
-        else{
-            setTheme('light')
-            localStorage.setItem('theme','light')
-        }
-    },)
     if(redirect){
         return(
             <Redirect to={{
@@ -77,16 +48,14 @@ export const Layout=({page,children,history,planta,user})=>{
         )
     }
     return(
-        <ThemeProvider theme={themeProvider}>
-            <Paper className={classes.app}>
-                {user &&
-                <>
-                    <NavBar page={page} planta={planta} history={history}  theme={theme} setTheme={setTheme} setRedirect={setRedirect} setMenuOpened={setMenuOpened}/>
-                    <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
-                </>
-                }
-                {children}
-            </Paper>
-        </ThemeProvider>
+        <Paper className={classes.app}>
+            {user &&
+            <>
+                <NavBar page={page} planta={planta} history={history}  setRedirect={setRedirect} setMenuOpened={setMenuOpened}/>
+                <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened}/>
+            </>
+            }
+            {children}
+        </Paper>
     )
 }

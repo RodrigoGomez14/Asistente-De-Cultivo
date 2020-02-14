@@ -16,6 +16,8 @@ import {auth, database} from 'firebase'
 import foto from '../images/sea of green.jpg'
 import {PantallaDeCarga} from './PantallaDeCarga'
 import {Link as LinkRouter} from 'react-router-dom'
+import {Layout} from './Layout'
+import {FormLogin} from '../components/FormLogin'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,13 +35,14 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     margin: theme.spacing(8, 4),
+    padding:theme.spacing(1),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.dark
+    backgroundColor: theme.palette.primary.main
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -83,7 +86,7 @@ export const LogInPage=({history})=> {
     let [passwordError,setPasswordError]=useState(undefined)
     
 
-    const signin=async()=>{
+    const signIn=async()=>{
         setloading(true)
         await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
         .then(async e=>{
@@ -106,75 +109,22 @@ export const LogInPage=({history})=> {
     }
 
     return (
-        <Grid container component="main" className={classes.root}>
-            <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image}>
-              <img src={foto} alt="" className={classes.img}/>
-            </Grid>
-            <Grid item xs={12} sm={8} md={5} component={Paper} className={classes.background} elevation={6} square>
-              {loading?
-                <div className={classes.paper}>
-                    <Typography>
-                      <PantallaDeCarga/>
-                    </Typography>
-                </div>
+      <Layout>
+          <Grid container component="main" className={classes.root}>
+              <Grid item xs={false} sm={4} md={7} className={classes.image}>
+                <img src={foto} alt="" className={classes.img}/>
+              </Grid>
+              <Grid item xs={12} sm={8} md={5}>
+                loading?
+                <FormLogin signIn={signIn} inputUser={inputUser} setInputUser={setInputUser} inputPassword={inputPassword} setInputPassword={setInputPassword}/>
                 :
                 <div className={classes.paper}>
-                  <Avatar className={classes.avatar}>
-                      <LockOutlinedIcon />
-                  </Avatar>
                   <Typography component="h1" variant="h5">
-                      Registrate
+                    <PantallaDeCarga/>
                   </Typography>
-                  <form className={classes.form} noValidate>
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email"
-                      name="email"
-                      value={inputUser}
-                      onChange={e=>{setInputUser(e.target.value)}}
-                      autoFocus
-                    />
-                    <TextField
-                      variant="outlined"
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      value={inputPassword}
-                      onChange={e=>{setInputPassword(e.target.value)}}
-                      label="contraseña"
-                      type="password"
-                      id="password"
-                    />
-                    <Button
-                    fullWidth
-                    color='#fff'
-                    variant="outlined"
-                    className={classes.submit}
-                    onClick={e=>{signin()}}
-                    >
-                    Registrate!
-                    </Button>
-                    <Grid container>
-                    <Grid item xs>
-                        <Link>
-                            <LinkRouter to='/' className={classes.link}>
-                                Ya tienes una cuenta? Ingresa!
-                            </LinkRouter>
-                        </Link>
-                    </Grid>
-                    </Grid>
-                    <Box mt={5}>
-                    </Box>
-                </form>
-                </div>
-              }
-        </Grid>
-        </Grid>
+              </div>
+            </Grid>
+          </Grid>
+      </Layout>
     );
 }

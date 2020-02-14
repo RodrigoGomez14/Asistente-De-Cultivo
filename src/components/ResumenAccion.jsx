@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme=>({
   }
 }));
 
-export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDePoda})=>{
+export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDePoda,nuevaMaceta})=>{
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   return (
@@ -54,7 +54,7 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
                     ))}
                 </Paper>
             </Grid>
-            {tipoDeRiego?
+            {tipoDeRiego &&
                 <>  
                     <Grid item>      
                         <Paper elevation={6} className={classes.paper}>
@@ -91,7 +91,8 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
                         </Paper>
                     </Grid>
                 </>
-                :
+            }
+            {tipoDePoda &&
                 <Grid item>      
                     <Paper elevation={6} className={classes.paper}>
                         <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -99,6 +100,18 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
                         </Typography>
                         <Typography className={classes.pos} color="textSecondary">
                             <strong>{tipoDePoda}</strong>
+                        </Typography>
+                    </Paper>
+                </Grid>
+            }
+            {nuevaMaceta &&
+                <Grid item>      
+                    <Paper elevation={6} className={classes.paper}>
+                        <Typography className={classes.title} color="textSecondary" gutterBottom>
+                            Nuevo volumen de maceta
+                        </Typography>
+                        <Typography className={classes.pos} color="textSecondary">
+                            <strong>{nuevaMaceta} Lt</strong>
                         </Typography>
                     </Paper>
                 </Grid>

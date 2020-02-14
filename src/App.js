@@ -23,8 +23,11 @@ import {PlantaRiegos} from './Pages/PlantaRiegos'
 import {PlantaPodas} from './Pages/PlantaPodas'
 import {PlantaFumigaciones} from './Pages/PlantaFumigaciones'
 import {NotFound} from './Pages/NotFound'
+import Transplante from './Pages/Transplante'
 import NuevaPlanta from './Pages/NuevaPlanta'
 import NuevoAditivo from './Pages/NuevoAditivo'
+import {PlantaTransplantes} from './Pages/PlantaTransplantes'
+import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 
 let store 
 let data
@@ -41,12 +44,7 @@ firebase.initializeApp(config)
 class App extends Component {
   state={
     loading:true,
-    theme:'dark'
-  }
-  cambiarPeriodo(nuevoPeriodo){
-    this.setState({
-      periodo:nuevoPeriodo
-    })
+    theme:localStorage.getItem('theme')?localStorage.getItem('theme'):'light'
   }
   async componentDidMount(){
     firebase.auth().onAuthStateChanged(async user=>{
@@ -62,55 +60,91 @@ class App extends Component {
         this.setState({user:null,loading:false})
       }
     })
+    const theme = localStorage.getItem('theme')
+    console.log(theme)
+    if(!theme){
+        localStorage.setItem('theme','light')
+    }
   }
+  
+setTheme=theme=>{
+  console.log(theme)
+  this.setState({theme:theme})
+}
   render(){
+    const themeProvider = createMuiTheme({
+      palette: {
+          white:'#fff',
+          primary: {
+          light: '#48a999',
+          main: '#00796b',
+          dark: '#004c40',
+          contrastText: '#fff',
+          },
+          secondary: {
+          light: '#4f5b62',
+          main: '#263238',
+          dark: '#000a12',
+          contrastText: '#000',
+          },
+          danger:'#c62828',
+          type:this.state.theme
+      },
+  });
     if(this.state.loading){
       return(
         <div className="App justify-content-center">
-          <Layout user={this.state.user}>
-            <PantallaDeCarga/>
-          </Layout>
+          <ThemeProvider theme={themeProvider}>
+              <PantallaDeCarga/>
+          </ThemeProvider>
         </div>
       )
     }
     else{
       if(this.state.user){
         return (
-          <Provider store={this.state.store}>
-            <HashRouter>
-              <Switch>
-                <Route exact path='/' component={Armario}/>
-                <Route exact path='/Riego' component={Riego}/>
-                <Route exact path='/Poda' component={Poda}/>
-                <Route exact path='/Insecticida' component={Insecticida}/>
-                <Route exact path='/Aplicables' component={Aplicables}/>
-                <Route exact path='/Configuracion' component={Configuracion}/>
-                <Route exact path='/Historial' component={Historial}/>
-                <Route exact path='/Planta' component={Planta}/>
-                <Route exact path='/Nueva-Planta' component={NuevaPlanta}/>
-                <Route exact path='/Nuevo-Aditivo' component={NuevoAditivo}/>
-                <Route exact path='/Historial/Planta' component={Planta}/>
-                <Route exact path='/Planta/Riegos' component={PlantaRiegos}/>
-                <Route exact path='/Planta/Podas' component={PlantaPodas}/>
-                <Route exact path='/Planta/Fumigaciones' component={PlantaFumigaciones}/>
-                <Route exact path='/Historial/Planta/Riegos' component={PlantaRiegos}/>
-                <Route exact path='/Historial/Planta/Podas' component={PlantaPodas}/>
-                <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaFumigaciones}/>
-                <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
-              </Switch>
-            </HashRouter>
-          </Provider>
+          <ThemeProvider theme={themeProvider}>
+              <Provider store={this.state.store}>
+                <HashRouter>
+                  <Switch>
+                    <Route exact path='/' component={Armario}/>
+                    <Route exact path='/Riego' component={Riego}/>
+                    <Route exact path='/Poda' component={Poda}/>
+                    <Route exact path='/Transplante' component={Transplante}/>
+                    <Route exact path='/Insecticida' component={Insecticida}/>
+                    <Route exact path='/Aplicables' component={Aplicables}/>
+                    <Route exact path='/Configuracion' render={(props) => <Configuracion {...props} setTheme={this.setTheme} />}/>
+                    <Route exact path='/Historial' component={Historial}/>
+                    <Route exact path='/Planta' component={Planta}/>
+                    <Route exact path='/Nueva-Planta' component={NuevaPlanta}/>
+                    <Route exact path='/Nuevo-Aditivo' component={NuevoAditivo}/>
+                    <Route exact path='/Historial/Planta' component={Planta}/>
+                    <Route exact path='/Planta/Riegos' component={PlantaRiegos}/>
+                    <Route exact path='/Planta/Podas' component={PlantaPodas}/>
+                    <Route exact path='/Planta/Transplantes' component={PlantaTransplantes}/>
+                    <Route exact path='/Planta/Fumigaciones' component={PlantaFumigaciones}/>
+                    <Route exact path='/Historial/Planta/Riegos' component={PlantaRiegos}/>
+                    <Route exact path='/Historial/Planta/Podas' component={PlantaPodas}/>
+                    <Route exact path='/Historial/Planta/Transplantes' component={PlantaTransplantes}/>
+                    <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaFumigaciones}/>
+                    <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
+                  </Switch>
+                </HashRouter>
+              </Provider>
+            </ThemeProvider>
         )
       }
       else{
         return (
-          <HashRouter>
-            <Switch>
-              <Route exact path='/' component={SignInPage}/>
-              <Route exact path='/Login' component={LogInPage}/>
-              <Route  component={NotFound}/>
-            </Switch>
-          </HashRouter>
+          <ThemeProvider theme={themeProvider}>
+            <HashRouter>
+              <Switch>
+                <Route exact path='/' component={SignInPage}/>
+                <Route exact path='/Login' component={LogInPage}/>
+                <Route  component={NotFound}/>
+              </Switch>
+            </HashRouter>
+          </ThemeProvider>
         )
       }
     }

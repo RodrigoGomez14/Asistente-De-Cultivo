@@ -21,7 +21,7 @@ export const CardHistorial=({nombre,fechaDeCorte,cantidadDeGramos})=>{
         <Card className={classes.root}>
             <CardHeader
                 className={classes.cardHeader}
-                title={cantidadDeGramos?`${nombre} (${cantidadDeGramos})`:nombre}
+                title={nombre}
                 subheader={fechaDeCorte}
             />
             <CardMedia

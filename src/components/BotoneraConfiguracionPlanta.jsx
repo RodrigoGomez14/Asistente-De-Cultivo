@@ -14,7 +14,13 @@ const useStyles= makeStyles(theme=>({
     },
     deleteText:{
         color:theme.palette.error.main
-    }
+    },
+    cosecharButton:{
+        color:theme.palette.success.main
+    },
+    cosecharText:{
+        color:theme.palette.success.main
+    },
 }))
 
 export const BotoneraConfiguracionPlanta =({inicioFloracion,cosecharPlanta,eliminarPlanta,}) =>{
@@ -27,10 +33,11 @@ export const BotoneraConfiguracionPlanta =({inicioFloracion,cosecharPlanta,elimi
                         variant="contained"
                         color='secondary'
                         onClick={cosecharPlanta}
+                        className={classes.cosecharButton}
                         >
                         <DeleteOutline/>
                     </IconButton>
-                    <Typography variant='caption'>
+                    <Typography variant='caption' className={classes.cosecharText}>
                         Cosechar
                     </Typography>
                 </div>

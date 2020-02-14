@@ -5,50 +5,44 @@ import {Table,Row,Col,Container,Image} from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
-import {List, ListItem,ListItemText,Paper, Divider,CardMedia} from '@material-ui/core'
-import { PortableWifiOff } from '@material-ui/icons';
-
+import {List, ListItem,ListItemText,Paper, Divider,CardMedia,ListItemAvatar,Avatar,Grow} from '@material-ui/core'
+import { PortableWifiOff, Height } from '@material-ui/icons';
+import semilla from '../images/semilla.svg'
+import vegetativo from '../images/vegetativo.svg'
+import floracion from '../images/floracion.svg'
+import maceta from '../images/maceta.svg'
+import adn from '../images/adn.svg'
+import balanza from '../images/balanza.svg'
+import cosecha from '../images/cosecha.svg'
 const useStyles = makeStyles(theme => ({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-        flexWrap: 'nowrap',
-      // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-        transform: 'translateZ(0)',
-        '& .MuiGridListTile-root':{
-            width:'30% !important'
-        }
-    },
-    title: {
-        color: theme.palette.primary.light,
-    },
-    titleBar: {
-        background:
-        'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-    },
-    listRoot: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundImage:`url(${fotoPlanta})`,
-
-    },
-    listItem:{
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
-        '& .MuiTypography-colorTextSecondary':{
-            color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
-        }
-    },
     paper:{
-        backgroundColor:theme.palette.primary.dark
+        backgroundColor:theme.palette.primary.main,
+        padding:theme.spacing(1),
+        flexGrow:'1',
+        marginTop:theme.spacing(2),
+        marginLeft:theme.spacing(1),
+        marginRight:theme.spacing(1),
+        display:'flex',
+        flexDirection:'column',
+        alignItems:'center',
+        maxWidth:'220px'
     },
-    media: {
-        height:'100%'
+    listText:{
+        color:theme.palette.primary.contrastText,
+        '& .MuiTypography-colorTextSecondary':{
+            color:theme.palette.primary.contrastText,
+        }
     },
+    itemList:{
+        display:'flex',
+        justifyContent:'space-around',
+        width:'100%'
+    },
+    avatar:{
+        padding:theme.spacing(1),
+        width:theme.spacing(7),
+        height:theme.spacing(7)
+    }
 }))
 
 export const DetallePlanta=(props)=>{
@@ -77,74 +71,60 @@ export const DetallePlanta=(props)=>{
     const classes = useStyles()
             
     return(
-        <>
-            <Col xs={12} className='p-0'>
-                <GridList className={classes.gridList} cols={2.5}>
-                    {tileData.map(tile => (
-                    <GridListTile key={tile.img} className={classes.tile}>
-                        <CardMedia
-                            className={classes.media}
-                            image={fotoPlanta}
-                        />
-                    </GridListTile>
-                    ))}
-                </GridList>
-            </Col>
-            <div className='col-12 col-sm-8 col-md-6 col-lg-3 mt-2'>
-                <div className={classes.listRoot}>
-                    <Paper elevation={3}>
-                        <List component='nav'>
-                            <ListItem>
-                                <ListItemText className={classes.listItem} primary="Genetica" secondary={props.genetica}/>
-                            </ListItem>
-                            <Divider/>
-                            <ListItem>
-                                <ListItemText className={classes.listItem} primary="Edad" secondary={props.edad}/>
-                            </ListItem>
-                            {props.nacimiento &&
-                                <>
-                                    <Divider/>
-                                    <ListItem>
-                                        <ListItemText className={classes.listItem} primary="Fecha De Germinacion" secondary={`${props.nacimiento} (${moment().diff(moment(props.nacimiento),'days')} Dias)`}/>
-                                    </ListItem>
-                                </>
-                            }
-                            {props.inicioVegetativo && 
-                                <>
-                                    <Divider/>
-                                    <ListItem>
-                                        <ListItemText className={classes.listItem} primary="Fecha De Vegetativo" secondary={`${props.inicioVegetativo} (${moment().diff(moment(props.inicioVegetativo),'days')} Dias)`}/>
-                                    </ListItem>
-                                </>
-                            }
-                            {props.inicioFloracion &&
-                                <>
-                                    <Divider/>
-                                    <ListItem>
-                                        <ListItemText className={classes.listItem} primary="Fecha De Floracion" secondary={`${props.inicioFloracion} (${moment().diff(moment(props.inicioFloracion),'days')} Dias)`}/>
-                                    </ListItem>
-                                </>
-                            }
-                            {props.plantaDelHistorial && props.fechaDeCorte &&
-                            <>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText className={classes.listItem} primary="Fecha de Corte" secondary={`${props.fechaDeCorte}`}/>
-                                </ListItem>
-                            </>
-                            }
-                            {props.plantaDelHistorial && props.cantidadDeGramos &&
-                            <>
-                                <Divider/>
-                                <ListItem>
-                                    <ListItemText className={classes.listItem} primary="Cantidad Cosechada" secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
-                                </ListItem>
-                            </>
-                            }
-                        </List>
+        <div className={classes.itemList}>
+            <Grow in={true}
+                {...(true ? { timeout: 1500 } : {})}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={adn} className={classes.avatar}/>
+                    <ListItemText className={classes.listText} primary='Genetica' secondary={props.genetica}/>
+                </Paper>
+            </Grow>
+            <Grow in={true}
+                {...(true ? { timeout: 1500 } : {})}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={maceta} className={classes.avatar}/>
+                    <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={`${props.volumenMaceta} Lt`}/>
+                </Paper>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={semilla} className={classes.avatar}/>
+                    <ListItemText className={classes.listText} primary='Fecha De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
+                </Paper>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={vegetativo} className={classes.avatar}/>
+                    <ListItemText className={classes.listText} primary='Fecha De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
+                </Paper>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
+                <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={floracion} className={classes.avatar}/>
+                    <ListItemText className={classes.listText} primary='Fecha De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
+                </Paper>
+            </Grow>
+            {props.plantaDelHistorial && props.fechaDeCorte &&
+                <Grow in={true}
+                {...(true ? { timeout: 1500 } : {})}>
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={cosecha} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Fecha De Corte' secondary={props.fechaDeCorte}/>
                     </Paper>
-                </div>
-            </div>
-        </>
+                </Grow>
+            }
+            {props.plantaDelHistorial &&
+                <Grow in={true}
+                {...(true ? { timeout: 1500 } : {})}>
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={balanza} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Cantidad Cosechada' secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
+                    </Paper>
+                </Grow>
+            }
+        </div>
     )
 }

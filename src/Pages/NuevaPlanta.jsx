@@ -1,29 +1,42 @@
 import React,{Component} from 'react'
 import {Layout} from './Layout'
 import { connect } from 'react-redux'
-import {Paper, Grid} from '@material-ui/core'
 import {database} from 'firebase'
 import moment from 'moment'
 import {FormNuevaPlanta} from '../components/FormNuevaPlanta'
 import addFile from '../images/addFile.svg'
-class NuevaPlanta extends Component{
-    guardarNuevaPlantaDB= async (nombre,genetica,etapa,inicioGerminacion,inicioVegetativo,inicioFloracion)=>{
-        await database().ref().child(this.props.user).child('plantas').push({
+import {makeStyles, Paper} from '@material-ui/core'
+const useStyles = makeStyles(theme=>({
+    root:{
+        height:'100%',
+        width:'100%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space-around',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        borderRadius:'0'
+    }
+}))
+
+const  NuevaPlanta=(props)=>{
+    const classes = useStyles()
+    const guardarNuevaPlantaDB= async (nombre,genetica,etapa,inicioGerminacion,inicioVegetativo,inicioFloracion)=>{
+        await database().ref().child(props.user).child('plantas').push({
             nombre:nombre,
             genetica:genetica?genetica:null,
             nacimiento:inicioGerminacion?inicioGerminacion:null,
             inicioVegetativo:inicioVegetativo?inicioVegetativo:null,
             inicioFloracion:inicioFloracion?inicioFloracion:null
         })
-        this.props.history.replace('/')
+        props.history.replace('/')
     }
-    render(){
-        return(
-            <Layout page='Nueva Planta' user={this.props.user} history={this.props.history}>
-                <FormNuevaPlanta guardarNuevaPlantaDB={this.guardarNuevaPlantaDB} periodoArmario={this.props.periodo}/>
-            </Layout>
-        )
-    }
+    return(
+        <Layout page='Nueva Planta' user={props.user} history={props.history}>
+            <Paper elevation={3} className={classes.root}>
+                <FormNuevaPlanta guardarNuevaPlantaDB={guardarNuevaPlantaDB} periodoArmario={props.periodo}/>
+            </Paper>
+        </Layout>
+    )
 }
 const mapStateToProps=state=>({
     user:state.user,

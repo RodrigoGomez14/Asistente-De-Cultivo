@@ -6,11 +6,6 @@ import {Button,makeStyles} from '@material-ui/core'
 const useStyles = makeStyles(theme => ({
     button: {
         marginRight: theme.spacing(1),
-        backgroundColor:theme.palette.secondary.main,
-        color:theme.palette.secondary.contrastText,
-        '& :hover':{
-            color:theme.palette.primary.contrastText,
-        }
     },
     actionsContainer: {
         marginBottom: theme.spacing(2),

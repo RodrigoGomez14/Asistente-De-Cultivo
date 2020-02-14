@@ -30,7 +30,8 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.text.secondary,
     },
     paperMain: {
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
+        backgroundColor:theme.palette.secondary.light,
+        color:theme.palette.primary.contrastText
     },
     paperDark: {
         backgroundColor: theme.palette.primary.main,
@@ -51,7 +52,8 @@ const useStyles = makeStyles(theme => ({
         color:theme.palette.primary.contrastText
     },
     addButton:{
-        marginBottom:theme.spacing(1)
+        marginBottom:theme.spacing(1),
+        color:theme.palette.primary.contrastText
     }
   }));
 
@@ -108,7 +110,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                             }
                         }}>
                             <Button 
-                                variant='primary' 
+                                variant='text' 
                                 className={classes.addButton} 
                                 startIcon={<AddOutlined/>}
                                 >

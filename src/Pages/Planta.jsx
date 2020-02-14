@@ -4,12 +4,24 @@ import {DetallePlanta} from '../alert-components/DetallePlanta'
 import {DetalleAcciones} from '../alert-components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
 import {DeleteOutline, EditOutlined, CheckCircle,ExpandMore} from '@material-ui/icons'
-import {IconButton,Button,ButtonGroup,makeStyles,TextField,Paper,ExpansionPanel,ExpansionPanelSummary,Typography,ExpansionPanelDetails} from '@material-ui/core'
+import {IconButton,Button,ButtonGroup,makeStyles,TextField,Paper,ExpansionPanel,ExpansionPanelSummary,Typography,ExpansionPanelDetails,GridList,GridListTile,CardMedia,InputAdornment} from '@material-ui/core'
 import {database} from 'firebase'
 import moment from 'moment'
 import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
+import fotoPlanta from '../images/apple cookies.jpg'
+import {InputCantidadCosechada} from '../components/InputCantidadCosechada'
+
 
 const useStyles=makeStyles(theme=>({
+    root:{
+        height:'100%',
+        width:'100%',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'space.around',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
+        borderRadius:'0'
+    },
     button:{
         color:theme.palette.primary.contrastText,
         textShadow:'1px 1px 10px black'
@@ -30,10 +42,31 @@ const useStyles=makeStyles(theme=>({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
-    ExpansionPanelDetails:{
-    flexDirection:'column',
-    alignItems:'center',
-    justifyContent:'center'
+    paperPrimary:{
+        width:'100%',
+        height:'100%',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    gridList: {
+        flexWrap: 'nowrap',
+        width:'100%',
+      // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)',
+        '& .MuiGridListTile-root':{
+            width:'30% !important'
+        }
+    },
+    media: {
+        height:'100%'
+    },
+    rightPanel:{
+        display:'flex',
+        flexDirection:'column',
+        height:'100%',
+        justifyContent:'space-between',
+        padding:theme.spacing(1),
     }
 }))
 
@@ -66,70 +99,77 @@ export const Planta =(props)=>{
         await database().ref().child(props.location.props.user).child('plantas').child(props.location.props.id).remove()
         props.location.props.history.replace('/')
     }
+    const tileData=[
+        {
+            img:fotoPlanta,
+        },
+        {
+            img:fotoPlanta,
+        },
+        {
+            img:fotoPlanta,
+        },
+        {
+            img:fotoPlanta,
+        },{
+            img:fotoPlanta,
+        }
+        ,{
+            img:fotoPlanta,
+        },
+        {
+            img:fotoPlanta,
+        }
+    ]
     return(
         props.location.props?
             <Layout history={props.history} page={props.location.props.nombre} user={props.location.props.user}>
-                <div className="container-fluid accion h-100 overflow-auto">
-                    <div className="row h-100">
-                        <DetallePlanta 
-                            genetica={props.location.props.genetica}
-                            cantidadDeGramos={props.location.props.cantidadDeGramos}
-                            plantaDelHistorial={props.location.props.plantaDelHistorial}
-                            edad={props.location.props.edad}
-                            nacimiento={props.location.props.nacimiento}
-                            inicioVegetativo={props.location.props.inicioVegetativo}
-                            inicioFloracion={props.location.props.inicioFloracion}
-                            fechaDeCorte={props.location.props.fechaDeCorte}
-                        />
-                        <DetalleAcciones
-                            {...props.location.props}
-                        />
-                    </div>
-                    {props.location.props.plantaDelHistorial && !props.location.props.cantidadDeGramos &&
-                        <div className="row my-2 justify-content-center">
-                            <div className="col-6 offset-3">
-                                <ExpansionPanel>
-                                    <ExpansionPanelSummary
-                                    expandIcon={<ExpandMore />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                    >
-                                        <Typography className={classes.heading}>Ingresar Cantidad Cosechada</Typography>
-                                    </ExpansionPanelSummary>
-                                    <ExpansionPanelDetails className={classes.ExpansionPanelDetails}>
-                                        <TextField id="outlined-basic" 
-                                            value={inputCantidad}
-                                            label="Cantidad Cosechada (gr)" 
-                                            variant="outlined"
-                                            onChange={e=>{
-                                                setInputCantidad(e.target.value)
-                                            }}
+                <Paper elevation={3} className={classes.root}>
+                    <div className="container-fluid h-100">
+                        <div className="row">
+                            <div className="col-12">
+                                <GridList className={classes.gridList} cols={2.5}>
+                                    {tileData.map(tile => (
+                                    <GridListTile key={tile.img} className={classes.tile}>
+                                        <CardMedia
+                                            className={classes.media}
+                                            image={fotoPlanta}
                                         />
-                                        <Button
-                                            variant="contained"
-                                            color="secondary"
-                                            onClick={e=>{
-                                                guardarCantidadCosechada()
-                                            }}
-                                            endIcon={
-                                                <CheckCircle/>
-                                            }
-                                            >
-                                            Guardar 
-                                        </Button>
-                                    </ExpansionPanelDetails>
-                                </ExpansionPanel>
+                                    </GridListTile>
+                                    ))}
+                                </GridList>
                             </div>
                         </div>
-                    }
-                    {!props.location.props.plantaDelHistorial &&
-                        <BotoneraConfiguracionPlanta
-                            inicioFloracion={props.location.props.inicioFloracion}
-                            cosecharPlanta={cosecharPlanta}
-                            eliminarPlanta={eliminarPlanta}
-                        />
-                    }
-                </div>
+                        <div className="row">
+                            <DetallePlanta 
+                                genetica={props.location.props.genetica}
+                                cantidadDeGramos={props.location.props.cantidadDeGramos}
+                                plantaDelHistorial={props.location.props.plantaDelHistorial}
+                                edad={props.location.props.edad}
+                                nacimiento={props.location.props.nacimiento}
+                                inicioVegetativo={props.location.props.inicioVegetativo}
+                                inicioFloracion={props.location.props.inicioFloracion}
+                                fechaDeCorte={props.location.props.fechaDeCorte}
+                                volumenMaceta={props.location.props.volumenMaceta}
+                            />
+                            <DetalleAcciones
+                                {...props.location.props}
+                            />
+                            {props.location.props.plantaDelHistorial && !props.location.props.cantidadDeGramos &&
+                                <InputCantidadCosechada inputCantidad={inputCantidad} setInputCantidad={setInputCantidad} guardarCantidadCosechada={guardarCantidadCosechada} />
+                            }
+                            <div className="col-6 d-flex flex-column justify-content-around">
+                                {!props.location.props.plantaDelHistorial &&
+                                    <BotoneraConfiguracionPlanta
+                                        inicioFloracion={props.location.props.inicioFloracion}
+                                        cosecharPlanta={cosecharPlanta}
+                                        eliminarPlanta={eliminarPlanta}
+                                    />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </Paper>
             </Layout>
             :
             <Redirect to='/'/>

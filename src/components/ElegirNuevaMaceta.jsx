@@ -1,6 +1,6 @@
 import React , {Component} from 'react'
 import {Row,Col,Container} from 'react-bootstrap'
-import {TextField,makeStyles} from '@material-ui/core'
+import {TextField,makeStyles,InputAdornment} from '@material-ui/core'
 
 const useStyles= makeStyles(theme=>({
     radio:{
@@ -11,7 +11,7 @@ const useStyles= makeStyles(theme=>({
     }
 }))
 
-export const ElegirTipoDePoda=(props)=>{
+export const ElegirNuevaMaceta=(props)=>{
     const classes = useStyles()
     return(
         <Container className='pt-4'>
@@ -20,9 +20,17 @@ export const ElegirTipoDePoda=(props)=>{
                     <div className="row my-2 justify-content-center">
                         <div className="col-4">
                             <TextField id="outlined-basic" 
-                            value={props.tipoDePoda}
+                            value={props.nuevoVolumen}
                             className={classes.radio}
-                            label="Tipo de poda" 
+                            type='number'
+                            InputProps={{
+                                startAdornment: (
+                                <InputAdornment position="start">
+                                    Lt
+                                </InputAdornment>
+                                ),
+                            }}
+                            label="Nueva Maceta" 
                             variant="outlined"
                                 onChange={e=>{
                                     props.handleChange(e.target.value)

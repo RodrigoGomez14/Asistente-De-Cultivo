@@ -14,7 +14,7 @@ import {Link} from 'react-router-dom'
 class CarouselPlantas extends Component{
     render(){
         return(
-            <div className="container h-100 mt-2 mb-2 justify-content-center d-flex flex-column ">
+            <div className="container">
                 <div className="row mb-3">
                     <div className="col-auto ml-auto mr-auto">
                         <Grow in={true}
@@ -37,6 +37,8 @@ class CarouselPlantas extends Component{
                                 podas={this.props.plantas[key].podas} 
                                 riegos={this.props.plantas[key].riegos}
                                 fumigaciones={this.props.plantas[key].fumigaciones}
+                                transplantes={this.props.plantas[key].transplantes}
+                                volumenMaceta={this.props.plantas[key].volumenMaceta}
                                 nombre={this.props.plantas[key].nombre}
                                 id={key}
                                 key={key}

@@ -16,17 +16,18 @@ const useStyles = makeStyles(theme=>({
         overflow:'auto'
     },
     firstPaper:{
-        width:'75%',
+        width:'300px',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'space-around',
         marginTop:theme.spacing(1),
-        padding:theme.spacing(4)
+        padding:theme.spacing(4),
+        backgroundColor:theme.palette.primary.main
     },
     secondPaper:{
         padding:theme.spacing(4),
         marginTop:theme.spacing(1),
-        width:'75%',
+        width:'80%',
+        backgroundColor:theme.palette.primary.main
     },
     dosisList:{
         display:'flex',
@@ -127,7 +128,7 @@ export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
     return(
         <div className={classes.root}>
             <Paper elevation={4} className={classes.firstPaper}>
-                <Typography>
+                <Typography variant='h5'>
                     Caracteristicas
                 </Typography>
                 <TextField label="Nombre"  onChange={e=>{
@@ -141,12 +142,12 @@ export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
                 }}/>
             </Paper>
             <Paper elevation={4} className={classes.secondPaper}>
-                <Typography>
+                <Typography variant='h5'>
                     Dosificaciones
                 </Typography>
                 <Button
-                    variant='text'
-                    color='primary'
+                    variant='outlined'
+                    color='#fff'
                     startIcon={<AddOutlined/>}
                     onClick={e=>{
                         setCantidadDeDosis(cantidadDeDosis+=1)
@@ -157,10 +158,10 @@ export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
                 <div className={classes.dosisList}>
                     {new Array(cantidadDeDosis).fill(undefined).map((vacio,i)=>(
                         <form className={classes.form}>
-                            <TextField label="Etapa"  placeholder={exaplmesForInput[i]?exaplmesForInput[i]:null} onChange={e=>{
+                            <TextField label="Etapa"  color='#fff' placeholder={exaplmesForInput[i]?exaplmesForInput[i]:null} onChange={e=>{
                                 updateState(e.target.value,'etapa','dosis'+i)
                             }}/>
-                            <TextField label="Cantidad" onChange={e=>{
+                            <TextField label="Cantidad" color='#fff' onChange={e=>{
                                 updateState(parseFloat(e.target.value),'cantidad','dosis'+i)
                             }}/>
                             <FormControl className={classes.formControl}>
@@ -168,6 +169,7 @@ export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
+                                    color='#fff'
                                     onChange={e=>{
                                         updateState(e.target.value,'tipoDeDosis',"dosis"+i)
                                     }}
@@ -180,6 +182,7 @@ export const FormNuevoAditivo = ({aditivos=[],tipoDeAditivo,user,history}) =>{
                                 <InputLabel id="demo-simple-select-label">Tipo De Aplicacion</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
+                                    color='#fff'
                                     id="demo-simple-select"
                                     onChange={e=>{
                                         updateState(e.target.value,'tipoDeRiego','dosis'+i)

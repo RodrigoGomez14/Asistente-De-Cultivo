@@ -31,6 +31,7 @@ const useStyles = makeStyles(theme => ({
     },
     paperDark: {
         backgroundColor: theme.palette.primary.dark,
+        borderRadius:'0'
     },
     expansionPanel:{
         backgroundColor:'transparent'
@@ -76,7 +77,7 @@ export const AccionDetallada=(props)=>{
                         <Paper elevation={4} className={classes.paperMain}>
                             <ExpansionPanelDetails>
                                 <div className="container">
-                                    {props.accion.agua?
+                                    {props.accion.agua &&
                                         <div className="row">
                                             <div className="col-12 text-center">
                                                 <Typography variant='h5'>
@@ -84,26 +85,32 @@ export const AccionDetallada=(props)=>{
                                                 </Typography>
                                             </div>
                                         </div>
-                                        :
-                                        null
                                     }
-                                    <div className="row my-2">
-                                        {props.accion.tipoDeRiego?
+                                    {props.accion.tipoDeRiego &&
+                                        <div className="row my-2">
                                             <div className="col-12 text-center">
                                                 <Typography variant='h5'>
                                                     {props.accion.tipoDeRiego==='Tierra'?' en Tierra':' Foliar'}
                                                 </Typography>
                                             </div>
-                                            :
-                                            <div className="col text-left">
-                                                <Typography variant='h5'>
-                                                    Poda {props.accion.tipoDePoda}
-                                                </Typography>
-                                            </div>
-                                        }
-                                    </div>
+                                        </div>
+                                    }
+                                    {props.accion.tipoDePoda &&
+                                        <div className="col text-left">
+                                            <Typography variant='h5'>
+                                                Poda {props.accion.tipoDePoda}
+                                            </Typography>
+                                        </div>
+                                    }
+                                    {props.accion.volumenMaceta &&
+                                        <div className="col text-left">
+                                            <Typography variant='h5'>
+                                                Nuevo Volumen {props.accion.volumenMaceta} Lt
+                                            </Typography>
+                                        </div>
+                                    }
                                     <Divider/>
-                                    {props.tipoDeAccion!=='podas'?
+                                    {props.tipoDeAccion!=='podas' && props.tipoDeAccion!=='transplantes' && 
                                         <div className="row my-2">
                                             <div className="col-12 text-left">
                                                 <Typography variant='h5'>
@@ -132,8 +139,6 @@ export const AccionDetallada=(props)=>{
                                                 </div>
                                             }
                                         </div>
-                                        :
-                                        null
                                     }
                                     <Divider/>
                                     {!props.plantaDelHistorial &&

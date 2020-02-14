@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         alignItems:'center',
     },
     title:{
-        color: theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        color: theme.palette.primary.contrastText,
         marginTop:theme.spacing(1)
     }
   }));
