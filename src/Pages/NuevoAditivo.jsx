@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import {database} from 'firebase'
 import moment from 'moment'
 import addFile from '../images/addFile.svg'
-import { FormNuevoAditivo } from '../alert-components/FormNuevoAditivo'
+import { FormNuevoAditivo } from '../components/FormNuevoAditivo'
 import {Redirect} from 'react-router-dom'
 import {makeStyles,Paper} from '@material-ui/core'
 const useStyles = makeStyles(theme=>({

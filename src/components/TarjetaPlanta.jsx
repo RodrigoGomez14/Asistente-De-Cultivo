@@ -3,8 +3,6 @@ import moment from 'moment'
 import fotoPlanta from '../images/apple cookies.jpg'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import AlertEliminarPlanta from '../alerts/AlertEliminarPlanta'
-import AlertCambiarCiclo from '../alerts/AlertCambiarCiclo';
 import {database} from 'firebase'
 import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'
 import {Link} from 'react-router-dom'

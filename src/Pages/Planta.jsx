@@ -1,10 +1,9 @@
 import React,{useState}from 'react'
 import {Layout} from './Layout'
-import {DetallePlanta} from '../alert-components/DetallePlanta'
-import {DetalleAcciones} from '../alert-components/DetalleAcciones'
+import {DetallePlanta} from '../components/DetallePlanta'
+import {DetalleAcciones} from '../components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {DeleteOutline, EditOutlined, CheckCircle,ExpandMore} from '@material-ui/icons'
-import {IconButton,Button,ButtonGroup,makeStyles,TextField,Paper,ExpansionPanel,ExpansionPanelSummary,Typography,ExpansionPanelDetails,GridList,GridListTile,CardMedia,InputAdornment} from '@material-ui/core'
+import {makeStyles,GridListTile,CardMedia,Paper,GridList} from '@material-ui/core'
 import {database} from 'firebase'
 import moment from 'moment'
 import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
@@ -72,7 +71,6 @@ const useStyles=makeStyles(theme=>({
 
 export const Planta =(props)=>{
     const classes = useStyles()
-    let [collapseInputCantidad,setCollapseInputCantidad] = useState(false)
     let [inputCantidad, setInputCantidad]= useState(undefined)
     const cosecharPlanta=async ()=>{
         await database().ref().child(props.location.props.user).child('historial').child(props.location.props.id).update({

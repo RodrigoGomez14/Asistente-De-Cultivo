@@ -2,15 +2,9 @@ import React from 'react'
 import {auth} from 'firebase'
 import {Card,CardMedia,} from '@material-ui/core'
 import {HomeOutlined,NatureOutlined} from '@material-ui/icons'
-import {BottomNavigation,BottomNavigationAction} from '@material-ui/core'
-import FolderIcon from '@material-ui/icons/Folder';
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTint, faCut , faBug , faCogs, faAlignRight, faTimes} from '@fortawesome/free-solid-svg-icons'
+import { faTint, faCut , faBug , faCogs, faTimes} from '@fortawesome/free-solid-svg-icons'
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import {makeStyles} from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';

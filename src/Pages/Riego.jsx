@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import AlertConfirmarAccion from '../alerts/AlertConfirmarAccion'
 import {connect} from 'react-redux'
 import './styles/Accion.css'
 import {database} from 'firebase'

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './components/styles/home.css'
-import {HashRouter,Route,Switch,Redirect} from 'react-router-dom'
+import {HashRouter,Route,Switch} from 'react-router-dom'
 import Armario from './Pages/Armario'
-import {Layout} from './Pages/Layout'
 import Riego from './Pages/Riego'
 import Insecticida from './Pages/Insecticida'
 import Aplicables from './Pages/Aplicables'

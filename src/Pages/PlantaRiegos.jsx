@@ -1,7 +1,5 @@
 import React , {useState,useEffect} from 'react'
-import {AccionDetallada} from '../alert-components/AccionDetallada'
-import AlertNavBar from '../alert-components/AlertNavBar'
-import BreadcrumbPlanta from '../alert-components/BreadcrumbPlanta'
+import {AccionDetallada} from '../components/AccionDetallada'
 import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {makeStyles,Paper} from '@material-ui/core';

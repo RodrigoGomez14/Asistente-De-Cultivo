@@ -2,7 +2,6 @@ import React,{Fragment} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSortDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
 import { confirmAlert } from 'react-confirm-alert';
-import {AlertNuevoAditivo} from '../alerts/AlertNuevoAditivo'
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles/table.css'
 import {database} from 'firebase'
@@ -59,21 +58,6 @@ const useStyles = makeStyles(theme => ({
 
 
 export const TableAditivos = ({title,aditivos,user}) =>{
-    const alertEditarAditivo=(aditivo)=>confirmAlert({
-        customUI: ({ onClose }) => {
-            return (
-                <div className='custom-ui'>
-                    <AlertNuevoAditivo
-                        user={user}
-                        aditivos={aditivos}
-                        tipoDeAditivo={title}
-                        onClose={onClose}
-                        aditivo={aditivo}
-                    />
-                </div>
-            );
-        }
-    })
     const eliminarAditivo=async (id)=>{
         let newAditivos = aditivos
         newAditivos.splice(id,1)
@@ -179,7 +163,6 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                     <IconButton
                                                         variant="contained"
                                                         color="inherit"
-                                                        onClick={e=>{alertEditarAditivo(aditivo)}}
                                                     >   
                                                         <EditOutlined className={classes.buttonText}/>
                                                     </IconButton>
