@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/Asistente-De-Cultivo/static/css/main.8a5e6701.chunk.css",
-    "main.js": "/Asistente-De-Cultivo/static/js/main.cf8059f8.chunk.js",
-    "main.js.map": "/Asistente-De-Cultivo/static/js/main.cf8059f8.chunk.js.map",
+    "main.css": "/Asistente-De-Cultivo/static/css/main.5bd3b264.chunk.css",
+    "main.js": "/Asistente-De-Cultivo/static/js/main.8bd13956.chunk.js",
+    "main.js.map": "/Asistente-De-Cultivo/static/js/main.8bd13956.chunk.js.map",
     "runtime-main.js": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js",
     "runtime-main.js.map": "/Asistente-De-Cultivo/static/js/runtime-main.ae36a367.js.map",
     "static/css/2.f41ec079.chunk.css": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css",
-    "static/js/2.2715d679.chunk.js": "/Asistente-De-Cultivo/static/js/2.2715d679.chunk.js",
-    "static/js/2.2715d679.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.2715d679.chunk.js.map",
+    "static/js/2.91268764.chunk.js": "/Asistente-De-Cultivo/static/js/2.91268764.chunk.js",
+    "static/js/2.91268764.chunk.js.map": "/Asistente-De-Cultivo/static/js/2.91268764.chunk.js.map",
     "index.html": "/Asistente-De-Cultivo/index.html",
-    "precache-manifest.60f1d41c8639cb86e9c8376244a9c2ad.js": "/Asistente-De-Cultivo/precache-manifest.60f1d41c8639cb86e9c8376244a9c2ad.js",
+    "precache-manifest.9fb4411d50552d070894c506e16324d9.js": "/Asistente-De-Cultivo/precache-manifest.9fb4411d50552d070894c506e16324d9.js",
     "service-worker.js": "/Asistente-De-Cultivo/service-worker.js",
     "static/css/2.f41ec079.chunk.css.map": "/Asistente-De-Cultivo/static/css/2.f41ec079.chunk.css.map",
-    "static/css/main.8a5e6701.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.8a5e6701.chunk.css.map",
+    "static/css/main.5bd3b264.chunk.css.map": "/Asistente-De-Cultivo/static/css/main.5bd3b264.chunk.css.map",
     "static/media/addFile.svg": "/Asistente-De-Cultivo/static/media/addFile.84371f25.svg",
     "static/media/adn.svg": "/Asistente-De-Cultivo/static/media/adn.2312614b.svg",
     "static/media/apple cookies.jpg": "/Asistente-De-Cultivo/static/media/apple cookies.7617cb20.jpg",
     "static/media/background.png": "/Asistente-De-Cultivo/static/media/background.c43b7cc7.png",
-    "static/media/balanza.svg": "/Asistente-De-Cultivo/static/media/balanza.36f92367.svg",
+    "static/media/balanza.svg": "/Asistente-De-Cultivo/static/media/balanza.86ee14b0.svg",
     "static/media/cosecha.svg": "/Asistente-De-Cultivo/static/media/cosecha.0baa34b4.svg",
     "static/media/floracion.svg": "/Asistente-De-Cultivo/static/media/floracion.9ef8fb5d.svg",
     "static/media/maceta.svg": "/Asistente-De-Cultivo/static/media/maceta.547ce152.svg",
-    "static/media/periodo.svg": "/Asistente-De-Cultivo/static/media/periodo.9341cc77.svg",
+    "static/media/periodo.svg": "/Asistente-De-Cultivo/static/media/periodo.12365d7e.svg",
     "static/media/riegos.svg": "/Asistente-De-Cultivo/static/media/riegos.daab22d6.svg",
     "static/media/sea of green.png": "/Asistente-De-Cultivo/static/media/sea of green.837d7016.png",
     "static/media/semilla.svg": "/Asistente-De-Cultivo/static/media/semilla.985d2882.svg",
@@ -31,8 +31,8 @@
   "entrypoints": [
     "static/js/runtime-main.ae36a367.js",
     "static/css/2.f41ec079.chunk.css",
-    "static/js/2.2715d679.chunk.js",
-    "static/css/main.8a5e6701.chunk.css",
-    "static/js/main.cf8059f8.chunk.js"
+    "static/js/2.91268764.chunk.js",
+    "static/css/main.5bd3b264.chunk.css",
+    "static/js/main.8bd13956.chunk.js"
   ]
 }
