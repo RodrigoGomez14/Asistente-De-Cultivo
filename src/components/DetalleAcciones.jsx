@@ -12,7 +12,9 @@ const useStyles=makeStyles(theme=>({
     root:{
         width:'100%',
         display:'flex',
-        justifyContent:'center'
+        flexDirection:'column',
+        justifyContent:'center',
+        alignItems:'start'
     },
     link:{
         textDecoration:'none',
@@ -20,7 +22,7 @@ const useStyles=makeStyles(theme=>({
         margin:theme.spacing(1)
     },
     button:{
-        backgroundColor:theme.palette.primary.main
+        color:theme.palette.primary.contrastText
     },
     avatar:{
         width:theme.spacing(5),
@@ -40,11 +42,9 @@ export const DetalleAcciones =(props)=>{
                         ...props
                 }}}>
                     <Button
-                        variant="contained"
+                        variant="outlined"
+                        color='primary'
                         className={classes.button}
-                        endIcon={
-                            <Avatar src={riegos} className={classes.avatar}/>
-                        }
                     >
                         Riegos
                     </Button>
@@ -57,7 +57,8 @@ export const DetalleAcciones =(props)=>{
                         ...props
                 }}}>
                     <Button
-                        variant="contained"
+                        variant="outlined"
+                        color='primary'
                         className={classes.button}
                     >
                         Podas
@@ -71,11 +72,9 @@ export const DetalleAcciones =(props)=>{
                     ...props
                 }}}>
                     <Button
-                        variant="contained"
+                        variant="outlined"
+                        color='primary'
                         className={classes.button}
-                        endIcon={
-                            <Avatar src={riegos} className={classes.avatar}/>
-                        }
                     >
                         Fumigaciones
                     </Button>
@@ -88,11 +87,10 @@ export const DetalleAcciones =(props)=>{
                     ...props
                 }}}>
                     <Button
-                        variant="contained"
+                        variant="outlined"
+                        color='primary'
                         className={classes.button}
-                        endIcon={
-                            <Avatar src={transplante} className={classes.avatar}/>
-                        }>
+                    >
                         Transplantes
                     </Button>
                 </Link>

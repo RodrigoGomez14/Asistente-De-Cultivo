@@ -52,7 +52,7 @@ export const ListConfig =({switchValue,setSwitchValue,horaDeInicio,cambiarHoraDe
                     <InputLabel id="select-label">Periodo</InputLabel>
                     <Select
                         labelId="select-label"
-                        readOnly={true}
+                        readOnly={periodo&&true}
                         id="select"
                         value={periodo}
                         onChange={e=>{

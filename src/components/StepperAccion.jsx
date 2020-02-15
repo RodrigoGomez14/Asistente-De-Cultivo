@@ -18,11 +18,14 @@ const useStyles = makeStyles(theme => ({
     flexDirection:'column',
     justifyContent:'space.around',
     overflow:'auto',
+    borderRadius:'0',
     backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
   },
   button: {
     marginTop: theme.spacing(1),
     marginRight: theme.spacing(1),
+    color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
+    
   },
   buttonPrimary:{
     marginTop: theme.spacing(1),
@@ -38,11 +41,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor:theme.palette.type==='dark'?theme.palette.primary.dark:theme.palette.primary.main,
     paddingBottom:theme.spacing(2),
     paddingTop:theme.spacing(2),
+    borderRadius:'0'
   },
   padding:{
     paddingBottom:theme.spacing(1),
     color:theme.palette.primary.contrastText,
-    backgroundColor:theme.palette.secondary.light
+    backgroundColor:theme.palette.type==='dark'&&theme.palette.secondary.light
   },
   stepper:{
     backgroundColor:'transparent'
@@ -53,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   resetContainer:{
-    backgroundColor:theme.palette.secondary.light,
+    backgroundColor:theme.palette.type==='dark'&&theme.palette.secondary.light,
     width:'500px'
   },
   rootLastStep:{
@@ -63,7 +67,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants,nuevaMaceta})=>{
+export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants,nuevaMaceta,etapa})=>{
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -78,22 +82,34 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
     setActiveStep(0);
   };
   const setDisabled=(activeStep,tipoDeRiego,cantidadDeAgua)=>{
-    if(activeStep===0){
-      return selectedPlants.length?false:true
-    }
-    else if(activeStep===1){
-      if(tipoDeAccion==='Poda'){
-        return tipoDePoda?false:true
-      }
-      else if(tipoDeAccion==='Transplante'){
-        return nuevaMaceta?false:true
-      }
-      else{
-        return tipoDeRiego?false:true
+    if(tipoDeAccion==='Nueva Planta'){
+      if(activeStep===0){
+        return etapa?false:true
       }
     }
-    else if(activeStep===2){
-        return cantidadDeAgua?false:true
+    else if(tipoDeAccion==='Nuevo Aditivo'){
+      if(activeStep===0){
+        return false
+      }
+    }
+    else{
+      if(activeStep===0){
+        return selectedPlants.length?false:true
+      }
+      else if(activeStep===1){
+        if(tipoDeAccion==='Poda'){
+          return tipoDePoda?false:true
+        }
+        else if(tipoDeAccion==='Transplante'){
+          return nuevaMaceta?false:true
+        }
+        else{
+          return tipoDeRiego?false:true
+        }
+      }
+      else if(activeStep===2){
+          return cantidadDeAgua?false:true
+      }
     }
   }
   return (
@@ -104,38 +120,38 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
           <Stepper activeStep={activeStep} orientation="vertical" className={classes.stepper}>
             {steps.map((step, index) => (
               step?
-                    <Step key={step.title}>
-                      <Paper elevation={3} className={classes.paperSecondary}>
-                        <StepLabel className={classes.stepTitle}>{step.title}</StepLabel>
-                      </Paper>
-                      <StepContent>
-                        <Paper elevation={6} className={classes.padding}>
-                            <Typography>{step.content}</Typography>
-                            <div className={classes.actionsContainer}>
-                                <div>
-                                <Button
-                                    disabled={activeStep === 0}
-                                    onClick={handleBack}
-                                    className={classes.button}
-                                >
-                                    Atras
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={handleNext}
-                                    className={classes.buttonPrimary}
-                                    disabled={setDisabled(activeStep,tipoDeRiego,cantidadDeAgua)}
-                                >
-                                    {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
-                                </Button>
-                                </div>
+                <Step key={step.title}>
+                  <Paper elevation={3} className={classes.paperSecondary}>
+                    <StepLabel className={classes.stepTitle}>{step.title}</StepLabel>
+                  </Paper>
+                  <StepContent>
+                    <Paper elevation={6} className={classes.padding}>
+                        <Typography>{step.content}</Typography>
+                        <div className={classes.actionsContainer}>
+                            <div>
+                            <Button
+                                disabled={activeStep === 0}
+                                onClick={handleBack}
+                                className={classes.button}
+                            >
+                                Atras
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={handleNext}
+                                className={classes.buttonPrimary}
+                                disabled={setDisabled(activeStep,tipoDeRiego,cantidadDeAgua)}
+                            >
+                                {activeStep === steps.length - 1 ? 'Finalizar' : 'Siguiente'}
+                            </Button>
                             </div>
-                          </Paper>
-                        </StepContent>
-                    </Step>
-                    :
-                    null
+                        </div>
+                      </Paper>
+                    </StepContent>
+                </Step>
+                :
+                null
             ))}
           </Stepper>
           {activeStep === steps.length && (

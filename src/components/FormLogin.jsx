@@ -72,9 +72,9 @@ export const FormLogin=({setloading,history})=>{
             displayName:inputNombre
           })
           await database().ref().child(e.user.uid).update({
-              horaDeInicio:0,
-              cicloLuminico:1,
-              periodo:'Vegetativo'
+              horaDeInicio:'',
+              cicloLuminico:'',
+              periodo:''
           })
           history.push('/')
           setloading(false)

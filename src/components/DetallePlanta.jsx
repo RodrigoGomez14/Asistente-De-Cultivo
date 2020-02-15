@@ -18,14 +18,13 @@ const useStyles = makeStyles(theme => ({
     paper:{
         backgroundColor:theme.palette.primary.main,
         padding:theme.spacing(1),
-        flexGrow:'1',
         marginTop:theme.spacing(2),
         marginLeft:theme.spacing(1),
         marginRight:theme.spacing(1),
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
-        maxWidth:'220px'
+        minWidth:'220px'
     },
     listText:{
         color:theme.palette.primary.contrastText,
@@ -35,7 +34,8 @@ const useStyles = makeStyles(theme => ({
     },
     itemList:{
         display:'flex',
-        justifyContent:'space-around',
+        flexWrap:'nowrap',
+        overflowX:'auto',
         width:'100%'
     },
     avatar:{

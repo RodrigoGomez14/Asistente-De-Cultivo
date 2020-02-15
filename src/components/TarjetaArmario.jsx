@@ -13,7 +13,7 @@ const useStyles=makeStyles(theme=>({
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
-        maxWidth:'220px'
+        minWidth:'220px'
     },
     listText:{
         color:theme.palette.primary.contrastText,
@@ -23,7 +23,8 @@ const useStyles=makeStyles(theme=>({
     },
     itemList:{
         display:'flex',
-        justifyContent:'space-around',
+        fleWrap:'nowrap',
+        overflow:'auto',
         width:'100%',
         marginTop:theme.spacing(2)
     },

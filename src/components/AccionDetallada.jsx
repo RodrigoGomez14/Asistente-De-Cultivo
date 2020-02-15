@@ -49,6 +49,11 @@ const useStyles = makeStyles(theme => ({
     },
     expandIcon:{
         color:theme.palette.primary.contrastText
+    },
+    listItemText:{
+        '& .MuiTypography-colorTextSecondary':{
+            color:theme.palette.primary.contrastText
+        }
     }
   }));
 export const AccionDetallada=(props)=>{
@@ -127,9 +132,9 @@ export const AccionDetallada=(props)=>{
                                                     <List>
                                                         {Object.keys(props.accion.aditivos).map((aditivo,i)=>(
                                                             <>
-                                                                <Divider/>
                                                                 <ListItem>
                                                                     <ListItemText
+                                                                        className={classes.listItemText}
                                                                         primary={aditivo}
                                                                         secondary={props.accion.aditivos[aditivo]+' ml'} 
                                                                     />

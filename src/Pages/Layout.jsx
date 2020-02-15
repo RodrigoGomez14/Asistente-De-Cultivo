@@ -3,7 +3,7 @@ import {Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import {Redirect} from 'react-router-dom'
 import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
-import NavBar from '../components/Navbar'
+import {NavBar} from '../components/Navbar'
 import {MenuDrawer} from '../components/MenuDrawer'
 import foto from '../images/sea of green.png'
 const useStyles = makeStyles(theme => ({

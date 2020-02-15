@@ -11,6 +11,7 @@ import {connect} from 'react-redux'
 import  {database} from 'firebase'
 import {Layout} from './Layout'
 import {makeStyles,Paper} from '@material-ui/core'
+import { Redirect } from 'react-router';
 
 const useStyles=makeStyles(theme=>({
     root:{
@@ -18,9 +19,11 @@ const useStyles=makeStyles(theme=>({
         width:'100%',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'space-around',
+        justifyContent:'flex-start',
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
+        borderRadius:'0',
+        overflow:'auto',
+        paddingBottom:theme.spacing(2)
     }
 }))
 const Armario=(props)=>{
@@ -39,14 +42,21 @@ const Armario=(props)=>{
             horaDeFinal: parseInt(horas)
         })
     }
-    return(
-        <Layout history={props.history} page="Armario" user={props.user}>
-            <Paper className={classes.root}>
-                <BarraDeLuz periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico}/>
-                <CarouselPlantas history={props.history}/>
-            </Paper>
-        </Layout>
-    )
+    if(!props.periodo||!props.horaDeInicio||!props.cicloLuminico){
+        return(
+            <Redirect to='/Configuracion'/>
+        )
+    }
+    else{
+        return(
+            <Layout history={props.history} page="Armario" user={props.user}>
+                <Paper className={classes.root}>
+                    <BarraDeLuz periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico}/>
+                    <CarouselPlantas history={props.history}/>
+                </Paper>
+            </Layout>
+        )   
+    }
 }
 const mapStateToProps = state =>{
     return{

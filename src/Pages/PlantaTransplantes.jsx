@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme=>({
         flexDirection:'column',
         justifyContent:'flex-start',
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
+        borderRadius:'0',
+        overflow:'auto'
     }
 }))
 export const PlantaTransplantes =(props)=>{

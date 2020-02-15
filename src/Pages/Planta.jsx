@@ -3,7 +3,7 @@ import {Layout} from './Layout'
 import {DetallePlanta} from '../components/DetallePlanta'
 import {DetalleAcciones} from '../components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {makeStyles,GridListTile,CardMedia,Paper,GridList} from '@material-ui/core'
+import {makeStyles,GridListTile,CardMedia,Paper,GridList, Divider} from '@material-ui/core'
 import {database} from 'firebase'
 import moment from 'moment'
 import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
@@ -17,9 +17,9 @@ const useStyles=makeStyles(theme=>({
         width:'100%',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'space.around',
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
+        borderRadius:'0',
+        overflow:'auto'
     },
     button:{
         color:theme.palette.primary.contrastText,
@@ -66,6 +66,11 @@ const useStyles=makeStyles(theme=>({
         height:'100%',
         justifyContent:'space-between',
         padding:theme.spacing(1),
+    },
+    rowBotonera:{
+        width:'100%',
+        flexGrow:'1',
+        display:'flex'
     }
 }))
 
@@ -123,20 +128,18 @@ export const Planta =(props)=>{
         props.location.props?
             <Layout history={props.history} page={props.location.props.nombre} user={props.location.props.user}>
                 <Paper elevation={3} className={classes.root}>
-                    <div className="container-fluid h-100">
+                    <div className="container-fluid">
                         <div className="row">
-                            <div className="col-12">
-                                <GridList className={classes.gridList} cols={2.5}>
-                                    {tileData.map(tile => (
-                                    <GridListTile key={tile.img} className={classes.tile}>
-                                        <CardMedia
-                                            className={classes.media}
-                                            image={fotoPlanta}
-                                        />
-                                    </GridListTile>
-                                    ))}
-                                </GridList>
-                            </div>
+                            <GridList className={classes.gridList} cols={2.5}>
+                                {tileData.map(tile => (
+                                <GridListTile key={tile.img} className={classes.tile}>
+                                    <CardMedia
+                                        className={classes.media}
+                                        image={fotoPlanta}
+                                    />
+                                </GridListTile>
+                                ))}
+                            </GridList>
                         </div>
                         <div className="row">
                             <DetallePlanta 
@@ -150,22 +153,30 @@ export const Planta =(props)=>{
                                 fechaDeCorte={props.location.props.fechaDeCorte}
                                 volumenMaceta={props.location.props.volumenMaceta}
                             />
-                            <DetalleAcciones
-                                {...props.location.props}
-                            />
+                        </div>
+                        <div className="row">
                             {props.location.props.plantaDelHistorial && !props.location.props.cantidadDeGramos &&
                                 <InputCantidadCosechada inputCantidad={inputCantidad} setInputCantidad={setInputCantidad} guardarCantidadCosechada={guardarCantidadCosechada} />
                             }
-                            <div className="col-6 d-flex flex-column justify-content-around">
-                                {!props.location.props.plantaDelHistorial &&
+                        </div>
+                        <div className="row">
+                            <DetalleAcciones
+                                {...props.location.props}
+                            />
+                        </div>
+                        <Divider/>
+                        <div className="row">
+                            {!props.location.props.plantaDelHistorial &&
+                                <div className={classes.rowBotonera}>
                                     <BotoneraConfiguracionPlanta
                                         inicioFloracion={props.location.props.inicioFloracion}
                                         cosecharPlanta={cosecharPlanta}
                                         eliminarPlanta={eliminarPlanta}
                                     />
-                                }
-                            </div>
+                                </div>
+                            }
                         </div>
+                        <Divider/>
                     </div>
                 </Paper>
             </Layout>

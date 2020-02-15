@@ -4,10 +4,13 @@ import {TextField,makeStyles,InputAdornment} from '@material-ui/core'
 
 const useStyles= makeStyles(theme=>({
     radio:{
-        color:theme.palette.primary.contrastText,
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
         '& .MuiIconButton-label':{
-            color: theme.palette.primary.contrastText
+            color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
         }
+    },
+    textLight:{
+        color:theme.palette.primary.contrastText
     }
 }))
 
@@ -22,6 +25,7 @@ export const ElegirNuevaMaceta=(props)=>{
                             <TextField id="outlined-basic" 
                             value={props.nuevoVolumen}
                             className={classes.radio}
+                            color='primary'
                             type='number'
                             InputProps={{
                                 startAdornment: (
@@ -30,7 +34,6 @@ export const ElegirNuevaMaceta=(props)=>{
                                 </InputAdornment>
                                 ),
                             }}
-                            label="Nueva Maceta" 
                             variant="outlined"
                                 onChange={e=>{
                                     props.handleChange(e.target.value)

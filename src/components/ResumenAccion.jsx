@@ -24,15 +24,24 @@ const useStyles = makeStyles(theme=>({
     color:theme.palette.secondary.contrastText,
   },
   paper:{
-      background:theme.palette.secondary.main,
-      color:theme.palette.secondary.contrastText,
-      padding: theme.spacing(1)
-  },
-  containerPlantas:{
+    backgroundColor:theme.palette.type==='dark'&&theme.palette.secondary.light,
+    color:theme.palette.secondary.contrastText,
+    padding: theme.spacing(1)
+},
+containerPlantas:{
     textAlign:'left',
     paddingLeft:theme.spacing(2),
     paddingTop:theme.spacing(2)
-  }
+},
+listItemText:{
+    color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
+    '& .MuiTypography-colorTextSecondary':{
+        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
+    },
+},
+title:{
+    color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
+}
 }));
 
 export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDePoda,nuevaMaceta})=>{
@@ -42,37 +51,37 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
             {tipoDePoda &&
                 <List>
                     <ListItem>
-                        <ListItemText primary='Tipo De Poda' secondary={tipoDePoda}/>    
+                        <ListItemText className={classes.listItemText} primary='Tipo De Poda' secondary={tipoDePoda}/>    
                     </ListItem>
                 </List>
             }
             {nuevaMaceta &&  
                 <List>
                     <ListItem>
-                        <ListItemText primary='Nuevo Volumen De Maceta' secondary={`${nuevaMaceta} Lt`}/>    
+                        <ListItemText className={classes.listItemText} primary='Nuevo Volumen De Maceta' secondary={`${nuevaMaceta} Lt`}/>    
                     </ListItem>
                 </List>
             }
             {tipoDeRiego&&cantidadDeAgua&&
                 <List>
                     <ListItem>
-                        <ListItemText  primary='Tipo De Riego' secondary={tipoDeRiego}/>    
+                        <ListItemText className={classes.listItemText}  primary='Tipo De Riego' secondary={tipoDeRiego}/>    
                     </ListItem>
                     <ListItem>
-                        <ListItemText primary='Cantidad De Agua' secondary={`${cantidadDeAgua} Lt`}/>    
+                        <ListItemText className={classes.listItemText} primary='Cantidad De Agua' secondary={`${cantidadDeAgua} Lt`}/>    
                     </ListItem>
                 </List>
             }
             <Divider/>
             <div className={classes.containerPlantas}>
-                <Typography variant='h6'>
+                <Typography className={classes.title} variant='h6'>
                     Plantas Seleccionadas
                 </Typography>
                 <List>
                     {plantas.map(planta => (
                         planta.selected &&
                         <ListItem>
-                            <ListItemText primary={planta.nombre}/>    
+                            <ListItemText className={classes.listItemText} primary={planta.nombre}/>    
                         </ListItem>
                     ))}
                 </List>
@@ -80,7 +89,7 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
             <Divider/>
             {tipoDeRiego &&
                 <div className={classes.containerPlantas}>
-                    <Typography variant='h6'>
+                    <Typography className={classes.title} variant='h6'>
                         Aditivos Usados
                     </Typography>
                     <List>
@@ -89,13 +98,13 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
                                 const dosis= aditivos[aditivo]
                                 return(
                                     <ListItem>
-                                        <ListItemText primary={aditivo} secondary={`${parseFloat(dosis.slice(0,dosis.indexOf(' '))*cantidadDeAgua).toFixed(2)} ${dosis.slice(dosis.indexOf(' '),dosis.indexOf('/'))}`}/>    
+                                        <ListItemText className={classes.listItemText} primary={aditivo} secondary={`${parseFloat(dosis.slice(0,dosis.indexOf(' '))*cantidadDeAgua).toFixed(2)} ${dosis.slice(dosis.indexOf(' '),dosis.indexOf('/'))}`}/>    
                                     </ListItem>
                                 )
                             })
                             :
                             <ListItem>
-                                <ListItemText primary='-'/>    
+                                <ListItemText className={classes.listItemText} primary='-'/>    
                             </ListItem>
                         }
                     </List>

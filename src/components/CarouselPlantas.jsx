@@ -8,42 +8,53 @@ import '../Pages/styles/Accion.css'
 import { faPlusCircle} from '@fortawesome/free-solid-svg-icons'
 import moment from 'moment'
 import {database} from 'firebase'
-import {Button,Typography,Grow,IconButton} from '@material-ui/core'
+import {Button,Typography,Grow,IconButton,makeStyles} from '@material-ui/core'
 import {AddCircleOutline} from '@material-ui/icons'
 import {Link} from 'react-router-dom'
-class CarouselPlantas extends Component{
-    render(){
-        return(
-            <div className="container">
-                {this.props.plantas?
-                    <>
-                        <div className="row">
-                            <div className="col-12 text-center">
-                                <Grow in={true}
-                                    {...(true ? { timeout: 1500 } : {})}>
-                                    <Typography variant='h5'>
-                                        Plantas Dentro Del Armario
-                                    </Typography>
-                                </Grow>
-                            </div>
+const useStyles = makeStyles(theme=>({
+    carousel:{
+        display:'flex',
+        flexWrap:'nowrap',
+        overflow:'auto'
+    },
+    textLight:{
+        color:theme.palette.primary.contrastText
+    }
+}))
+const CarouselPlantas=(props)=>{
+    const classes = useStyles()
+    return(
+        <div className="container">
+            {props.plantas?
+                <>
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            <Grow in={true}
+                                {...(true ? { timeout: 1500 } : {})}>
+                                <Typography variant='h5' className={classes.textLight}>
+                                    Plantas Dentro Del Armario
+                                </Typography>
+                            </Grow>
                         </div>
-                        <div className="row mt-3">
-                            {Object.keys(this.props.plantas).map(key=>(
+                    </div>
+                    <div className="row mt-3">
+                        <div className={classes.carousel}>
+                            {Object.keys(props.plantas).map(key=>(
                                 <TarjetaPlanta
-                                    user={this.props.user}
-                                    nacimiento={this.props.plantas[key].nacimiento} 
-                                    genetica={this.props.plantas[key].genetica}
-                                    inicioVegetativo={this.props.plantas[key].inicioVegetativo} 
-                                    inicioFloracion={this.props.plantas[key].inicioFloracion} 
-                                    podas={this.props.plantas[key].podas} 
-                                    riegos={this.props.plantas[key].riegos}
-                                    fumigaciones={this.props.plantas[key].fumigaciones}
-                                    transplantes={this.props.plantas[key].transplantes}
-                                    volumenMaceta={this.props.plantas[key].volumenMaceta}
-                                    nombre={this.props.plantas[key].nombre}
+                                    user={props.user}
+                                    nacimiento={props.plantas[key].nacimiento} 
+                                    genetica={props.plantas[key].genetica}
+                                    inicioVegetativo={props.plantas[key].inicioVegetativo} 
+                                    inicioFloracion={props.plantas[key].inicioFloracion} 
+                                    podas={props.plantas[key].podas} 
+                                    riegos={props.plantas[key].riegos}
+                                    fumigaciones={props.plantas[key].fumigaciones}
+                                    transplantes={props.plantas[key].transplantes}
+                                    volumenMaceta={props.plantas[key].volumenMaceta}
+                                    nombre={props.plantas[key].nombre}
                                     id={key}
                                     key={key}
-                                    history={this.props.history}
+                                    history={props.history}
                                 />
                             ))}
                             <div className="col-auto align-self-center">
@@ -60,22 +71,25 @@ class CarouselPlantas extends Component{
                                 </Grow>
                             </div>
                         </div>
-                    </>
-                    :
-                    <div className="row mb-3">
+                    </div>
+                </>
+                :
+                <div className="row mb-3">
+                    <Grow in={true}
+                        {...(true ? { timeout: 1500 } : {})}>
                         <div className="col-12 text-center">
-                            <Typography  variant='h6' className='text-lihgt'>No hay plantas</Typography>
+                            <Typography  variant='h6' className={classes.textLight}>No hay plantas</Typography>
                             <Link to='/Nueva-Planta'>
                                 <Button variant="contained" color="primary" endIcon={<AddCircleOutline/>}>
                                     Agrega una!
                                 </Button>
                             </Link>
                         </div>
-                    </div>
-                }
-            </div>
-        )
-    }
+                    </Grow>
+                </div>
+            }
+        </div>
+    )
 }
 const mapStateToProps = state =>{
     return{

@@ -24,7 +24,7 @@ const useStyles = makeStyles( theme=>({
     }
 }))
 
-const NavBar = ({page,planta,history,setRedirect,setMenuOpened,user}) =>{
+export const NavBar = ({page,planta,history,setRedirect,setMenuOpened}) =>{
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -38,7 +38,7 @@ const NavBar = ({page,planta,history,setRedirect,setMenuOpened,user}) =>{
     return(
         <AppBar className={classes.appBar} position="static" >
             <Toolbar>
-            {page!=='Armario'?
+            {page!=='Armario'&&
                 <IconButton edge="end" className={classes.menuButton} onClick={e=>{
                     if(!planta){
                         if(history.location.pathname==='/Planta'){
@@ -54,31 +54,6 @@ const NavBar = ({page,planta,history,setRedirect,setMenuOpened,user}) =>{
                 }} color="inherit" aria-label="menu">
                     <ArrowBackRounded />
                 </IconButton>
-                :
-                <div>
-                    <IconButton edge="end" className={classes.menuButton} onClick={e=>{handleMenu(e)}} color="inherit" aria-label="menu">
-                        <Avatar className={classes.avatar}>
-                            {user.displayName.slice(0,1)}
-                        </Avatar>
-                    </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'right',
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                    >
-                        <MenuItem onClick={e=>{auth().signOut()}} className={classes.danger}>Cerrar Sesion</MenuItem>
-                    </Menu>
-                </div>
             }
             <Typography variant="h6" className={classes.title} >
                 {page}
@@ -92,7 +67,3 @@ const NavBar = ({page,planta,history,setRedirect,setMenuOpened,user}) =>{
         </AppBar>
     )
 }
-const mapStateToProps=state=>({
-    user:state.user
-})
-export default connect(mapStateToProps,null)(NavBar)

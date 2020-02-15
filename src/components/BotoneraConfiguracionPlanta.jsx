@@ -1,16 +1,22 @@
 import React , {useState} from 'react'
 import {makeStyles,IconButton,Typography} from '@material-ui/core'
-import {DeleteOutline,EditOutlined} from '@material-ui/icons'
+import {DeleteOutline,EditOutlined,NatureOutlined} from '@material-ui/icons'
 
 const useStyles= makeStyles(theme=>({
+    root:{
+        width:'100%',
+        display:'flex',
+        justifyContent:'space-around',
+        paddingBottom:theme.spacing(1)
+    },
     editButton:{
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        color:theme.palette.primary.contrastText,
     },
     deleteButton:{
         color:theme.palette.error.main
     },
     editText:{
-        color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText,
+        color:theme.palette.primary.contrastText,
     },
     deleteText:{
         color:theme.palette.error.main
@@ -26,16 +32,15 @@ const useStyles= makeStyles(theme=>({
 export const BotoneraConfiguracionPlanta =({inicioFloracion,cosecharPlanta,eliminarPlanta,}) =>{
     const classes = useStyles()
     return(
-        <div className="row my-2 justify-content-around">
+        <div className={classes.root}>
             {inicioFloracion &&
                 <div className='d-flex flex-column'>
                     <IconButton
                         variant="contained"
-                        color='secondary'
                         onClick={cosecharPlanta}
                         className={classes.cosecharButton}
                         >
-                        <DeleteOutline/>
+                        <NatureOutlined/>
                     </IconButton>
                     <Typography variant='caption' className={classes.cosecharText}>
                         Cosechar

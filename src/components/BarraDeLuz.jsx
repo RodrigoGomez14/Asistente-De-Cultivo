@@ -176,7 +176,7 @@ export const BarraDeLuz=(props)=>{
                         }
                     </div>
                     <div className="row mt-4">
-                        <div className="col-10 offset-1">
+                        <div className="col-12">
                             <div className="progress">
                                 <div className={!lamparaEncendida?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
