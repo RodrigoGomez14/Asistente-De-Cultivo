@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme=>({
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        width: 120,
     },
     input:{
         marginTop:theme.spacing(1),
@@ -40,7 +40,7 @@ export const FormCaracteristicasNuevaPlanta =({nombre,setNombre,genetica,setGene
                 <TextField label="Genetica"  className={classes.input} value={genetica} onChange={e=>{setGenetica(e.target.value)}}/>
                 <TextField 
                     label="Volumen De Maceta" 
-                    className={classes.input}
+                    className={classes.formControl}
                     value={volumenMaceta} 
                     type='number'  
                     InputProps={{

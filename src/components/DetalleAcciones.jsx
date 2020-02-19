@@ -30,16 +30,31 @@ const useStyles=makeStyles(theme=>({
     }
 }))
 
-export const DetalleAcciones =(props)=>{
+export const DetalleAcciones =({id,history})=>{
     const classes= useStyles()
     return(
             <div className={classes.root}>
                 <Link
                 className={classes.link} 
                 to={{ 
-                    pathname:props.history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Riegos':'/Planta/Riegos',
+                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Timeline':'/Planta/Timeline',
                     props:{
-                        ...props
+                        id:id
+                }}}>
+                    <Button
+                        variant="outlined"
+                        color='primary'
+                        className={classes.button}
+                    >
+                        Timeline
+                    </Button>
+                </Link>
+                <Link
+                className={classes.link} 
+                to={{ 
+                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Riegos':'/Planta/Riegos',
+                    props:{
+                        id:id
                 }}}>
                     <Button
                         variant="outlined"
@@ -52,9 +67,9 @@ export const DetalleAcciones =(props)=>{
                 <Link 
                 className={classes.link}
                 to={{ 
-                    pathname:props.history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Podas':'/Planta/Podas',
+                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Podas':'/Planta/Podas',
                     props:{
-                        ...props
+                        id:id
                 }}}>
                     <Button
                         variant="outlined"
@@ -67,9 +82,9 @@ export const DetalleAcciones =(props)=>{
                 <Link 
                 className={classes.link}                 
                 to={{ 
-                pathname:props.history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Fumigaciones':'/Planta/Fumigaciones',
+                pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Fumigaciones':'/Planta/Fumigaciones',
                 props:{
-                    ...props
+                    id:id
                 }}}>
                     <Button
                         variant="outlined"
@@ -82,9 +97,9 @@ export const DetalleAcciones =(props)=>{
                 <Link 
                 className={classes.link}                 
                 to={{ 
-                pathname:props.history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Transplantes':'/Planta/Transplantes',
+                pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Transplantes':'/Planta/Transplantes',
                 props:{
-                    ...props
+                    id:id
                 }}}>
                     <Button
                         variant="outlined"

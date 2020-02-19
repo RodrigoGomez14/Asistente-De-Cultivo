@@ -90,24 +90,24 @@ export const DetallePlanta=(props)=>{
             {...(true ? { timeout: 1500 } : {})}>
                 <Paper elevation={3} className={classes.paper}>
                     <Avatar src={semilla} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Fecha De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
+                    <ListItemText className={classes.listText} primary='Inicio De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
                 </Paper>
             </Grow>
             <Grow in={true}
             {...(true ? { timeout: 1500 } : {})}>
                 <Paper elevation={3} className={classes.paper}>
                     <Avatar src={vegetativo} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Fecha De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
+                    <ListItemText className={classes.listText} primary='Inicio De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
                 </Paper>
             </Grow>
             <Grow in={true}
             {...(true ? { timeout: 1500 } : {})}>
                 <Paper elevation={3} className={classes.paper}>
                     <Avatar src={floracion} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Fecha De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
+                    <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
                 </Paper>
             </Grow>
-            {props.plantaDelHistorial && props.fechaDeCorte &&
+            {props.fechaDeCorte &&
                 <Grow in={true}
                 {...(true ? { timeout: 1500 } : {})}>
                     <Paper elevation={3} className={classes.paper}>
@@ -116,7 +116,7 @@ export const DetallePlanta=(props)=>{
                     </Paper>
                 </Grow>
             }
-            {props.plantaDelHistorial &&
+            {props.cantidadDeGramos &&
                 <Grow in={true}
                 {...(true ? { timeout: 1500 } : {})}>
                     <Paper elevation={3} className={classes.paper}>

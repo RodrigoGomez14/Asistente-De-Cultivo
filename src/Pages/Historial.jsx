@@ -12,9 +12,11 @@ const useStyles=makeStyles(theme=>({
         width:'100%',
         display:'flex',
         flexDirection:'column',
-        justifyContent:'space-around',
+        justifyContent:'flex-start',
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
+        borderRadius:'0',
+        overflow:'auto',
+        paddingBottom:theme.spacing(2)
     }
 }))
 const Historial=(props)=>{
@@ -22,19 +24,15 @@ const Historial=(props)=>{
     return(
         <Layout history={props.history} page={'Historial'} user={props.user}>
             <Paper elevation={3} className={classes.root}>
-                <div className="container-fluid overflow-auto">
-                    <div className="row justify-content-center">
+                <div className="container-fluid">
+                    <div className="row flex-nowrap">
                         {props.historial?
                             Object.keys(props.historial).map(planta=>(
                                 <div className="col-auto mt-3">
                                     <Link className='text-white' to={{
                                         pathname:'/Historial/Planta',
                                         props:{
-                                            ...props.historial[planta],
-                                            user:props.user,
                                             id:planta,
-                                            history:props.history,
-                                            plantaDelHistorial:true
                                         }
                                     }}>
                                         <CardHistorial cantidadDeGramos={props.historial[planta].cantidadDeGramos} nombre={props.historial[planta].nombre} fechaDeCorte={props.historial[planta].fechaDeCorte}/>

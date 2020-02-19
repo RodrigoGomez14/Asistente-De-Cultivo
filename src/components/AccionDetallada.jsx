@@ -81,10 +81,10 @@ export const AccionDetallada=(props)=>{
                             aria-controls="panel1bh-content"
                             id="panel1bh-header"
                             >
-                                <Typography className={classes.heading}>{props.accion.fecha}</Typography>
+                                <Typography className={classes.heading}>{props.tipoDeAccion}</Typography>
                             </ExpansionPanelSummary>
                         </Paper>
-                        <Paper elevation={4} className={classes.paperMain}>
+                        <Paper elevation={4} >
                             <ExpansionPanelDetails>
                                 <div className="container">
                                     {props.accion.agua &&
@@ -160,9 +160,9 @@ export const AccionDetallada=(props)=>{
                                                     variant="contained"
                                                     color="inherit"
                                                 >   
-                                                        <EditOutlined className={classes.edit}/>
+                                                        <EditOutlined />
                                                 </IconButton>
-                                                <Typography variant='caption' className={classes.edit} gutterBottom>
+                                                <Typography variant='caption' gutterBottom>
                                                     Editar
                                                 </Typography>
                                             </div>

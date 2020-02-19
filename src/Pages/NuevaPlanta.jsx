@@ -37,14 +37,16 @@ const  NuevaPlanta=(props)=>{
     let [inicioGerminacion,setInicioGerminacion]= useState(getFullDate())
     let [inicioVegetativo,setInicioVegetativo]= useState(undefined)
     let [inicioFloracion,setInicioFloracion]= useState(undefined)
+    
     const guardarNuevaPlantaDB= async ()=>{
+        console.log(props.periodo==='Floracion'?'fecha':'nofecha')
         await database().ref().child(props.user).child('plantas').push({
             nombre:nombre,
             genetica:genetica?genetica:'Desconocida',
             volumenMaceta:volumenMaceta?volumenMaceta:null,
             nacimiento:inicioGerminacion?inicioGerminacion:null,
             inicioVegetativo:inicioVegetativo?inicioVegetativo:null,
-            inicioFloracion:inicioFloracion?inicioFloracion:null
+            inicioFloracion:props.periodo==='Floracion'?getFullDate():null
         })
         props.history.replace('/')
     }

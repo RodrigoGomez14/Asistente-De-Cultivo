@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React , {useState,useEffect} from 'react'
 import {AccionDetallada} from '../components/AccionDetallada'
 import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme=>({
         overflow:'auto'
     }
 }))
-const PlantaFumigaciones =(props)=>{
+const PlantaHistorialTransplantes =(props)=>{
     let [expanded,setExpanded]= useState(false)
 
     const handleChange = panel => (event, isExpanded) => {
@@ -26,37 +26,37 @@ const PlantaFumigaciones =(props)=>{
     const classes = useStyles()
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Fumigaciones'} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Transplantes'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
-                            {props.plantas[props.location.props.id].fumigaciones?
-                                Object.keys(props.plantas[props.location.props.id].fumigaciones).reverse().map((id,i)=>(
+                            {props.plantas[props.location.props.id].transplantes?
+                                Object.keys(props.plantas[props.location.props.id].transplantes).reverse().map((id,i)=>(
                                     <AccionDetallada 
                                         handleChange={handleChange} 
                                         index={i} 
-                                        plantaDelHistorial={false} 
                                         expanded={expanded} 
-                                        user={props.user}
-                                        index={i} 
-                                        accion={props.plantas[props.location.props.id].fumigaciones[id]} 
-                                        tipoDeAccion='fumigaciones' 
+                                        plantaDelHistorial={true} 
+                                        user={props.user} 
+                                        accion={props.plantas[props.location.props.id].transplantes[id]} 
+                                        tipoDeAccion='transplantes' 
                                         idPlanta={props.location.props.id} 
                                         id={id} 
-                                        key={id}/>
-                                    ))
-                                    :
-                                    <>
+                                        key={id}
+                                    />
+                                ))
+                                :
+                                <>
                                     <div className="row justify-content-center mt-4">
                                         <div className="col-auto">
-                                            <h2 className='text-white'>Esta Planta aun no ha sido fumigada!</h2>
+                                            <h2 className='text-white'>Esta Planta no ha sido transplantada!</h2>
                                         </div>
                                     </div>
                                     {!props.location.props.plantaDelHistorial &&
                                         <div className="row justify-content-center mt-4">
                                             <div className="col-auto">
-                                            <button type='button' className="btn btn-link" onClick={e=>{
-                                                    props.history.push('/Insecticida')
-                                                }}>Fumigala Ahora!</button>
+                                                <button type='button' className="btn btn-link" onClick={e=>{
+                                                    props.history.push('/Transplante')
+                                                }}>Transplatala Ahora!</button>
                                             </div>
                                         </div>
                                     }
@@ -71,6 +71,6 @@ const PlantaFumigaciones =(props)=>{
 }
 const mapStateToProps=state=>({
     user:state.user.uid,
-    plantas:state.data.plantas
+    plantas:state.data.historial
 })
-export default connect(mapStateToProps,null)(PlantaFumigaciones)
+export default connect(mapStateToProps,null)(PlantaHistorialTransplantes)

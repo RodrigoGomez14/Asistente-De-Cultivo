@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme=>({
         overflow:'auto'
     }
 })) 
-const PlantaPodas =(props)=>{
+const PlantaHistorialPodas =(props)=>{
     let [expanded,setExpanded]= useState(false)
 
     const handleChange = panel => (event, isExpanded) => {
@@ -26,7 +26,7 @@ const PlantaPodas =(props)=>{
     const classes = useStyles()
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Podas'} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Podas'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
                         {props.plantas[props.location.props.id].podas?
@@ -34,7 +34,7 @@ const PlantaPodas =(props)=>{
                                 <AccionDetallada 
                                     user={props.user} 
                                     index={i}  
-                                    plantaDelHistorial={false} 
+                                    plantaDelHistorial={true} 
                                     expanded={expanded} 
                                     handleChange={handleChange} 
                                     accion={props.plantas[props.location.props.id].podas[id]} 
@@ -71,6 +71,6 @@ const PlantaPodas =(props)=>{
 }
 const mapStateToProps=state=>({
     user:state.user.uid,
-    plantas:state.data.plantas
+    plantas:state.data.historial
 })
-export default connect(mapStateToProps,null)(PlantaPodas)
+export default connect(mapStateToProps,null)(PlantaHistorialPodas)

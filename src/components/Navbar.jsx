@@ -24,7 +24,7 @@ const useStyles = makeStyles( theme=>({
     }
 }))
 
-export const NavBar = ({page,planta,history,setRedirect,setMenuOpened}) =>{
+export const NavBar = ({page,plantaId,history,plantaDelHistorial,setMenuOpened}) =>{
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -40,16 +40,36 @@ export const NavBar = ({page,planta,history,setRedirect,setMenuOpened}) =>{
             <Toolbar>
             {page!=='Armario'&&
                 <IconButton edge="end" className={classes.menuButton} onClick={e=>{
-                    if(!planta){
-                        if(history.location.pathname==='/Planta'){
-                            history.replace('/')
+                    if(plantaId){
+                        if(plantaDelHistorial){
+                            if(history.location.pathname==='/Historial/Planta'){
+                                history.replace('/Historial')
+                            }
+                            else{
+                                history.replace({
+                                    pathname:'/Historial/Planta',
+                                    props:{
+                                        id:plantaId
+                                    }
+                                })
+                            }
                         }
                         else{
-                            history.goBack()
+                            if(history.location.pathname==='/Planta'){
+                                history.replace('/')
+                            }
+                            else{
+                                history.replace({
+                                    pathname:'/Planta',
+                                    props:{
+                                        id:plantaId
+                                    }
+                                })
+                            }
                         }
                     }
                     else{
-                        setRedirect(true)
+                        history.goBack()
                     }
                 }} color="inherit" aria-label="menu">
                     <ArrowBackRounded />

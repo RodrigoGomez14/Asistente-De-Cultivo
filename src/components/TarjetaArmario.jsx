@@ -1,6 +1,8 @@
 import React from 'react'
 import {Paper,List,ListItem,ListItemText,makeStyles,Grow,Avatar} from '@material-ui/core'
 import periodoImg from '../images/periodo.svg'
+import reloj from '../images/reloj.svg'
+import ciclo from '../images/ciclo.svg'
 
 const useStyles=makeStyles(theme=>({
     paper:{
@@ -55,12 +57,15 @@ export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
                     <ListItemText className={classes.listText} primary='Periodo' secondary={periodo}/>
                 </Paper>
                 <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={ciclo} className={classes.avatar}/>
                     <ListItemText className={classes.listText} primary='Ciclo Luminico' secondary={convertirHora(cicloLuminico)}/>
                 </Paper>
                 <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={reloj} className={classes.avatar}/>
                     <ListItemText className={classes.listText} primary='Hora De Inicio' secondary={convertirHora(horaDeInicio)}/>
                 </Paper>
                 <Paper elevation={3} className={classes.paper}>
+                    <Avatar src={reloj} className={classes.avatar}/>
                     <ListItemText className={classes.listText} primary='Hora De Final' secondary={convertirHora(horaDeInicio+cicloLuminico)}/>
                 </Paper>
             </div>

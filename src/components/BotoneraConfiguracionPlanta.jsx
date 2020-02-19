@@ -1,7 +1,6 @@
 import React , {useState} from 'react'
-import {makeStyles,IconButton,Typography} from '@material-ui/core'
+import {makeStyles,IconButton,Typography,SvgIcon} from '@material-ui/core'
 import {DeleteOutline,EditOutlined,NatureOutlined} from '@material-ui/icons'
-
 const useStyles= makeStyles(theme=>({
     root:{
         width:'100%',
@@ -29,7 +28,7 @@ const useStyles= makeStyles(theme=>({
     },
 }))
 
-export const BotoneraConfiguracionPlanta =({inicioFloracion,cosecharPlanta,eliminarPlanta,}) =>{
+export const BotoneraConfiguracionPlanta =({inicioFloracion,cosecharPlanta,eliminarPlanta}) =>{
     const classes = useStyles()
     return(
         <div className={classes.root}>

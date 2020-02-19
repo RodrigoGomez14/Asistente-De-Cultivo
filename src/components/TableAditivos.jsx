@@ -29,23 +29,14 @@ const useStyles = makeStyles(theme => ({
       color: theme.palette.text.secondary,
     },
     paperMain: {
-        backgroundColor:theme.palette.secondary.light,
-        color:theme.palette.primary.contrastText
     },
     paperDark: {
         backgroundColor: theme.palette.primary.main,
-        color:theme.palette.primary.contrastText
+        color:theme.palette.primary.contrastText,
+        borderRadius:'0'
     },
     expansionPanel:{
         backgroundColor:'transparent'
-    },
-    button:{
-        color:theme.palette.primary.contrastText,
-        textShadow:'1px 1px 10px black'
-    },
-    buttonText:{
-        color:theme.palette.primary.contrastText,
-        textShadow:'1px 1px 10px white'
     },
     expandIcon:{
         color:theme.palette.primary.contrastText
@@ -53,8 +44,14 @@ const useStyles = makeStyles(theme => ({
     addButton:{
         marginBottom:theme.spacing(1),
         color:theme.palette.primary.contrastText
+    },
+    deleteButton:{
+        color:theme.palette.error.main
+    },
+    deleteText:{
+        color:theme.palette.error.main
     }
-  }));
+}));
 
 
 export const TableAditivos = ({title,aditivos,user}) =>{
@@ -140,7 +137,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                             <div className="row">
                                                 <div className="col-12 text-center">
                                                     <Typography variant='h5'>
-                                                        Dosificacion
+                                                        Dosificaciones
                                                     </Typography>
                                                 </div>
                                             </div>
@@ -164,9 +161,9 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                         variant="contained"
                                                         color="inherit"
                                                     >   
-                                                        <EditOutlined className={classes.buttonText}/>
+                                                        <EditOutlined />
                                                     </IconButton>
-                                                    <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                    <Typography variant='caption'  gutterBottom>
                                                         Editar
                                                     </Typography>
                                                 </div>
@@ -176,9 +173,9 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                         color="inherit"
                                                         onClick={e=>{eliminarAditivo(i)}}
                                                     >
-                                                        <DeleteOutline className={classes.buttonText}/>
+                                                        <DeleteOutline className={classes.deleteButton}/>
                                                     </IconButton>
-                                                    <Typography variant='caption' className={classes.buttonText} gutterBottom>
+                                                    <Typography variant='caption' className={classes.deleteText} gutterBottom>
                                                         Eliminar
                                                     </Typography>
                                                 </div>

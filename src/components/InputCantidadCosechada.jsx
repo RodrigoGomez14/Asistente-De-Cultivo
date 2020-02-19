@@ -5,7 +5,8 @@ const useStyles = makeStyles(theme=>({
     root:{
         width:'100%',
         display:'flex',
-        justifyContent:'center'
+        justifyContent:'center',
+        marginTop:theme.spacing(1)
     },
     expansionPanel:{
         width:'50%'
@@ -15,6 +16,9 @@ const useStyles = makeStyles(theme=>({
         alignItems:'center',
         justifyContent:'center'
     },
+    button:{
+        marginTop:theme.spacing(1)
+    }
 }))
 export const InputCantidadCosechada = ({inputCantidad,setInputCantidad,guardarCantidadCosechada}) =>{
     const classes = useStyles()
@@ -47,7 +51,8 @@ export const InputCantidadCosechada = ({inputCantidad,setInputCantidad,guardarCa
                     />
                     <Button
                         variant="contained"
-                        color="secondary"
+                        color="primary"
+                        className={classes.button}
                         onClick={e=>{
                             guardarCantidadCosechada()
                         }}

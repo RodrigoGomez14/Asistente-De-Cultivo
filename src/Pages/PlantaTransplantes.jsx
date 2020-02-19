@@ -4,6 +4,7 @@ import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {Layout} from './Layout'
 import {makeStyles,Paper} from '@material-ui/core'
+import {connect} from 'react-redux'
 const useStyles = makeStyles(theme=>({
     root:{
         height:'100%',
@@ -16,7 +17,7 @@ const useStyles = makeStyles(theme=>({
         overflow:'auto'
     }
 }))
-export const PlantaTransplantes =(props)=>{
+const PlantaTransplantes =(props)=>{
     let [expanded,setExpanded]= useState(false)
 
     const handleChange = panel => (event, isExpanded) => {
@@ -25,12 +26,23 @@ export const PlantaTransplantes =(props)=>{
     const classes = useStyles()
     return(
         props.location.props?
-            <Layout history={props.history} page={props.location.props.nombre+'/Transplantes'} planta={props.location.props} user={props.location.props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Transplantes'} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
-                            {props.location.props.transplantes?
-                                Object.keys(props.location.props.transplantes).reverse().map((id,i)=>(
-                                    <AccionDetallada handleChange={handleChange} index={i} expanded={expanded} plantaDelHistorial={props.location.props.plantaDelHistorial} user={props.location.props.user} accion={props.location.props.transplantes[id]} tipoDeAccion='transplantes' idPlanta={props.location.props.id} id={id} key={id}/>
+                            {props.plantas[props.location.props.id].transplantes?
+                                Object.keys(props.plantas[props.location.props.id].transplantes).reverse().map((id,i)=>(
+                                    <AccionDetallada 
+                                        handleChange={handleChange} 
+                                        index={i} 
+                                        expanded={expanded} 
+                                        plantaDelHistorial={false} 
+                                        user={props.user} 
+                                        accion={props.plantas[props.location.props.id].transplantes[id]} 
+                                        tipoDeAccion='transplantes' 
+                                        idPlanta={props.location.props.id} 
+                                        id={id} 
+                                        key={id}
+                                    />
                                 ))
                                 :
                                 <>
@@ -57,3 +69,8 @@ export const PlantaTransplantes =(props)=>{
             <Redirect to='/'/>
     )
 }
+const mapStateToProps=state=>({
+    user:state.user.uid,
+    plantas:state.data.plantas
+})
+export default connect(mapStateToProps,null)(PlantaTransplantes)

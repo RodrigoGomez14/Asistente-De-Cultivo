@@ -35,24 +35,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const Layout=({page,children,history,planta,user})=>{
+export const Layout=({page,children,history,plantaId,user,plantaDelHistorial})=>{
     const classes = useStyles();
     let [menuOpened,setMenuOpened]=useState(false)
     let [selectedTabs,setSelectedTabs]=useState('recents')
-    let [redirect,setRedirect]=useState(false)
-    if(redirect){
-        return(
-            <Redirect to={{
-                pathname:'/Planta',
-                props:{...planta}
-            }}/>
-        )
-    }
     return(
         <Paper className={classes.app}>
             {user &&
             <>
-                <NavBar page={page} planta={planta} history={history}  setRedirect={setRedirect} setMenuOpened={setMenuOpened}/>
+                <NavBar page={page} plantaId={plantaId} plantaDelHistorial={plantaDelHistorial} history={history} setMenuOpened={setMenuOpened}/>
                 <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened} image={foto} history={history}/>
             </>
             }

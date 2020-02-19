@@ -32,7 +32,7 @@ export const TarjetaPlanta=(props)=>{
                     <Link className='text-white' to={{
                         pathname:'/Planta',
                         props:{
-                            ...props
+                            id:props.id
                         }
                     }}>
                         <Card className="card" >
@@ -41,6 +41,7 @@ export const TarjetaPlanta=(props)=>{
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col text-left">
+                                            {console.log(props)}
                                             <h4 className="card-title">{props.nombre}</h4>
                                         </div>
                                     </div>

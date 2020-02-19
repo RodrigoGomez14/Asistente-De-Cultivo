@@ -9,13 +9,18 @@ const useStyles=makeStyles(theme=>({
 }))
 export const  FechaYHora=()=>{
     const classes = useStyles()
-    let [fecha,setFecha] = useState(`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`)
+    let [fecha,setFecha] = useState(`${moment().format('DD/MM/YYYY')}`)
+    let [hora,setHora] = useState(` ${moment().format('LT')}`)
     useEffect(() => {
         setInterval(() => {
-            setFecha(`${moment().format('DD/MM/YYYY')} ${moment().format('LT')}`)
+            setFecha(`${moment().format('DD/MM/YYYY')}`)
+            setHora(`${moment().format('LT')}`)
         }, 1000);
     });
     return(
-        <Typography variant='h4' className={classes.text}>{fecha}</Typography>
+        <>
+            <Typography variant='h4' className={classes.text}>{fecha}</Typography>
+            <Typography variant='h4' className={classes.text}>{hora}</Typography>
+        </>
     )
 }

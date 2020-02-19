@@ -50,10 +50,11 @@ export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
     const exaplmesForInput=['Periodo Vegetativo','Cualquier Momento','Post Germinacion']
     const classes = useStyles()
     return(
-        <div className={classes.root}>
+        <div className='container-fluid'>
             <Button
                 variant='outlined'
                 color='#fff'
+                className={classes.button}
                 startIcon={<AddOutlined/>}
                 onClick={e=>{
                     setCantidadDeDosis(cantidadDeDosis+=1)
@@ -61,9 +62,9 @@ export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
             >
                 Agregar otra dosis
             </Button>
-            <div className={classes.dosisList}>
+            <div className='row flex-nowrap overflow-auto'>
                 {new Array(cantidadDeDosis).fill(undefined).map((vacio,i)=>(
-                    <form className={classes.form}>
+                    <form className='col-auto d-flex flex-column'>
                         <TextField label="Etapa"  color='#fff' placeholder={exaplmesForInput[i]?exaplmesForInput[i]:null} onChange={e=>{
                             updateState(e.target.value,'etapa','dosis'+i)
                         }}/>

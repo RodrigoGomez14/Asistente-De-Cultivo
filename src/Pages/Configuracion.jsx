@@ -47,15 +47,17 @@ const Configuracion=(props)=>{
     return(
         <Layout history={props.history} page='Configuracion' user={props.user}>
             <Paper className={classes.root}>
-                <ListConfig 
+                <ListConfig
+                    user={props.user}
                     switchValue={switchModoOscuro} 
                     setSwitchValue={setSwitchValue} 
-                    horaDeInicio={props.horaDeInicio} 
+                    horaDeInicio={props.horaDeInicio}
                     cambiarHoraDeInicio={cambiarHoraDeInicio}
                     periodo={props.periodo} 
                     cambiarPeriodo={cambiarPeriodo}
                     cicloLuminico={props.cicloLuminico}
                     cambiarCicloLuminico={cambiarCicloLuminico}
+                    plantas={props.plantas}
                 />
             </Paper>
         </Layout>
@@ -63,6 +65,7 @@ const Configuracion=(props)=>{
 }
 const mapStateToProps = state=>({
     user:state.user.uid,
+    plantas:state.data.plantas,
     periodo:state.data.periodo,
     horaDeInicio:state.data.horaDeInicio,
     cicloLuminico:state.data.cicloLuminico

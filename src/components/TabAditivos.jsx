@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
     },
     paperDark: {
     backgroundColor: theme.palette.primary.light,
+    borderRadius:'0'
     },
     tabs:{
         "&.MuiTabs-scroller":{

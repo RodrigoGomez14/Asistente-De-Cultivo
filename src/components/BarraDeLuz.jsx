@@ -163,13 +163,13 @@ export const BarraDeLuz=(props)=>{
                     <div className="row">
                         {!lamparaEncendida?
                             <div className="col text-center">
-                                <Typography variant='h4' className={classes.text}>
+                                <Typography variant='h6' className={classes.text}>
                                     Descansando...
                                 </Typography>
                             </div>
                             :
                             <div className="col text-center">
-                                <Typography variant ='h4' className={classes.text}>
+                                <Typography variant ='h6' className={classes.text}>
                                     Creciendo...
                                 </Typography>
                             </div>

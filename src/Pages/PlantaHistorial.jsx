@@ -88,35 +88,14 @@ const getFullDate=()=>{
     const days = date.getDate()
     return`${days}/${month}/${year}`
 }
-const Planta =(props)=>{
+const PlantaHistorial =(props)=>{
     const classes = useStyles()
     let [inputCantidad, setInputCantidad]= useState(undefined)
     let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
-
-    const cosecharPlanta=async ()=>{
+    const guardarCantidadCosechada=async ()=>{
         await database().ref().child(props.user).child('historial').child(props.location.props.id).update({
-            nombre:props.plantas[props.location.props.id].nombre?props.plantas[props.location.props.id].nombre:null,
-            nacimiento:props.plantas[props.location.props.id].nacimiento?props.plantas[props.location.props.id].nacimiento:null,
-            genetica:props.plantas[props.location.props.id].genetica?props.plantas[props.location.props.id].genetica:null,
-            inicioVegetativo:props.plantas[props.location.props.id].inicioVegetativo?props.plantas[props.location.props.id].inicioVegetativo:null,
-            inicioFloracion:props.plantas[props.location.props.id].inicioFloracion?props.plantas[props.location.props.id].inicioFloracion:null,
-            podas:props.plantas[props.location.props.id].podas?props.plantas[props.location.props.id].podas:null,
-            riegos:props.plantas[props.location.props.id].riegos?props.plantas[props.location.props.id].riegos:null,
-            fumigaciones:props.plantas[props.location.props.id].fumigaciones?props.plantas[props.location.props.id].fumigaciones:null,
-            transplantes:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
-            fechaDeCorte:getFullDate()
+            cantidadDeGramos:inputCantidad+' gr'
         })
-        props.history.replace({
-            pathname:'Historial/Planta',
-            props:{
-                id:props.location.props.id
-            }
-        })
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
-    }
-    const eliminarPlanta=async ()=>{
-        props.history.replace('/')
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
     }
     const tileData=[
         {
@@ -140,15 +119,9 @@ const Planta =(props)=>{
             img:fotoPlanta,
         }
     ]
-    const comenzarVegetativo=async ()=>{
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).update({
-            inicioVegetativo:getFullDate()
-        })
-        setIniciarVegetativo(false)
-    }
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
                         <div className="row">
@@ -176,47 +149,17 @@ const Planta =(props)=>{
                                 volumenMaceta={props.plantas[props.location.props.id].volumenMaceta}
                             />
                         </div>
-                        <div className="row mt-2 justify-content-center">
-                            {props.plantas[props.location.props.id].nacimiento && !props.plantas[props.location.props.id].inicioVegetativo &&
-                                <Button variant='contained' color='primary' onClick={e=>{setIniciarVegetativo(true)}}>
-                                    Iniciar periodo Vegetativo
-                                </Button>
+                        <div className="row">
+                            {!props.plantas[props.location.props.id].cantidadDeGramos &&
+                                <InputCantidadCosechada inputCantidad={inputCantidad} setInputCantidad={setInputCantidad} guardarCantidadCosechada={guardarCantidadCosechada} />
                             }
                         </div>
-                        {iniciarVegetativo&&
-                            <Grow in={iniciarVegetativo}
-                                {...(true ? { timeout: 1500 } : {})}>
-                                <Alert variant='filled' severity='warning' className={classes.alert}>
-                                    <AlertTitle>Iniciar Vegetativo?</AlertTitle>
-                                    Si continua se guardara el dia de la fecha como el inicio del ciclo Vegetativo
-                                    <Button variant='text' color='warning' onClick={e=>{comenzarVegetativo()}}>
-                                        Continuar
-                                    </Button>
-                                </Alert>
-                            </Grow>
-                        }
                         <div className="row">
                             <DetalleAcciones
                                 history={props.history}
                                 id={props.location.props.id}
                             />
                         </div>
-                        <Divider/>
-                        <div className="row">
-                            {!props.plantas[props.location.props.id].plantaDelHistorial &&
-                                <div className={classes.rowBotonera}>
-                                    <BotoneraConfiguracionPlanta
-                                        inicioFloracion={props.plantas[props.location.props.id].inicioFloracion}
-                                        cosecharPlanta={cosecharPlanta}
-                                        eliminarPlanta={eliminarPlanta}
-                                        nacimiento={props.location.props.nacimiento}
-                                        inicioVegetativo={props.plantas[props.location.props.id].inicioVegetativo}
-                                        comenzarVegetativo={comenzarVegetativo}
-                                    />
-                                </div>
-                            }
-                        </div>
-                        <Divider/>
                     </div>
                 </Paper>
             </Layout>
@@ -226,6 +169,6 @@ const Planta =(props)=>{
 }
 const mapStateToProps=state=>({
     user:state.user.uid,
-    plantas:state.data.plantas
+    plantas:state.data.historial
 })
-export default connect(mapStateToProps,null)(Planta)
+export default connect(mapStateToProps,null)(PlantaHistorial)

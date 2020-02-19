@@ -19,6 +19,9 @@ const useStyles = makeStyles(theme=>({
     },
     textLight:{
         color:theme.palette.primary.contrastText
+    },
+    icon:{
+        color: theme.palette.primary.contrastText
     }
 }))
 const CarouselPlantas=(props)=>{
@@ -31,7 +34,7 @@ const CarouselPlantas=(props)=>{
                         <div className="col-12 text-center">
                             <Grow in={true}
                                 {...(true ? { timeout: 1500 } : {})}>
-                                <Typography variant='h5' className={classes.textLight}>
+                                <Typography variant='subtitle1' className={classes.textLight}>
                                     Plantas Dentro Del Armario
                                 </Typography>
                             </Grow>
@@ -42,19 +45,10 @@ const CarouselPlantas=(props)=>{
                             {Object.keys(props.plantas).map(key=>(
                                 <TarjetaPlanta
                                     user={props.user}
-                                    nacimiento={props.plantas[key].nacimiento} 
-                                    genetica={props.plantas[key].genetica}
-                                    inicioVegetativo={props.plantas[key].inicioVegetativo} 
-                                    inicioFloracion={props.plantas[key].inicioFloracion} 
-                                    podas={props.plantas[key].podas} 
-                                    riegos={props.plantas[key].riegos}
-                                    fumigaciones={props.plantas[key].fumigaciones}
-                                    transplantes={props.plantas[key].transplantes}
-                                    volumenMaceta={props.plantas[key].volumenMaceta}
-                                    nombre={props.plantas[key].nombre}
                                     id={key}
                                     key={key}
                                     history={props.history}
+                                    nombre={props.plantas[key].nombre}
                                 />
                             ))}
                             <div className="col-auto align-self-center">
@@ -62,10 +56,8 @@ const CarouselPlantas=(props)=>{
                                 {...(true ? { timeout: 1500 } : {})}>
                                     <Link to='/Nueva-Planta'>
                                         <IconButton
-                                            variant="contained"
-                                            color="primary"
                                         >
-                                            <AddCircleOutline />
+                                            <AddCircleOutline className={classes.icon} />
                                         </IconButton>
                                     </Link>
                                 </Grow>

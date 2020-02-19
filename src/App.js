@@ -17,15 +17,22 @@ import * as firebase from 'firebase'
 import {PantallaDeCarga} from './Pages/PantallaDeCarga';
 import Configuracion from './Pages/Configuracion';
 import Historial from './Pages/Historial';
-import {Planta} from './Pages/Planta'
-import {PlantaRiegos} from './Pages/PlantaRiegos'
-import {PlantaPodas} from './Pages/PlantaPodas'
-import {PlantaFumigaciones} from './Pages/PlantaFumigaciones'
+import Planta from './Pages/Planta'
+import PlantaHistorial from './Pages/PlantaHistorial'
+import PlantaRiegos from './Pages/PlantaRiegos'
+import PlantaFumigaciones from './Pages/PlantaFumigaciones'
+import PlantaTransplantes from './Pages/PlantaTransplantes'
+import PlantaPodas from './Pages/PlantaPodas'
+import PlantaTimeLine from './Pages/PlantaTimeLine'
+import PlantaHistorialTimeLine from './Pages/PlantaHistorialTimeLine'
+import PlantaHistorialRiegos from './Pages/PlantaHistorialRiegos'
+import PlantaHistorialFumigaciones from './Pages/PlantaHistorialFumigaciones'
+import PlantaHistorialTransplantes from './Pages/PlantaHistorialTransplantes'
+import PlantaHistorialPodas from './Pages/PlantaHistorialPodas'
 import {NotFound} from './Pages/NotFound'
 import Transplante from './Pages/Transplante'
 import NuevaPlanta from './Pages/NuevaPlanta'
 import NuevoAditivo from './Pages/NuevoAditivo'
-import {PlantaTransplantes} from './Pages/PlantaTransplantes'
 import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 
 let store 
@@ -115,17 +122,19 @@ setTheme=theme=>{
                     <Route exact path='/Configuracion' render={(props) => <Configuracion {...props} setTheme={this.setTheme} />}/>
                     <Route exact path='/Historial' component={Historial}/>
                     <Route exact path='/Planta' component={Planta}/>
+                    <Route exact path='/Historial/Planta' component={PlantaHistorial}/>
                     <Route exact path='/Nueva-Planta' component={NuevaPlanta}/>
                     <Route exact path='/Nuevo-Aditivo' component={NuevoAditivo}/>
-                    <Route exact path='/Historial/Planta' component={Planta}/>
                     <Route exact path='/Planta/Riegos' component={PlantaRiegos}/>
+                    <Route exact path='/Planta/Timeline' component={PlantaTimeLine}/>
                     <Route exact path='/Planta/Podas' component={PlantaPodas}/>
                     <Route exact path='/Planta/Transplantes' component={PlantaTransplantes}/>
                     <Route exact path='/Planta/Fumigaciones' component={PlantaFumigaciones}/>
-                    <Route exact path='/Historial/Planta/Riegos' component={PlantaRiegos}/>
-                    <Route exact path='/Historial/Planta/Podas' component={PlantaPodas}/>
-                    <Route exact path='/Historial/Planta/Transplantes' component={PlantaTransplantes}/>
-                    <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaFumigaciones}/>
+                    <Route exact path='/Historial/Planta/Riegos' component={PlantaHistorialRiegos}/>
+                    <Route exact path='/Historial/Planta/Timeline' component={PlantaHistorialTimeLine}/>
+                    <Route exact path='/Historial/Planta/Podas' component={PlantaHistorialPodas}/>
+                    <Route exact path='/Historial/Planta/Transplantes' component={PlantaHistorialTransplantes}/>
+                    <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaHistorialFumigaciones}/>
                     <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                   </Switch>
                 </HashRouter>
