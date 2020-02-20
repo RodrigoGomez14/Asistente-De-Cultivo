@@ -70,26 +70,30 @@ const PlantaTimeLine =(props)=>{
         props.location.props?
         <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Timeline'} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
-                    <Timeline lineColor={'#fff'}>
-                        {array.map((accion,i)=>(
-                            <TimelineItem
-                                dateText={accion.accion.fecha}
-                                dateInnerStyle={{ background: '#00796b', color: '#fff' }}
-                            >   
-                                <AccionDetallada 
-                                    handleChange={handleChange} 
-                                    index={i} 
-                                    expanded={expanded} 
-                                    plantaDelHistorial={false}
-                                    user={props.user} 
-                                    accion={accion.accion} 
-                                    tipoDeAccion={accion.tipoDeAccion} 
-                                    idPlanta={props.location.props.id} 
-                                    id={accion.id} 
-                                />
-                            </TimelineItem>
-                        ))}
-                    </Timeline>
+                    {array.length?
+                            <Timeline lineColor={'#fff'}>
+                                {array.map((accion,i)=>(
+                                    <TimelineItem
+                                        dateText={accion.accion.fecha}
+                                        dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                    >   
+                                        <AccionDetallada 
+                                            handleChange={handleChange} 
+                                            index={i} 
+                                            expanded={expanded} 
+                                            plantaDelHistorial={true}
+                                            user={props.user} 
+                                            accion={accion.accion} 
+                                            tipoDeAccion={accion.tipoDeAccion} 
+                                            idPlanta={props.location.props.id} 
+                                            id={accion.id} 
+                                        />
+                                    </TimelineItem>
+                                ))}
+                            </Timeline>
+                            :
+                            <Typography variant='h4'> No se ha realizando nada sobre esta planta</Typography>
+                        }
                 </Paper>
             </Layout>
             :

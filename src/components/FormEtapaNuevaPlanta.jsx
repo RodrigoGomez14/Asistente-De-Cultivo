@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Paper, TextField,makeStyles,Typography,FormControl,InputLabel,Select,MenuItem,Button,InputAdornment} from '@material-ui/core'
+import {Paper, TextField,makeStyles,Typography,FormControlLabel,InputLabel,Select,MenuItem,Button,InputAdornment,Input} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab'
 import {CheckCircleOutlineOutlined} from '@material-ui/icons'
 const useStyles = makeStyles(theme=>({
@@ -30,16 +30,45 @@ const useStyles = makeStyles(theme=>({
         marginTop:theme.spacing(3)
     }
 }))
+
 export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacion,setInicioGerminacion,inicioVegetativo,setInicioVegetativo,inicioFloracion,setInicioFloracion,etapa})=>{
     const classes = useStyles()
     const date = getFullDate()
     const renderInputs=()=>{
         switch (etapa) {
+            case 'Germinacion':
+                if(periodoArmario==='Vegetativo'){
+                    return(
+                        <div className={classes.inputWrapper}>
+                            <FormControlLabel
+                                label='Inicio de Germinacion'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                }
+                            />
+                        </div>
+                    )
+                }
+                else{
+                    return(
+                        <Alert variant='outlined' severity="error">
+                            <AlertTitle>No es recomendable introducir una semilla germinando en un armario con periodo de Floracion</AlertTitle>
+                        </Alert>
+                    )
+                }
+                break;
             case 'Vegetativo':
                 if(periodoArmario===etapa ){
                     return(
                         <div className={classes.inputWrapper}>
-                            <TextField label="Incio Germinacion" value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                            <FormControlLabel
+                                label='Inicio de Germinacion'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                }
+                            />
                         </div>
                     )
                 }
@@ -47,10 +76,23 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                     return(
                         <>
                             <Alert variant='outlined' severity="warning">
-                                <AlertTitle>Si ingresa esta planta al armario comenzara su periodo de floracion</AlertTitle>
+                                <AlertTitle>Si ingresa esta planta al armario comenzara su periodo de floracion el dia de hoy</AlertTitle>
                             </Alert>
                             <div className={classes.inputWrapper}> 
-                                <TextField label="Incio Germinacion" value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                            <FormControlLabel
+                                label='Inicio de Germinacion'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                }
+                            />
+                                <FormControlLabel
+                                label='Inicio de Vegetativo'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
+                                }
+                            />
                             </div>
                         </>
                     )
@@ -60,9 +102,27 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                 if(periodoArmario===etapa){
                     return(
                         <div className={classes.inputWrapper}>
-                            <TextField label="Incio Germinacion" value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
-                            <TextField label="Incio Vegetativo" value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
-                            <TextField label="Incio Floracion" value={inicioFloracion} placeholder={date} onChange={e=>{setInicioFloracion(e.target.value)}}/>
+                            <FormControlLabel
+                                label='Inicio de Germinacion'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                }
+                            />
+                                <FormControlLabel
+                                label='Inicio de Vegetativo'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
+                                }
+                            />
+                            <FormControlLabel
+                                label='Inicio de Floracion'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioFloracion} placeholder={date} onChange={e=>{setInicioFloracion(e.target.value)}}/>
+                                }
+                            />
                         </div>
                     )
                 }

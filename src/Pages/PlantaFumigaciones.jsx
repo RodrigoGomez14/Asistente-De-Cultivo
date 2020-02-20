@@ -5,6 +5,8 @@ import { Redirect } from 'react-router'
 import {Layout} from './Layout'
 import {makeStyles,Paper} from '@material-ui/core'
 import {connect} from 'react-redux'
+import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
+
 const useStyles = makeStyles(theme=>({
     root:{
         height:'100%',
@@ -30,20 +32,29 @@ const PlantaFumigaciones =(props)=>{
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
                             {props.plantas[props.location.props.id].fumigaciones?
-                                Object.keys(props.plantas[props.location.props.id].fumigaciones).reverse().map((id,i)=>(
-                                    <AccionDetallada 
-                                        handleChange={handleChange} 
-                                        index={i} 
-                                        plantaDelHistorial={false} 
-                                        expanded={expanded} 
-                                        user={props.user}
-                                        index={i} 
-                                        accion={props.plantas[props.location.props.id].fumigaciones[id]} 
-                                        tipoDeAccion='fumigaciones' 
-                                        idPlanta={props.location.props.id} 
-                                        id={id} 
-                                        key={id}/>
-                                    ))
+                                <Timeline lineColor={'#ddd'}>
+                                    {Object.keys(props.plantas[props.location.props.id].fumigaciones).reverse().map((id,i)=>(
+                                        <TimelineItem
+                                            dateText={props.plantas[props.location.props.id].fumigaciones[id].fecha}
+                                            dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                        > 
+                                            <AccionDetallada 
+                                                handleChange={handleChange} 
+                                                index={i} 
+                                                plantaDelHistorial={false} 
+                                                expanded={expanded} 
+                                                user={props.user}
+                                                index={i} 
+                                                accion={props.plantas[props.location.props.id].fumigaciones[id]} 
+                                                tipoDeAccion='fumigaciones' 
+                                                idPlanta={props.location.props.id} 
+                                                id={id} 
+                                                key={id}
+                                            />
+                                        </TimelineItem>
+                                        ))}
+                                </Timeline>
+                                
                                     :
                                     <>
                                     <div className="row justify-content-center mt-4">
@@ -51,15 +62,13 @@ const PlantaFumigaciones =(props)=>{
                                             <h2 className='text-white'>Esta Planta aun no ha sido fumigada!</h2>
                                         </div>
                                     </div>
-                                    {!props.location.props.plantaDelHistorial &&
-                                        <div className="row justify-content-center mt-4">
-                                            <div className="col-auto">
-                                            <button type='button' className="btn btn-link" onClick={e=>{
-                                                    props.history.push('/Insecticida')
-                                                }}>Fumigala Ahora!</button>
-                                            </div>
+                                    <div className="row justify-content-center mt-4">
+                                        <div className="col-auto">
+                                        <button type='button' className="btn btn-link" onClick={e=>{
+                                                props.history.push('/Insecticida')
+                                            }}>Fumigala Ahora!</button>
                                         </div>
-                                    }
+                                    </div>
                                 </>
                             }
                     </div>

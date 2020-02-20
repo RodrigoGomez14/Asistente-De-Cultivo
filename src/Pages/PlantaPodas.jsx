@@ -5,6 +5,8 @@ import { Redirect } from 'react-router'
 import {Layout} from './Layout'
 import {makeStyles,Paper} from '@material-ui/core'
 import {connect} from 'react-redux'
+import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
+
 const useStyles = makeStyles(theme=>({
     root:{
         height:'100%',
@@ -30,20 +32,27 @@ const PlantaPodas =(props)=>{
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
                         {props.plantas[props.location.props.id].podas?
-                            Object.keys(props.plantas[props.location.props.id].podas).reverse().map((id,i)=>(
-                                <AccionDetallada 
-                                    user={props.user} 
-                                    index={i}  
-                                    plantaDelHistorial={false} 
-                                    expanded={expanded} 
-                                    handleChange={handleChange} 
-                                    accion={props.plantas[props.location.props.id].podas[id]} 
-                                    tipoDePoda={props.plantas[props.location.props.id].podas[id].tipoDePoda}
-                                    tipoDeAccion='podas' 
-                                    idPlanta={props.location.props.id} 
-                                    id={id} 
-                                    key={id}/>
-                                ))
+                        <Timeline lineColor={'#ddd'}>
+                            {Object.keys(props.plantas[props.location.props.id].podas).reverse().map((id,i)=>(
+                                <TimelineItem
+                                dateText={props.plantas[props.location.props.id].podas[id].fecha}
+                                dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                >
+                                    <AccionDetallada 
+                                        user={props.user} 
+                                        index={i}  
+                                        plantaDelHistorial={false} 
+                                        expanded={expanded} 
+                                        handleChange={handleChange} 
+                                        accion={props.plantas[props.location.props.id].podas[id]} 
+                                        tipoDePoda={props.plantas[props.location.props.id].podas[id].tipoDePoda}
+                                        tipoDeAccion='podas' 
+                                        idPlanta={props.location.props.id} 
+                                        id={id} 
+                                        key={id}/>
+                                </TimelineItem>
+                                ))}
+                        </Timeline>
                                 :
                                 <>
                                 <div className="row justify-content-center mt-4">
@@ -51,15 +60,13 @@ const PlantaPodas =(props)=>{
                                         <h2 className='text-white'>Esta Planta no ha sido podada!</h2>
                                     </div>
                                 </div>
-                                {!props.location.props.plantaDelHistorial &&
-                                    <div className="row justify-content-center mt-4">
-                                        <div className="col-auto">
-                                        <button type='button' className="btn btn-link" onClick={e=>{
-                                            props.history.push('/Poda')
-                                        }}>Podala Ahora!</button>
-                                        </div>
+                                <div className="row justify-content-center mt-4">
+                                    <div className="col-auto">
+                                    <button type='button' className="btn btn-link" onClick={e=>{
+                                        props.history.push('/Poda')
+                                    }}>Podala Ahora!</button>
                                     </div>
-                                }
+                                </div>
                             </>
                         }
                     </div>        

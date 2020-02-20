@@ -1,11 +1,12 @@
-import React,{useState}from 'react'
+import React,{useState, useEffect}from 'react'
 import {Layout} from './Layout'
 import {DetallePlanta} from '../components/DetallePlanta'
 import {DetalleAcciones} from '../components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {makeStyles,GridListTile,CardMedia,Paper,GridList, Divider,Button,Grow} from '@material-ui/core'
+import {makeStyles,GridListTile,CardMedia,Card,Paper,GridList, Divider,Button,Grow,Input,Typography, IconButton,TextField} from '@material-ui/core'
+import {AddAPhotoOutlined} from '@material-ui/icons'
 import {Alert,AlertTitle} from '@material-ui/lab'
-import {database} from 'firebase'
+import {database,storage} from 'firebase'
 import moment from 'moment'
 import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
 import fotoPlanta from '../images/apple cookies.jpg'
@@ -78,6 +79,12 @@ const useStyles=makeStyles(theme=>({
         '& .MuiAlert-message':{
             width:'100%'
         }
+    },
+    paperTile:{
+        width:'100% !important',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'center'
     }
 }))
 const getFullDate=()=>{
@@ -92,7 +99,9 @@ const Planta =(props)=>{
     const classes = useStyles()
     let [inputCantidad, setInputCantidad]= useState(undefined)
     let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
-
+    let [addPhoto, setAddPhoto]= useState(false)
+    let [photos,setPhotos]=useState([])
+    let [loading,setLoading]=useState(true)
     const cosecharPlanta=async ()=>{
         await database().ref().child(props.user).child('historial').child(props.location.props.id).update({
             nombre:props.plantas[props.location.props.id].nombre?props.plantas[props.location.props.id].nombre:null,
@@ -118,34 +127,63 @@ const Planta =(props)=>{
         props.history.replace('/')
         await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
     }
-    const tileData=[
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },{
-            img:fotoPlanta,
+    useEffect(()=>{
+        const fetchPhotos=async ()=>{
+            var refStorage = await storage().ref().child(`${props.user}`);
+            var photos = await refStorage.list({maxResults:50});
+            const arrayPhotos = await photos.items.map(item=>{
+                let aux = []
+                item.getDownloadURL().then(url=>{
+                    console.log(url)
+                    aux.push(url)
+                })
+                return aux
+            })
+            console.log(arrayPhotos)
+            return arrayPhotos
         }
-        ,{
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        }
-    ]
+        fetchPhotos().then((arr)=>{
+            console.log(arr)
+            setPhotos(arr)
+            setLoading(false)
+        })
+    },[false])
     const comenzarVegetativo=async ()=>{
         await database().ref().child(props.user).child('plantas').child(props.location.props.id).update({
             inicioVegetativo:getFullDate()
         })
         setIniciarVegetativo(false)
     }
+    const subirNuevaFoto= async (foto)=>{
+        var refStorage = await storage().ref().child(`${props.user}/${props.location.props.id}`);
+        
+    }
+    /*{!loading?
+        photos.length?
+            photos.map(tile => (
+            <GridListTile key={tile.img} className={classes.tile}>
+                {console.log(tile)}
+                <img src={tile}/>
+            </GridListTile>
+            ))
+            :
+            <Paper
+                className={classes.paperTile}
+                elevation={3}
+            >
+                <IconButton
+                    onClick={e=>{setAddPhoto(true)}}
+                    variant="contained"
+                    >
+                    <AddAPhotoOutlined/>
+                </IconButton>
+                <Typography variant='caption'>No hay Fotos Agrega Una</Typography>
+            </Paper>
+        :
+        <Paper>
+            ...cargando...
+        </Paper>
+    }*/
     return(
         props.location.props?
             <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user}>
@@ -153,16 +191,17 @@ const Planta =(props)=>{
                     <div className="container-fluid">
                         <div className="row">
                             <GridList className={classes.gridList} cols={2.5}>
-                                {tileData.map(tile => (
-                                <GridListTile key={tile.img} className={classes.tile}>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={fotoPlanta}
-                                    />
-                                </GridListTile>
-                                ))}
+
                             </GridList>
                         </div>
+                        {addPhoto&&
+                        <Grow in={iniciarVegetativo}
+                        {...(true ? { timeout: 1500 } : {})}>
+                            <>
+                                <TextField type='file' variant='outlined' onChange={e=>{subirNuevaFoto(e.target.files[0])}}/>
+                            </>
+                        </Grow>
+                        }
                         <div className="row">
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
@@ -176,13 +215,15 @@ const Planta =(props)=>{
                                 volumenMaceta={props.plantas[props.location.props.id].volumenMaceta}
                             />
                         </div>
-                        <div className="row mt-2 justify-content-center">
-                            {props.plantas[props.location.props.id].nacimiento && !props.plantas[props.location.props.id].inicioVegetativo &&
-                                <Button variant='contained' color='primary' onClick={e=>{setIniciarVegetativo(true)}}>
-                                    Iniciar periodo Vegetativo
-                                </Button>
-                            }
-                        </div>
+                        {!props.plantas[props.location.props.id].inicioFloracion &&
+                            <div className="row mt-2 justify-content-center">
+                                {props.plantas[props.location.props.id].nacimiento && !props.plantas[props.location.props.id].inicioVegetativo &&
+                                    <Button variant='contained' color='primary' onClick={e=>{setIniciarVegetativo(true)}}>
+                                        Iniciar periodo Vegetativo
+                                    </Button>
+                                }
+                            </div>
+                        }
                         {iniciarVegetativo&&
                             <Grow in={iniciarVegetativo}
                                 {...(true ? { timeout: 1500 } : {})}>

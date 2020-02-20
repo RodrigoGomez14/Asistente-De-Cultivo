@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme=>({
     },
     formControl: {
         margin: theme.spacing(1),
-        width: 120,
     },
     input:{
         marginTop:theme.spacing(1),
@@ -26,6 +25,9 @@ const useStyles = makeStyles(theme=>({
         display:'flex',
         justifyContent:'space-around',
         marginTop:theme.spacing(1)
+    },
+    select:{
+        width:'100%'
     }
 }))
 
@@ -36,12 +38,13 @@ export const FormCaracteristicasNuevaPlanta =({nombre,setNombre,genetica,setGene
     return(
         <div className={classes.root}>
             <form className={classes.form}>
-                <TextField label="Nombre" className={classes.input} value={nombre} onChange={e=>{setNombre(e.target.value)}}/>
-                <TextField label="Genetica"  className={classes.input} value={genetica} onChange={e=>{setGenetica(e.target.value)}}/>
+                <TextField label="Nombre" className={classes.input} value={nombre} placeholder='Planta 1' onChange={e=>{setNombre(e.target.value)}}/>
+                <TextField label="Genetica"  className={classes.input} value={genetica} placeholder='Purple Kush' onChange={e=>{setGenetica(e.target.value)}}/>
                 <TextField 
                     label="Volumen De Maceta" 
                     className={classes.formControl}
-                    value={volumenMaceta} 
+                    value={volumenMaceta}
+                    placeholder={10}
                     type='number'  
                     InputProps={{
                         startAdornment: (
@@ -51,7 +54,7 @@ export const FormCaracteristicasNuevaPlanta =({nombre,setNombre,genetica,setGene
                         ),
                     }}
                     onChange={e=>{setVolumenMaceta(e.target.value)}}/>
-                <FormControl className={classes.formControl}>
+                <FormControl className={classes.select}>
                     <InputLabel id="etapa-select-label">Etapa</InputLabel>
                     <Select
                         labelId="etapa-select-label"
@@ -69,6 +72,7 @@ export const FormCaracteristicasNuevaPlanta =({nombre,setNombre,genetica,setGene
                             }
                         }
                     >
+                        <MenuItem value={'Germinacion'}>Germinacion</MenuItem>
                         <MenuItem value={'Vegetativo'}>Vegetativo</MenuItem>
                         <MenuItem value={'Floracion'}>Floracion</MenuItem>
                     </Select>

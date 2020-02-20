@@ -28,6 +28,12 @@ const getFullDate=()=>{
     const days = date.getDate()
     return`${days}/${month}/${year}`
 }
+const convertirFecha=fecha=>{
+    const year = fecha.slice(0,fecha.indexOf('-'))
+    const month=fecha.slice(fecha.indexOf('-')+1,fecha.lastIndexOf('-'))
+    const day=fecha.slice(fecha.lastIndexOf('-')+1)
+    return `${day}/${month}/${year}`
+}
 const  NuevaPlanta=(props)=>{
     const classes = useStyles()
     let [nombre,setNombre]=useState(undefined)
@@ -44,9 +50,9 @@ const  NuevaPlanta=(props)=>{
             nombre:nombre,
             genetica:genetica?genetica:'Desconocida',
             volumenMaceta:volumenMaceta?volumenMaceta:null,
-            nacimiento:inicioGerminacion?inicioGerminacion:null,
-            inicioVegetativo:inicioVegetativo?inicioVegetativo:null,
-            inicioFloracion:props.periodo==='Floracion'?getFullDate():null
+            nacimiento:inicioGerminacion?convertirFecha(inicioGerminacion):null,
+            inicioVegetativo:inicioVegetativo?convertirFecha(inicioVegetativo):null,
+            inicioFloracion:inicioFloracion?convertirFecha(inicioFloracion):props.periodo==='Floracion'? getFullDate():null
         })
         props.history.replace('/')
     }
@@ -55,6 +61,7 @@ const  NuevaPlanta=(props)=>{
             <StepperAccion
                 tipoDeAccion='Nueva Planta'
                 confirmarAccion={guardarNuevaPlantaDB}
+                nombre={nombre}
                 etapa={etapa}
                 steps={[
                     {

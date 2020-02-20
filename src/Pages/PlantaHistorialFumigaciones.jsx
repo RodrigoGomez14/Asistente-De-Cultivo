@@ -43,24 +43,13 @@ const PlantaHistorialFumigaciones =(props)=>{
                                         idPlanta={props.location.props.id} 
                                         id={id} 
                                         key={id}/>
-                                    ))
-                                    :
-                                    <>
-                                    <div className="row justify-content-center mt-4">
-                                        <div className="col-auto">
-                                            <h2 className='text-white'>Esta Planta aun no ha sido fumigada!</h2>
-                                        </div>
+                                ))
+                                :
+                                <div className="row justify-content-center mt-4">
+                                    <div className="col-auto">
+                                        <h2 className='text-white'>Esta Planta aun no ha sido fumigada!</h2>
                                     </div>
-                                    {!props.location.props.plantaDelHistorial &&
-                                        <div className="row justify-content-center mt-4">
-                                            <div className="col-auto">
-                                            <button type='button' className="btn btn-link" onClick={e=>{
-                                                    props.history.push('/Insecticida')
-                                                }}>Fumigala Ahora!</button>
-                                            </div>
-                                        </div>
-                                    }
-                                </>
+                                </div>
                             }
                     </div>
                 </Paper>

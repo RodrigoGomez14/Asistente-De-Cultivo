@@ -43,24 +43,13 @@ const PlantaHistorialPodas =(props)=>{
                                     idPlanta={props.location.props.id} 
                                     id={id} 
                                     key={id}/>
-                                ))
-                                :
-                                <>
-                                <div className="row justify-content-center mt-4">
-                                    <div className="col-auto">
-                                        <h2 className='text-white'>Esta Planta no ha sido podada!</h2>
-                                    </div>
+                            ))
+                            :
+                            <div className="row justify-content-center mt-4">
+                                <div className="col-auto">
+                                    <h2 className='text-white'>Esta Planta no ha sido podada!</h2>
                                 </div>
-                                {!props.location.props.plantaDelHistorial &&
-                                    <div className="row justify-content-center mt-4">
-                                        <div className="col-auto">
-                                        <button type='button' className="btn btn-link" onClick={e=>{
-                                            props.history.push('/Poda')
-                                        }}>Podala Ahora!</button>
-                                        </div>
-                                    </div>
-                                }
-                            </>
+                            </div>
                         }
                     </div>        
                 </Paper>

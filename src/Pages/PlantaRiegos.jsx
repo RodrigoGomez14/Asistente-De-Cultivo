@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme=>({
 }))
 const PlantaRiegos =(props)=>{
     let [expanded,setExpanded]= useState(false)
-
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
@@ -35,21 +34,21 @@ const PlantaRiegos =(props)=>{
                                 <Timeline lineColor={'#ddd'}>
                                         {Object.keys(props.plantas[props.location.props.id].riegos).reverse().map((id,i)=>(
                                             <TimelineItem
-                                            dateText="10/04/2009"
-                                            dateInnerStyle={{ background: '#00796b', color: '#fff' }}
-                                        >   
-                                             <AccionDetallada 
-                                                handleChange={handleChange} 
-                                                index={i} 
-                                                expanded={expanded} 
-                                                plantaDelHistorial={false}
-                                                user={props.user} 
-                                                accion={props.plantas[props.location.props.id].riegos[id]} 
-                                                tipoDeAccion='riegos' 
-                                                idPlanta={props.location.props.id} 
-                                                id={id} 
-                                                id={id}
-                                            />
+                                                dateText={props.plantas[props.location.props.id].riegos[id].fecha}
+                                                dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                            >   
+                                                <AccionDetallada 
+                                                    handleChange={handleChange} 
+                                                    index={i} 
+                                                    expanded={expanded} 
+                                                    plantaDelHistorial={false}
+                                                    user={props.user} 
+                                                    accion={props.plantas[props.location.props.id].riegos[id]} 
+                                                    tipoDeAccion='riegos' 
+                                                    idPlanta={props.location.props.id} 
+                                                    id={id} 
+                                                    id={id}
+                                                />
                                         </TimelineItem>
                                         ))}
                                 </Timeline>
@@ -60,15 +59,13 @@ const PlantaRiegos =(props)=>{
                                             <h2 className='text-white'>Esta Planta no ha sido regada!</h2>
                                         </div>
                                     </div>
-                                    {!props.location.props.plantaDelHistorial &&
-                                        <div className="row justify-content-center mt-4">
-                                            <div className="col-auto">
-                                                <button type='button' className="btn btn-link" onClick={e=>{
-                                                    props.history.push('/Riego')
-                                                }}>Riegala Ahora!</button>
-                                            </div>
+                                    <div className="row justify-content-center mt-4">
+                                        <div className="col-auto">
+                                            <button type='button' className="btn btn-link" onClick={e=>{
+                                                props.history.push('/Riego')
+                                            }}>Riegala Ahora!</button>
                                         </div>
-                                    }
+                                    </div>
                                 </>
                             }
                     </div>

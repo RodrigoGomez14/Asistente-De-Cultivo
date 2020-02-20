@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom'
 import {Button,Typography} from '@material-ui/core'
 import {CardHistorial} from '../components/CardHistorial'
 import {makeStyles,Paper} from '@material-ui/core'
+import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
 
 const useStyles=makeStyles(theme=>({
     root:{
@@ -24,29 +25,30 @@ const Historial=(props)=>{
     return(
         <Layout history={props.history} page={'Historial'} user={props.user}>
             <Paper elevation={3} className={classes.root}>
-                <div className="container-fluid">
-                    <div className="row flex-nowrap">
-                        {props.historial?
-                            Object.keys(props.historial).map(planta=>(
-                                <div className="col-auto mt-3">
-                                    <Link className='text-white' to={{
-                                        pathname:'/Historial/Planta',
-                                        props:{
-                                            id:planta,
-                                        }
-                                    }}>
-                                        <CardHistorial cantidadDeGramos={props.historial[planta].cantidadDeGramos} nombre={props.historial[planta].nombre} fechaDeCorte={props.historial[planta].fechaDeCorte}/>
-                                    </Link>
-                                </div>
-                            )):
-                            <div className="col-auto">
-                                <Typography>
-                                    No hay plantas en el historial
-                                </Typography>
-                            </div>
-                        }
-                    </div>
-                </div>
+                <Timeline lineColor={'#ddd'}>
+                    {props.historial?
+                        Object.keys(props.historial).reverse().map(planta=>(
+                            <TimelineItem
+                                dateText={props.historial[planta].fechaDeCorte}
+                                dateInnerStyle={{ background: '#00796b', color: '#fff', width:'250px'}}
+                            >
+                                <Link className='text-white' to={{
+                                    pathname:'/Historial/Planta',
+                                    props:{
+                                        id:planta,
+                                    }
+                                }}>
+                                    <CardHistorial cantidadDeGramos={props.historial[planta].cantidadDeGramos} nombre={props.historial[planta].nombre} fechaDeCorte={props.historial[planta].fechaDeCorte}/>
+                                </Link>
+                            </TimelineItem>
+                        )):
+                        <div className="col-auto">
+                            <Typography>
+                                No hay plantas en el historial
+                            </Typography>
+                        </div>
+                    }
+                </Timeline>
             </Paper>
         </Layout>
     )

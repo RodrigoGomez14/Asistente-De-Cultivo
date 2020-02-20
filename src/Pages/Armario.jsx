@@ -8,10 +8,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import '../components/styles/alertPlanta.css'
 import './styles/Accion.css'
 import {connect} from 'react-redux'
-import  {database} from 'firebase'
+import  {database,storage} from 'firebase'
 import {Layout} from './Layout'
-import {makeStyles,Paper} from '@material-ui/core'
+import {makeStyles,Paper,Input,Button, TextField} from '@material-ui/core'
 import { Redirect } from 'react-router';
+
 
 const useStyles=makeStyles(theme=>({
     root:{
@@ -42,6 +43,11 @@ const Armario=(props)=>{
             horaDeFinal: parseInt(horas)
         })
     }
+    let [file,setFile]=useState(undefined)
+    const subirImagen=(file)=>{
+
+    } 
+    
     if(!props.periodo||!props.horaDeInicio||!props.cicloLuminico){
         return(
             <Redirect to='/Configuracion'/>

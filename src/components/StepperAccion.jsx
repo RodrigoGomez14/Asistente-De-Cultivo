@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants,nuevaMaceta,etapa})=>{
+export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,resumenAccion,tipoDeAccion,tipoDePoda,selectedPlants,nuevaMaceta,etapa,nombre})=>{
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -84,7 +84,7 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
   const setDisabled=(activeStep,tipoDeRiego,cantidadDeAgua)=>{
     if(tipoDeAccion==='Nueva Planta'){
       if(activeStep===0){
-        return etapa?false:true
+        return etapa && nombre?false:true
       }
     }
     else if(tipoDeAccion==='Nuevo Aditivo'){

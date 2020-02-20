@@ -68,10 +68,55 @@ class Insecticida extends Component{
         await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
-            fecha:moment().format('LLL'),
+            fecha:this.translateMonth(moment().format('LLL')),
             aditivos:insecticidasFinal,
             tipoDeRiego:tipoDeRiego
         })
+    }
+    translateMonth=date=>{
+        const month = date.slice(0,date.indexOf(' '))
+        const newDate = date.slice(date.indexOf(' ')+1)
+        switch (month) {
+            case 'January':
+                return `Enero ${newDate}`
+                break;
+            case 'February':
+                return `Febrero ${newDate}`
+                break;
+            case 'March':
+                return `Marzo ${newDate}`
+                break;
+            case 'April':
+                return `Abril ${newDate}`
+                break;
+            case 'May':
+                return `Mayo ${newDate}`
+                break;
+            case 'June':
+                return `Junio ${newDate}`
+                break;
+            case 'July':
+                return `Julio ${newDate}`
+                break;
+            case 'August':
+                return `Agosto ${newDate}`
+                break;
+            case 'September':
+                return `Septiembre ${newDate}`
+                break;
+            case 'October':
+                return `Octubre ${newDate}`
+                break;
+            case 'November':
+                return `Noviembre ${newDate}`
+                break;
+            case 'December':
+                return `Diciembre ${newDate}`
+                break;
+            default:
+            break;
+        }
+        return date
     }
     cambiarTipoDeRiego=(tipoDeRiego)=>{
         this.setState({
