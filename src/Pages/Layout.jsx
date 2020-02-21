@@ -44,7 +44,9 @@ export const Layout=({page,children,history,plantaId,user,plantaDelHistorial})=>
             {user &&
             <>
                 <NavBar page={page} plantaId={plantaId} plantaDelHistorial={plantaDelHistorial} history={history} setMenuOpened={setMenuOpened}/>
-                <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened} image={foto} history={history}/>
+                <Paper elevation={6}>
+                    <MenuDrawer menuOpened={menuOpened} setMenuOpened={setMenuOpened} image={foto} history={history}/>
+                </Paper>
             </>
             }
             {children}

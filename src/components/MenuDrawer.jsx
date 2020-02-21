@@ -1,9 +1,9 @@
 import React from 'react'
 import {auth} from 'firebase'
-import {Card,CardMedia,} from '@material-ui/core'
-import {HomeOutlined,NatureOutlined} from '@material-ui/icons'
+import {Card,CardMedia,IconButton} from '@material-ui/core'
+import {HomeOutlined,NatureOutlined,ArrowBackOutlined} from '@material-ui/icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTint, faCut , faBug , faCogs, faTimes} from '@fortawesome/free-solid-svg-icons'
+import { faTint, faCut , faBug , faCogs,faTimes } from '@fortawesome/free-solid-svg-icons'
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import {makeStyles} from '@material-ui/core/styles';
@@ -15,9 +15,10 @@ import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme=>({
     paper:{
-        maxWidth:'300px',
-        height:'100%',
-        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.main
+        maxWidth:'280px',
+        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.main,
+        overflow:'auto',
+        height:'100%'
     },
     icon:{
         color:

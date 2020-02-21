@@ -15,7 +15,7 @@ const useStyles=makeStyles(theme=>({
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
-        minWidth:'220px'
+        width:'180px'
     },
     listText:{
         color:theme.palette.primary.contrastText,
@@ -50,25 +50,33 @@ export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
     const classes = useStyles()
     return(
         <Grow in={true}
-            {...(true ? { timeout: 1500 } : {})}>
-            <div className={classes.itemList}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={periodoImg} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Periodo' secondary={periodo}/>
-                </Paper>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={ciclo} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Ciclo Luminico' secondary={convertirHora(cicloLuminico)}/>
-                </Paper>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={reloj} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Hora De Inicio' secondary={convertirHora(horaDeInicio)}/>
-                </Paper>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={reloj} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Hora De Final' secondary={convertirHora(horaDeInicio+cicloLuminico)}/>
-                </Paper>
-            </div>
+        {...(true ? { timeout: 1500 } : {})}>
+            <>
+                <div className="col-auto p-0">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={periodoImg} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Periodo' secondary={periodo}/>
+                    </Paper>
+                </div>
+                <div className="col-auto p-0">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={ciclo} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Ciclo Luminico' secondary={convertirHora(cicloLuminico)}/>
+                    </Paper>
+                </div>
+                <div className="col-auto p-0">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={reloj} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Hora De Inicio' secondary={convertirHora(horaDeInicio)}/>
+                    </Paper>
+                </div>
+                <div className="col-auto p-0">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={reloj} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Hora De Final' secondary={convertirHora(horaDeInicio+cicloLuminico)}/>
+                    </Paper>
+                </div>
+            </>
         </Grow>
     )
 }

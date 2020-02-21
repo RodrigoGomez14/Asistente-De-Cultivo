@@ -18,13 +18,14 @@ const useStyles = makeStyles(theme => ({
     paper:{
         backgroundColor:theme.palette.primary.main,
         padding:theme.spacing(1),
+        flexGrow:'1',
         marginTop:theme.spacing(2),
         marginLeft:theme.spacing(1),
         marginRight:theme.spacing(1),
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
-        minWidth:'220px'
+        width:'180px',
     },
     listText:{
         color:theme.palette.primary.contrastText,
@@ -71,60 +72,56 @@ export const DetallePlanta=(props)=>{
     const classes = useStyles()
             
     return(
-        <div className={classes.itemList}>
-            <Grow in={true}
-                {...(true ? { timeout: 1500 } : {})}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={adn} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Genetica' secondary={props.genetica}/>
-                </Paper>
-            </Grow>
-            <Grow in={true}
-                {...(true ? { timeout: 1500 } : {})}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={maceta} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={`${props.volumenMaceta} Lt`}/>
-                </Paper>
-            </Grow>
-            <Grow in={true}
-            {...(true ? { timeout: 1500 } : {})}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={semilla} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Inicio De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
-                </Paper>
-            </Grow>
-            <Grow in={true}
-            {...(true ? { timeout: 1500 } : {})}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={vegetativo} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Inicio De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
-                </Paper>
-            </Grow>
-            <Grow in={true}
-            {...(true ? { timeout: 1500 } : {})}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Avatar src={floracion} className={classes.avatar}/>
-                    <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
-                </Paper>
-            </Grow>
-            {props.fechaDeCorte &&
-                <Grow in={true}
-                {...(true ? { timeout: 1500 } : {})}>
+        <Grow in={true}
+        {...(true ? { timeout: 1500 } : {})}>
+            <>
+                <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
-                        <Avatar src={cosecha} className={classes.avatar}/>
-                        <ListItemText className={classes.listText} primary='Fecha De Corte' secondary={props.fechaDeCorte}/>
+                        <Avatar src={adn} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Genetica' secondary={props.genetica}/>
                     </Paper>
-                </Grow>
-            }
-            {props.cantidadDeGramos &&
-                <Grow in={true}
-                {...(true ? { timeout: 1500 } : {})}>
+                </div>
+                <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
-                        <Avatar src={balanza} className={classes.avatar}/>
-                        <ListItemText className={classes.listText} primary='Cantidad Cosechada' secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
+                        <Avatar src={maceta} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={`${props.volumenMaceta} Lt`}/>
                     </Paper>
-                </Grow>
-            }
-        </div>
+                </div>
+                <div className="col-auto">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={semilla} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Inicio De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
+                    </Paper>
+                </div>
+                <div className="col-auto">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={vegetativo} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Inicio De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
+                    </Paper>
+                </div>
+                <div className="col-auto">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={floracion} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
+                    </Paper>
+                </div>
+                {props.fechaDeCorte &&
+                    <div className="col-auto">
+                        <Paper elevation={3} className={classes.paper}>
+                            <Avatar src={cosecha} className={classes.avatar}/>
+                            <ListItemText className={classes.listText} primary='Fecha De Corte' secondary={props.fechaDeCorte}/>
+                        </Paper>
+                    </div>
+                }
+                {props.cantidadDeGramos &&
+                    <div className="col-auto">
+                        <Paper elevation={3} className={classes.paper}>
+                            <Avatar src={balanza} className={classes.avatar}/>
+                            <ListItemText className={classes.listText} primary='Cantidad Cosechada' secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
+                        </Paper>
+                    </div>
+                }
+            </>
+        </Grow>
     )
 }

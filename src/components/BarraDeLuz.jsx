@@ -15,6 +15,11 @@ const useStyles = makeStyles(theme => ({
     },
     text:{
         color: theme.palette.primary.contrastText
+    },
+    list:{
+        justifyContent:'center',
+        flexWrap:'nowrap',
+        overflow:'auto'
     }
 }));
 
@@ -182,7 +187,7 @@ export const BarraDeLuz=(props)=>{
                             </div>
                         </div>
                     </div>
-                    <div className="row">
+                    <div className="row flex-nowrap overflow-auto">
                         <TarjetaArmario periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico} />
                     </div>
                 </div>

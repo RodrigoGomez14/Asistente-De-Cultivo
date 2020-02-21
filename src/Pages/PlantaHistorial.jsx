@@ -136,7 +136,7 @@ const PlantaHistorial =(props)=>{
                                 ))}
                             </GridList>
                         </div>
-                        <div className="row">
+                        <div className="row flex-nowrap overflow-auto">
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
                                 cantidadDeGramos={props.plantas[props.location.props.id].cantidadDeGramos}

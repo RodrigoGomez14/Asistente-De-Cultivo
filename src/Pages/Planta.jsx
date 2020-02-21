@@ -70,6 +70,7 @@ const useStyles=makeStyles(theme=>({
         padding:theme.spacing(1),
     },
     rowBotonera:{
+        marginTop:'auto',
         width:'100%',
         flexGrow:'1',
         display:'flex'
@@ -95,12 +96,56 @@ const getFullDate=()=>{
     const days = date.getDate()
     return`${days}/${month}/${year}`
 }
+const translateMonth=date=>{
+    const month = date.slice(0,date.indexOf(' '))
+    const newDate = date.slice(date.indexOf(' ')+1)
+    switch (month) {
+        case 'January':
+            return `Enero ${newDate}`
+            break;
+        case 'February':
+            return `Febrero ${newDate}`
+            break;
+        case 'March':
+            return `Marzo ${newDate}`
+            break;
+        case 'April':
+            return `Abril ${newDate}`
+            break;
+        case 'May':
+            return `Mayo ${newDate}`
+            break;
+        case 'June':
+            return `Junio ${newDate}`
+            break;
+        case 'July':
+            return `Julio ${newDate}`
+            break;
+        case 'August':
+            return `Agosto ${newDate}`
+            break;
+        case 'September':
+            return `Septiembre ${newDate}`
+            break;
+        case 'October':
+            return `Octubre ${newDate}`
+            break;
+        case 'November':
+            return `Noviembre ${newDate}`
+            break;
+        case 'December':
+            return `Diciembre ${newDate}`
+            break;
+        default:
+        break;
+    }
+    return date
+}
 const Planta =(props)=>{
     const classes = useStyles()
     let [inputCantidad, setInputCantidad]= useState(undefined)
     let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
     let [addPhoto, setAddPhoto]= useState(false)
-    let [photos,setPhotos]=useState([])
     let [loading,setLoading]=useState(true)
     const cosecharPlanta=async ()=>{
         await database().ref().child(props.user).child('historial').child(props.location.props.id).update({
@@ -113,7 +158,7 @@ const Planta =(props)=>{
             riegos:props.plantas[props.location.props.id].riegos?props.plantas[props.location.props.id].riegos:null,
             fumigaciones:props.plantas[props.location.props.id].fumigaciones?props.plantas[props.location.props.id].fumigaciones:null,
             transplantes:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
-            fechaDeCorte:getFullDate()
+            fechaDeCorte:translateMonth(moment().format('LLL'))
         })
         props.history.replace({
             pathname:'Historial/Planta',
@@ -127,43 +172,17 @@ const Planta =(props)=>{
         props.history.replace('/')
         await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
     }
-    useEffect(()=>{
-        const fetchPhotos=async ()=>{
-            var refStorage = await storage().ref().child(`${props.user}`);
-            var photos = await refStorage.list({maxResults:50});
-            const arrayPhotos = await photos.items.map(item=>{
-                let aux = []
-                item.getDownloadURL().then(url=>{
-                    console.log(url)
-                    aux.push(url)
-                })
-                return aux
-            })
-            console.log(arrayPhotos)
-            return arrayPhotos
-        }
-        fetchPhotos().then((arr)=>{
-            console.log(arr)
-            setPhotos(arr)
-            setLoading(false)
-        })
-    },[false])
     const comenzarVegetativo=async ()=>{
         await database().ref().child(props.user).child('plantas').child(props.location.props.id).update({
             inicioVegetativo:getFullDate()
         })
         setIniciarVegetativo(false)
     }
-    const subirNuevaFoto= async (foto)=>{
-        var refStorage = await storage().ref().child(`${props.user}/${props.location.props.id}`);
-        
-    }
     /*{!loading?
         photos.length?
             photos.map(tile => (
-            <GridListTile key={tile.img} className={classes.tile}>
-                {console.log(tile)}
-                <img src={tile}/>
+            <GridListTile  className={classes.tile}>
+                <img/>
             </GridListTile>
             ))
             :
@@ -186,23 +205,23 @@ const Planta =(props)=>{
     }*/
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user}>
+        <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
                         <div className="row">
                             <GridList className={classes.gridList} cols={2.5}>
-
+                                
                             </GridList>
                         </div>
                         {addPhoto&&
                         <Grow in={iniciarVegetativo}
                         {...(true ? { timeout: 1500 } : {})}>
                             <>
-                                <TextField type='file' variant='outlined' onChange={e=>{subirNuevaFoto(e.target.files[0])}}/>
+                                <TextField type='file' variant='outlined' onChange={e=>{}}/>
                             </>
                         </Grow>
                         }
-                        <div className="row">
+                        <div className="row flex-nowrap overflow-auto">
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
                                 cantidadDeGramos={props.plantas[props.location.props.id].cantidadDeGramos}
@@ -243,7 +262,6 @@ const Planta =(props)=>{
                             />
                         </div>
                         <Divider/>
-                        <div className="row">
                             {!props.plantas[props.location.props.id].plantaDelHistorial &&
                                 <div className={classes.rowBotonera}>
                                     <BotoneraConfiguracionPlanta
@@ -256,7 +274,6 @@ const Planta =(props)=>{
                                     />
                                 </div>
                             }
-                        </div>
                         <Divider/>
                     </div>
                 </Paper>

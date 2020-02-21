@@ -13,7 +13,7 @@ import {makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     paper: {
-      backgroundColor:theme.palette.primary.dark,
+      backgroundColor:theme.palette.primary.main,
       padding:theme.spacing(1)
     },
   }));
