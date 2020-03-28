@@ -14,7 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import {auth, database} from 'firebase'
 import foto from '../images/background.png'
-import {PantallaDeCarga} from './PantallaDeCarga'
 import {Link as LinkRouter} from 'react-router-dom'
 import {Layout} from './Layout'
 import {FormLogin} from '../components/FormLogin'
@@ -80,7 +79,6 @@ const useStyles = makeStyles(theme => ({
 
 export const LogInPage=({history})=> {
     const classes = useStyles();
-    let [loading,setloading]=useState(false)
 
     return (
       <Layout>
@@ -89,13 +87,9 @@ export const LogInPage=({history})=> {
                 <img src={foto} alt="" className={classes.img}/>
               </Grid>
               <Grid item xs={12} sm={8} md={5}>
-                {!loading?
-                  <Paper elevation={3} className={classes.paper}>
-                    <FormLogin setloading={setloading} history={history}/>
-                  </Paper>
-                  :
-                  <PantallaDeCarga/>
-                }
+                <Paper elevation={3} className={classes.paper}>
+                  <FormLogin history={history}/>
+                </Paper>
             </Grid>
           </Grid>
       </Layout>

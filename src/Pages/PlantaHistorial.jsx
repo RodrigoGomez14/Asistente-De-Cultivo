@@ -93,7 +93,7 @@ const PlantaHistorial =(props)=>{
     let [inputCantidad, setInputCantidad]= useState(undefined)
     let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
     const guardarCantidadCosechada=async ()=>{
-        await database().ref().child(props.user).child('historial').child(props.location.props.id).update({
+        await database().ref().child(props.user.uid).child('historial').child(props.location.props.id).update({
             cantidadDeGramos:inputCantidad+' gr'
         })
     }
@@ -121,7 +121,7 @@ const PlantaHistorial =(props)=>{
     ]
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
                         <div className="row">
@@ -140,7 +140,7 @@ const PlantaHistorial =(props)=>{
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
                                 cantidadDeGramos={props.plantas[props.location.props.id].cantidadDeGramos}
-                                plantaDelHistorial={props.plantas[props.location.props.id].plantaDelHistorial}
+                                plantaDelHistorial={true}
                                 edad={props.plantas[props.location.props.id].edad}
                                 nacimiento={props.plantas[props.location.props.id].nacimiento}
                                 inicioVegetativo={props.plantas[props.location.props.id].inicioVegetativo}
@@ -168,7 +168,7 @@ const PlantaHistorial =(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.historial
 })
 export default connect(mapStateToProps,null)(PlantaHistorial)

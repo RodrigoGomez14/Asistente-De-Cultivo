@@ -65,7 +65,7 @@ class Insecticida extends Component{
                 return null
             })
         }
-        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('fumigaciones').push({
+        await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
             fecha:this.translateMonth(moment().format('LLL')),
@@ -160,7 +160,7 @@ class Insecticida extends Component{
             ))
         }
         return(
-            <Layout history={this.props.history} page='Fumigacion' user={this.props.user}>
+            <Layout history={this.props.history} page='Fumigacion' userVerification={this.props.user.emailVerified} user={this.props.user.uid}>
                 <div className="container-fluid overflow-auto h-100">
                     <div className="row h-100">
                         <div className="col-12 px-0">
@@ -218,7 +218,7 @@ class Insecticida extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        user:state.user.uid,
+        user:state.user,
         plantas:state.data.plantas,
         aditivos:state.data.insecticidas,
     }

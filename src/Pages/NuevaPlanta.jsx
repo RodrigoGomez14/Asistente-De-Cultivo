@@ -46,7 +46,7 @@ const  NuevaPlanta=(props)=>{
     
     const guardarNuevaPlantaDB= async ()=>{
         console.log(props.periodo==='Floracion'?'fecha':'nofecha')
-        await database().ref().child(props.user).child('plantas').push({
+        await database().ref().child(props.user.uid).child('plantas').push({
             nombre:nombre,
             genetica:genetica?genetica:'Desconocida',
             volumenMaceta:volumenMaceta?volumenMaceta:null,
@@ -57,7 +57,7 @@ const  NuevaPlanta=(props)=>{
         props.history.replace('/')
     }
     return(
-        <Layout history={props.history} page='Nueva Planta' user={props.user}>
+        <Layout history={props.history} page='Nueva Planta' user={props.user.uid} userVerification={props.user.emailVerified}>
             <StepperAccion
                 tipoDeAccion='Nueva Planta'
                 confirmarAccion={guardarNuevaPlantaDB}
@@ -104,7 +104,7 @@ const  NuevaPlanta=(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     periodo:state.data.periodo
 })
 export default connect(mapStateToProps,null)(NuevaPlanta)

@@ -51,13 +51,13 @@ const NuevoAditivo=(props)=>{
         newAditivos.push(newAditivo)
         switch (props.location.props.tipoDeAditivo) {
             case 'Fertilizantes':
-                await database().ref().child(props.user).update({
+                await database().ref().child(props.user.uid).update({
                     fertilizantes:newAditivos
                 })
                 props.history.goBack()
                 break;
             case 'Insecticidas':
-                await database().ref().child(props.user).update({
+                await database().ref().child(props.user.uid).update({
                     insecticidas:newAditivos
                 })
                 props.history.goBack()
@@ -111,7 +111,7 @@ const NuevoAditivo=(props)=>{
     }
     else{
         return(
-            <Layout page='Nuevo Aditivo' user={props.user} history={props.history}>
+            <Layout page='Nuevo Aditivo' user={props.user.uid} userVerification={props.user.emailVerified} history={props.history}>
                 <StepperAccion
                 confirmarAccion={agregarAditivo}
                 tipoDeAccion='Nuevo Aditivo'
@@ -139,7 +139,7 @@ const NuevoAditivo=(props)=>{
     }
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     fertilizantes:state.data.fertilizantes,
     insecticidas:state.data.insecticidas
 })

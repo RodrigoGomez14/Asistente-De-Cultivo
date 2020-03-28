@@ -69,7 +69,7 @@ class Riego extends Component{
                 return null
             })
         }
-        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('riegos').push({
+        await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('riegos').push({
             agua:agua,
             tipoDeRiego:tipoDeRiego,
             fecha:this.translateMonth(moment().format('LLL')),
@@ -164,7 +164,7 @@ class Riego extends Component{
             ))
         }
         return(
-        <Layout history={this.props.history} page='Riego' user={this.props.user}>
+        <Layout history={this.props.history} page='Riego' user={this.props.user.uid} userVerification={this.props.user.emailVerified}>
             <StepperAccion 
                 step1='Plantas'
                 step2='Tipo De Riego'
@@ -219,7 +219,7 @@ class Riego extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        user:state.user.uid,
+        user:state.user,
         plantas:state.data.plantas,
         aditivos:state.data.fertilizantes
     }

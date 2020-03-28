@@ -58,11 +58,11 @@ import moment from 'moment'
         })
     }
     guardarTransplanteDB= async (idPlanta,nuevoVolumen)=>{
-        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('transplantes').push({
+        await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('transplantes').push({
             volumenMaceta:nuevoVolumen,
             fecha:this.translateMonth(moment().format('LLL')),
         })
-        await database().ref().child(this.props.user).child('plantas').child(idPlanta).update({
+        await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).update({
             volumenMaceta:nuevoVolumen,
         })
     }
@@ -122,7 +122,7 @@ import moment from 'moment'
         ))
     }
         return(
-        <Layout history={this.props.history} page='Transplante' user={this.props.user}>
+        <Layout history={this.props.history} page='Transplante' user={this.props.user.uid} userVerification={this.props.user.emailVerified}>
             <div className="container-fluid overflow-auto h-100">
                 <div className="row h-100">
                     <div className="col-12 px-0">
@@ -165,7 +165,7 @@ import moment from 'moment'
     }
  }
  const mapStateToProps=state=>({
-     user:state.user.uid,
+     user:state.user,
      plantas:state.data.plantas,
 
  })

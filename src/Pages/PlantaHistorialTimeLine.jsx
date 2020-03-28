@@ -68,7 +68,7 @@ const PlantaHistorialTimeLine =(props)=>{
     const array = obtenerArray()
     return(
         props.location.props?
-        <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Timeline'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
+        <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Timeline'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     {array.length?
                         <Timeline lineColor={'#fff'}>
@@ -82,7 +82,7 @@ const PlantaHistorialTimeLine =(props)=>{
                                         index={i} 
                                         expanded={expanded} 
                                         plantaDelHistorial={true}
-                                        user={props.user} 
+                                        user={props.user.uid} 
                                         accion={accion.accion} 
                                         tipoDeAccion={accion.tipoDeAccion} 
                                         idPlanta={props.location.props.id} 
@@ -101,7 +101,7 @@ const PlantaHistorialTimeLine =(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.historial
 })
 export default connect(mapStateToProps,null)(PlantaHistorialTimeLine)

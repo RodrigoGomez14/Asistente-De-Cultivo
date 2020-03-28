@@ -23,7 +23,7 @@ const useStyles=makeStyles(theme=>({
 const Historial=(props)=>{
     const classes = useStyles()
     return(
-        <Layout history={props.history} page={'Historial'} user={props.user}>
+        <Layout history={props.history} page={'Historial'} userVerification={props.user.emailVerified} user={props.user.uid}>
             <Paper elevation={3} className={classes.root}>
                 <Timeline lineColor={'#ddd'}>
                     {props.historial?
@@ -54,7 +54,7 @@ const Historial=(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     historial:state.data.historial
 })
 export default connect(mapStateToProps,null)(Historial)

@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
       color:theme.palette.primary.contrastText
     }
   }));
-export const FormLogin=({setloading,history})=>{
+export const FormLogin=({history})=>{
     const classes = useStyles()
     let [inputUser,setInputUser]=useState(undefined)
     let [inputNombre,setInputNombre]=useState(undefined)
@@ -63,96 +63,122 @@ export const FormLogin=({setloading,history})=>{
     let [userError,setUserError]=useState(undefined)
     let [nombreError,setNombreError]=useState(undefined)
     let [passwordError,setPasswordError]=useState(undefined)
+    let [loading,setloading]=useState(false)
 
     const signIn=async()=>{
-      setloading(true)
-      await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
-      .then(async e=>{
-          e.user.updateProfile({
-            displayName:inputNombre
-          })
-          await database().ref().child(e.user.uid).update({
-              horaDeInicio:'',
-              cicloLuminico:'',
-              periodo:''
-          })
-          history.push('/')
+      setUserError(null)
+      setPasswordError(null)
+      if(inputUser && inputPassword){
+        setloading(true)
+        await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
+        .then(async e=>{
+            e.user.sendEmailVerification()
+            e.user.updateProfile({
+              displayName:inputNombre
+            })
+            await database().ref().child(e.user.uid).update({
+                horaDeInicio:'',
+                cicloLuminico:'',
+                periodo:''
+            })
+            history.push('/')
+            setloading(false)
+        })
+        .catch(error=>{
           setloading(false)
-      })
-      .catch(error=>{
-        if(error.code==='auth/user-not-found'){
-          setUserError(error)
+          switch (error.code) {
+            case "auth/weak-password":
+              console.log('set error')
+              setPasswordError('La clave debe tener al menos 6 caracteres')
+              break;
+            case "auth/email-already-in-use":
+              setUserError('La direccion de correo ya esta siendo utilizada')
+              break;
+          }
+        })
+      }
+      else{
+        if(inputUser){
+          setPasswordError('Debes ingresar una clave')
         }
-        else{
-          setPasswordError(error)
+        else if(inputPassword){
+          setUserError('Debes ingresar una direccion de correo')
         }
-        setloading(false)
-      })
-  }
+      }
+    }
     return(
           <div className={classes.root}>
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlined/>
-                </Avatar>
-                <Typography component="h1" variant="h5" className={classes.title}>
-                    Registrate
-                </Typography>
-                <form className={classes.form} noValidate>
-                <TextField
-                    variant="filled"
-                    margin="normal"
-                    color='primary'
-                    required
+            {loading?
+              <PantallaDeCarga/>
+              :
+              <div className={classes.paper}>
+                  <Avatar className={classes.avatar}>
+                      <LockOutlined/>
+                  </Avatar>
+                  <Typography component="h1" variant="h5" className={classes.title}>
+                      Registrate
+                  </Typography>
+                  <form className={classes.form} noValidate>
+                    {console.log(passwordError)}
+                  <TextField
+                      variant="filled"
+                      margin="normal"
+                      color='primary'
+                      required
+                      fullWidth
+                      id="Nombre"
+                      label="Nombre"
+                      name="nombre"
+                      value={inputNombre}
+                      onChange={e=>{setInputNombre(e.target.value)}}
+                      autoFocus
+                  />
+                  <TextField
+                      variant="filled"
+                      margin="normal"
+                      color='primary'
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email"
+                      name="email"
+                      value={inputUser}
+                      error={userError}
+                      helperText={userError?userError:null}
+                      onChange={e=>{setInputUser(e.target.value)}}
+                  />
+                  <TextField
+                      variant="filled"
+                      margin="normal"
+                      color='secondary'
+                      required
+                      fullWidth
+                      name="password"
+                      value={inputPassword}
+                      onChange={e=>{setInputPassword(e.target.value)}}
+                      error={passwordError}
+                      helperText={passwordError?passwordError:null}
+                      label="contraseña"
+                      type="password"
+                      id="password"
+                  />
+                  <Button
                     fullWidth
-                    id="Nombre"
-                    label="Nombre"
-                    name="nombre"
-                    value={inputNombre}
-                    onChange={e=>{setInputNombre(e.target.value)}}
-                    autoFocus
-                />
-                <TextField
-                    variant="filled"
-                    margin="normal"
-                    color='primary'
-                    required
-                    fullWidth
-                    id="email"
-                    label="Email"
-                    name="email"
-                    value={inputUser}
-                    onChange={e=>{setInputUser(e.target.value)}}
-                />
-                <TextField
-                    variant="filled"
-                    margin="normal"
-                    color='secondary'
-                    required
-                    fullWidth
-                    name="password"
-                    value={inputPassword}
-                    onChange={e=>{setInputPassword(e.target.value)}}
-                    label="contraseña"
-                    type="password"
-                    id="password"
-                />
-                <Button
-                  fullWidth
-                  color='#fff'
-                  variant="outlined"
-                  className={classes.submit}
-                  onClick={e=>{signIn()}}
-                >
-                Registrate!
-                </Button>
-                <Link variant="body2">
-                      <LinkRouter to='/' className={classes.link}>
-                        Ya tienes una cuenta? Ingresa!
-                      </LinkRouter>
-                  </Link>
-            </form>
-            </div>
+                    color='#fff'
+                    variant="outlined"
+                    className={classes.submit}
+                    onClick={e=>{signIn()}}
+                  >
+                  Registrate!
+                  </Button>
+                  <Link variant="body2">
+                        <LinkRouter to='/' className={classes.link}>
+                          Ya tienes una cuenta? Ingresa!
+                        </LinkRouter>
+                    </Link>
+              </form>
+              </div>
+            }
           </div>
     )
 }

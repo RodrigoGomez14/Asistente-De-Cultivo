@@ -35,13 +35,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export const Layout=({page,children,history,plantaId,user,plantaDelHistorial})=>{
+export const Layout=({page,children,history,plantaId,user,plantaDelHistorial,userVerification})=>{
     const classes = useStyles();
     let [menuOpened,setMenuOpened]=useState(false)
     let [selectedTabs,setSelectedTabs]=useState('recents')
     return(
         <Paper className={classes.app}>
-            {user &&
+            {user && userVerification &&
             <>
                 <NavBar page={page} plantaId={plantaId} plantaDelHistorial={plantaDelHistorial} history={history} setMenuOpened={setMenuOpened}/>
                 <Paper elevation={6}>

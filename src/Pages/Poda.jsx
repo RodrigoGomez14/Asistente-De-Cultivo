@@ -57,7 +57,7 @@ class Poda extends Component{
         })
     }
     guardarPodaBD= async (idPlanta)=>{
-        await database().ref().child(this.props.user).child('plantas').child(idPlanta).child('podas').push({
+        await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('podas').push({
             fecha:this.translateMonth(moment().format('LLL')),
             tipoDePoda:this.state.tipoDePoda
         })
@@ -124,7 +124,7 @@ class Poda extends Component{
             ))
         }
         return(
-            <Layout history={this.props.history} page='Poda' user={this.props.user}>
+            <Layout history={this.props.history} page='Poda' user={this.props.user.uid} userVerification={this.props.user.emailVerified}>
                 <div className="container-fluid overflow-auto h-100 ">
                     <div className="row h-100">
                         <div className="col-12 px-0">
@@ -165,7 +165,7 @@ class Poda extends Component{
 }
 const mapStateToProps = state=>{
     return{
-        user:state.user.uid,
+        user:state.user,
         plantas:state.data.plantas,
     }
 }

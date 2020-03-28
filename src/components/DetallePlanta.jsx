@@ -1,4 +1,4 @@
-import React , {Component} from 'react'
+import React , {Component,useState, useEffect} from 'react'
 import fotoPlanta from '../images/apple cookies.jpg'
 import moment from 'moment'
 import {Table,Row,Col,Container,Image} from 'react-bootstrap'
@@ -11,6 +11,7 @@ import semilla from '../images/semilla.svg'
 import vegetativo from '../images/vegetativo.svg'
 import floracion from '../images/floracion.svg'
 import maceta from '../images/maceta.svg'
+import calendarioBlanco from '../images/calendario-blanco.svg'
 import adn from '../images/adn.svg'
 import balanza from '../images/balanza.svg'
 import cosecha from '../images/cosecha.svg'
@@ -47,6 +48,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export const DetallePlanta=(props)=>{
+    const [dias, setDias] = useState('- Dias')
     const tileData=[
         {
             img:fotoPlanta,
@@ -70,7 +72,25 @@ export const DetallePlanta=(props)=>{
         }
     ]
     const classes = useStyles()
-            
+
+    useEffect(()=>{
+        if(!props.plantaDelHistorial){
+            const dias = moment().diff(moment(props.nacimiento,"DDMMYYYY"),'days')
+            dias === 1?
+                setDias(`${dias} Dia`)
+                :
+                setDias(`${dias} Dias`)
+        }
+        else{
+            console.log(props.plantaDelHistorial)
+            const dias = moment(props.fechaDeCorte,'DDMMYYYY').diff(moment(props.nacimiento,"DDMMYYYY"),'days')
+            dias === 1?
+                setDias(`${dias} Dia`)
+                :
+                setDias(`${dias} Dias`)
+        }
+    }
+    ,[])
     return(
         <Grow in={true}
         {...(true ? { timeout: 1500 } : {})}>
@@ -79,6 +99,12 @@ export const DetallePlanta=(props)=>{
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={adn} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Genetica' secondary={props.genetica}/>
+                    </Paper>
+                </div>
+                <div className="col-auto">
+                    <Paper elevation={3} className={classes.paper}>
+                        <Avatar src={calendarioBlanco} className={classes.avatar}/>
+                        <ListItemText className={classes.listText} primary='Tiempo De Vida' secondary={dias}/>
                     </Paper>
                 </div>
                 <div className="col-auto">

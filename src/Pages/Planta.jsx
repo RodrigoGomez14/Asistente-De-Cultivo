@@ -148,7 +148,7 @@ const Planta =(props)=>{
     let [addPhoto, setAddPhoto]= useState(false)
     let [loading,setLoading]=useState(true)
     const cosecharPlanta=async ()=>{
-        await database().ref().child(props.user).child('historial').child(props.location.props.id).update({
+        await database().ref().child(props.user.uid).child('historial').child(props.location.props.id).update({
             nombre:props.plantas[props.location.props.id].nombre?props.plantas[props.location.props.id].nombre:null,
             nacimiento:props.plantas[props.location.props.id].nacimiento?props.plantas[props.location.props.id].nacimiento:null,
             genetica:props.plantas[props.location.props.id].genetica?props.plantas[props.location.props.id].genetica:null,
@@ -158,7 +158,7 @@ const Planta =(props)=>{
             riegos:props.plantas[props.location.props.id].riegos?props.plantas[props.location.props.id].riegos:null,
             fumigaciones:props.plantas[props.location.props.id].fumigaciones?props.plantas[props.location.props.id].fumigaciones:null,
             transplantes:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
-            fechaDeCorte:translateMonth(moment().format('LLL'))
+            fechaDeCorte:getFullDate()
         })
         props.history.replace({
             pathname:'Historial/Planta',
@@ -166,14 +166,14 @@ const Planta =(props)=>{
                 id:props.location.props.id
             }
         })
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
+        await database().ref().child(props.user.uid).child('plantas').child(props.location.props.id).remove()
     }
     const eliminarPlanta=async ()=>{
         props.history.replace('/')
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).remove()
+        await database().ref().child(props.user.uid).child('plantas').child(props.location.props.id).remove()
     }
     const comenzarVegetativo=async ()=>{
-        await database().ref().child(props.user).child('plantas').child(props.location.props.id).update({
+        await database().ref().child(props.user.uid).child('plantas').child(props.location.props.id).update({
             inicioVegetativo:getFullDate()
         })
         setIniciarVegetativo(false)
@@ -205,7 +205,7 @@ const Planta =(props)=>{
     }*/
     return(
         props.location.props?
-        <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user}>
+        <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
                         <div className="row">
@@ -283,7 +283,7 @@ const Planta =(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.plantas
 })
 export default connect(mapStateToProps,null)(Planta)

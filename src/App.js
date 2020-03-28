@@ -55,6 +55,7 @@ class App extends Component {
   async componentDidMount(){
     firebase.auth().onAuthStateChanged(async user=>{
       if(user){
+        console.log(user)
         const databaseRef = await firebase.database().ref().child(user.uid)
         databaseRef.on('value', snapshot=>{
           data= snapshot.val()

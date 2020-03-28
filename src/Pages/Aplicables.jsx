@@ -17,9 +17,9 @@ const useStyles = makeStyles(theme=>({
 const Aplicables=(props)=>{
     const classes = useStyles()
     return(
-        <Layout history={props.history} page='Aditivos' user={props.user}>
+        <Layout history={props.history} page='Aditivos' userVerification={props.user.emailVerified} user={props.user.uid}>
             <Paper elevation={3} className={classes.root}>
-                <TabAditivos user={props.user} fertilizantes={props.fertilizantes} insecticidas={props.insecticidas}/>
+                <TabAditivos user={props.user.uid} fertilizantes={props.fertilizantes} insecticidas={props.insecticidas}/>
             </Paper>
         </Layout>
     )
@@ -27,7 +27,7 @@ const Aplicables=(props)=>{
 
 const mapStateToProps =(state)=>{
     return{
-        user:state.user.uid,
+        user:state.user,
         fertilizantes:state.data.fertilizantes,
         insecticidas:state.data.insecticidas
     }

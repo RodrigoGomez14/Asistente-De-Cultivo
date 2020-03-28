@@ -1,6 +1,8 @@
 import React, {useState,useEffect} from 'react'
 import moment from 'moment'
-import fotoPlanta from '../images/apple cookies.jpg'
+import fotoGerminacion from '../images/fotoGerminacion.jpg'
+import fotoVegetativo from '../images/fotoVegetativo.jpg'
+import fotoFloracion from '../images/fotoFloracion.jpg'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {database} from 'firebase'
@@ -36,18 +38,23 @@ export const TarjetaPlanta=(props)=>{
                         }
                     }}>
                         <Card className="card" >
-                            <Img src={fotoPlanta} className="card-img-top" alt="..."/>
+                            <Img 
+                                src={
+                                    props.periodo==='Vegetativo'?
+                                        props.inicioVegetativo?
+                                        fotoVegetativo
+                                        :
+                                        fotoGerminacion
+                                    :
+                                    fotoFloracion
+                                } 
+                                className="card-img-top" alt="..."/>
                             <Overlay className="card-img-overlay d-flex flex-column justify-content-end pl-1 pb-1">
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col text-left">
                                             {console.log(props)}
                                             <h4 className="card-title">{props.nombre}</h4>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col text-left">
-                                            <h6 className="card-subtitle mb-2 text-white">{edad} dias</h6>
                                         </div>
                                     </div>
                                 </div>

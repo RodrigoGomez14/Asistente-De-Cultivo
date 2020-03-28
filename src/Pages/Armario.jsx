@@ -12,6 +12,7 @@ import  {database,storage} from 'firebase'
 import {Layout} from './Layout'
 import {makeStyles,Paper,Input,Button, TextField} from '@material-ui/core'
 import { Redirect } from 'react-router';
+import moment from 'moment'
 
 
 const useStyles=makeStyles(theme=>({
@@ -32,14 +33,14 @@ const Armario=(props)=>{
     const cambiarHoraDeInicio=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().child(props.user).update({
+        await database().ref().child(props.user.uid).update({
             horaDeInicio: parseInt(horas)
         })
     }
     const cambiarHoraDeFinal=async ()=>{
         const horas = document.getElementById('inputHoras').value
         //const minutos = document.getElementById('inputMinutos').value
-        await database().ref().child(props.user).update({
+        await database().ref().child(props.user.uid).update({
             horaDeFinal: parseInt(horas)
         })
     }
@@ -55,10 +56,10 @@ const Armario=(props)=>{
     }
     else{
         return(
-            <Layout history={props.history} page="Armario" user={props.user}>
+            <Layout history={props.history} page="Armario" userVerification={props.user.emailVerified} user={props.user.uid}>
                 <Paper className={classes.root}>
                     <BarraDeLuz periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico}/>
-                    <CarouselPlantas history={props.history}/>
+                    <CarouselPlantas history={props.history} periodo={props.periodo}/>
                 </Paper>
             </Layout>
         )   
@@ -66,7 +67,7 @@ const Armario=(props)=>{
 }
 const mapStateToProps = state =>{
     return{
-        user:state.user.uid,
+        user:state.user,
         plantas:state.data.plantas,
         periodo:state.data.periodo,
         horaDeInicio:state.data.horaDeInicio,

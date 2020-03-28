@@ -26,7 +26,7 @@ const PlantaHistorialFumigaciones =(props)=>{
     const classes = useStyles()
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Fumigaciones'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Fumigaciones'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
                             {props.plantas[props.location.props.id].fumigaciones?
@@ -36,7 +36,7 @@ const PlantaHistorialFumigaciones =(props)=>{
                                         index={i} 
                                         plantaDelHistorial={true} 
                                         expanded={expanded} 
-                                        user={props.user}
+                                        user={props.user.uid}
                                         index={i} 
                                         accion={props.plantas[props.location.props.id].fumigaciones[id]} 
                                         tipoDeAccion='fumigaciones' 
@@ -59,7 +59,7 @@ const PlantaHistorialFumigaciones =(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.historial
 })
 export default connect(mapStateToProps,null)(PlantaHistorialFumigaciones)

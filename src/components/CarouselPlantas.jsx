@@ -49,6 +49,8 @@ const CarouselPlantas=(props)=>{
                                     key={key}
                                     history={props.history}
                                     nombre={props.plantas[key].nombre}
+                                    inicioVegetativo={props.plantas[key].inicioVegetativo}
+                                    periodo={props.periodo}
                                 />
                             ))}
                             <div className="col-auto align-self-center">

@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import {Layout} from './Layout'
 import {connect} from 'react-redux'
 import {ListConfig} from '../components/ListConfig'
-import {database}from 'firebase'
-import {makeStyles,Paper} from '@material-ui/core'
+import {database,auth}from 'firebase'
+import {makeStyles,Paper,Typography,Button} from '@material-ui/core'
 const useStyles=makeStyles(theme=>({
     root:{
         height:'100%',
@@ -13,6 +13,21 @@ const useStyles=makeStyles(theme=>({
         justifyContent:'space.around',
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
         borderRadius:'0'
+    },
+    firstPaper:{
+        width:'100%',
+        display:'flex',
+        justifyContent:'center',
+        marginTop: theme.spacing(2)
+    },
+    paper:{
+        padding : theme.spacing(3),
+        display:'flex',
+        flexDirection:'column',
+    },
+    button:{
+        marginTop:theme.spacing(2),
+        marginBottom:theme.spacing(2)
     }
 }))
 const Configuracion=(props)=>{
@@ -29,26 +44,52 @@ const Configuracion=(props)=>{
         }
     }
     const cambiarHoraDeInicio=horaDeInicio=>{
-        database().ref().child(props.user).update({
+        database().ref().child(props.user.uid).update({
             horaDeInicio:horaDeInicio
         })
     }
     const cambiarPeriodo=periodo=>{
-        database().ref().child(props.user).update({
+        database().ref().child(props.user.uid).update({
             periodo:periodo
         })
     }
     const cambiarCicloLuminico=cicloLuminico=>{
-        database().ref().child(props.user).update({
+        database().ref().child(props.user.uid).update({
             cicloLuminico:cicloLuminico
         })
     }
+    var actionCodeSettings = {
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be whitelisted in the Firebase Console.
+        url: 'https://rodrigogomez14.github.io/Asistente-De-Cultivo/#/',
+        handleCodeInApp: true,
+      };
     const classes = useStyles()
     return(
-        <Layout history={props.history} page='Configuracion' user={props.user}>
+        <Layout history={props.history} page='Configuracion' userVerification={props.user.emailVerified} user={props.user.uid}>
             <Paper className={classes.root}>
+                {!props.user.emailVerified?
+                    <div className={classes.firstPaper}>
+                        <Paper elevation={3} className={classes.paper}>
+                            <Typography variant='h4'>
+                                Verifica tu cuenta de correo!
+                            </Typography>
+                            <Typography variant='body1'>
+                                Para Comenzar a utilizar el Asistente de Cultivo debes completar la configuracion inicial
+                            </Typography>
+                            <Typography variant='body1'>
+                                Luego verifica la direccion de mail ingresada y listo! podras empezar a disfrutar del Asistente.
+                            </Typography>
+                            <Typography variant='caption'>
+                                Una vez verificada, recarga la pagina y ya estara todo listo!
+                            </Typography>
+                        </Paper>
+                    </div>
+                    :
+                    null
+                }
                 <ListConfig
-                    user={props.user}
+                    user={props.user.uid}
                     switchValue={switchModoOscuro} 
                     setSwitchValue={setSwitchValue} 
                     horaDeInicio={props.horaDeInicio}
@@ -64,7 +105,7 @@ const Configuracion=(props)=>{
     )
 }
 const mapStateToProps = state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.plantas,
     periodo:state.data.periodo,
     horaDeInicio:state.data.horaDeInicio,

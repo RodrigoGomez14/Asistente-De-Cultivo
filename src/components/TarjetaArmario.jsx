@@ -45,7 +45,13 @@ const useStyles=makeStyles(theme=>({
 }))
 export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
     const convertirHora=hora=>{
-        return hora<10?`0${hora}:00 Hs`:`${hora}:00 Hs`
+        if(hora<=24){
+            return hora<10?`0${hora}:00 Hs`:`${hora}:00 Hs`
+        }
+        else{
+            let newHora = hora-24
+            return newHora<10?`0${newHora}:00 Hs +1`:`${newHora}:00 Hs +1`
+        }
     }
     const classes = useStyles()
     return(

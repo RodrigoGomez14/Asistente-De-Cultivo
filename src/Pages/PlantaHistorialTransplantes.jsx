@@ -26,7 +26,7 @@ const PlantaHistorialTransplantes =(props)=>{
     const classes = useStyles()
     return(
         props.location.props?
-            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Transplantes'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user}>
+            <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Transplantes'} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4">
                             {props.plantas[props.location.props.id].transplantes?
@@ -36,7 +36,7 @@ const PlantaHistorialTransplantes =(props)=>{
                                         index={i} 
                                         expanded={expanded} 
                                         plantaDelHistorial={true} 
-                                        user={props.user} 
+                                        user={props.user.uid} 
                                         accion={props.plantas[props.location.props.id].transplantes[id]} 
                                         tipoDeAccion='transplantes' 
                                         idPlanta={props.location.props.id} 
@@ -59,7 +59,7 @@ const PlantaHistorialTransplantes =(props)=>{
     )
 }
 const mapStateToProps=state=>({
-    user:state.user.uid,
+    user:state.user,
     plantas:state.data.historial
 })
 export default connect(mapStateToProps,null)(PlantaHistorialTransplantes)
