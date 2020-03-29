@@ -77,32 +77,6 @@ const useStyles = makeStyles(theme => ({
 
 export const SignInPage=({history})=> {
     const classes = useStyles();
-    let [inputUser,setInputUser]=useState(undefined)
-    let [loading,setloading]=useState(false)
-    let [inputPassword,setInputPassword]=useState(undefined)
-    let [userError,setUserError]=useState(undefined)
-    let [passwordError,setPasswordError]=useState(undefined)
-    
-
-    const logIn=async()=>{
-        setloading(true)
-        setUserError(undefined)
-        setPasswordError(undefined)
-        await auth().signInWithEmailAndPassword(inputUser,inputPassword)
-        .then(()=>{
-          setloading(false)
-        })
-        .catch(error=>{
-          if(error.code==='auth/user-not-found'){
-            setUserError(error)
-          }
-          else{
-            setPasswordError(error)
-          }
-          setloading(false)
-        })
-    }
-
     return (
       <Layout>
         <Grid container component="main" className={classes.root}>
@@ -110,14 +84,10 @@ export const SignInPage=({history})=> {
               <img src={foto} alt="" className={classes.img}/>
             </Grid>
             <Grid item xs={12} sm={8} md={5}>
-              {!loading?
               <Paper elevation={3} className={classes.paper}>
-                <FormSignIn logIn={logIn} inputUser={inputUser} setInputUser={setInputUser} inputPassword={inputPassword} setInputPassword={setInputPassword} userError={userError} passwordError={passwordError} />
+                <FormSignIn history={history}/>
               </Paper>
-              :
-              <PantallaDeCarga/>
-              }
-        </Grid>
+          </Grid>
         </Grid>
       </Layout>
     );

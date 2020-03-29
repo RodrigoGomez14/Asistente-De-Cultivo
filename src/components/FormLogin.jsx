@@ -61,7 +61,6 @@ export const FormLogin=({history})=>{
     let [inputNombre,setInputNombre]=useState(undefined)
     let [inputPassword,setInputPassword]=useState(undefined)
     let [userError,setUserError]=useState(undefined)
-    let [nombreError,setNombreError]=useState(undefined)
     let [passwordError,setPasswordError]=useState(undefined)
     let [loading,setloading]=useState(false)
 
@@ -70,6 +69,7 @@ export const FormLogin=({history})=>{
       setPasswordError(null)
       if(inputUser && inputPassword){
         setloading(true)
+        auth().languageCode='es'
         await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
         .then(async e=>{
             e.user.sendEmailVerification()
@@ -98,10 +98,10 @@ export const FormLogin=({history})=>{
         })
       }
       else{
-        if(inputUser){
+        if(!inputPassword){
           setPasswordError('Debes ingresar una clave')
         }
-        else if(inputPassword){
+        if(!inputUser){
           setUserError('Debes ingresar una direccion de correo')
         }
       }

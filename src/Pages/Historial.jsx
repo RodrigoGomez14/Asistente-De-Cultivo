@@ -27,7 +27,7 @@ const Historial=(props)=>{
             <Paper elevation={3} className={classes.root}>
                 <Timeline lineColor={'#ddd'}>
                     {props.historial?
-                        Object.keys(props.historial).reverse().map(planta=>(
+                        Object.keys(props.historial).map(planta=>(
                             <TimelineItem
                                 dateText={props.historial[planta].fechaDeCorte}
                                 dateInnerStyle={{ background: '#00796b', color: '#fff', width:'250px'}}
