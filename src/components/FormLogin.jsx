@@ -64,25 +64,26 @@ export const FormLogin=({history})=>{
     let [passwordError,setPasswordError]=useState(undefined)
     let [loading,setloading]=useState(false)
 
-    const signIn=async()=>{
+    const signIn=()=>{
       setUserError(null)
       setPasswordError(null)
       if(inputUser && inputPassword){
         setloading(true)
         auth().languageCode='es'
-        await auth().createUserWithEmailAndPassword(inputUser,inputPassword)
+        auth().createUserWithEmailAndPassword(inputUser,inputPassword)
         .then(async e=>{
-            e.user.sendEmailVerification()
-            e.user.updateProfile({
-              displayName:inputNombre
-            })
-            await database().ref().child(e.user.uid).update({
-                horaDeInicio:'',
-                cicloLuminico:'',
-                periodo:''
-            })
-            history.push('/')
+          e.user.updateProfile({
+            displayName:inputNombre
+          })
+          database().ref().child(e.user.uid).update({
+            horaDeInicio:'',
+            cicloLuminico:'',
+            periodo:''
+          })
+          e.user.sendEmailVerification().then(()=>{
             setloading(false)
+            history.replace('/')
+          })
         })
         .catch(error=>{
           setloading(false)

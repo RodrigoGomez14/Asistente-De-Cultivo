@@ -32,6 +32,9 @@ export const CardHistorial=({nombre,fechaDeCorte,cantidadDeGramos})=>{
                             <div className="row">
                                 <div className="col text-left">
                                     <h4 className="card-title text-white">{nombre}</h4>
+                                    {cantidadDeGramos &&
+                                        <h4 className="card-title text-white">{cantidadDeGramos}</h4>
+                                    }
                                 </div>
                             </div>
                         </div>

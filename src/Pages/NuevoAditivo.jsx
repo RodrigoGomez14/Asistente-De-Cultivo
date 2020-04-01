@@ -87,17 +87,19 @@ const NuevoAditivo=(props)=>{
         let Riego={}
         let Foliar={}
         Object.keys(dosis).map(newDosis=>{
-            let tipoDeDosis= dosis[newDosis].tipoDeDosis?'gr/L':'ml/L'
-            if(dosis[newDosis].tipoDeRiego==='Foliar'){
-                Foliar={
-                    ...Foliar,
-                    [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
+            if (dosis[newDosis].etapa && dosis[newDosis].cantidad && dosis[newDosis].tipoDeRiego && dosis[newDosis].tipoDeDosis){
+                let tipoDeDosis= dosis[newDosis].tipoDeDosis==1?'gr/L':'ml/L'
+                if(dosis[newDosis].tipoDeRiego==='Foliar'){
+                    Foliar={
+                        ...Foliar,
+                        [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
+                    }
                 }
-            }
-            else{
-                Riego={
-                    ...Riego,
-                    [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
+                else{
+                    Riego={
+                        ...Riego,
+                        [dosis[newDosis].etapa]:`${dosis[newDosis].cantidad} ${tipoDeDosis}`
+                    }
                 }
             }
         })

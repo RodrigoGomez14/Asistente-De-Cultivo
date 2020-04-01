@@ -110,7 +110,7 @@ export const DetallePlanta=(props)=>{
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={maceta} className={classes.avatar}/>
-                        <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={`${props.volumenMaceta} Lt`}/>
+                        <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={props.volumenMaceta?`${props.volumenMaceta} Lt`:`No especificado`}/>
                     </Paper>
                 </div>
                 <div className="col-auto">

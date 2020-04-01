@@ -58,12 +58,6 @@ const Configuracion=(props)=>{
             cicloLuminico:cicloLuminico
         })
     }
-    var actionCodeSettings = {
-        // URL you want to redirect back to. The domain (www.example.com) for this
-        // URL must be whitelisted in the Firebase Console.
-        url: 'https://rodrigogomez14.github.io/Asistente-De-Cultivo/#/',
-        handleCodeInApp: true,
-      };
     const classes = useStyles()
     return(
         <Layout history={props.history} page='Configuracion' userVerification={props.user.emailVerified} user={props.user.uid}>
@@ -99,7 +93,7 @@ const Configuracion=(props)=>{
                     cicloLuminico={props.cicloLuminico}
                     cambiarCicloLuminico={cambiarCicloLuminico}
                     plantas={props.plantas}
-                    returnHome={()=>{props.history.replace('/')}}
+                    returnHome={()=>{props.history.replace('/Configuracion')}}
                 />
             </Paper>
         </Layout>

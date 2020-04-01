@@ -1,8 +1,7 @@
 {
   "name": "asistentedecultivo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
-  "homepage": "https://rodrigogomez14.github.io/Asistente-De-Cultivo",
   "dependencies": {
     "@date-io/date-fns": "^2.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
@@ -24,7 +23,7 @@
     "react-redux": "^7.1.3",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.4.1",
     "redux": "^4.0.4",
     "styled-components": "^5.0.0",
     "vertical-timeline-component-for-react": "^1.0.6"
@@ -33,9 +32,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -51,8 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "gh-pages": "^2.2.0"
   }
 }

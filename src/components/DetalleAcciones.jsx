@@ -25,10 +25,12 @@ const useStyles=makeStyles(theme=>({
     },
     button:{
         marginBottom:theme.spacing(2),
+        color:theme.palette.primary.contrastText
     },
     paper:{
         marginTop:theme.spacing(3),
         marginBottom:theme.spacing(2),
+        background:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
         width:'90%',
 
     },

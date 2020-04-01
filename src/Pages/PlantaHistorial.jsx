@@ -119,23 +119,25 @@ const PlantaHistorial =(props)=>{
             img:fotoPlanta,
         }
     ]
+    /*
+    <div className="row">
+        <GridList className={classes.gridList} cols={2.5}>
+            {tileData.map(tile => (
+            <GridListTile key={tile.img} className={classes.tile}>
+                <CardMedia
+                    className={classes.media}
+                    image={fotoPlanta}
+                />
+            </GridListTile>
+            ))}
+        </GridList>
+    </div>
+    */
     return(
         props.location.props?
             <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaDelHistorial={true} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
-                        <div className="row">
-                            <GridList className={classes.gridList} cols={2.5}>
-                                {tileData.map(tile => (
-                                <GridListTile key={tile.img} className={classes.tile}>
-                                    <CardMedia
-                                        className={classes.media}
-                                        image={fotoPlanta}
-                                    />
-                                </GridListTile>
-                                ))}
-                            </GridList>
-                        </div>
                         <div className="row flex-nowrap overflow-auto">
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import './components/styles/home.css'
-import {HashRouter,Route,Switch} from 'react-router-dom'
+import {BrowserRouter,Route,Switch} from 'react-router-dom'
 import Armario from './Pages/Armario'
 import Riego from './Pages/Riego'
 import Insecticida from './Pages/Insecticida'
@@ -112,7 +112,7 @@ setTheme=theme=>{
         return (
           <ThemeProvider theme={themeProvider}>
               <Provider store={this.state.store}>
-                <HashRouter>
+                <BrowserRouter>
                   <Switch>
                     <Route exact path='/' component={Armario}/>
                     <Route exact path='/Riego' component={Riego}/>
@@ -138,7 +138,7 @@ setTheme=theme=>{
                     <Route exact path='/Historial/Planta/Fumigaciones' component={PlantaHistorialFumigaciones}/>
                     <Route exact path='/Deficiencias-Carencias' component={Aplicables}/>
                   </Switch>
-                </HashRouter>
+                </BrowserRouter>
               </Provider>
             </ThemeProvider>
         )
@@ -146,13 +146,13 @@ setTheme=theme=>{
       else{
         return (
           <ThemeProvider theme={themeProvider}>
-            <HashRouter>
+            <BrowserRouter>
               <Switch>
                 <Route exact path='/' component={SignInPage}/>
                 <Route exact path='/Login' component={LogInPage}/>
                 <Route  component={NotFound}/>
               </Switch>
-            </HashRouter>
+            </BrowserRouter>
           </ThemeProvider>
         )
       }
