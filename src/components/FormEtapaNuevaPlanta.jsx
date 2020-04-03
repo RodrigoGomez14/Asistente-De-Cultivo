@@ -45,6 +45,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         <div className={classes.inputWrapper}>
                             <FormControlLabel
                                 label='Inicio de Germinacion'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
@@ -75,6 +76,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                             />
                             <FormControlLabel
                                 label='Inicio de Vegetativo'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
@@ -92,6 +94,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                             <div className={classes.inputWrapper}> 
                             <FormControlLabel
                                 label='Inicio de Germinacion'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
@@ -99,6 +102,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                             />
                                 <FormControlLabel
                                 label='Inicio de Vegetativo'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
@@ -115,6 +119,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         <div className={classes.inputWrapper}>
                             <FormControlLabel
                                 label='Inicio de Germinacion'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
@@ -122,6 +127,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                             />
                                 <FormControlLabel
                                 label='Inicio de Vegetativo'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
@@ -129,6 +135,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                             />
                             <FormControlLabel
                                 label='Inicio de Floracion'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioFloracion} placeholder={date} onChange={e=>{setInicioFloracion(e.target.value)}}/>
