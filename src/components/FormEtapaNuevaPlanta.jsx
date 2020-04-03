@@ -22,6 +22,9 @@ const useStyles = makeStyles(theme=>({
     input:{
         marginTop:theme.spacing(1),
         marginBottom:theme.spacing(1),
+        '& .MuiTypography-body1':{
+            color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.contrastText
+        }
     },
     inputWrapper:{
         width:'100%',
@@ -64,9 +67,17 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         <div className={classes.inputWrapper}>
                             <FormControlLabel
                                 label='Inicio de Germinacion'
+                                className={classes.input}
                                 labelPlacement='top'
                                 control={
                                     <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                }
+                            />
+                            <FormControlLabel
+                                label='Inicio de Vegetativo'
+                                labelPlacement='top'
+                                control={
+                                    <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
                                 }
                             />
                         </div>
