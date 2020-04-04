@@ -30,7 +30,7 @@ const PlantaPodas =(props)=>{
         props.location.props?
             <Layout history={props.history} page={props.plantas[props.location.props.id].nombre+'/Podas'} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
-                    <div className="container-fluid overflow-auto pt-4">
+                    <div className="container-fluid overflow-auto pt-4 p-0">
                         {props.plantas[props.location.props.id].podas?
                         <Timeline lineColor={'#ddd'}>
                             {Object.keys(props.plantas[props.location.props.id].podas).reverse().map((id,i)=>(

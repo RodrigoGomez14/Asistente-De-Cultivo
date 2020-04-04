@@ -17,6 +17,7 @@ class Poda extends Component{
     state={
         plantas:undefined,
         tipoDePoda:undefined,
+        descripcion:undefined,
         plantas:[],
     }
     seleccionarPlanta=(index)=>{
@@ -59,12 +60,18 @@ class Poda extends Component{
     guardarPodaBD= async (idPlanta)=>{
         await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('podas').push({
             fecha:this.translateMonth(moment().format('LLL')),
-            tipoDePoda:this.state.tipoDePoda
+            tipoDePoda:this.state.tipoDePoda,
+            descripcion:this.state.descripcion
         })
     }
     cambiarTipoDePoda=(nuevoTipoDePoda)=>{
         this.setState({
             tipoDePoda:nuevoTipoDePoda
+        })
+    }
+    cambiarDescripcion=(descripcion)=>{
+        this.setState({
+            descripcion:descripcion
         })
     }
     
@@ -133,7 +140,7 @@ class Poda extends Component{
                                 tipoDePoda={this.state.tipoDePoda}
                                 confirmarAccion={this.confirmarAccion}
                                 selectedPlants={selectedPlants}
-                                resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda}/>}
+                                resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDePoda={this.state.tipoDePoda} descripcion={this.state.descripcion}/>}
                                 tipoDeAccion='Poda'
                                 steps={[
                                 {
@@ -151,6 +158,9 @@ class Poda extends Component{
                                             handleChange={(nuevoTipoDePoda=>{
                                                 this.cambiarTipoDePoda(nuevoTipoDePoda)
                                             })}
+                                            handleChangeDescripcion={descripcion=>{
+                                                this.cambiarDescripcion(descripcion)
+                                            }}
                                             tipoDePoda={this.state.tipoDePoda}
                                         />
                                 )}]

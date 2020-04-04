@@ -71,7 +71,7 @@ export const AccionDetallada=(props)=>{
     })
     return(
         <div className="row">
-            <div className="col-10 offset-1">
+            <div className="col-12">
                 <Grow in={true}
                         {...(true ? { timeout: 1500 } : {})}>
                     <ExpansionPanel expanded={props.expanded === 'panel'+props.index} className={classes.expansionPanel} onChange={props.handleChange('panel'+props.index)}>
@@ -86,7 +86,7 @@ export const AccionDetallada=(props)=>{
                         </Paper>
                         <Paper elevation={4} >
                             <ExpansionPanelDetails>
-                                <div className="container">
+                                <div className="container p-0">
                                     {props.accion.agua &&
                                         <div className="row">
                                             <div className="col-12 text-center">
@@ -109,6 +109,9 @@ export const AccionDetallada=(props)=>{
                                         <div className="col text-left">
                                             <Typography variant='h5'>
                                                 Poda {props.accion.tipoDePoda}
+                                            </Typography>
+                                            <Typography variant='body1'>
+                                                {props.accion.descripcion}
                                             </Typography>
                                         </div>
                                     }

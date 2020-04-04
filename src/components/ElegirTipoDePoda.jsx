@@ -18,7 +18,7 @@ export const ElegirTipoDePoda=(props)=>{
             <Row>
                 <Col sm={{span:8,offset:2}}>
                     <div className="row my-2 justify-content-center">
-                        <div className="col-4">
+                        <div className="col-sm-6 col-md-4">
                             <TextField id="outlined-basic" 
                             value={props.tipoDePoda}
                             className={classes.radio}
@@ -30,6 +30,14 @@ export const ElegirTipoDePoda=(props)=>{
                             />
                         </div>
                     </div>
+                    <div className="row my-2 justify-content-center">
+                        <div className="col">
+                            <TextField label="Descripcion"  multiline onChange={e=>{
+                                props.handleChangeDescripcion(e.target.value)
+                            }}/>
+                        </div>
+                    </div>
+                    
                 </Col>
             </Row>
         </Container>
