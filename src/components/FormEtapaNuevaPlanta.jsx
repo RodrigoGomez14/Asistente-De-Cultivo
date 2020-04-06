@@ -56,7 +56,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                 }
                 else{
                     return(
-                        <Alert variant='outlined' severity="error">
+                        <Alert variant='filled' severity="error">
                             <AlertTitle>No es recomendable introducir una semilla germinando en un armario con periodo de Floracion</AlertTitle>
                         </Alert>
                     )
@@ -88,7 +88,7 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                 else{
                     return(
                         <>
-                            <Alert variant='outlined' severity="warning">
+                            <Alert variant='filled' severity="warning">
                                 <AlertTitle>Si ingresa esta planta al armario comenzara su periodo de floracion el dia de hoy</AlertTitle>
                             </Alert>
                             <div className={classes.inputWrapper}> 
@@ -146,9 +146,38 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                 }
                 else{
                     return(
-                        <Alert variant='outlined' severity="error">
-                            <AlertTitle>No es recomendable introducir una planta en periodo de floracion en un armario con periodo Vegetativo</AlertTitle>
-                        </Alert>
+                        <>
+                            <Alert variant='filled' severity="error">
+                                <AlertTitle>No es recomendable introducir una planta en periodo de floracion en un armario con periodo Vegetativo</AlertTitle>
+                                Si continua se establecera el dia de la fecha como inicio de la revegetacion.
+                            </Alert>
+                            <div className={classes.inputWrapper}> 
+                                <FormControlLabel
+                                    label='Inicio de Germinacion'
+                                    className={classes.input}
+                                    labelPlacement='top'
+                                    control={
+                                        <Input type='date' value={inicioGerminacion} placeholder={date} onChange={e=>{setInicioGerminacion(e.target.value)}}/>
+                                    }
+                                />
+                                <FormControlLabel
+                                    label='Inicio del primer ciclo vegetativo'
+                                    className={classes.input}
+                                    labelPlacement='top'
+                                    control={
+                                        <Input type='date' value={inicioVegetativo} placeholder={date} onChange={e=>{setInicioVegetativo(e.target.value)}}/>
+                                    }
+                                />
+                                <FormControlLabel
+                                    label='Inicio de Floracion'
+                                    className={classes.input}
+                                    labelPlacement='top'
+                                    control={
+                                        <Input type='date' value={inicioFloracion} placeholder={date} onChange={e=>{setInicioFloracion(e.target.value)}}/>
+                                    }
+                                />
+                            </div>
+                        </>
                     )
                 }
                 break;

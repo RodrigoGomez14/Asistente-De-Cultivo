@@ -52,7 +52,8 @@ const  NuevaPlanta=(props)=>{
             volumenMaceta:volumenMaceta?volumenMaceta:null,
             nacimiento:inicioGerminacion?convertirFecha(inicioGerminacion):null,
             inicioVegetativo:inicioVegetativo?convertirFecha(inicioVegetativo):null,
-            inicioFloracion:inicioFloracion?convertirFecha(inicioFloracion):props.periodo==='Floracion'? getFullDate():null
+            inicioFloracion:inicioFloracion?convertirFecha(inicioFloracion):props.periodo==='Floracion'? getFullDate():null,
+            inicioRevegetacion: props.periodo ==='Vegetativo' && etapa === 'Floracion' && getFullDate()
         })
         props.history.replace('/')
     }

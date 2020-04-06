@@ -125,12 +125,29 @@ export const DetallePlanta=(props)=>{
                         <ListItemText className={classes.listText} primary='Inicio De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
                     </Paper>
                 </div>
+                {props.inicioRevegetacion &&
+                    <div className="col-auto">
+                        <Paper elevation={3} className={classes.paper}>
+                            <Avatar src={vegetativo} className={classes.avatar}/>
+                            <ListItemText className={classes.listText} primary='Revegetacion' secondary={props.inicioRevegetacion}/>
+                        </Paper>
+                    </div>
+                }
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={floracion} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
                     </Paper>
                 </div>
+                {console.log(props.segundaFloracion)}
+                {props.segundaFloracion &&
+                    <div className="col-auto">
+                        <Paper elevation={3} className={classes.paper}>
+                            <Avatar src={floracion} className={classes.avatar}/>
+                            <ListItemText className={classes.listText} primary='Segunda Floracion' secondary={props.segundaFloracion}/>
+                        </Paper>
+                    </div>
+                }
                 {props.fechaDeCorte &&
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>

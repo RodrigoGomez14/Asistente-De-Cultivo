@@ -158,6 +158,7 @@ const Planta =(props)=>{
             riegos:props.plantas[props.location.props.id].riegos?props.plantas[props.location.props.id].riegos:null,
             fumigaciones:props.plantas[props.location.props.id].fumigaciones?props.plantas[props.location.props.id].fumigaciones:null,
             transplantes:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
+            inicioRevegetacion:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
             fechaDeCorte:getFullDate()
         })
         props.history.replace({
@@ -222,6 +223,7 @@ const Planta =(props)=>{
                         </Grow>
                         }
                         <div className="row flex-nowrap overflow-auto">
+                            {console.log(props.plantas[props.location.props.id].segundaFloracion)}
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
                                 cantidadDeGramos={props.plantas[props.location.props.id].cantidadDeGramos}
@@ -232,6 +234,8 @@ const Planta =(props)=>{
                                 inicioFloracion={props.plantas[props.location.props.id].inicioFloracion}
                                 fechaDeCorte={props.plantas[props.location.props.id].fechaDeCorte}
                                 volumenMaceta={props.plantas[props.location.props.id].volumenMaceta}
+                                inicioRevegetacion={props.plantas[props.location.props.id].inicioRevegetacion}
+                                segundaFloracion={props.plantas[props.location.props.id].segundaFloracion}
                             />
                         </div>
                         {!props.plantas[props.location.props.id].inicioFloracion &&

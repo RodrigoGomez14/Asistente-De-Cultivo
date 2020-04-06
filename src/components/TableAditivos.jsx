@@ -119,21 +119,25 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                 <Paper elevation={6} className={classes.paperMain}>
                                     <ExpansionPanelDetails>
                                         <div className="container">
-                                            <div className="row mb-2">
-                                                <div className="col-12 text-center">
-                                                    <Typography variant='h5'>
-                                                        Descripcion
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col text-left">
-                                                    <Typography variant='body2'>
-                                                        {aditivo.descripcion}
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                            <hr/>
+                                            {aditivo.descripcion &&
+                                                <>
+                                                    <div className="row mb-2">
+                                                        <div className="col-12 text-center">
+                                                            <Typography variant='h5'>
+                                                                Descripcion
+                                                            </Typography>
+                                                        </div>
+                                                    </div>
+                                                    <div className="row">
+                                                        <div className="col text-left">
+                                                            <Typography variant='body2'>
+                                                                {aditivo.descripcion}
+                                                            </Typography>
+                                                        </div>
+                                                    </div>
+                                                    <hr/>
+                                                </>
+                                            }
                                             <div className="row">
                                                 <div className="col-12 text-center">
                                                     <Typography variant='h5'>
@@ -155,6 +159,7 @@ export const TableAditivos = ({title,aditivos,user}) =>{
                                                     </List>
                                                 </Fragment>
                                             ))}
+                                            <hr/>
                                             <div className="row my-2 justify-content-around">
                                                 <div className='d-flex flex-column justify-content-center align-items-center'>
                                                     <IconButton

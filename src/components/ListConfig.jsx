@@ -163,6 +163,23 @@ export const ListConfig =({switchValue,setSwitchValue,horaDeInicio,cambiarHoraDe
                                                         inicioFloracion:getFullDate()
                                                     })
                                                 }
+                                                else{
+                                                    console.log('segunda floracion')
+                                                    await database().ref().child(user).child('plantas').child(key).update({
+                                                        segundaFloracion:getFullDate()
+                                                    })
+                                                }
+                                            })
+                                        }
+                                    }
+                                    else if(periodo==='Vegetativo'){
+                                        {plantas&&
+                                            Object.keys(plantas).map(async key=>{
+                                                if(plantas[key].inicioFloracion){
+                                                    await database().ref().child(user).child('plantas').child(key).update({
+                                                        inicioRevegetacion:getFullDate()
+                                                    })
+                                                }
                                             })
                                         }
                                     }

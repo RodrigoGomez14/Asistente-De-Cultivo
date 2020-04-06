@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
-import {Form,Row,Col,Container, Accordion, Card,InputGroup} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import {TextField,Paper,makeStyles,Button,FormControl,InputLabel,Select,MenuItem,Typography} from '@material-ui/core'
+import {TextField,Paper,makeStyles,Button,FormControl,InputLabel,Select,MenuItem,Typography,Dialog,DialogTitle,DialogContent,DialogActions,List,ListItem,ListItemText,Divider,Card,CardContent,InputAdornment} from '@material-ui/core'
 import {AddOutlined} from '@material-ui/icons'
 import {database} from 'firebase'
 const useStyles = makeStyles(theme=>({
@@ -13,8 +12,6 @@ const useStyles = makeStyles(theme=>({
         paddingTop:theme.spacing(2)
     },
     form:{
-        display:'flex',
-        flexDirection:'column',
         marginLeft:theme.spacing(1),
         marginRight:theme.spacing(1)
     },
@@ -45,10 +42,35 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 
-export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
+export const FormNuevoAditivoDosificaciones = ({updateState,dosis,setDosis}) =>{
     let [cantidadDeDosis,setCantidadDeDosis]=useState(1)
-    const exaplmesForInput=['Periodo Vegetativo','Cualquier Momento','Post Germinacion']
+    let [openDialog,setOpenDialog]=useState(false)
+    let [etapa,setEtapa]=useState(undefined)
+    let [cantidad,setCantidad]=useState(undefined)
+    let [tipoDeDosis,setTipoDeDosis]=useState(undefined)
+    let [tipoDeRiego,setTipoDeRiego]=useState(undefined)
+
+
+    const guardarDosis = ()=>{
+        const newDosis = {
+            ...dosis,
+            [Object.keys(dosis).length]:{
+                etapa:etapa,
+                cantidad:cantidad,
+                tipoDeDosis:tipoDeDosis,
+                tipoDeRiego:tipoDeRiego
+            }
+        }
+        setDosis(newDosis)
+    }
+    const resetInputs =()=>{
+        setEtapa(undefined)
+        setCantidad(undefined)
+        setTipoDeDosis(undefined)
+        setTipoDeRiego(undefined)
+    }
     const classes = useStyles()
+    const handleClose = ()=>{setOpenDialog(false)}
     return(
         <div className='container-fluid'>
             <Button
@@ -57,34 +79,72 @@ export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
                 className={classes.button}
                 startIcon={<AddOutlined/>}
                 onClick={e=>{
-                    setCantidadDeDosis(cantidadDeDosis+=1)
+                    setOpenDialog(true)
                 }}
             >
                 Agregar otra dosis
             </Button>
-            <div className='row flex-nowrap overflow-auto'>
-                {new Array(cantidadDeDosis).fill(undefined).map((vacio,i)=>(
-                    <form className='col-auto d-flex flex-column'>
-                        <TextField label="Etapa"  color='#fff' placeholder={exaplmesForInput[i]?exaplmesForInput[i]:null} onChange={e=>{
-                            updateState(e.target.value,'etapa','dosis'+i)
+            {Object.keys(dosis).length!== 0?
+                <div className={classes.dosisList}>
+                    {Object.keys(dosis).map(key=>(
+                        <Card elevation={3} className={classes.form}>
+                            <CardContent>
+                                <Typography variant='h6'>
+                                    Dosis {parseInt(key)+1}
+                                </Typography>
+                                <List>
+                                    <ListItem>
+                                        <ListItemText primary='Etapa' secondary={dosis[key].etapa} />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary='Cantidad' secondary={dosis[key].cantidad} />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary='Tipo De Dosis' secondary={dosis[key].tipoDeDosis=='1'?'gr/l':'ml/l'} />
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary='Tipo De Riego' secondary={dosis[key].tipoDeRiego} />
+                                    </ListItem>
+                                </List>
+                            </CardContent>
+                        </Card>
+                        ))
+                    }
+                </div>
+                :
+                null
+            }
+            <Dialog
+                open={openDialog}
+                onClose={handleClose}
+            >
+                <DialogTitle >{"Agregar Nueva Dosificacion"}</DialogTitle>
+                <DialogContent>
+                <form className='col-auto d-flex flex-column'>
+                        <TextField label="Etapa"  color='#fff' placeholder='Ciclo Vegetativo' onChange={e=>{
+                            setEtapa(e.target.value)
                         }}/>
-                        <TextField label="Cantidad" type='number' color='#fff' onChange={e=>{
-                            updateState(parseFloat(e.target.value),'cantidad','dosis'+i)
+                        <TextField label="Cantidad y Tipo de dosis" type='number' placeholder='5' color='#fff' 
+                        InputProps={{
+                            startAdornment: 
+                                <InputAdornment position="start">
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        placeholder='ml/l'
+                                        id="demo-simple-select"
+                                        color='#fff'
+                                        onChange={e=>{
+                                            setTipoDeDosis(e.target.value)
+                                        }}
+                                    >
+                                        <MenuItem value={'1'}>gr/L</MenuItem>
+                                        <MenuItem value={'2'}>ml/L</MenuItem>
+                                    </Select>        
+                                </InputAdornment>
+                        }}
+                        onChange={e=>{
+                            setCantidad(parseFloat(e.target.value))
                         }}/>
-                        <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-label">Tipo De Dosificacion</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                color='#fff'
-                                onChange={e=>{
-                                    updateState(e.target.value,'tipoDeDosis',"dosis"+i)
-                                }}
-                            >
-                                <MenuItem value={'1'}>gr/L</MenuItem>
-                                <MenuItem value={'2'}>ml/L</MenuItem>
-                            </Select>
-                        </FormControl>
                         <FormControl className={classes.formControl}>
                             <InputLabel id="demo-simple-select-label">Tipo De Aplicacion</InputLabel>
                             <Select
@@ -92,7 +152,7 @@ export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
                                 color='#fff'
                                 id="demo-simple-select"
                                 onChange={e=>{
-                                    updateState(e.target.value,'tipoDeRiego','dosis'+i)
+                                    setTipoDeRiego(e.target.value)
                                 }}
                             >
                                 <MenuItem value={'Tierra'}>Tierra</MenuItem>
@@ -100,8 +160,22 @@ export const FormNuevoAditivoDosificaciones = ({updateState}) =>{
                             </Select>
                         </FormControl>
                     </form>
-                ))}
-            </div>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        Cancelar
+                    </Button>
+                    <Button 
+                        disabled={etapa && cantidad && tipoDeDosis && tipoDeRiego?false:true}
+                    onClick={()=>{
+                        guardarDosis()
+                        resetInputs()
+                        handleClose()
+                    }} color="primary" autoFocus>
+                        Agregar
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>
     )
 }

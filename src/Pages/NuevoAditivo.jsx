@@ -30,8 +30,8 @@ const NuevoAditivo=(props)=>{
         const {Riego,Foliar}=ClasificarDosis()
         const newAditivo= {
             nombre:inputs.nombre,
-            marca:inputs.marca,
-            descripcion:inputs.descripcion,
+            marca:inputs.marca?inputs.marca:null,
+            descripcion:inputs.descripcion?inputs.descripcion:null,
             dosis:{
                 Tierra:Riego,
                 Foliar:Foliar
@@ -67,21 +67,10 @@ const NuevoAditivo=(props)=>{
         }
     }
     const updateState=(valor,nombre,indexDosis)=>{
-        if(indexDosis){
-            setDosis({
-                ...dosis,
-                [indexDosis]:{
-                    ...dosis[indexDosis],
-                    [nombre]:valor
-                }
-            })
-        }
-        else{
-            setInputs({
-                ...inputs,
-                [nombre]:valor
-            })
-        }
+        setInputs({
+            ...inputs,
+            [nombre]:valor
+        })
     }
     const ClasificarDosis = ()=>{
         let Riego={}
@@ -117,6 +106,8 @@ const NuevoAditivo=(props)=>{
                 <StepperAccion
                 confirmarAccion={agregarAditivo}
                 tipoDeAccion='Nuevo Aditivo'
+                inputsAditivo={inputs}
+                dosisAditivo={dosis}
                 steps={[
                     {
                         title:'Caracteristicas',
@@ -131,6 +122,8 @@ const NuevoAditivo=(props)=>{
                         content:(
                             <FormNuevoAditivoDosificaciones
                                 updateState={updateState} 
+                                dosis={dosis}
+                                setDosis={setDosis}
                             />
                         )
                     },

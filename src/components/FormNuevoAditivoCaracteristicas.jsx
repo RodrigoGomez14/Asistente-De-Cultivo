@@ -43,10 +43,11 @@ const useStyles = makeStyles(theme=>({
     }
 }))
 
-export const FormNuevoAditivoCaracteristicas = ({updateState}) =>{
+export const FormNuevoAditivoCaracteristicas = ({updateState,dosis}) =>{
     const classes = useStyles()
     return(
         <div className={classes.root}>
+            {console.log(dosis)}
             <div className={classes.form}>
                 <TextField label="Nombre"  onChange={e=>{
                     updateState(e.target.value,'nombre')
