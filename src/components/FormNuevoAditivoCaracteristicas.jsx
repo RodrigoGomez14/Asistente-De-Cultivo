@@ -1,10 +1,5 @@
-import React,{useState} from 'react'
-import {Form,Row,Col,Container, Accordion, Card,InputGroup} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import {TextField,Paper,makeStyles,Button,FormControl,InputLabel,Select,MenuItem,Typography} from '@material-ui/core'
-import {AddOutlined} from '@material-ui/icons'
-import {database} from 'firebase'
+import React from 'react'
+import {TextField,makeStyles} from '@material-ui/core'
 const useStyles = makeStyles(theme=>({
     root:{
         display:'flex',

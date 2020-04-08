@@ -1,6 +1,5 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState} from 'react'
 import {AccionDetallada} from '../components/AccionDetallada'
-import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {makeStyles,Paper} from '@material-ui/core';
 import {Layout} from './Layout'
@@ -36,6 +35,7 @@ const PlantaRiegos =(props)=>{
                                             <TimelineItem
                                                 dateText={props.plantas[props.location.props.id].riegos[id].fecha}
                                                 dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                                key={`riegos${i}`}
                                             >   
                                                 <AccionDetallada 
                                                     handleChange={handleChange} 
@@ -46,7 +46,6 @@ const PlantaRiegos =(props)=>{
                                                     accion={props.plantas[props.location.props.id].riegos[id]} 
                                                     tipoDeAccion='riegos' 
                                                     idPlanta={props.location.props.id} 
-                                                    id={id} 
                                                     id={id}
                                                 />
                                         </TimelineItem>

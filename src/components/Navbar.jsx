@@ -1,9 +1,7 @@
-import React , {useState}from 'react'
-import {makeStyles, Hidden} from '@material-ui/core'
-import {AppBar,Toolbar,IconButton,Typography,Card,CardMedia,Paper,Switch,FormControlLabel,Avatar,Menu,MenuItem} from '@material-ui/core'
-import {Menu as MenuIcon,ArrowBackRounded,AccountCircle,HomeOutlined,NatureOutlined} from '@material-ui/icons'
-import {auth} from 'firebase'
-import {connect} from 'react-redux'
+import React from 'react'
+import {makeStyles} from '@material-ui/core'
+import {AppBar,Toolbar,IconButton,Typography} from '@material-ui/core'
+import {Menu as MenuIcon,ArrowBackRounded} from '@material-ui/icons'
 const useStyles = makeStyles( theme=>({
     appBar:{
         backgroundColor:theme.palette.primary.main,
@@ -26,15 +24,6 @@ const useStyles = makeStyles( theme=>({
 
 export const NavBar = ({page,plantaId,history,plantaDelHistorial,setMenuOpened}) =>{
     const classes = useStyles()
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-    const handleMenu = event => {
-        setAnchorEl(event.currentTarget);
-      };
-    
-      const handleClose = () => {
-        setAnchorEl(null);
-      };
     return(
         <AppBar className={classes.appBar} position="static" >
             <Toolbar>
@@ -80,7 +69,7 @@ export const NavBar = ({page,plantaId,history,plantaDelHistorial,setMenuOpened})
             </Typography>
             <IconButton edge="end" className={classes.menuButton} onClick={e=>{
                 setMenuOpened(true)
-            }} color="inherit" aria-label="menu" size='large'>
+            }} color="inherit" aria-label="menu">
                 <MenuIcon />
             </IconButton>
             </Toolbar>

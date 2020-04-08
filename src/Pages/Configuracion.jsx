@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import {Layout} from './Layout'
 import {connect} from 'react-redux'
 import {ListConfig} from '../components/ListConfig'
-import {database,auth}from 'firebase'
-import {makeStyles,Paper,Typography,Button} from '@material-ui/core'
+import {database}from 'firebase'
+import {makeStyles,Paper,Typography} from '@material-ui/core'
 const useStyles=makeStyles(theme=>({
     root:{
         height:'100%',
@@ -92,7 +92,7 @@ const Configuracion=(props)=>{
                     cambiarPeriodo={cambiarPeriodo}
                     cicloLuminico={props.cicloLuminico}
                     cambiarCicloLuminico={cambiarCicloLuminico}
-                    plantas={props.plantas}
+                    plantas={props.plantas=[]}
                     returnHome={()=>{props.history.replace('/Configuracion')}}
                 />
             </Paper>

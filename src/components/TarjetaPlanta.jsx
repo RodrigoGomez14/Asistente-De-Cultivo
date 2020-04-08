@@ -1,11 +1,8 @@
-import React, {useState,useEffect} from 'react'
-import moment from 'moment'
+import React from 'react'
 import fotoGerminacion from '../images/fotoGerminacion.jpg'
 import fotoVegetativo from '../images/fotoVegetativo.jpg'
 import fotoFloracion from '../images/fotoFloracion.jpg'
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import {database} from 'firebase'
 import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'
 import {Link} from 'react-router-dom'
 import {Paper} from '@material-ui/core'
@@ -21,10 +18,6 @@ const useStyles = makeStyles(theme => ({
   }));
 
 export const TarjetaPlanta=(props)=>{
-    let [edad,setEdad]=useState(undefined)
-    useEffect(()=>{
-        setEdad(moment().diff(moment(props.nacimiento),'days'))
-    })
     const classes = useStyles()
     return(
         <div className="col-auto">
@@ -53,7 +46,6 @@ export const TarjetaPlanta=(props)=>{
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col text-left">
-                                            {console.log(props)}
                                             <h4 className="card-title">{props.nombre}</h4>
                                         </div>
                                     </div>

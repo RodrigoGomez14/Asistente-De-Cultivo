@@ -3,12 +3,8 @@ import {Layout} from './Layout'
 import {DetallePlanta} from '../components/DetallePlanta'
 import {DetalleAcciones} from '../components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {makeStyles,GridListTile,CardMedia,Paper,GridList, Divider,Button,Grow} from '@material-ui/core'
-import {Alert,AlertTitle} from '@material-ui/lab'
+import {makeStyles,Paper} from '@material-ui/core'
 import {database} from 'firebase'
-import moment from 'moment'
-import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
-import fotoPlanta from '../images/apple cookies.jpg'
 import {InputCantidadCosechada} from '../components/InputCantidadCosechada'
 import {connect} from 'react-redux'
 
@@ -80,45 +76,14 @@ const useStyles=makeStyles(theme=>({
         }
     }
 }))
-const getFullDate=()=>{
-    const date = new Date
-    const year = date.getFullYear()
-    let month = date.getMonth()+1
-    month = month<10?month=`0${month}`:month
-    const days = date.getDate()
-    return`${days}/${month}/${year}`
-}
 const PlantaHistorial =(props)=>{
     const classes = useStyles()
     let [inputCantidad, setInputCantidad]= useState(undefined)
-    let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
     const guardarCantidadCosechada=async ()=>{
         await database().ref().child(props.user.uid).child('historial').child(props.location.props.id).update({
             cantidadDeGramos:inputCantidad+' gr'
         })
     }
-    const tileData=[
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },{
-            img:fotoPlanta,
-        }
-        ,{
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        }
-    ]
     /*
     <div className="row">
         <GridList className={classes.gridList} cols={2.5}>
@@ -149,6 +114,8 @@ const PlantaHistorial =(props)=>{
                                 inicioFloracion={props.plantas[props.location.props.id].inicioFloracion}
                                 fechaDeCorte={props.plantas[props.location.props.id].fechaDeCorte}
                                 volumenMaceta={props.plantas[props.location.props.id].volumenMaceta}
+                                inicioRevegetacion={props.plantas[props.location.props.id].inicioRevegetacion}
+                                segundaFloracion={props.plantas[props.location.props.id].segundaFloracion}
                             />
                         </div>
                         <div className="row">

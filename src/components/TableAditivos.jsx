@@ -1,8 +1,4 @@
 import React,{Fragment} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSortDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 import './styles/table.css'
 import {database} from 'firebase'
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {DeleteOutline, EditOutlined,AddOutlined} from '@material-ui/icons'
-import {IconButton,ButtonGroup,Grow, ListItemText,List,ListItem} from '@material-ui/core'
+import {IconButton,Grow, ListItemText,List,ListItem} from '@material-ui/core'
 import {Link} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({

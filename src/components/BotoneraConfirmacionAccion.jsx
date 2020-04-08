@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
+import {faCheck} from '@fortawesome/free-solid-svg-icons'
 import {Button,makeStyles} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
     button: {
-        marginRight: theme.spacing(1),
+        marginRight: theme.spacing(2),
     },
     actionsContainer: {
         marginBottom: theme.spacing(2),
@@ -24,7 +24,6 @@ export const BotoneraConfirmacionAccion=(props)=>{
                     <Button
                         className={classes.button}
                         onClick={props.handleBack}
-                        className='mr-2'
                     >
                         Volver
                     </Button>

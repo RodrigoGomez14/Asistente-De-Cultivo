@@ -1,7 +1,7 @@
-import React , {Component} from 'react'
+import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCannabis} from '@fortawesome/free-solid-svg-icons'
-import {Paper,makeStyles,Typography} from '@material-ui/core'
+import {makeStyles,Typography} from '@material-ui/core'
 import './styles/loading.css'
 
 const useStyles=makeStyles(theme=>({

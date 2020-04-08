@@ -34,9 +34,6 @@ const useStyles = makeStyles(theme => ({
   actionsContainer: {
     marginBottom: theme.spacing(2),
   },
-  resetContainer: {
-    padding: theme.spacing(3),
-  },
   paperSecondary:{
     backgroundColor:theme.palette.type==='dark'?theme.palette.primary.dark:theme.palette.primary.main,
     paddingBottom:theme.spacing(2),
@@ -58,7 +55,8 @@ const useStyles = makeStyles(theme => ({
   },
   resetContainer:{
     backgroundColor:theme.palette.type==='dark'&&theme.palette.secondary.light,
-    width:'500px'
+    width:'500px',
+    padding: theme.spacing(3),
   },
   rootLastStep:{
     display:'flex',
@@ -78,9 +76,6 @@ export const  StepperAccion=({steps,cantidadDeAgua,tipoDeRiego,confirmarAccion,r
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
   const setDisabled=(activeStep,tipoDeRiego,cantidadDeAgua)=>{
     if(tipoDeAccion==='Nueva Planta'){
       if(activeStep===0){

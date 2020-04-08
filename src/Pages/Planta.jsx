@@ -1,16 +1,12 @@
-import React,{useState, useEffect}from 'react'
+import React,{useState}from 'react'
 import {Layout} from './Layout'
 import {DetallePlanta} from '../components/DetallePlanta'
 import {DetalleAcciones} from '../components/DetalleAcciones'
 import {Redirect} from 'react-router-dom'
-import {makeStyles,GridListTile,CardMedia,Card,Paper,GridList, Divider,Button,Grow,Input,Typography, IconButton,TextField} from '@material-ui/core'
-import {AddAPhotoOutlined} from '@material-ui/icons'
+import {makeStyles,Paper,Divider,Button,Grow} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab'
-import {database,storage} from 'firebase'
-import moment from 'moment'
+import {database} from 'firebase'
 import { BotoneraConfiguracionPlanta } from '../components/BotoneraConfiguracionPlanta'
-import fotoPlanta from '../images/apple cookies.jpg'
-import {InputCantidadCosechada} from '../components/InputCantidadCosechada'
 import {connect} from 'react-redux'
 
 const useStyles=makeStyles(theme=>({
@@ -89,64 +85,16 @@ const useStyles=makeStyles(theme=>({
     }
 }))
 const getFullDate=()=>{
-    const date = new Date
+    const date = new Date()
     const year = date.getFullYear()
     let month = date.getMonth()+1
     month = month<10?month=`0${month}`:month
     const days = date.getDate()
-    return`${days}/${month}/${year}`
-}
-const translateMonth=date=>{
-    const month = date.slice(0,date.indexOf(' '))
-    const newDate = date.slice(date.indexOf(' ')+1)
-    switch (month) {
-        case 'January':
-            return `Enero ${newDate}`
-            break;
-        case 'February':
-            return `Febrero ${newDate}`
-            break;
-        case 'March':
-            return `Marzo ${newDate}`
-            break;
-        case 'April':
-            return `Abril ${newDate}`
-            break;
-        case 'May':
-            return `Mayo ${newDate}`
-            break;
-        case 'June':
-            return `Junio ${newDate}`
-            break;
-        case 'July':
-            return `Julio ${newDate}`
-            break;
-        case 'August':
-            return `Agosto ${newDate}`
-            break;
-        case 'September':
-            return `Septiembre ${newDate}`
-            break;
-        case 'October':
-            return `Octubre ${newDate}`
-            break;
-        case 'November':
-            return `Noviembre ${newDate}`
-            break;
-        case 'December':
-            return `Diciembre ${newDate}`
-            break;
-        default:
-        break;
-    }
-    return date
+    return`${days>=10?days:`0${days}`}/${month}/${year}`
 }
 const Planta =(props)=>{
     const classes = useStyles()
-    let [inputCantidad, setInputCantidad]= useState(undefined)
     let [iniciarVegetativo, setIniciarVegetativo]= useState(false)
-    let [addPhoto, setAddPhoto]= useState(false)
-    let [loading,setLoading]=useState(true)
     const cosecharPlanta=async ()=>{
         await database().ref().child(props.user.uid).child('historial').child(props.location.props.id).update({
             nombre:props.plantas[props.location.props.id].nombre?props.plantas[props.location.props.id].nombre:null,
@@ -158,7 +106,8 @@ const Planta =(props)=>{
             riegos:props.plantas[props.location.props.id].riegos?props.plantas[props.location.props.id].riegos:null,
             fumigaciones:props.plantas[props.location.props.id].fumigaciones?props.plantas[props.location.props.id].fumigaciones:null,
             transplantes:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
-            inicioRevegetacion:props.plantas[props.location.props.id].transplantes?props.plantas[props.location.props.id].transplantes:null,
+            inicioRevegetacion:props.plantas[props.location.props.id].inicioRevegetacion?props.plantas[props.location.props.id].inicioRevegetacion:null,
+            segundaFloracion:props.plantas[props.location.props.id].segundaFloracion?props.plantas[props.location.props.id].segundaFloracion:null,
             fechaDeCorte:getFullDate()
         })
         props.history.replace({
@@ -179,51 +128,12 @@ const Planta =(props)=>{
         })
         setIniciarVegetativo(false)
     }
-    /*{!loading?
-        photos.length?
-            photos.map(tile => (
-            <GridListTile  className={classes.tile}>
-                <img/>
-            </GridListTile>
-            ))
-            :
-            <Paper
-                className={classes.paperTile}
-                elevation={3}
-            >
-                <IconButton
-                    onClick={e=>{setAddPhoto(true)}}
-                    variant="contained"
-                    >
-                    <AddAPhotoOutlined/>
-                </IconButton>
-                <Typography variant='caption'>No hay Fotos Agrega Una</Typography>
-            </Paper>
-        :
-        <Paper>
-            ...cargando...
-        </Paper>
-    }*/
     return(
         props.location.props?
         <Layout history={props.history} page={props.plantas[props.location.props.id].nombre} plantaId={props.location.props.id} user={props.user.uid} userVerification={props.user.emailVerified}>
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid">
-                        <div className="row">
-                            <GridList className={classes.gridList} cols={2.5}>
-                                
-                            </GridList>
-                        </div>
-                        {addPhoto&&
-                        <Grow in={iniciarVegetativo}
-                        {...(true ? { timeout: 1500 } : {})}>
-                            <>
-                                <TextField type='file' variant='outlined' onChange={e=>{}}/>
-                            </>
-                        </Grow>
-                        }
                         <div className="row flex-nowrap overflow-auto">
-                            {console.log(props.plantas[props.location.props.id].segundaFloracion)}
                             <DetallePlanta 
                                 genetica={props.plantas[props.location.props.id].genetica}
                                 cantidadDeGramos={props.plantas[props.location.props.id].cantidadDeGramos}

@@ -1,10 +1,11 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState} from 'react'
 import {AccionDetallada} from '../components/AccionDetallada'
-import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {makeStyles,Paper} from '@material-ui/core';
 import {Layout} from './Layout'
 import {connect} from 'react-redux'
+import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
+
 const useStyles = makeStyles(theme=>({
     root:{
         height:'100%',
@@ -30,20 +31,27 @@ const PlantaHistorialRiegos =(props)=>{
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4 p-0">
                             {props.plantas[props.location.props.id].riegos?
-                                Object.keys(props.plantas[props.location.props.id].riegos).reverse().map((id,i)=>(
-                                    <AccionDetallada 
-                                        handleChange={handleChange} 
-                                        index={i} 
-                                        expanded={expanded} 
-                                        plantaDelHistorial={true}
-                                        user={props.user.uid} 
-                                        accion={props.plantas[props.location.props.id].riegos[id]} 
-                                        tipoDeAccion='riegos' 
-                                        idPlanta={props.location.props.id} 
-                                        id={id} 
-                                        id={id}
-                                    />
-                                ))
+                                <Timeline lineColor={'#ddd'}>
+                                    {Object.keys(props.plantas[props.location.props.id].riegos).reverse().map((id,i)=>(
+                                        <TimelineItem
+                                            dateText={props.plantas[props.location.props.id].riegos[id].fecha}
+                                            dateInnerStyle={{ background: '#00796b', color: '#fff' }}
+                                            key={`riegos${i}`}
+                                        >   
+                                            <AccionDetallada 
+                                                handleChange={handleChange} 
+                                                index={i} 
+                                                expanded={expanded} 
+                                                plantaDelHistorial={false}
+                                                user={props.user.uid} 
+                                                accion={props.plantas[props.location.props.id].riegos[id]} 
+                                                tipoDeAccion='riegos' 
+                                                idPlanta={props.location.props.id} 
+                                                id={id}
+                                            />
+                                    </TimelineItem>
+                                    ))}
+                            </Timeline>
                                 :
                                 <div className="row justify-content-center mt-4">
                                     <div className="col-auto">

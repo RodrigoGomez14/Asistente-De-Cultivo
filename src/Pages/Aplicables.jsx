@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { TabAditivos } from '../components/TabAditivos'
 import { connect } from 'react-redux'
 import {Layout} from './Layout'

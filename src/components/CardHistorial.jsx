@@ -1,5 +1,4 @@
 import React from 'react'
-import { AddCircleOutlineOutlined } from '@material-ui/icons'
 import fotoPlanta from '../images/apple cookies.jpg'
 import {Paper,makeStyles,Grow} from '@material-ui/core'
 import {Overlay,Img,Card} from './styles/TarjetaPlantaStyles'

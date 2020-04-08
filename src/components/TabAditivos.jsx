@@ -1,9 +1,7 @@
 import React,{useState} from 'react'
-import {Row,Col} from 'react-bootstrap'
 import {Tabs,Tab,Paper,Typography,Box} from '@material-ui/core'
 import {TableAditivos} from './TableAditivos'
-import { makeStyles,Theme } from '@material-ui/core/styles';
-import {Grow} from '@material-ui/core'
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
     paperMain: {

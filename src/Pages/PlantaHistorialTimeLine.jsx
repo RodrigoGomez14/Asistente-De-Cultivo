@@ -1,6 +1,5 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState} from 'react'
 import {AccionDetallada} from '../components/AccionDetallada'
-import {Accordion} from 'react-bootstrap'
 import { Redirect } from 'react-router'
 import {Layout} from './Layout'
 import {makeStyles,Paper,Typography} from '@material-ui/core'
@@ -23,7 +22,6 @@ const useStyles = makeStyles(theme=>({
 })) 
 const PlantaHistorialTimeLine =(props)=>{
     let [expanded,setExpanded]= useState(false)
-    let [arrayAcciones,setArrayAcciones]= useState([])
     const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
@@ -32,6 +30,7 @@ const PlantaHistorialTimeLine =(props)=>{
         let aux = []
         Object.keys(acciones).map(key=>{
             aux.push({accion:acciones[key],tipoDeAccion:tipoDeAccion,id:key})
+            return null
         })
         return aux
     }
@@ -44,15 +43,19 @@ const PlantaHistorialTimeLine =(props)=>{
             const arrayTransplantes= convertToArray(props.plantas[props.location.props.id].transplantes,'Transplante')
             arrayRiegos.map(riego=>{
                 aux.push(riego)
+                return null
             })
             arrayFumigaciones.map(fumigacion=>{
                 aux.push(fumigacion)
+                return null
             })
             arrayPodas.map(poda=>{
                 aux.push(poda)
+                return null
             })
             arrayTransplantes.map(transplante=>{
                 aux.push(transplante)
+                return null
             })
             return aux.sort(function compare(a, b) {
                 if (a.id < b.id) {

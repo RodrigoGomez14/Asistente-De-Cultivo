@@ -72,42 +72,30 @@ import moment from 'moment'
         switch (month) {
             case 'January':
                 return `Enero ${newDate}`
-                break;
             case 'February':
                 return `Febrero ${newDate}`
-                break;
             case 'March':
                 return `Marzo ${newDate}`
-                break;
             case 'April':
                 return `Abril ${newDate}`
-                break;
             case 'May':
                 return `Mayo ${newDate}`
-                break;
             case 'June':
                 return `Junio ${newDate}`
-                break;
             case 'July':
                 return `Julio ${newDate}`
-                break;
             case 'August':
                 return `Agosto ${newDate}`
-                break;
             case 'September':
                 return `Septiembre ${newDate}`
-                break;
             case 'October':
                 return `Octubre ${newDate}`
-                break;
             case 'November':
                 return `Noviembre ${newDate}`
-                break;
             case 'December':
                 return `Diciembre ${newDate}`
-                break;
             default:
-            break;
+                break;
         }
         return date
     }

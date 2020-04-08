@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import {Row,Col,Container} from 'react-bootstrap'
+import React from 'react'
+import {Row,Container} from 'react-bootstrap'
 import './styles/accion-card.css'
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';

@@ -1,9 +1,6 @@
 import React,{useState} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons'
-import {TextField,Paper,makeStyles,Button,FormControl,InputLabel,Select,MenuItem,Typography,Dialog,DialogTitle,DialogContent,DialogActions,List,ListItem,ListItemText,Divider,Card,CardContent,InputAdornment} from '@material-ui/core'
+import {TextField,makeStyles,Button,FormControl,InputLabel,Select,MenuItem,Typography,Dialog,DialogTitle,DialogContent,DialogActions,List,ListItem,ListItemText,Card,CardContent,InputAdornment} from '@material-ui/core'
 import {AddOutlined} from '@material-ui/icons'
-import {database} from 'firebase'
 const useStyles = makeStyles(theme=>({
     root:{
         display:'flex',
@@ -43,7 +40,6 @@ const useStyles = makeStyles(theme=>({
 }))
 
 export const FormNuevoAditivoDosificaciones = ({updateState,dosis,setDosis}) =>{
-    let [cantidadDeDosis,setCantidadDeDosis]=useState(1)
     let [openDialog,setOpenDialog]=useState(false)
     let [etapa,setEtapa]=useState(undefined)
     let [cantidad,setCantidad]=useState(undefined)
@@ -100,7 +96,7 @@ export const FormNuevoAditivoDosificaciones = ({updateState,dosis,setDosis}) =>{
                                         <ListItemText primary='Cantidad' secondary={dosis[key].cantidad} />
                                     </ListItem>
                                     <ListItem>
-                                        <ListItemText primary='Tipo De Dosis' secondary={dosis[key].tipoDeDosis=='1'?'gr/l':'ml/l'} />
+                                        <ListItemText primary='Tipo De Dosis' secondary={dosis[key].tipoDeDosis===1?'gr/l':'ml/l'} />
                                     </ListItem>
                                     <ListItem>
                                         <ListItemText primary='Tipo De Riego' secondary={dosis[key].tipoDeRiego} />
@@ -137,8 +133,8 @@ export const FormNuevoAditivoDosificaciones = ({updateState,dosis,setDosis}) =>{
                                             setTipoDeDosis(e.target.value)
                                         }}
                                     >
-                                        <MenuItem value={'1'}>gr/L</MenuItem>
-                                        <MenuItem value={'2'}>ml/L</MenuItem>
+                                        <MenuItem value={1}>gr/L</MenuItem>
+                                        <MenuItem value={2}>ml/L</MenuItem>
                                     </Select>        
                                 </InputAdornment>
                         }}

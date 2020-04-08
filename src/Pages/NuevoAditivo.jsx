@@ -2,30 +2,15 @@ import React,{useState} from 'react'
 import {Layout} from './Layout'
 import { connect } from 'react-redux'
 import {database} from 'firebase'
-import moment from 'moment'
-import addFile from '../images/addFile.svg'
 import { FormNuevoAditivoCaracteristicas } from '../components/FormNuevoAditivoCaracteristicas'
 import { FormNuevoAditivoDosificaciones } from '../components/FormNuevoAditivoDosificaciones'
 import {Redirect} from 'react-router-dom'
-import {makeStyles,Paper} from '@material-ui/core'
 import {StepperAccion} from '../components/StepperAccion'
-const useStyles = makeStyles(theme=>({
-    root:{
-        height:'100%',
-        width:'100%',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-around',
-        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
-    }
-}))
 
 
 const NuevoAditivo=(props)=>{
     const [inputs,setInputs] = useState({})
     const [dosis,setDosis] = useState({})
-    const classes = useStyles()
     const agregarAditivo= async ()=>{
         const {Riego,Foliar}=ClasificarDosis()
         const newAditivo= {
@@ -77,7 +62,7 @@ const NuevoAditivo=(props)=>{
         let Foliar={}
         Object.keys(dosis).map(newDosis=>{
             if (dosis[newDosis].etapa && dosis[newDosis].cantidad && dosis[newDosis].tipoDeRiego && dosis[newDosis].tipoDeDosis){
-                let tipoDeDosis= dosis[newDosis].tipoDeDosis==1?'gr/L':'ml/L'
+                let tipoDeDosis= dosis[newDosis].tipoDeDosis===1?'gr/L':'ml/L'
                 if(dosis[newDosis].tipoDeRiego==='Foliar'){
                     Foliar={
                         ...Foliar,
@@ -91,6 +76,7 @@ const NuevoAditivo=(props)=>{
                     }
                 }
             }
+            return null
         })
         return{Riego,Foliar}
     }

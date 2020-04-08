@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {connect} from 'react-redux'
 import './styles/Accion.css'
@@ -7,9 +6,7 @@ import {database} from 'firebase'
 import moment from 'moment'
 import ElegirPlantaAccion from '../components/ElegirPlantaAccion';
 import {ElegirTipoDeRiego} from '../components/ElegirTipoDeRiego';
-import BotoneraConfirmacionAccion from '../components/BotoneraConfirmacionAccion';
 import {FormularioAccion} from '../components/FormularioAccion';
-import {Accordion} from 'react-bootstrap'
 import {Layout} from './Layout'
 import {ResumenAccion} from '../components/ResumenAccion'
 
@@ -82,40 +79,28 @@ class Riego extends Component{
         switch (month) {
             case 'January':
                 return `Enero ${newDate}`
-                break;
             case 'February':
                 return `Febrero ${newDate}`
-                break;
             case 'March':
                 return `Marzo ${newDate}`
-                break;
             case 'April':
                 return `Abril ${newDate}`
-                break;
             case 'May':
                 return `Mayo ${newDate}`
-                break;
             case 'June':
                 return `Junio ${newDate}`
-                break;
             case 'July':
                 return `Julio ${newDate}`
-                break;
             case 'August':
                 return `Agosto ${newDate}`
-                break;
             case 'September':
                 return `Septiembre ${newDate}`
-                break;
             case 'October':
                 return `Octubre ${newDate}`
-                break;
             case 'November':
                 return `Noviembre ${newDate}`
-                break;
             case 'December':
                 return `Diciembre ${newDate}`
-                break;
             default:
             break;
         }

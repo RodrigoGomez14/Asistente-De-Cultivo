@@ -1,8 +1,6 @@
-import React , {useState,useEffect} from 'react'
+import React , {useState} from 'react'
 import {Paper} from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import {Redirect} from 'react-router-dom'
-import { createMuiTheme,ThemeProvider } from '@material-ui/core/styles';
 import {NavBar} from '../components/Navbar'
 import {MenuDrawer} from '../components/MenuDrawer'
 import foto from '../images/sea of green.png'
@@ -38,7 +36,6 @@ const useStyles = makeStyles(theme => ({
 export const Layout=({page,children,history,plantaId,user,plantaDelHistorial,userVerification})=>{
     const classes = useStyles();
     let [menuOpened,setMenuOpened]=useState(false)
-    let [selectedTabs,setSelectedTabs]=useState('recents')
     return(
         <Paper className={classes.app}>
             {user && userVerification &&

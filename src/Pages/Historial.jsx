@@ -1,8 +1,8 @@
-import React,{Component} from 'react'
+import React from 'react'
 import {Layout} from './Layout'
 import { connect } from 'react-redux'
 import {Link} from 'react-router-dom'
-import {Button,Typography} from '@material-ui/core'
+import {Typography} from '@material-ui/core'
 import {CardHistorial} from '../components/CardHistorial'
 import {makeStyles,Paper} from '@material-ui/core'
 import { Timeline, TimelineItem }  from 'vertical-timeline-component-for-react';
@@ -27,10 +27,11 @@ const Historial=(props)=>{
             <Paper elevation={3} className={classes.root}>
                 <Timeline lineColor={'#ddd'}>
                     {props.historial?
-                        Object.keys(props.historial).map(planta=>(
+                        Object.keys(props.historial).reverse().map((planta,i)=>(
                             <TimelineItem
                                 dateText={props.historial[planta].fechaDeCorte}
                                 dateInnerStyle={{ background: '#00796b', color: '#fff', width:'250px'}}
+                                key={`planta${i}`}
                             >
                                 <Link className='text-white' to={{
                                     pathname:'/Historial/Planta',

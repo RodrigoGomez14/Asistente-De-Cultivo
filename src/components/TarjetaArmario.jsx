@@ -1,5 +1,5 @@
 import React from 'react'
-import {Paper,List,ListItem,ListItemText,makeStyles,Grow,Avatar} from '@material-ui/core'
+import {Paper,ListItemText,makeStyles,Grow,Avatar} from '@material-ui/core'
 import periodoImg from '../images/periodo.svg'
 import reloj from '../images/reloj.svg'
 import ciclo from '../images/ciclo.svg'

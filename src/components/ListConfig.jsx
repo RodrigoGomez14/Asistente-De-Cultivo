@@ -1,7 +1,7 @@
 import React,{useState}from 'react'
-import { Paper,ListItem,List,ListItemText,FormControl,InputLabel,Select,MenuItem,makeStyles,Switch,FormControlLabel,TextField,InputAdornment,Grow,Button, Typography,Divider } from '@material-ui/core'
+import { Paper,FormControl,InputLabel,Select,MenuItem,makeStyles,Switch,FormControlLabel,TextField,InputAdornment,Grow,Button, Typography,Divider } from '@material-ui/core'
 import {DeleteForever} from '@material-ui/icons'
-import {Alert,AlertTitle} from '@material-ui/lab'
+import {Alert} from '@material-ui/lab'
 import {database,auth} from 'firebase'
 import {PantallaDeCarga} from '../Pages/PantallaDeCarga'
 
@@ -46,12 +46,12 @@ const useStyles=makeStyles(theme=>({
     }
 }))
 const getFullDate=()=>{
-    const date = new Date
+    const date = new Date()
     const year = date.getFullYear()
     let month = date.getMonth()+1
     month = month<10?month=`0${month}`:month
     const days = date.getDate()
-    return`${days}/${month}/${year}`
+    return`${days>=10?days:`0${days}`}/${month}/${year}`
 }
 export const ListConfig =({switchValue,setSwitchValue,horaDeInicio,cambiarHoraDeInicio,periodo,cambiarPeriodo,cicloLuminico,cambiarCicloLuminico,plantas,user,returnHome})=>{
     const classes = useStyles()
@@ -144,7 +144,7 @@ export const ListConfig =({switchValue,setSwitchValue,horaDeInicio,cambiarHoraDe
                     </FormControl>
                     {errorCicloLuminico&&
                     <Grow in={true}>
-                    <   Alert className={classes.alert} variant="filled" severity="warning">
+                        <Alert className={classes.alert} variant="filled" severity="warning">
                             <Typography>
                                 Quiere cambiar el ciclo luminico a {horaDeRespaldo} HS?
                             </Typography>
@@ -156,32 +156,28 @@ export const ListConfig =({switchValue,setSwitchValue,horaDeInicio,cambiarHoraDe
                                     cambiarCicloLuminico(horaDeRespaldo)
                                     cambiarPeriodo(periodo)
                                     if(periodo==='Floracion'){
-                                        {plantas&&
-                                            Object.keys(plantas).map(async key=>{
-                                                if(!plantas[key].inicioFloracion){
-                                                    await database().ref().child(user).child('plantas').child(key).update({
-                                                        inicioFloracion:getFullDate()
-                                                    })
-                                                }
-                                                else{
-                                                    console.log('segunda floracion')
-                                                    await database().ref().child(user).child('plantas').child(key).update({
-                                                        segundaFloracion:getFullDate()
-                                                    })
-                                                }
-                                            })
-                                        }
+                                        Object.keys(plantas).map(async key=>{
+                                            if(!plantas[key].inicioFloracion){
+                                                await database().ref().child(user).child('plantas').child(key).update({
+                                                    inicioFloracion:getFullDate()
+                                                })
+                                            }
+                                            else{
+                                                console.log('segunda floracion')
+                                                await database().ref().child(user).child('plantas').child(key).update({
+                                                    segundaFloracion:getFullDate()
+                                                })
+                                            }
+                                        })
                                     }
                                     else if(periodo==='Vegetativo'){
-                                        {plantas&&
-                                            Object.keys(plantas).map(async key=>{
-                                                if(plantas[key].inicioFloracion){
-                                                    await database().ref().child(user).child('plantas').child(key).update({
-                                                        inicioRevegetacion:getFullDate()
-                                                    })
-                                                }
-                                            })
-                                        }
+                                        Object.keys(plantas).map(async key=>{
+                                            if(plantas[key].inicioFloracion){
+                                                await database().ref().child(user).child('plantas').child(key).update({
+                                                    inicioRevegetacion:getFullDate()
+                                                })
+                                            }
+                                        })
                                     }
                                     setErrorCicloLuminico(undefined)
                                 }}>

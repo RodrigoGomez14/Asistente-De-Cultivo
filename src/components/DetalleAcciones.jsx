@@ -1,10 +1,6 @@
-import React , {Component} from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTint, faCut , faBug} from '@fortawesome/free-solid-svg-icons'
-import {Row,Col} from 'react-bootstrap'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import {Button,makeStyles,Avatar,Paper,Grid,SvgIcon,Icon} from '@material-ui/core'
-import {BugReportOutlined,InvertColorsOutlined} from '@material-ui/icons'
+import {Button,makeStyles,Paper,Grid,Icon} from '@material-ui/core'
 
 import riegos from '../images/riegos.svg'
 import timeline from '../images/timeline.svg'
@@ -65,7 +61,7 @@ export const DetalleAcciones =({id,history})=>{
                         justify="center"
                         alignItems="center"
                     >
-                        <Grid item xs={12} justify="center">
+                        <Grid item xs={12}>
                             <Link
                                 to={{ 
                                     pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Timeline':'/Planta/Timeline',
@@ -78,13 +74,13 @@ export const DetalleAcciones =({id,history})=>{
                                     className={classes.timeline}
                                 >
                                     <Icon classes={{root: classes.iconRoot}}>
-                                        <img className={classes.imageIcon} src={timeline}/>
+                                        <img alt='Timeline' className={classes.imageIcon} src={timeline}/>
                                     </Icon>
                                     Linea Temporal
                                 </Button>
                             </Link>
                         </Grid>
-                        <Grid xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Link
                             to={{ 
                                 pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Riegos':'/Planta/Riegos',
@@ -96,13 +92,13 @@ export const DetalleAcciones =({id,history})=>{
                                     className={classes.button}
                                 >
                                     <Icon classes={{root: classes.iconRoot}}>
-                                        <img className={classes.imageIcon} src={riegos}/>
+                                        <img alt='Riegos' className={classes.imageIcon} src={riegos}/>
                                     </Icon>
                                     Riegos
                                 </Button>
                             </Link>            
                         </Grid>
-                        <Grid xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Link                
                             to={{ 
                             pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Fumigaciones':'/Planta/Fumigaciones',
@@ -114,13 +110,13 @@ export const DetalleAcciones =({id,history})=>{
                                     className={classes.button}
                                 >   
                                     <Icon classes={{root: classes.iconRoot}}>
-                                        <img className={classes.imageIcon} src={fumigacion}/>
+                                        <img alt='Fumigaciones' className={classes.imageIcon} src={fumigacion}/>
                                     </Icon>
                                     Fumigaciones
                                 </Button>
                             </Link>
                         </Grid>
-                        <Grid xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Link                
                             to={{ 
                             pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Transplantes':'/Planta/Transplantes',
@@ -132,13 +128,13 @@ export const DetalleAcciones =({id,history})=>{
                                     className={classes.button}
                                 >   
                                     <Icon classes={{root: classes.iconRoot}}>
-                                        <img className={classes.imageIcon} src={transplante}/>
+                                        <img alt='Transplantes' className={classes.imageIcon} src={transplante}/>
                                     </Icon>
                                     Transplantes
                                 </Button>
                             </Link>
                         </Grid>
-                        <Grid xs={12} sm={6}>
+                        <Grid item xs={12} sm={6}>
                             <Link 
                                 to={{ 
                                     pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Podas':'/Planta/Podas',
@@ -150,7 +146,7 @@ export const DetalleAcciones =({id,history})=>{
                                         className={classes.button}
                                     >
                                     <Icon classes={{root: classes.iconRoot}}>
-                                        <img className={classes.imageIcon} src={podas}/>
+                                        <img alt='Podas' className={classes.imageIcon} src={podas}/>
                                     </Icon>
                                         Podas
                                     </Button>

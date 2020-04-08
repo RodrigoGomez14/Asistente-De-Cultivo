@@ -1,12 +1,10 @@
 import React, {useEffect,useState} from 'react'
-import moment from 'moment'
-import {connect} from 'react-redux'
 import {FechaYHora} from '../components/FechaYHora'
 import './styles/table.css'
-import {Paper,Typography} from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
-import {Grow}from '@material-ui/core'
+import {Typography,LinearProgress,Grow} from '@material-ui/core'
 import {TarjetaArmario} from '../components/TarjetaArmario'
+import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles(theme => ({
     root:{
@@ -23,137 +21,51 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
+const BorderLinearProgress = withStyles({
+    root: {
+      height: 20,
+      borderRadius: 20,
+      backgroundColor: lighten('#4CAF50', 0.5),
+    },
+    bar: {
+      borderRadius: 20,
+      border:'1px solid white',
+      backgroundColor: '#4CAF50',
+    },
+  })(LinearProgress);
+
 export const BarraDeLuz=(props)=>{
-    let [activo,setActivo]=useState(0)
     let [faltante,setFaltante]=useState(undefined)
-    let [horaDeFinal,setHoraDeFinal]=useState(undefined)
     let [transcurrido,setTranscurrido]=useState(undefined)
     let [lamparaEncendida,setLampraEncendida]=useState(undefined)
-    let [cicloLuminico,setCicloLuminico]=useState(undefined)
-    let [intervalo,setIntervalo]=useState(undefined)
+    let [porcentaje,setPorcentaje]=useState(undefined)
 
-    const getMinutes=(moment)=>{
+    const getMinutesOfDay=()=>{
         const date = new Date()
         const minutes= date.getMinutes()+date.getHours()*60
         return minutes
     }
-    const actualizarEstadoDeLampara=(minutes)=>{
-        let minutoDeInicio = props.horaDeInicio*60
-        let minutoFinal = minutoDeInicio+(props.cicloLuminico*60)
-        if(minutoFinal>1440){
-            if(minutes<minutoDeInicio){
-                minutoFinal=minutoFinal-1440
-                if(minutes<minutoFinal){
-                    setLampraEncendida(true)
-                }
-                else{
-                    setLampraEncendida(false)
-                }
-            }
-            else{
-                setLampraEncendida(true)
-            }
-        }
-        else{
-            if(minutoDeInicio < minutes && minutoFinal > minutes){
-                setLampraEncendida(true)
-            }
-            else{
-                setLampraEncendida(false)
-            }
-        }
-    }
     const actualizarTranscurrido=minutes=>{
-
-        let minutoDeInicio = props.horaDeInicio*60
-        let minutoFinal = minutoDeInicio+(props.cicloLuminico*60)
-        if(minutoFinal>1440){
-            if(minutes<minutoDeInicio){
-                minutoFinal=minutoFinal-1440
-                if(minutes<minutoFinal){
-                    console.log(minutes+(1440-minutoDeInicio))
-                }
-                else{
-                    console.log(minutes-minutoFinal)
-                }
-            }
-            else{
-                console.log(minutes-minutoDeInicio)
-            }
-        }
-        else{
-            if(minutoDeInicio < minutes && minutoFinal > minutes){
-                console.log(minutes-minutoDeInicio)
-            }
-            else{
-                console.log(minutoFinal-minutes)
-            }
-        }
-
-
-        if(lamparaEncendida){
-            setTranscurrido(minutes-(props.horaDeInicio*60))
-            console.log(minutes-(props.horaDeInicio*60))
-        }
-        else{
-            if(props.horaDeInicio+props.cicloLuminico>24){
-                setTranscurrido(minutes-((props.horaDeInicio+props.cicloLuminico-24)*60))
-            }
-            else{
-
-            }
-        }
-    }
-    const actualizarFaltante=minutes=>{
-        if(lamparaEncendida){
-            const diferencia = ((props.horaDeInicio+props.cicloLuminico)*60)-minutes
-            setFaltante(diferencia)
-        }
-        else{
-            if(props.horaDeInicio+props.cicloLuminico>24){
-                const diferencia = ((props.horaDeInicio)*60)-minutes
-                setFaltante(diferencia)
-            }
-            else{
-
-            }
-        }
+        setTranscurrido(minutes-(props.horaDeInicio*60))
     }
     const actualizarBarraDeEstado=()=>{
-        const barra = document.getElementById('barraLuz')
-        if(lamparaEncendida){
-            const porcentaje = (transcurrido*100)/(props.cicloLuminico*60)
-            barra.style.width=porcentaje+'%'
-        }
-        else{
-            const porcentaje = (faltante*100)/(props.cicloLuminico+props.horaDeInicio*60)
-            console.log(porcentaje)
-            barra.style.width=porcentaje+'%'
-        }
+        const nuevoPorcentaje = (transcurrido*100)/(props.cicloLuminico*60)
+        setPorcentaje(nuevoPorcentaje)
     }
     useEffect(()=>{
-        const minutes= getMinutes()
-        actualizarEstadoDeLampara(minutes)
-        actualizarTranscurrido(minutes)
-        actualizarFaltante(minutes)
-        actualizarBarraDeEstado()
-    })
-    const calcularHoraFinal=()=>{
-        let horaDeFinal = parseInt(props.horaDeInicio)+parseInt(props.cicloLuminico)
-        if(horaDeFinal>24){
-            horaDeFinal=horaDeFinal-24
-            if(horaDeFinal<10){
-                horaDeFinal='0'+horaDeFinal
-            }
-            return `${horaDeFinal}:00 +1`
+        const minutesOfDay = getMinutesOfDay()
+        let horaFinal = props.horaDeInicio + props.cicloLuminico
+        const minutoFinal = horaFinal >24? (horaFinal-24)*60 : horaFinal*60
+        const minutoDeInicio = props.horaDeInicio*60
+        if(minutoFinal<minutoDeInicio){
+            //cuando termina despues de las 12
         }
         else{
-            if(horaDeFinal<10){
-                horaDeFinal='0'+horaDeFinal
-            }
-            return `${horaDeFinal}:00`
+            // cuando termina antes de las 12
         }
-    }
+        const minutosDelCiclo = props.cicloLuminico*60
+        actualizarBarraDeEstado()
+    })
     const classes = useStyles()
     return(
         <Grow in={true}
@@ -182,9 +94,12 @@ export const BarraDeLuz=(props)=>{
                     </div>
                     <div className="row mt-4">
                         <div className="col-12">
-                            <div className="progress">
-                                <div className={!lamparaEncendida?"progress-bar progress-bar-animated progress-bar-striped bg-dark": "progress-bar progress-bar-animated progress-bar-striped bg-success" } role="progressbar" id='barraLuz' aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+                        <BorderLinearProgress
+                                className={classes.margin}
+                                variant="determinate"
+                                color="secondary"
+                                value={55}
+                            />
                         </div>
                     </div>
                     <div className="row flex-nowrap overflow-auto">

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Paper,Typography,Avatar,TextField,Grid,Button,makeStyles,Link,FormControlLabel,Grow} from '@material-ui/core'
+import {Typography,Avatar,TextField,Button,makeStyles,Link,Grow} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab'
 import {LockOutlined} from '@material-ui/icons'
 import {Link as LinkRouter} from 'react-router-dom'
@@ -97,10 +97,12 @@ export const FormSignIn = ({history})=>{
             switch (error.code) {
               case 'auth/user-not-found':
                 setUserError('Usuario No Encontrado')
-              break;
+                break;
               case 'auth/wrong-password':
                 setPasswordError('La clave es incorrecta')
-              break;
+                break;
+              default:
+                break;
             }
           })
         }

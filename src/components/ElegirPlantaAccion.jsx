@@ -1,22 +1,9 @@
-import React , {Component,useState} from 'react'
-import CheckboxPlanta from './CheckboxPlanta'
-import {Row,Col,Accordion,Card} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSortDown} from '@fortawesome/free-solid-svg-icons'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import {FormControl,InputLabel,Select,MenuItem,makeStyles,FormControlLabel,Checkbox,FormGroup} from '@material-ui/core'
+import React from 'react'
+import {Row,Col} from 'react-bootstrap'
+import {makeStyles,FormControlLabel,Checkbox,FormGroup} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab/'
 import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-        width:"100% !important"
-    },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
@@ -24,6 +11,11 @@ const useStyles = makeStyles(theme => ({
         alignItems:'center',
     },
     formControl:{
+        margin: theme.spacing(1),
+        minWidth: 120,
+        width:"100% !important",
+        display:'flex',
+        justifyContent:'center',
         color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,
         '& .MuiIconButton-label':{
             color:theme.palette.type==='dark'?theme.palette.primary.contrastText:theme.palette.secondary.light,

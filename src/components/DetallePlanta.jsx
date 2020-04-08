@@ -1,12 +1,7 @@
-import React , {Component,useState, useEffect} from 'react'
-import fotoPlanta from '../images/apple cookies.jpg'
+import React , {useState, useEffect} from 'react'
 import moment from 'moment'
-import {Table,Row,Col,Container,Image} from 'react-bootstrap'
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import {List, ListItem,ListItemText,Paper, Divider,CardMedia,ListItemAvatar,Avatar,Grow} from '@material-ui/core'
-import { PortableWifiOff, Height } from '@material-ui/icons';
+import {ListItemText,Paper,Avatar,Grow} from '@material-ui/core'
 import semilla from '../images/semilla.svg'
 import vegetativo from '../images/vegetativo.svg'
 import floracion from '../images/floracion.svg'
@@ -49,28 +44,6 @@ const useStyles = makeStyles(theme => ({
 
 export const DetallePlanta=(props)=>{
     const [dias, setDias] = useState('- Dias')
-    const tileData=[
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        },{
-            img:fotoPlanta,
-        }
-        ,{
-            img:fotoPlanta,
-        },
-        {
-            img:fotoPlanta,
-        }
-    ]
     const classes = useStyles()
 
     useEffect(()=>{
@@ -82,7 +55,6 @@ export const DetallePlanta=(props)=>{
                 setDias(`${dias} Dias`)
         }
         else{
-            console.log(props.plantaDelHistorial)
             const dias = moment(props.fechaDeCorte,'DDMMYYYY').diff(moment(props.nacimiento,"DDMMYYYY"),'days')
             dias === 1?
                 setDias(`${dias} Dia`)
@@ -90,7 +62,7 @@ export const DetallePlanta=(props)=>{
                 setDias(`${dias} Dias`)
         }
     }
-    ,[])
+    ,[props.plantaDelHistorial, props.nacimiento, props.fechaDeCorte])
     return(
         <Grow in={true}
         {...(true ? { timeout: 1500 } : {})}>
@@ -139,7 +111,6 @@ export const DetallePlanta=(props)=>{
                         <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
                     </Paper>
                 </div>
-                {console.log(props.segundaFloracion)}
                 {props.segundaFloracion &&
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>

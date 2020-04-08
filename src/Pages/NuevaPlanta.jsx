@@ -2,31 +2,17 @@ import React,{useState} from 'react'
 import {Layout} from './Layout'
 import { connect } from 'react-redux'
 import {database} from 'firebase'
-import moment from 'moment'
 import {FormCaracteristicasNuevaPlanta} from '../components/FormCaracteristicasNuevaPlanta'
 import {FormEtapaNuevaPlanta} from '../components/FormEtapaNuevaPlanta'
-import addFile from '../images/addFile.svg'
-import {makeStyles, Paper} from '@material-ui/core'
 import {StepperAccion} from '../components/StepperAccion'
-import {ResumenNuevaPlanta} from '../components/ResumenNuevaPlanta'
-const useStyles = makeStyles(theme=>({
-    root:{
-        height:'100%',
-        width:'100%',
-        display:'flex',
-        flexDirection:'column',
-        justifyContent:'space-around',
-        backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
-        borderRadius:'0'
-    }
-}))
+
 const getFullDate=()=>{
-    const date = new Date
+    const date = new Date()
     const year = date.getFullYear()
     let month = date.getMonth()+1
     month = month<10?month=`0${month}`:month
     const days = date.getDate()
-    return`${days}/${month}/${year}`
+    return`${days>=10?days:`0${days}`}/${month}/${year}`
 }
 const convertirFecha=fecha=>{
     const year = fecha.slice(0,fecha.indexOf('-'))
@@ -35,7 +21,6 @@ const convertirFecha=fecha=>{
     return `${day}/${month}/${year}`
 }
 const  NuevaPlanta=(props)=>{
-    const classes = useStyles()
     let [nombre,setNombre]=useState(undefined)
     let [genetica,setGenetica]=useState(undefined)
     let [etapa,setEtapa]=useState(undefined)

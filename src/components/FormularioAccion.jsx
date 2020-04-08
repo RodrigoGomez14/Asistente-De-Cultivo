@@ -1,16 +1,9 @@
-import React , {Component,Fragment,useRef} from 'react'
+import React , {Fragment} from 'react'
 import {Row,Col,Form,Container} from 'react-bootstrap'
-import {PopOver} from './Popover'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faSortDown} from '@fortawesome/free-solid-svg-icons'
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import {Alert,AlertTitle} from '@material-ui/lab';
 import {FormControl,InputLabel,Select,MenuItem,makeStyles} from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {Link} from 'react-router-dom'
 const useStyles = makeStyles(theme => ({
     formControl: {
@@ -37,7 +30,7 @@ export const FormularioAccion=(props)=>{
                 <Container fluid className='pt-4'>
                     <Form>  
                         <Form.Row sm={{span:4,offset:4}} className='justify-content-center align-items-center'>
-                            <TextField id="outlined-basic" type='number' value={props.cantidadDeAgua} label="Litros de Agua" variant="outlined" onChange={e=>{
+                            <TextField id="outlined-basic" type='number' value={props.cantidadDeAgua} autoFocus label="Litros de Agua" variant="outlined" onChange={e=>{
                                 props.cambiarLitrosDeAgua(e.target.value)
                                 if(!e.target.value){
                                     props.eliminarListaDeAditivos()
@@ -64,6 +57,7 @@ export const FormularioAccion=(props)=>{
                                                         <Select
                                                             labelId="demo-simple-select-helper-label"
                                                             id="demo-simple-select-helper"
+                                                            
                                                             disabled={!props.cantidadDeAgua}
                                                             onChange={e=>{
                                                                 if(e.target.value){
@@ -74,7 +68,7 @@ export const FormularioAccion=(props)=>{
                                                                 }
                                                             }}
                                                         >
-                                                        <MenuItem value=''>-</MenuItem>
+                                                            <MenuItem value=''>-</MenuItem>
                                                                 {Object.keys(aditivo.dosis[props.tipoDeRiego]).map(key=>(
                                                                     <MenuItem value={aditivo.dosis[props.tipoDeRiego][key]}>{aditivo.dosis[props.tipoDeRiego][key]} {key}</MenuItem>
                                                                 ))}

@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Paper,Typography,Avatar,TextField,Grid,Button,makeStyles,Link} from '@material-ui/core'
+import {Typography,Avatar,TextField,Button,makeStyles,Link} from '@material-ui/core'
 import {LockOutlined} from '@material-ui/icons'
 import {Link as LinkRouter} from 'react-router-dom'
 import {PantallaDeCarga} from '../Pages/PantallaDeCarga'
@@ -94,6 +94,8 @@ export const FormLogin=({history})=>{
               break;
             case "auth/email-already-in-use":
               setUserError('La direccion de correo ya esta siendo utilizada')
+              break;
+            default:
               break;
           }
         })

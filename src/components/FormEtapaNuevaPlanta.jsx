@@ -1,7 +1,6 @@
-import React,{useState} from 'react'
-import {Paper, TextField,makeStyles,Typography,FormControlLabel,InputLabel,Select,MenuItem,Button,InputAdornment,Input} from '@material-ui/core'
+import React from 'react'
+import {makeStyles,FormControlLabel,Input} from '@material-ui/core'
 import {Alert,AlertTitle} from '@material-ui/lab'
-import {CheckCircleOutlineOutlined} from '@material-ui/icons'
 const useStyles = makeStyles(theme=>({
     root:{
         display:'flex',
@@ -61,7 +60,6 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         </Alert>
                     )
                 }
-                break;
             case 'Vegetativo':
                 if(periodoArmario===etapa ){
                     return(
@@ -112,7 +110,6 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         </>
                     )
                 }
-                break;
             case 'Floracion':
                 if(periodoArmario===etapa){
                     return(
@@ -180,7 +177,6 @@ export const FormEtapaNuevaPlanta =({getFullDate,periodoArmario,inicioGerminacio
                         </>
                     )
                 }
-                break;
             default:
                 break;
         }
