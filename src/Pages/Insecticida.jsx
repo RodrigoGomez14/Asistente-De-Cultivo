@@ -14,6 +14,7 @@ class Insecticida extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
+        ph:undefined,
         plantas:[],
         expanded:'panel1'
     }
@@ -68,6 +69,7 @@ class Insecticida extends Component{
         await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('fumigaciones').push({
             agua:agua,
             cantidadDeAgua:cantidadDeAgua,
+            ph:this.state.ph,
             fecha:this.translateMonth(moment().format('LLL')),
             aditivos:insecticidasFinal,
             tipoDeRiego:tipoDeRiego
@@ -136,6 +138,9 @@ class Insecticida extends Component{
     setExpansionExpanded=(panel)=>{
         this.setState({expanded:panel})
     }
+    cambiarph=(ph)=>{
+        this.setState({ph:ph})
+    }
     render(){
         let selectedPlants=[]
         if(this.state.plantas){
@@ -156,7 +161,7 @@ class Insecticida extends Component{
                                 tipoDeRiego={this.state.tipoDeRiego}
                                 confirmarAccion={this.confirmarAccion}
                                 selectedPlants={selectedPlants}
-                                resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
+                                resumenAccion={<ResumenAccion plantas={this.state.plantas} ph={this.state.ph} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
                                 tipoDeAccion='Fumigacion'
                                 steps={[
                                     {
@@ -186,6 +191,7 @@ class Insecticida extends Component{
                                             cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
                                             cantidadDeAgua={this.state.cantidadDeAgua}
                                             cambiarAditivo={this.cambiarAditivo}
+                                            cambiarph={this.cambiarph}
                                             aditivo='Insecticida'
                                             aditivos={this.props.aditivos}
                                             aditivosUsados={this.state.aditivos}

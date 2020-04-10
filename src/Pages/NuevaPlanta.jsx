@@ -38,7 +38,7 @@ const  NuevaPlanta=(props)=>{
             nacimiento:inicioGerminacion?convertirFecha(inicioGerminacion):null,
             inicioVegetativo:inicioVegetativo?convertirFecha(inicioVegetativo):null,
             inicioFloracion:inicioFloracion?convertirFecha(inicioFloracion):props.periodo==='Floracion'? getFullDate():null,
-            inicioRevegetacion: props.periodo ==='Vegetativo' && etapa === 'Floracion' && getFullDate()
+            inicioRevegetacion: props.periodo ==='Vegetativo' && etapa === 'Floracion'? getFullDate() : null
         })
         props.history.replace('/')
     }

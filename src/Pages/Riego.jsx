@@ -15,6 +15,7 @@ class Riego extends Component{
     state={
         tipoDeRiego:undefined,
         cantidadDeAgua:undefined,
+        ph:undefined,
         plantas: [],
         expanded:'panel1',
     }
@@ -69,6 +70,7 @@ class Riego extends Component{
         await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('riegos').push({
             agua:agua,
             tipoDeRiego:tipoDeRiego,
+            ph:this.state.ph,
             fecha:this.translateMonth(moment().format('LLL')),
             aditivos:fertilizantesFinal
         })
@@ -138,6 +140,9 @@ class Riego extends Component{
     setExpansionExpanded=(panel)=>{
         this.setState({expanded:panel})
     }
+    cambiarph=(ph)=>{
+        this.setState({ph:ph})
+    }
     render(){
         let selectedPlants=[]
         if(this.state.plantas){
@@ -158,7 +163,7 @@ class Riego extends Component{
                 cantidadDeAgua={this.state.cantidadDeAgua}
                 tipoDeRiego={this.state.tipoDeRiego}
                 confirmarAccion={this.confirmarAccion}
-                resumenAccion={<ResumenAccion plantas={this.state.plantas} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
+                resumenAccion={<ResumenAccion plantas={this.state.plantas} ph={this.state.ph} tipoDeRiego={this.state.tipoDeRiego} cantidadDeAgua={this.state.cantidadDeAgua} aditivos={this.state.aditivos}/>}
                 tipoDeAccion='Riego'
                 steps={[
                         {
@@ -188,6 +193,7 @@ class Riego extends Component{
                                     cambiarLitrosDeAgua={this.cambiarLitrosDeAgua}
                                     cantidadDeAgua={this.state.cantidadDeAgua}
                                     cambiarAditivo={this.cambiarAditivo}
+                                    cambiarph={this.cambiarph}
                                     adivito='Fertlizante'
                                     aditivos={this.props.aditivos}
                                     aditivosUsados={this.state.aditivos}

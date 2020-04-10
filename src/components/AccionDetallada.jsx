@@ -69,7 +69,7 @@ export const AccionDetallada=(props)=>{
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                     >
-                        <Typography className={classes.heading}>{props.tipoDeAccion}</Typography>
+                        <Typography className={classes.heading}>{`${props.tipoDeAccion==='fumigaciones'?props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s')-1):props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s'))} ${props.index+1}`}</Typography>
                     </ExpansionPanelSummary>
                 </Paper>
                 <Paper elevation={4} >
@@ -77,37 +77,62 @@ export const AccionDetallada=(props)=>{
                         <div className="container p-0">
                             {props.accion.agua &&
                                 <div className="row">
-                                    <div className="col-12 text-center">
-                                        <Typography variant='h5'>
-                                            {props.accion.agua} L. De Agua 
-                                        </Typography>
-                                    </div>
-                                </div>
-                            }
-                            {props.accion.tipoDeRiego &&
-                                <div className="row my-2">
-                                    <div className="col-12 text-center">
-                                        <Typography variant='h5'>
-                                            {props.accion.tipoDeRiego==='Tierra'?' en Tierra':' Foliar'}
-                                        </Typography>
-                                    </div>
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Cantidad de Agua'}
+                                                secondary={`${props.accion.agua} L.`} 
+                                            />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Tipo de Riego'}
+                                                secondary={props.accion.tipoDeRiego} 
+                                            />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Nivel de pH'}
+                                                secondary={props.accion.ph?props.accion.ph:'-'} 
+                                            />
+                                        </ListItem>
+                                    </List>
                                 </div>
                             }
                             {props.accion.tipoDePoda &&
-                                <div className="col text-left">
-                                    <Typography variant='h5'>
-                                        Poda {props.accion.tipoDePoda}
-                                    </Typography>
-                                    <Typography variant='body1'>
-                                        {props.accion.descripcion}
-                                    </Typography>
+                                <div className="row">
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Tipo de Poda'}
+                                                secondary={props.accion.tipoDePoda} 
+                                            />
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Descripcion'}
+                                                secondary={props.accion.descripcion} 
+                                            />
+                                        </ListItem>
+                                    </List>
                                 </div>
                             }
                             {props.accion.volumenMaceta &&
-                                <div className="col text-left">
-                                    <Typography variant='h5'>
-                                        Nuevo Volumen {props.accion.volumenMaceta} Lt
-                                    </Typography>
+                                <div className="row">
+                                    <List>
+                                        <ListItem>
+                                            <ListItemText
+                                                className={classes.listItemText}
+                                                primary={'Nuevo Volumen de maceta'}
+                                                secondary={`${props.accion.volumenMaceta} Lt.`} 
+                                            />
+                                        </ListItem>
+                                    </List>
                                 </div>
                             }
                             <Divider/>
@@ -115,7 +140,7 @@ export const AccionDetallada=(props)=>{
                                 <div className="row my-2">
                                     {props.accion.aditivos?
                                         <>
-                                            <div className="col-12 text-left">
+                                            <div className="col-12 text-center">
                                                 <Typography variant='h5'>
                                                     Aditivos Usados
                                                 </Typography>

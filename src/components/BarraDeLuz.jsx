@@ -71,7 +71,7 @@ export const BarraDeLuz=(props)=>{
         <Grow in={true}
         {...(true ? { timeout: 1500 } : {})}>
             <div className={classes.root}>
-                <div className="container">
+                <div className="container-fluid p-0">
                     <div className="row">
                         <div className="col-auto ml-auto mr-auto">
                             <FechaYHora/>

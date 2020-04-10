@@ -34,7 +34,7 @@ listItemText:{
 }
 }));
 
-export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDePoda,nuevaMaceta,descripcion})=>{
+export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDePoda,nuevaMaceta,descripcion,ph})=>{
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -63,6 +63,11 @@ export const ResumenAccion=({tipoDeRiego,plantas,aditivos,cantidadDeAgua,tipoDeP
                     <ListItem>
                         <ListItemText className={classes.listItemText} primary='Cantidad De Agua' secondary={`${cantidadDeAgua} Lt`}/>    
                     </ListItem>
+                    {ph &&
+                        <ListItem>
+                            <ListItemText className={classes.listItemText} primary='pH' secondary={ph}/>    
+                        </ListItem>
+                    }
                 </List>
             }
             <Divider/>

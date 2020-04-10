@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme=>({
         backgroundColor:theme.palette.type==='dark'?theme.palette.secondary.main:theme.palette.primary.dark,
         borderRadius:'0',
         overflow:'auto'
+    },
+    timeline:{
+        margin: '0 auto'
     }
 }))
 const PlantaRiegos =(props)=>{
@@ -30,7 +33,7 @@ const PlantaRiegos =(props)=>{
                 <Paper elevation={3} className={classes.root}>
                     <div className="container-fluid overflow-auto pt-4 p-0">
                         {props.plantas[props.location.props.id].riegos?
-                                <Timeline lineColor={'#ddd'}>
+                                <Timeline lineColor={'#ddd'} className={classes.timeline}>
                                         {Object.keys(props.plantas[props.location.props.id].riegos).reverse().map((id,i)=>(
                                             <TimelineItem
                                                 dateText={props.plantas[props.location.props.id].riegos[id].fecha}
