@@ -37,9 +37,10 @@ const CarouselPlantas=(props)=>{
                     </div>
                     <div className="row mt-3">
                         <div className={classes.carousel}>
-                            {Object.keys(props.plantas).map(key=>(
+                            {Object.keys(props.plantas).map((key,i)=>(
                                 <TarjetaPlanta
                                     user={props.user}
+                                    index={i}
                                     id={key}
                                     key={key}
                                     history={props.history}

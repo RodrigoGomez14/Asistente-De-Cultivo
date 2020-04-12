@@ -102,7 +102,7 @@ export const BarraDeLuz=(props)=>{
                             />
                         </div>
                     </div>
-                    <div className="row flex-nowrap overflow-auto">
+                    <div className="row justify-content-center">
                         <TarjetaArmario periodo={props.periodo} horaDeInicio={props.horaDeInicio} cicloLuminico={props.cicloLuminico} />
                     </div>
                 </div>

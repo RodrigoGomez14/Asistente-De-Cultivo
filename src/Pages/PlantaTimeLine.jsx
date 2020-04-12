@@ -37,10 +37,10 @@ const PlantaTimeLine =(props)=>{
     const obtenerArray=()=>{
         if(props.location.props){
             let aux =[]
-            const arrayRiegos= convertToArray(props.plantas[props.location.props.id].riegos,'Riego')
-            const arrayFumigaciones= convertToArray(props.plantas[props.location.props.id].fumigaciones,'Fumigacion')
-            const arrayPodas= convertToArray(props.plantas[props.location.props.id].podas,'Poda')
-            const arrayTransplantes= convertToArray(props.plantas[props.location.props.id].transplantes,'Transplante')
+            const arrayRiegos= convertToArray(props.plantas[props.location.props.id].riegos,'Riegos')
+            const arrayFumigaciones= convertToArray(props.plantas[props.location.props.id].fumigaciones,'Fumigaciones')
+            const arrayPodas= convertToArray(props.plantas[props.location.props.id].podas,'Podas')
+            const arrayTransplantes= convertToArray(props.plantas[props.location.props.id].transplantes,'Transplantes')
             arrayRiegos.map(riego=>{
                 aux.push(riego)
                 return null
@@ -86,6 +86,7 @@ const PlantaTimeLine =(props)=>{
                                             index={i} 
                                             expanded={expanded} 
                                             plantaDelHistorial={true}
+                                            nroAccion={array.length}
                                             user={props.user.uid} 
                                             accion={accion.accion} 
                                             tipoDeAccion={accion.tipoDeAccion} 

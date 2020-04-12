@@ -69,7 +69,7 @@ export const AccionDetallada=(props)=>{
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                     >
-                        <Typography className={classes.heading}>{`${props.tipoDeAccion==='fumigaciones'?props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s')-1):props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s'))} ${props.index+1}`}</Typography>
+                        <Typography className={classes.heading}>{`${props.tipoDeAccion==='fumigaciones'?props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s')-1):props.tipoDeAccion.slice(0,props.tipoDeAccion.lastIndexOf('s'))} ${props.nroAccion-props.index}`}</Typography>
                     </ExpansionPanelSummary>
                 </Paper>
                 <Paper elevation={4} >

@@ -44,6 +44,7 @@ const PlantaFumigaciones =(props)=>{
                                                 plantaDelHistorial={false} 
                                                 expanded={expanded} 
                                                 user={props.user.uid}
+                                                nroAccion={Object.keys(props.plantas[props.location.props.id].fumigaciones).reverse().length}
                                                 accion={props.plantas[props.location.props.id].fumigaciones[id]} 
                                                 tipoDeAccion='fumigaciones' 
                                                 idPlanta={props.location.props.id} 

@@ -19,10 +19,11 @@ const useStyles = makeStyles(theme => ({
 
 export const TarjetaPlanta=(props)=>{
     const classes = useStyles()
+    const growTime = 2000 + (500 * props.index)
     return(
         <div className="col-auto">
             <Grow in={true}
-                {...(true ? { timeout: 1500 } : {})}>
+                {...(true ? { timeout: growTime } : {})}>
                 <Paper elevation={6} className={classes.paper}>
                     <Link className='text-white' to={{
                         pathname:'/Planta',

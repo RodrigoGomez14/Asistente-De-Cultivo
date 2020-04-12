@@ -44,6 +44,7 @@ const PlantaHistorialTransplantes =(props)=>{
                                                 expanded={expanded} 
                                                 plantaDelHistorial={false} 
                                                 user={props.user.uid} 
+                                                nroAccion={Object.keys(props.plantas[props.location.props.id].transplantes).reverse().length}
                                                 accion={props.plantas[props.location.props.id].transplantes[id]} 
                                                 tipoDeAccion='transplantes' 
                                                 idPlanta={props.location.props.id} 

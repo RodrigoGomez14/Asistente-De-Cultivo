@@ -45,6 +45,7 @@ const PlantaHistorialPodas =(props)=>{
                                             expanded={expanded} 
                                             handleChange={handleChange} 
                                             accion={props.plantas[props.location.props.id].podas[id]} 
+                                            nroAccion={Object.keys(props.plantas[props.location.props.id].podas).reverse().length}
                                             tipoDePoda={props.plantas[props.location.props.id].podas[id].tipoDePoda}
                                             tipoDeAccion='podas' 
                                             idPlanta={props.location.props.id} 

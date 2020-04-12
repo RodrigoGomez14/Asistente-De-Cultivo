@@ -92,7 +92,7 @@ const Configuracion=(props)=>{
                     cambiarPeriodo={cambiarPeriodo}
                     cicloLuminico={props.cicloLuminico}
                     cambiarCicloLuminico={cambiarCicloLuminico}
-                    plantas={props.plantas=[]}
+                    plantas={props.plantas}
                     returnHome={()=>{props.history.replace('/Configuracion')}}
                 />
             </Paper>

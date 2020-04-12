@@ -41,6 +41,12 @@ const useStyles=makeStyles(theme=>({
         padding:theme.spacing(1),
         width:theme.spacing(7),
         height:theme.spacing(7)
+    },
+    root:{
+        display:'flex',
+        fleWrap:'nowrap',
+        overflow:'scroll'
+
     }
 }))
 export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
@@ -55,34 +61,43 @@ export const TarjetaArmario = ({periodo,horaDeInicio,cicloLuminico})=>{
     }
     const classes = useStyles()
     return(
-        <Grow in={true}
-        {...(true ? { timeout: 1500 } : {})}>
-            <>
+        <div className={classes.root}>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
                 <div className="col-auto p-0">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={periodoImg} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Periodo' secondary={periodo}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 2000 } : {})}>
                 <div className="col-auto p-0">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={ciclo} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Ciclo Luminico' secondary={convertirHora(cicloLuminico)}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 2500 } : {})}>
                 <div className="col-auto p-0">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={reloj} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Hora De Inicio' secondary={convertirHora(horaDeInicio)}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 3000 } : {})}>
                 <div className="col-auto p-0">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={reloj} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Hora De Final' secondary={convertirHora(horaDeInicio+cicloLuminico)}/>
                     </Paper>
                 </div>
-            </>
-        </Grow>
+            </Grow>
+        </div>
     )
 }

@@ -39,6 +39,11 @@ const useStyles = makeStyles(theme => ({
         padding:theme.spacing(1),
         width:theme.spacing(7),
         height:theme.spacing(7)
+    },
+    root:{
+        display:'flex',
+        flexWrap:'nowrap',
+        overflow:'scroll'
     }
 }))
 
@@ -64,78 +69,105 @@ export const DetallePlanta=(props)=>{
     }
     ,[props.plantaDelHistorial, props.nacimiento, props.fechaDeCorte])
     return(
-        <Grow in={true}
-        {...(true ? { timeout: 1500 } : {})}>
-            <>
+        <div className={classes.root}>
+            <Grow in={true}
+            {...(true ? { timeout: 1500 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={adn} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Genetica' secondary={props.genetica}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 2000 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={calendarioBlanco} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Tiempo De Vida' secondary={dias}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 2500 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={maceta} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Volumen Maceta' secondary={props.volumenMaceta?`${props.volumenMaceta} Lt`:`No especificado`}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 3000 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={semilla} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Inicio De Germinacion' secondary={props.nacimiento?props.nacimiento:'-'}/>
                     </Paper>
                 </div>
+            </Grow>
+            <Grow in={true}
+            {...(true ? { timeout: 3500 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={vegetativo} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Inicio De Vegetativo' secondary={props.inicioVegetativo?props.inicioVegetativo:'-'}/>
                     </Paper>
                 </div>
-                {props.inicioRevegetacion &&
+            </Grow>
+            {props.inicioRevegetacion &&
+                <Grow in={true}
+                {...(true ? { timeout: 4000 } : {})}>
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>
                             <Avatar src={vegetativo} className={classes.avatar}/>
                             <ListItemText className={classes.listText} primary='Revegetacion' secondary={props.inicioRevegetacion}/>
                         </Paper>
                     </div>
-                }
+                </Grow>
+            }
+            <Grow in={true}
+            {...(true ? { timeout: 4500 } : {})}>
                 <div className="col-auto">
                     <Paper elevation={3} className={classes.paper}>
                         <Avatar src={floracion} className={classes.avatar}/>
                         <ListItemText className={classes.listText} primary='Inicio De Floracion' secondary={props.inicioFloracion?props.inicioFloracion:'-'}/>
                     </Paper>
                 </div>
+            </Grow>
                 {props.segundaFloracion &&
+                <Grow in={true}
+                {...(true ? { timeout: 5000 } : {})}>
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>
                             <Avatar src={floracion} className={classes.avatar}/>
                             <ListItemText className={classes.listText} primary='Segunda Floracion' secondary={props.segundaFloracion}/>
                         </Paper>
                     </div>
+                </Grow>
                 }
                 {props.fechaDeCorte &&
+                <Grow in={true}
+                {...(true ? { timeout: 5500 } : {})}>
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>
                             <Avatar src={cosecha} className={classes.avatar}/>
                             <ListItemText className={classes.listText} primary='Fecha De Corte' secondary={props.fechaDeCorte}/>
                         </Paper>
                     </div>
+                </Grow>
                 }
                 {props.cantidadDeGramos &&
+                <Grow in={true}
+                {...(true ? { timeout: 6000 } : {})}>
                     <div className="col-auto">
                         <Paper elevation={3} className={classes.paper}>
                             <Avatar src={balanza} className={classes.avatar}/>
                             <ListItemText className={classes.listText} primary='Cantidad Cosechada' secondary={`${props.cantidadDeGramos?props.cantidadDeGramos:'-'}`}/>
                         </Paper>
                     </div>
+                </Grow>
                 }
-            </>
-        </Grow>
+        </div>
     )
 }

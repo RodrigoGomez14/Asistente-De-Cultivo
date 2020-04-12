@@ -205,6 +205,7 @@ export const FormSignIn = ({history})=>{
                 fullWidth
                 variant="outlined"
                 color="primary"
+                type='submit'
                 className={classes.submit}
                 onClick={e=>{logIn()}}
                 >

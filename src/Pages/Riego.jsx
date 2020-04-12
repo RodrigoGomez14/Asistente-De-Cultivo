@@ -70,7 +70,7 @@ class Riego extends Component{
         await database().ref().child(this.props.user.uid).child('plantas').child(idPlanta).child('riegos').push({
             agua:agua,
             tipoDeRiego:tipoDeRiego,
-            ph:this.state.ph,
+            ph:this.state.ph?this.state.ph:null,
             fecha:this.translateMonth(moment().format('LLL')),
             aditivos:fertilizantesFinal
         })

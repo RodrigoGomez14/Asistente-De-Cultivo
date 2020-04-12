@@ -1,6 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Button,makeStyles,Paper,Grid,Icon} from '@material-ui/core'
+import {Button,makeStyles,Paper,Grid,Icon,Grow} from '@material-ui/core'
 
 import riegos from '../images/riegos.svg'
 import timeline from '../images/timeline.svg'
@@ -54,90 +54,38 @@ export const DetalleAcciones =({id,history})=>{
     const classes= useStyles()
     return(
             <div className={classes.root}>
-                <Paper elevation={3} className={classes.paper}>
-                    <Grid 
-                        container
-                        direction="row"
-                        justify="center"
-                        alignItems="center"
-                    >
-                        <Grid item xs={12}>
-                            <Link
+                <Grow in={true}
+                {...(true ? { timeout: 1500 } : {})}>
+                    <Paper elevation={3} className={classes.paper}>
+                        <Grid 
+                            container
+                            direction="row"
+                            justify="center"
+                            alignItems="center"
+                        >
+                            <Grid item xs={12}>
+                                <Link
+                                    to={{ 
+                                        pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Timeline':'/Planta/Timeline',
+                                        props:{
+                                            id:id
+                                }}}>
+                                    <Button
+                                        variant="contained"
+                                        color='primary'
+                                        className={classes.timeline}
+                                    >
+                                        <Icon classes={{root: classes.iconRoot}}>
+                                            <img alt='Timeline' className={classes.imageIcon} src={timeline}/>
+                                        </Icon>
+                                        Linea Temporal
+                                    </Button>
+                                </Link>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Link
                                 to={{ 
-                                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Timeline':'/Planta/Timeline',
-                                    props:{
-                                        id:id
-                            }}}>
-                                <Button
-                                    variant="contained"
-                                    color='primary'
-                                    className={classes.timeline}
-                                >
-                                    <Icon classes={{root: classes.iconRoot}}>
-                                        <img alt='Timeline' className={classes.imageIcon} src={timeline}/>
-                                    </Icon>
-                                    Linea Temporal
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Link
-                            to={{ 
-                                pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Riegos':'/Planta/Riegos',
-                                props:{
-                                    id:id
-                            }}}>
-                                <Button
-                                    variant="text"
-                                    className={classes.button}
-                                >
-                                    <Icon classes={{root: classes.iconRoot}}>
-                                        <img alt='Riegos' className={classes.imageIcon} src={riegos}/>
-                                    </Icon>
-                                    Riegos
-                                </Button>
-                            </Link>            
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Link                
-                            to={{ 
-                            pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Fumigaciones':'/Planta/Fumigaciones',
-                            props:{
-                                id:id
-                            }}}>
-                                <Button
-                                    variant="text"
-                                    className={classes.button}
-                                >   
-                                    <Icon classes={{root: classes.iconRoot}}>
-                                        <img alt='Fumigaciones' className={classes.imageIcon} src={fumigacion}/>
-                                    </Icon>
-                                    Fumigaciones
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Link                
-                            to={{ 
-                            pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Transplantes':'/Planta/Transplantes',
-                            props:{
-                                id:id
-                            }}}>
-                                <Button
-                                    variant="text"
-                                    className={classes.button}
-                                >   
-                                    <Icon classes={{root: classes.iconRoot}}>
-                                        <img alt='Transplantes' className={classes.imageIcon} src={transplante}/>
-                                    </Icon>
-                                    Transplantes
-                                </Button>
-                            </Link>
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Link 
-                                to={{ 
-                                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Podas':'/Planta/Podas',
+                                    pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Riegos':'/Planta/Riegos',
                                     props:{
                                         id:id
                                 }}}>
@@ -145,15 +93,70 @@ export const DetalleAcciones =({id,history})=>{
                                         variant="text"
                                         className={classes.button}
                                     >
-                                    <Icon classes={{root: classes.iconRoot}}>
-                                        <img alt='Podas' className={classes.imageIcon} src={podas}/>
-                                    </Icon>
-                                        Podas
+                                        <Icon classes={{root: classes.iconRoot}}>
+                                            <img alt='Riegos' className={classes.imageIcon} src={riegos}/>
+                                        </Icon>
+                                        Riegos
                                     </Button>
-                            </Link>
+                                </Link>            
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Link                
+                                to={{ 
+                                pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Fumigaciones':'/Planta/Fumigaciones',
+                                props:{
+                                    id:id
+                                }}}>
+                                    <Button
+                                        variant="text"
+                                        className={classes.button}
+                                    >   
+                                        <Icon classes={{root: classes.iconRoot}}>
+                                            <img alt='Fumigaciones' className={classes.imageIcon} src={fumigacion}/>
+                                        </Icon>
+                                        Fumigaciones
+                                    </Button>
+                                </Link>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Link                
+                                to={{ 
+                                pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Transplantes':'/Planta/Transplantes',
+                                props:{
+                                    id:id
+                                }}}>
+                                    <Button
+                                        variant="text"
+                                        className={classes.button}
+                                    >   
+                                        <Icon classes={{root: classes.iconRoot}}>
+                                            <img alt='Transplantes' className={classes.imageIcon} src={transplante}/>
+                                        </Icon>
+                                        Transplantes
+                                    </Button>
+                                </Link>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <Link 
+                                    to={{ 
+                                        pathname:history.location.pathname==='/Historial/Planta'?'/Historial/Planta/Podas':'/Planta/Podas',
+                                        props:{
+                                            id:id
+                                    }}}>
+                                        <Button
+                                            variant="text"
+                                            className={classes.button}
+                                        >
+                                        <Icon classes={{root: classes.iconRoot}}>
+                                            <img alt='Podas' className={classes.imageIcon} src={podas}/>
+                                        </Icon>
+                                            Podas
+                                        </Button>
+                                </Link>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Paper>
+                    </Paper>
+                </Grow>
             </div>
     )
 }

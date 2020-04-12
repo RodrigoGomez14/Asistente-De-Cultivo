@@ -87,6 +87,7 @@ const PlantaHistorialTimeLine =(props)=>{
                                         plantaDelHistorial={true}
                                         user={props.user.uid} 
                                         accion={accion.accion} 
+                                        nroAccion={array.length}
                                         tipoDeAccion={accion.tipoDeAccion} 
                                         idPlanta={props.location.props.id} 
                                         id={accion.id} 

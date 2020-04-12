@@ -43,7 +43,8 @@ const PlantaHistorialRiegos =(props)=>{
                                                 index={i} 
                                                 expanded={expanded} 
                                                 plantaDelHistorial={false}
-                                                user={props.user.uid} 
+                                                user={props.user.uid}
+                                                nroAccion={Object.keys(props.plantas[props.location.props.id].riegos).reverse().length}
                                                 accion={props.plantas[props.location.props.id].riegos[id]} 
                                                 tipoDeAccion='riegos' 
                                                 idPlanta={props.location.props.id} 
